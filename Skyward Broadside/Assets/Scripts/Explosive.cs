@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Explosive : MonoBehaviour
 {
-    public float explosionPower = 300;
-    public float explosionRadius = 5;
+    public float explosionPower;
+    public float explosionRadius;
     bool detonated;
     public LayerMask explodableObjects;
 
@@ -39,15 +39,19 @@ public class Explosive : MonoBehaviour
         Collider[] collidersInRange = Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects);
         foreach (Collider collider in collidersInRange)
         {
-            Rigidbody rb = collider.gameObject.GetComponent<Rigidbody>();
-            if (rb == null)
+            Breakable breakable = collider.GetComponent<Breakable>();
+            Rigidbody rb = collider.GetComponent<Rigidbody>();
+
+            if (breakable != null)
             {
-                collider.gameObject.AddComponent<Rigidbody>();
-                rb = collider.gameObject.GetComponent<Rigidbody>();
-                rb.mass = 5;
-                rb.useGravity = true;
+                breakable._break(explosionPower, rb);
             }
-            rb.AddExplosionForce(explosionPower, transform.position, explosionRadius);
+
+            rb = collider.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddExplosionForce(explosionPower, transform.position, explosionRadius);
+            }
         }
         Destroy(gameObject);
     }
