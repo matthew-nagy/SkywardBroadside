@@ -77,12 +77,16 @@ public class TestController : MonoBehaviour
 
         Vector3 initialVelocity = velocityBeforeCollision;
         float massA = rigidBody.mass;
+        Vector3 centreA = transform.position;
 
         Vector3 colliderInitialVelocity = collision.transform.GetComponent<ShipController>().velocityBeforeCollision;
         float massB = collision.rigidbody.mass;
+        Vector3 centreB = collision.transform.position;
 
 
-        Vector3 finalVelocity = ((massA - massB) / (massA + massB)) * initialVelocity + (2 * massB / (massA + massB)) * colliderInitialVelocity;
+
+        //Vector3 finalVelocity = ((massA - massB) / (massA + massB)) * initialVelocity + (2 * massB / (massA + massB)) * colliderInitialVelocity;
+        Vector3 finalVelocity = initialVelocity - (2 * massB / (massA + massB)) * (Vector3.Dot(initialVelocity - colliderInitialVelocity, centreA - centreB) / Vector3.SqrMagnitude(centreA - centreB)) * (centreA - centreB);
 
         velocity = finalVelocity;
     }
