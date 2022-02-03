@@ -24,12 +24,9 @@ public class Explosive : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!detonated)
+        if (!detonated && Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects).Length > 0)
         {
-            if (collision.gameObject.name != "Barrel")
-            {
-                detonate();
-            }
+            detonate();
         }
     }
 
@@ -44,7 +41,7 @@ public class Explosive : MonoBehaviour
 
             if (breakable != null)
             {
-                breakable._break(explosionPower, rb);
+                breakable._break(explosionPower, rb, gameObject.tag, new Vector3 ());
             }
 
             rb = collider.GetComponent<Rigidbody>();

@@ -26,7 +26,7 @@ public class BasicCannonController : MonoBehaviour
     {
         //rotate the cannon
         float rotationInput = Input.GetAxisRaw("Mouse Y");
-        transform.Rotate(new Vector3(rotationInput, 0, 0));
+        transform.Rotate(new Vector3(0, 0, rotationInput));
 
         //fire the cannon
         if (Input.GetKeyDown(KeyCode.Space))

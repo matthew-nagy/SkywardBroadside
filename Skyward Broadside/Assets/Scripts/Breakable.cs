@@ -11,19 +11,14 @@ public class Breakable : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(!broken)
+        if (!broken)
         {
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-            _break(collision.impulse.magnitude, rb);
-            rb = gameObject.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                //rb.AddExplosionForce(collision.impulse.magnitude * collisionMultiplier, collision.contacts[0].point, 2);
-            }
+            _break(collision.impulse.magnitude, rb, collision.collider.tag, collision.contacts[0].point);
         }
     }
 
-    public void _break(float impulseMagnitude, Rigidbody rb)
+    public void _break(float impulseMagnitude, Rigidbody rb, string colliderTag, Vector3 contactPoint)
     {
         if (impulseMagnitude >= breakForce)
         {
@@ -34,7 +29,13 @@ public class Breakable : MonoBehaviour
                 rb = gameObject.GetComponent<Rigidbody>();
                 rb.mass = mass;
                 rb.useGravity = true;
+                if (colliderTag == "RegularProjectile")
+                {
+                    print("impact");
+                    rb.AddExplosionForce(impulseMagnitude * collisionMultiplier, contactPoint, 2);
+                }
             }
+
         }
     }
 }
