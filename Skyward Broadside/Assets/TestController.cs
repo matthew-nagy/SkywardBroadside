@@ -67,7 +67,7 @@ public class TestController : MonoBehaviour
 
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
         velocityBeforeCollision = velocity;
-
+        print(velocity);
 
     }
 
@@ -87,6 +87,8 @@ public class TestController : MonoBehaviour
 
         //Vector3 finalVelocity = ((massA - massB) / (massA + massB)) * initialVelocity + (2 * massB / (massA + massB)) * colliderInitialVelocity;
         Vector3 finalVelocity = initialVelocity - (2 * massB / (massA + massB)) * (Vector3.Dot(initialVelocity - colliderInitialVelocity, centreA - centreB) / Vector3.SqrMagnitude(centreA - centreB)) * (centreA - centreB);
+        finalVelocity = 0.8f * finalVelocity;
+        moveSpeed = finalVelocity.magnitude;
 
         velocity = finalVelocity;
     }

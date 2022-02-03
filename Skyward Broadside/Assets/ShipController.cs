@@ -18,6 +18,9 @@ public class ShipController : MonoBehaviour
     Vector3 turnDirection;
     float acceleration = 1f;
     float deceleration = 1f;
+
+    bool isDisabled;
+    float timerDisabled;
     //float smoothAccelerationPercentage;
     //float smoothDecelerationPercentage;
 
@@ -30,65 +33,52 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Vector3 inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        //float inputMagnitude = inputDirection.magnitude;
-        //float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
-        //angle = Mathf.LerpAngle(angle, targetAngle, turnSpeed * Time.deltaTime);
 
-        //velocity = transform.forward * moveSpeed * inputMagnitude;
-        turnDirection = new Vector3(0, 1, 0) * horizontalInput;
-        //angle = Mathf.LerpAngle(angle, turnDirection, turnSpeed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.W))
+        if (!isDisabled)
         {
-            moveSpeed = moveSpeed + acceleration * Time.fixedDeltaTime;
-            velocity = transform.forward * moveSpeed;
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            turnDirection = new Vector3(0, 1, 0) * horizontalInput;
 
+            if (Input.GetKey(KeyCode.W))
+            {
+                moveSpeed = moveSpeed + acceleration * Time.fixedDeltaTime;
+                velocity = transform.forward * moveSpeed;
+
+
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                moveSpeed = moveSpeed + (-deceleration) * Time.fixedDeltaTime;
+                velocity = transform.forward * moveSpeed;
+
+            }
+
+            moveSpeed = Mathf.Clamp(moveSpeed, 0, topSpeed);
+        }
+        else
+        {
+            velocityBeforeCollision = velocity;
+
+            if (timerDisabled < 3.0f)
+            {
+                timerDisabled += Time.deltaTime;
+            }
+            else
+            {
+                isDisabled = false;
+                timerDisabled = 0f;
+            }
 
         }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            moveSpeed = moveSpeed + (-deceleration) * Time.fixedDeltaTime;
-            velocity = transform.forward * moveSpeed;
-
-        }
-
-        moveSpeed = Mathf.Clamp(moveSpeed, 0, topSpeed);
-
-
 
     }
 
     private void FixedUpdate()
     {
+        
+
         Quaternion deltaRotation = Quaternion.Euler(turnDirection * turnSpeed * Time.fixedDeltaTime);
         rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
-        //rigidBody.MovePosition(rigidBody.position + velocity * Time.fixedDeltaTime);
-
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    smoothDecelerationPercentage = 0f;
-        //    smoothAccelerationPercentage += 0.2f;
-        //    smoothAccelerationPercentage = Mathf.Clamp(smoothAccelerationPercentage, 0f, 1f);
-        //    thrust = Mathf.Lerp(0f, 50f, smoothAccelerationPercentage);
-        //    rigidBody.AddForce(transform.forward * thrust, ForceMode.Force);
-
-
-        //}
-        //else if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    smoothAccelerationPercentage = 0f;
-        //    smoothDecelerationPercentage += 0.2f;
-        //    smoothDecelerationPercentage = Mathf.Clamp(smoothDecelerationPercentage, 0f, 1f);
-        //    thrust = -Mathf.Lerp(0f, 50f, smoothDecelerationPercentage);
-        //    rigidBody.AddForce(transform.forward * thrust, ForceMode.Force);
-
-
-        //}
-
-
-        
 
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
         velocityBeforeCollision = velocity;
@@ -98,7 +88,7 @@ public class ShipController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("Collision");
+        //print("Collision");
 
         Vector3 initialVelocity = velocityBeforeCollision;
         float massA = rigidBody.mass;
@@ -109,15 +99,13 @@ public class ShipController : MonoBehaviour
         Vector3 centreB = collision.transform.position;
 
 
-
-
-        //Vector3 finalVelocity = ((massA - massB) / (massA + massB)) * initialVelocity + (2 * massB / (massA + massB)) * colliderInitialVelocity;
-
         Vector3 finalVelocity = initialVelocity - (2 * massB / (massA + massB)) * (Vector3.Dot(initialVelocity - colliderInitialVelocity, centreA - centreB) / Vector3.SqrMagnitude(centreA - centreB)) * (centreA - centreB);
-
-        print(finalVelocity);
+        finalVelocity = 0.8f * finalVelocity;
+        moveSpeed = finalVelocity.magnitude;
 
         velocity = finalVelocity;
+
+        isDisabled = true;
     }
 
 
