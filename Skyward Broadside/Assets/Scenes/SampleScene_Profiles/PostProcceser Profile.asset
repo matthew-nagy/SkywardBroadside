@@ -62,5 +62,5 @@ MonoBehaviour:
     overrideState: 1
     value: 800
   depthDrawThreshold:
-    overrideState: 0
-    value: 0.03
+    overrideState: 1
+    value: 0.01
