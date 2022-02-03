@@ -1354,6 +1354,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5904769780344471705}
+  - component: {fileID: 1845835176}
+  - component: {fileID: 1845835175}
+  - component: {fileID: 1845835177}
   m_Layer: 3
   m_Name: ShipPrim2
   m_TagString: Ship
@@ -1377,6 +1380,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1845835176
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904769780344471704}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &1845835175
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904769780344471704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!114 &1845835177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904769780344471704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e9407cc2bfbaa43b81a5fc9e1112a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityBeforeCollision: {x: 0, y: 0, z: 0}
 --- !u!1 &5904769781272095837
 GameObject:
   m_ObjectHideFlags: 0
@@ -1930,7 +1976,6 @@ GameObject:
   m_Component:
   - component: {fileID: 831368322318374015}
   - component: {fileID: 8491392430362278562}
-  - component: {fileID: 6019461155059922277}
   m_Layer: 0
   m_Name: RightCombatView
   m_TagString: Untagged
@@ -1995,11 +2040,3 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6019461155059922277
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9066366963757150628}
-  m_Enabled: 1
