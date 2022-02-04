@@ -51,6 +51,7 @@ Shader "Unlit/CloudShader"
 
                 float4 view_pos = mul(UNITY_MATRIX_V, world_pos);
 
+                //Scale herebased on noise at this point
                 view_pos += float4(v.uv * _BubbleSize, 0.0, 0.0);
 
                 float4 clip_pos = mul(UNITY_MATRIX_P, view_pos);
