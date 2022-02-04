@@ -16,8 +16,16 @@ public class Launcher : MonoBehaviourPunCallbacks
         "The maximum number of players per room. When a room is full, it can't be joined by new player and so new room will be created")]
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
-    
-    #endregion
+
+    [Tooltip("The UI Panel to let the user enter name, connect and play")]
+    [SerializeField]
+    private GameObject controlPanel;
+
+    [Tooltip("The UI Label to inform the user that the connection is in progress")]
+    [SerializeField]
+    private GameObject progressLabel;
+
+#endregion
     
     #region Private Fields
 
@@ -26,6 +34,13 @@ public class Launcher : MonoBehaviourPunCallbacks
     /// (which allows you to make breaking changes)
     /// </summary>
     private string gameVersion = "1";
+
+    /// <summary>
+    /// Keep track of current progress. Since connection is async and is based on several callbacks from Photon,
+    /// we need to keep track of this to properly adjust the behaviour when we receive call back by Photon.
+    /// Typpically this is used for OnConnectedToMaster() callback
+    /// </summary>
+    private bool isConnecting;
 
     #endregion
     
@@ -47,6 +62,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     /// </summary>
     void Start()
     {
+        progressLabel.SetActive(false);
+        controlPanel.SetActive(true);
     }
     
     #endregion
@@ -61,6 +78,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void Connect()
     {
+        progressLabel.SetActive(true);
+        controlPanel.SetActive(false);
+        
         // we check if we are connected or not, we join if we are, else we initiate the connection to the server.
         if (PhotonNetwork.IsConnected)
         {
@@ -70,7 +90,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             // #Critical, we must first and foremost connect to Photon Online Server.
-            PhotonNetwork.ConnectUsingSettings();
+            // keep track of the will to join a room because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
+            isConnecting = PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = gameVersion;
         }
     }
@@ -82,14 +103,26 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("PUN Basics Tutorials/Launcher: OnConnectedToMaster() was called by PUN");
-        
-        // #Critical: The first we try to do is to join a potential existing room. If there is, good, else
-        // we'll be called back with OnJoinRandomFailed()
-        PhotonNetwork.JoinRandomRoom();
+
+        // We don't want to do anything if we are not attempting to join a room.
+        // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
+        // we don't want to do anything.
+        if (isConnecting)
+        {
+            // #Critical: The first we try to do is to join a potential existing room. If there is, good, else
+            // we'll be called back with OnJoinRandomFailed()
+            PhotonNetwork.JoinRandomRoom();
+            isConnecting = false;
+        }
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+        progressLabel.SetActive(false);
+        controlPanel.SetActive(true);
+
+        isConnecting = false;
+        
         Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
     }
 
@@ -104,6 +137,15 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+        
+        // #Critical: We only load if we are the first player, else we rely on PhotonNetwork.AutomaticallySyncScene to sync our instance scene
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            Debug.Log("We load the GameWorld");
+            
+            // Load the world
+            PhotonNetwork.LoadLevel("GameWorld");
+        }
     }
     
     #endregion
