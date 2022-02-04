@@ -58,34 +58,20 @@
     <Compile Include="Assets\Simple 3D Noise\ExampleScenes\Scripts\TextureNoiseGPU.cs" />
     <Compile Include="Assets\CloudGen.cs" />
     <Compile Include="Assets\Simple 3D Noise\ExampleScenes\Scripts\NoiseCompare.cs" />
-    <Compile Include="Assets\Worley.cs" />
     <Compile Include="Assets\Simple 3D Noise\NoiseS3D.cs" />
+    <Compile Include="Assets\CloudGen2.cs" />
     <Compile Include="Assets\CloudGenMarchingCubes.cs" />
     <Compile Include="Assets\Simple 3D Noise\ExampleScenes\Scripts\NoiseCamTurntable.cs" />
+    <Compile Include="Assets\CloudGen3.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Resources\FalloffGenShader.compute" />
     <None Include="Assets\CloudShader.shader" />
     <None Include="Assets\Simple 3D Noise\ReadMe.txt" />
     <None Include="Assets\Simple 3D Noise\Resources\Shaders\NoiseS3DGPU.compute" />
+    <None Include="Assets\Resources\Slicer.compute" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
-     <Compile Include="Assets/Simple 3D Noise/ExampleScenes/Scripts/CubeNoiseGenerator.cs" />
-     <Compile Include="Assets/Simple 3D Noise/ExampleScenes/Scripts/TextureNoise.cs" />
-     <Compile Include="Assets/Simple 3D Noise/ExampleScenes/Scripts/TextureNoiseGPU.cs" />
-     <Compile Include="Assets/CloudGen.cs" />
-     <Compile Include="Assets/Simple 3D Noise/ExampleScenes/Scripts/NoiseCompare.cs" />
-     <Compile Include="Assets/Simple 3D Noise/NoiseS3D.cs" />
-     <Compile Include="Assets/CloudGen2.cs" />
-     <Compile Include="Assets/CloudGenMarchingCubes.cs" />
-     <Compile Include="Assets/Simple 3D Noise/ExampleScenes/Scripts/NoiseCamTurntable.cs" />
-     <Compile Include="Assets/CloudGen3.cs" />
-     <None Include="Assets/Resources/FalloffGenShader.compute" />
-     <None Include="Assets/Simple 3D Noise/ReadMe.txt" />
-     <None Include="Assets/Simple 3D Noise/Resources/Shaders/NoiseS3DGPU.compute" />
-     <None Include="Assets/Resources/Slicer.compute" />
->>>>>>> 449c5367843df06b6a99ee43e32ff9c510be7588
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.26f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
