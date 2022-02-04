@@ -1423,7 +1423,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5904769780344471704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e9407cc2bfbaa43b81a5fc9e1112a9, type: 3}
+  m_Script: {fileID: 11500000, guid: fa8d546fa1363eb45ad0ae078ae9896b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   velocityBeforeCollision: {x: 0, y: 0, z: 0}
