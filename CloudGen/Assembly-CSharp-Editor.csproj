@@ -54,6 +54,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\PerlinNoise.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Assets\Editor\GenerateNoiseTexture.cs" />
+>>>>>>> BillboardedClouds
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

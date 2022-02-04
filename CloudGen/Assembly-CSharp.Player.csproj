@@ -58,6 +58,7 @@
     <Compile Include="Assets\Simple 3D Noise\ExampleScenes\Scripts\TextureNoiseGPU.cs" />
     <Compile Include="Assets\CloudGen.cs" />
     <Compile Include="Assets\Simple 3D Noise\ExampleScenes\Scripts\NoiseCompare.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Worley.cs" />
     <Compile Include="Assets\Simple 3D Noise\NoiseS3D.cs" />
     <Compile Include="Assets\CloudGenMarchingCubes.cs" />
@@ -66,6 +67,20 @@
   <ItemGroup>
     <None Include="Assets\Simple 3D Noise\ReadMe.txt" />
     <None Include="Assets\Simple 3D Noise\Resources\Shaders\NoiseS3DGPU.compute" />
+=======
+    <Compile Include="Assets\Simple 3D Noise\NoiseS3D.cs" />
+    <Compile Include="Assets\CloudGen2.cs" />
+    <Compile Include="Assets\CloudGenMarchingCubes.cs" />
+    <Compile Include="Assets\Simple 3D Noise\ExampleScenes\Scripts\NoiseCamTurntable.cs" />
+    <Compile Include="Assets\CloudGen3.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Resources\FalloffGenShader.compute" />
+    <None Include="Assets\CloudShader.shader" />
+    <None Include="Assets\Simple 3D Noise\ReadMe.txt" />
+    <None Include="Assets\Simple 3D Noise\Resources\Shaders\NoiseS3DGPU.compute" />
+    <None Include="Assets\Resources\Slicer.compute" />
+>>>>>>> BillboardedClouds
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

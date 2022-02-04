@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"m_AlwaysRefresh":false,"showFog":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true,"showVisualEffectGraphs":true,"m_FxEnabled":true},"in2DMode":false,"pivot":{"x":33.846595764160159,"y":16.42734146118164,"z":28.17245101928711},"rotation":{"x":0.25377175211906435,"y":0.01737547665834427,"z":-0.004594833590090275,"w":0.9671468734741211},"size":7.261397838592529,"orthographic":false}
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"m_AlwaysRefresh":false,"showFog":true,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true,"showVisualEffectGraphs":true,"m_FxEnabled":true},"in2DMode":false,"pivot":{"x":173.3750457763672,"y":167.83743286132813,"z":83.09703063964844},"rotation":{"x":0.024264147505164148,"y":-0.047001708298921588,"z":0.0015571806579828263,"w":0.9987151622772217},"size":82.07859802246094,"orthographic":false}
+>>>>>>> BillboardedClouds
