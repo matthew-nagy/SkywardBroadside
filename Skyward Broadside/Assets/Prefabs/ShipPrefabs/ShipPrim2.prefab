@@ -197,7 +197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSensitivity: 1
   power: 30
-  cannonBall: {fileID: 8578972288085489722, guid: 36976d0913d4d2143b7ec2195ab339e4, type: 3}
+  reloadTime: 2
+  ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 6007681473232422226}
 --- !u!120 &816899770
 LineRenderer:
@@ -523,7 +524,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSensitivity: 1
   power: 30
-  cannonBall: {fileID: 8578972288085489722, guid: 36976d0913d4d2143b7ec2195ab339e4, type: 3}
+  reloadTime: 2
+  ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 6604459262782208156}
 --- !u!120 &506390019
 LineRenderer:
@@ -1104,7 +1106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSensitivity: 1
   power: 30
-  cannonBall: {fileID: 8578972288085489722, guid: 36976d0913d4d2143b7ec2195ab339e4, type: 3}
+  reloadTime: 2
+  ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 5069262259036917024}
 --- !u!120 &1111178245
 LineRenderer:
@@ -1357,6 +1360,7 @@ GameObject:
   - component: {fileID: 1845835176}
   - component: {fileID: 1845835175}
   - component: {fileID: 1845835177}
+  - component: {fileID: 333654823}
   m_Layer: 3
   m_Name: ShipPrim2
   m_TagString: Ship
@@ -1423,6 +1427,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocityBeforeCollision: {x: 0, y: 0, z: 0}
+--- !u!114 &333654823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904769780344471704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d198e1644bb3f614d89df3f4e0bc72af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCannonballAmmo: 60
+  maxExplosiveCannonballAmmo: 9
+  cannonballAmmo: 0
+  explosiveCannonballAmmo: 0
+  equippedWeapons:
+  - {fileID: 8578972288085489722, guid: 36976d0913d4d2143b7ec2195ab339e4, type: 3}
+  - {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
 --- !u!1 &5904769781272095837
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 6357757886373269347}
   - component: {fileID: 4843399686929617305}
   m_Layer: 3
-  m_Name: ExplosiveCannonBall
-  m_TagString: Explosive
+  m_Name: ExplosiveCannonball
+  m_TagString: ExplosiveCannonball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   explosionRadius: 5
   explodableObjects:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 119
 --- !u!54 &6357757886373269347
 Rigidbody:
   m_ObjectHideFlags: 0

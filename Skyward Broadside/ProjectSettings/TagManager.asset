@@ -5,10 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ignored
-  - Island
-  - Explosive
-  - RegularProjectile
   - Ship
+  - Cannonball
+  - Terrain
+  - Island
+  - ExplosiveCannonball
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Ship
   - Water
   - UI
-  - 
-  - 
+  - Terrain
+  - Cannon
   - 
   - 
   - 
