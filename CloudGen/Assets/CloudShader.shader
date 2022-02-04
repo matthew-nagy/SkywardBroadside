@@ -3,7 +3,7 @@ Shader "Unlit/CloudShader"
     Properties
     {
         _MainTex("Texture", 2D) = "white" {}
-        _Scale("Cloud scale", float) = 128.0
+        _Scale("Cloud_scale", float) = 128.0
         _BubbleSize("Bubble size", float) = 1.0
     }
         SubShader
@@ -44,9 +44,14 @@ Shader "Unlit/CloudShader"
                 float4 world_origin = mul(UNITY_MATRIX_M, float4(0, 0, 0, 1));
                 float4 view_origin = float4(UnityObjectToViewPos(float3(0, 0, 0)), 1);
 
-                float4 world_pos = mul(UNITY_MATRIX_M, v.vertex);
+                float4 colourPos = float4(v.colour.rgb * _Scale, v.vertex.w);
 
-                float4 view_pos = world_pos - world_origin + view_origin;
+                float4 world_pos = mul(UNITY_MATRIX_M, colourPos);
+                //float4 world_pos = mul(UNITY_MATRIX_M, v.vertex);
+
+                float4 view_pos = mul(UNITY_MATRIX_V, world_pos);
+
+                view_pos += float4(v.uv * _BubbleSize, 0.0, 0.0);
 
                 float4 clip_pos = mul(UNITY_MATRIX_P, view_pos);
 
@@ -60,6 +65,7 @@ Shader "Unlit/CloudShader"
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
+                col.r = 1.0;
                 return col;
             }
             ENDCG

@@ -11,6 +11,10 @@ public class CloudGen3 : MonoBehaviour
     public float quad_width = 0.5f;
     public float quad_height = 0.5f;
 
+    public Vector3 shaderScale;
+
+    public Material myMat;
+
     MeshRenderer meshRenderer;
     Mesh mesh;
 
@@ -21,10 +25,12 @@ public class CloudGen3 : MonoBehaviour
             Debug.LogWarning("Cloud is bigger than vertex limit!!!");
         }
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
-        meshRenderer.sharedMaterial = new Material(Shader.Find("Standard"));
+        meshRenderer.sharedMaterial = myMat;
 
         MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
         mesh = new Mesh();
+
+        //cloud_width = cloud_height = cloud_depth = (int)myMat.GetFloat("Cloud_scale");
 
         Vector3[] vertices = new Vector3[cloud_width * cloud_height * cloud_depth * 4];
         int[] triangles = new int[cloud_width * cloud_height * cloud_depth * 6];
@@ -92,6 +98,8 @@ public class CloudGen3 : MonoBehaviour
         // mesh.SetColors(colors);
 
         meshFilter.mesh = mesh;
+        shaderScale = new Vector3(cloud_width,cloud_height,cloud_depth);
+        //gameObject.transform.localScale = shaderScale;
     }
 
     // Update is called once per frame
