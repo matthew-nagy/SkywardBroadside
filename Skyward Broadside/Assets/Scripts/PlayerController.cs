@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviourPun
 {
-    private float moveSpeed = 7.0f;
+    /*private float moveSpeed = 7.0f;
     private float turnSpeed = 50.0f;
     private float angle;
     private Vector3 velocity;
@@ -85,5 +85,5 @@ public class PlayerController : MonoBehaviourPun
         transform.position = new Vector3(0, 0, 0);
     }
     
-    #endregion
+    #endregion*/
 }

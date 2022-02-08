@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        Instantiate(shipCam);
     }
 
     public void disableFreeCam()

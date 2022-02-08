@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class BasicCannonController : MonoBehaviour
+public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public bool controllerActive;
     public bool masterCannon;
@@ -14,9 +15,14 @@ public class BasicCannonController : MonoBehaviour
     public GameObject ammoType;
     public Transform shotOrigin;
 
-    bool shooting;
+    bool shootingSignal;
+    bool shot;
     bool reloading;
     float ammoLevel;
+
+    bool changingWeaponSignal;
+    bool changedWeapon;
+    int currentWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -26,13 +32,52 @@ public class BasicCannonController : MonoBehaviour
         //set the "aiming line" to green to show weapons are ready
         transform.GetComponent<LineRenderer>().startColor = Color.green;
         transform.GetComponent<LineRenderer>().endColor = Color.green;
+
+        shootingSignal = shot = changingWeaponSignal = changedWeapon = false;
+    }
+
+    void Awake()
+    {
+        // #Important
+        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+        if (photonView.IsMine)
+        {
+            //Do something?
+        }
+        // #Critical
+        // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        getInput();
+        removeUsedInput();
+        if (photonView.IsMine)
+        {
+            getInput();
+        }
+        if (shootingSignal) { 
+            fire();
+        }
+        if (changingWeaponSignal)
+        {
+            changedWeapon = true;
+            weaponSelect();
+        }
         getAmmoLevel();
+    }
+
+    void removeUsedInput()
+    {
+        if (shot)
+        {
+            shot = shootingSignal = false;
+        }
+        if (changedWeapon)
+        {
+            changedWeapon = changingWeaponSignal = false;
+        }
     }
 
     //inspired by https://www.youtube.com/watch?v=RnEO3MRPr5Y&ab_channel=AdamKonig
@@ -43,11 +88,11 @@ public class BasicCannonController : MonoBehaviour
             weaponAim();
 
             //attempt to fire the cannon
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !reloading && !shooting)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && !reloading && !shootingSignal)
             {
                 if (ammoLevel > 0)
                 {
-                    fire();
+                    shootingSignal = true;
                 }
             }
         } else
@@ -55,18 +100,35 @@ public class BasicCannonController : MonoBehaviour
             transform.GetComponent<LineRenderer>().enabled = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !reloading && !shootingSignal)
+        {
+            changingWeaponSignal = true;
+            currentWeapon = 0;
+        }
+
+        //change ammo type to explosive cannonball
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !reloading && !shootingSignal)
+        {
+            changingWeaponSignal = true;
+            currentWeapon = 1;
+        }
+
         weaponSelect();
+    }
+
+    Transform getShipTransform()
+    {
+        return transform.root.GetChild(0);
     }
 
     //fire the cannon
     void fire()
     {
-        shooting = true;
 
         GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);
         newCannonBall.GetComponent<Rigidbody>().velocity = shotOrigin.transform.forward * power;
 
-        shooting = false;
+        shot = true;
 
         weaponStatusReloading();
 
@@ -80,37 +142,27 @@ public class BasicCannonController : MonoBehaviour
     {
         if (ammoType.name == "Cannonball")
         {
-            ammoLevel = transform.root.GetComponent<ShipArsenal>().cannonballAmmo;
+            ammoLevel = getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo;
         }
         if (ammoType.name == "ExplosiveCannonball")
         {
-            ammoLevel = transform.root.GetComponent<ShipArsenal>().explosiveCannonballAmmo;
+            ammoLevel = getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo;
         }
     }
 
     //choose weapon type
     void weaponSelect()
     {
-        //change ammo type to cannonball
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !reloading && !shooting)
-        {
-            switchWeapon(0);
-        }
-
-        //change ammo type to explosive cannonball
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !reloading && !shooting)
-        {
-            switchWeapon(1);
-        }
+        switchWeapon(currentWeapon);
     }
 
     //switch to given weapon and reload
     void switchWeapon(int weaponId)
     {
         //check not trying to switch to same ammo that is currently selected
-        if (ammoType != transform.root.GetComponent<ShipArsenal>().equippedWeapons[weaponId])
+        if (ammoType != getShipTransform().GetComponent<ShipArsenal>().equippedWeapons[weaponId])
         {
-            ammoType = transform.root.GetComponent<ShipArsenal>().equippedWeapons[weaponId];
+            ammoType = getShipTransform().GetComponent<ShipArsenal>().equippedWeapons[weaponId];
             getAmmoLevel();
             if (ammoLevel > 0)
             {
@@ -153,12 +205,32 @@ public class BasicCannonController : MonoBehaviour
     {
         if (ammoType.name == "Cannonball")
         {
-            transform.root.GetComponent<ShipArsenal>().cannonballAmmo--;
+            getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
         }
         if (ammoType.name == "ExplosiveCannonball")
         {
-            transform.root.GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
+            getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
         }
     }
+
+    #region IPunStuff
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(shootingSignal);
+            stream.SendNext(changingWeaponSignal);
+            stream.SendNext(currentWeapon);
+        }
+        else
+        {
+            this.shootingSignal = (bool)stream.ReceiveNext();
+            this.changingWeaponSignal = (bool)stream.ReceiveNext();
+            this.currentWeapon = (int)stream.ReceiveNext();
+        }
+    }
+
+    #endregion
 }
 

@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class ShipController : MonoBehaviour
+public class ShipController : MonoBehaviourPun
 {
-
     Rigidbody rigidBody;
 
     float moveSpeed;
@@ -27,9 +27,28 @@ public class ShipController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
     }
 
+    void Awake()
+    {
+        // #Important
+        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+        if (photonView.IsMine)
+        {
+            //PlayerManager.LocalPlayerInstance.controller = this;
+        }
+        // #Critical
+        // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {
+
+        if (!photonView.IsMine && PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
         //Vector3 inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         //float inputMagnitude = inputDirection.magnitude;
@@ -109,6 +128,18 @@ public class ShipController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        if (!collision.gameObject.name.Contains("Ball"))
+        {
+            return;
+        }
+
+
         if (collision.gameObject.tag == "Ship")
         {
             print("Collision");

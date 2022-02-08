@@ -117,7 +117,7 @@ MonoBehaviour:
   rotationSensitivity: 1
   power: 30
   reloadTime: 2
-  ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
+  ammoType: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 6007681473232422226}
 --- !u!120 &816899770
 LineRenderer:
@@ -446,7 +446,7 @@ MonoBehaviour:
   rotationSensitivity: 1
   power: 30
   reloadTime: 2
-  ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
+  ammoType: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 6604459262782208156}
 --- !u!120 &506390019
 LineRenderer:
@@ -998,7 +998,7 @@ MonoBehaviour:
   rotationSensitivity: 1
   power: 30
   reloadTime: 2
-  ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
+  ammoType: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 5069262259036917024}
 --- !u!120 &1111178245
 LineRenderer:
@@ -1254,6 +1254,7 @@ GameObject:
   - component: {fileID: 333654823}
   - component: {fileID: 2067313920}
   - component: {fileID: 2067313921}
+  - component: {fileID: 3501897410673752950}
   m_Layer: 3
   m_Name: ShipPrim2
   m_TagString: Ship
@@ -1318,7 +1319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e9407cc2bfbaa43b81a5fc9e1112a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityBeforeCollision: {x: 0, y: 0, z: 0}
 --- !u!114 &333654823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1368,6 +1368,28 @@ MonoBehaviour:
   cannon1: {fileID: 4644661021023321349}
   cannon3: {fileID: 789255558999481594}
   cannon5: {fileID: 448227682427637359}
+--- !u!114 &3501897410673752950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5904769780344471704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5904769781272095837
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
+    /*
     public Transform player;
 
     public Vector3 cameraPos;
@@ -19,5 +20,5 @@ public class CameraFollowPlayer : MonoBehaviour
         float angle = player.eulerAngles.y;
         transform.position = player.position - (Quaternion.Euler(0, angle, 0) * cameraPos);
         transform.LookAt(player.position + new Vector3(0, 14, 0));
-    }
+    }*/
 }
