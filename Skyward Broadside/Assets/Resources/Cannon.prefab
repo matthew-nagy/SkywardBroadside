@@ -144,9 +144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ebf8811680c43439cc4df25bedfbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controllerActive: 0
+  masterCannon: 0
   rotationSensitivity: 1
   power: 60
-  cannonBall: {fileID: 8578972288085489722, guid: 36976d0913d4d2143b7ec2195ab339e4, type: 3}
+  reloadTime: 0
+  ammoType: {fileID: 8578972288085489722, guid: 36976d0913d4d2143b7ec2195ab339e4, type: 3}
   shotOrigin: {fileID: 1785847707709453016}
 --- !u!114 &5727669651202759832
 MonoBehaviour:

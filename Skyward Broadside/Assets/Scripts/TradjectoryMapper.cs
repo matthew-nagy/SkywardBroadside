@@ -30,7 +30,7 @@ public class TradjectoryMapper : MonoBehaviour
     {
         lineRenderer.positionCount = noOfPoints;
         List<Vector3> points = new List<Vector3>();
-        Vector3 startPos = basicCannonController.shotOrigin.position + basicCannonController.shotOrigin.forward * 2;
+        Vector3 startPos = basicCannonController.shotOrigin.position;
         Vector3 velocity = basicCannonController.shotOrigin.forward * basicCannonController.power;
         for (float t = 0; t < noOfPoints; t += pointInterval)
         {
@@ -40,7 +40,6 @@ public class TradjectoryMapper : MonoBehaviour
 
             if (Physics.OverlapSphere(newPoint, 2, obstructions).Length > 0)
             {
-                Debug.Log("INSIDE");
                 lineRenderer.positionCount = points.Count;
                 break;
             }
