@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Brass
-  m_Shader: {fileID: 4800000, guid: f90ac7e50aadc8f45877adcc3d726d74, type: 3}
+  m_Shader: {fileID: 4800000, guid: ce7848b9d8e9f0747b469a12f4a7781f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
