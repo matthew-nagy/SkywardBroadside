@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3502563226704232635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 355, y: 317, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4189706437996139032}
@@ -38,6 +38,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9096857088395882344}
     m_Modifications:
+    - target: {fileID: 333654823, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: equippedWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
     - target: {fileID: 2067313920, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: shipCam
       value: 
@@ -70,6 +74,10 @@ PrefabInstance:
       propertyPath: ObservedComponents.Array.data[3]
       value: 
       objectReference: {fileID: 3218850298161364758}
+    - target: {fileID: 5151696107110722967, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: ammoType
+      value: 
+      objectReference: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
     - target: {fileID: 5904769780344471704, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_Name
       value: Ship
@@ -80,15 +88,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471705, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -34.40674
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471705, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 692.9941
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471705, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -943.12665
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471705, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_LocalRotation.w
@@ -118,6 +126,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7728106693520202950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: ammoType
+      value: 
+      objectReference: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
+    - target: {fileID: 8742184167560547195, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: ammoType
+      value: 
+      objectReference: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
 --- !u!1 &4189706437996139033 stripped

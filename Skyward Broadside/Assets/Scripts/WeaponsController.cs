@@ -33,7 +33,7 @@ public class WeaponsController : MonoBehaviour
         cannon5.transform.rotation = transform.rotation;
         cannon5.transform.Rotate(0, 0, 90);
 
-        transform.GetComponent<CameraController>().disableFreeCam();
+        this.transform.GetComponent<CameraController>().disableFreeCam();
     }
 
     public void disableRightSideWeapons()
@@ -45,6 +45,6 @@ public class WeaponsController : MonoBehaviour
         cannon3.GetComponent<BasicCannonController>().controllerActive = false;
         cannon5.GetComponent<BasicCannonController>().controllerActive = false;
 
-        transform.GetComponent<CameraController>().enableFreeCam();
+        this.transform.GetComponent<CameraController>().enableFreeCam();
     }
 }
