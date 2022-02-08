@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class TradjectoryMapper : MonoBehaviour
+public class TradjectoryMapper : MonoBehaviourPunCallbacks
 {
     BasicCannonController basicCannonController;
     LineRenderer lineRenderer;
@@ -22,7 +23,10 @@ public class TradjectoryMapper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        drawLine();
+        if (photonView.IsMine)
+        {
+            drawLine();
+        }
     }
 
     //inspired by https://www.youtube.com/watch?v=RnEO3MRPr5Y&ab_channel=AdamKonig

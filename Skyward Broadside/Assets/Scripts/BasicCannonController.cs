@@ -52,36 +52,42 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        removeUsedInput();
         if (photonView.IsMine)
         {
             getInput();
         }
-        if (shootingSignal) { 
+
+        if (shootingSignal)
+        {
             fire();
+            shot = true;
         }
+
         if (changingWeaponSignal)
         {
-            changedWeapon = true;
             weaponSelect();
+            changedWeapon = true;
         }
+
+        removeUsedInput();
+
         getAmmoLevel();
     }
 
     void removeUsedInput()
     {
-        if (shot)
+        if (shootingSignal)
         {
-            shot = shootingSignal = false;
+            shootingSignal = false;
         }
         if (changedWeapon)
         {
-            changedWeapon = changingWeaponSignal = false;
+            changingWeaponSignal = false;
         }
     }
 
     //inspired by https://www.youtube.com/watch?v=RnEO3MRPr5Y&ab_channel=AdamKonig
-    void getInput() 
+    void getInput()
     {
         if (controllerActive)
         {
@@ -95,7 +101,9 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
                     shootingSignal = true;
                 }
             }
-        } else
+
+        }
+        else
         {
             transform.GetComponent<LineRenderer>().enabled = false;
         }
@@ -112,8 +120,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             changingWeaponSignal = true;
             currentWeapon = 1;
         }
-
-        weaponSelect();
     }
 
     Transform getShipTransform()
@@ -127,8 +133,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
         GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);
         newCannonBall.GetComponent<Rigidbody>().velocity = shotOrigin.transform.forward * power;
-
-        shot = true;
 
         weaponStatusReloading();
 
@@ -219,15 +223,33 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(shootingSignal);
-            stream.SendNext(changingWeaponSignal);
+            stream.SendNext(shot);
+            if (shot)
+            {
+                stream.SendNext(transform.rotation);
+                stream.SendNext(transform.position);
+                shot = false;
+            }
+
+            stream.SendNext(changedWeapon);
+            if (changedWeapon)
+            {
+                changedWeapon = false;
+            }
+
             stream.SendNext(currentWeapon);
         }
         else
         {
-            this.shootingSignal = (bool)stream.ReceiveNext();
-            this.changingWeaponSignal = (bool)stream.ReceiveNext();
-            this.currentWeapon = (int)stream.ReceiveNext();
+            shootingSignal = (bool)stream.ReceiveNext();
+            if (shootingSignal)
+            {
+                transform.rotation = ((Quaternion)stream.ReceiveNext());
+                transform.position = ((Vector3)stream.ReceiveNext());
+            }
+
+            changingWeaponSignal = (bool)stream.ReceiveNext();
+            currentWeapon = (int)stream.ReceiveNext();
         }
     }
 

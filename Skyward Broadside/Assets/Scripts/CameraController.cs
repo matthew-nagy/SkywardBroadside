@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviourPunCallbacks
 {
     public GameObject shipCam;
     GameObject thisCam;
 
     private void Start()
     {
-        thisCam = Instantiate(shipCam);
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_Follow = transform;
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_LookAt = transform;
+        if (photonView.IsMine)
+        {
+            thisCam = Instantiate(shipCam);
+            thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_Follow = transform;
+            thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_LookAt = transform;
+        }
     }
 
     public void disableFreeCam()
