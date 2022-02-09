@@ -16,13 +16,15 @@ public class ShipController : MonoBehaviourPun
     Rigidbody rigidBody;
 
     public float turnSpeed = 10f;
-    public float accelerateSpeed = 5f;
 
+    [Tooltip("How much the ship weighs; controls how forces act")]
     public float mass = 1f;
-    public float airDensity = 0.5f;
-    public float resistanceCoefficient = 0.5f;
-    public float shipWidth = 2f;
-    public float shipLegth = 4f;
+    [Tooltip("The force the ship produces to drive it forwards")]
+    public float engineDriveForce = 10f;
+    [Tooltip("Drag from propeler not being fast enough to push air or something")]
+    public float propelerDragCoefficient = 12f;
+    [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
+    public float bodyDragCoefficient = 3f;
 
     RequestedControls playerInput;
 
@@ -70,26 +72,6 @@ public class ShipController : MonoBehaviourPun
 
         GetWeaponInput();
 
-
-        //Now react to player input
-        if (playerInput.forwards)
-        {
-            velocity += transform.forward * accelerateSpeed / mass;
-        }
-        else if (playerInput.backwards)
-        {
-            velocity = new Vector3(0, 0, 0);
-        }
-
-        turnDirection = new Vector3(0, 0, 0);
-        if (playerInput.turnRight)
-        {
-            turnDirection = new Vector3(0, turnSpeed, 0);
-        }
-        if (playerInput.turnLeft)
-        {
-            turnDirection = new Vector3(0, turnSpeed * -1.0f, 0);
-        }
     }
 
     void GetWeaponInput()
@@ -131,7 +113,7 @@ public class ShipController : MonoBehaviourPun
 
     private void FixedUpdate()
     {
-        HandleResistiveForce();
+        HandleForce();
 
         Quaternion deltaRotation = Quaternion.Euler(turnDirection * turnSpeed * Time.fixedDeltaTime);
         rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
@@ -185,8 +167,31 @@ public class ShipController : MonoBehaviourPun
         return Mathf.Abs(Vector3.Dot(resistiveForce.normalized, forwardDirection.normalized));
     }
 
-    void HandleResistiveForce()
+    void HandleForce()
     {
+        //Now react to player input
+        if (playerInput.forwards)
+        {
+            velocity += transform.forward * accelerateSpeed / mass;
+        }
+        else if (playerInput.backwards)
+        {
+            velocity = new Vector3(0, 0, 0);
+        }
+
+        turnDirection = new Vector3(0, 0, 0);
+        if (playerInput.turnRight)
+        {
+            turnDirection = new Vector3(0, turnSpeed, 0);
+        }
+        if (playerInput.turnLeft)
+        {
+            turnDirection = new Vector3(0, turnSpeed * -1.0f, 0);
+        }
+
+
+
+
         float resistanceAngle = Vector2.Angle(Vector2.up ,new Vector2(velocity.x, velocity.y) * -1f);
         float resistanceArea = shipWidth * Mathf.Cos(resistanceAngle) + shipLegth * Mathf.Sin(resistanceAngle);
         float resistance = GetResistiveForce(airDensity, resistanceCoefficient * velocity.magnitude, resistanceArea, Mathf.Pow(velocity.magnitude, 2f));
