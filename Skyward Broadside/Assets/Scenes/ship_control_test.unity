@@ -370,7 +370,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -419,8 +419,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7770159726163961640, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
+      propertyPath: bodyDragCoefficient
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770159726163961640, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
       propertyPath: resistanceCoefficient
       value: 0.0005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770159726163961640, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
+      propertyPath: propelerDragCoefficient
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9096857088395882344, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
       propertyPath: m_RootOrder

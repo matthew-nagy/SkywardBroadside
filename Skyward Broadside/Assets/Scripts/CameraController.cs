@@ -7,26 +7,28 @@ public class CameraController : MonoBehaviourPunCallbacks
 {
     public GameObject shipCam;
     GameObject thisCam;
+    Cinemachine.CinemachineFreeLook camera;
 
     private void Start()
     {
+        camera = thisCam.GetComponent<Cinemachine.CinemachineFreeLook>();
         if (photonView.IsMine)
         {
             thisCam = Instantiate(shipCam);
-            thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_Follow = transform;
+            camera.m_Follow = transform;
             thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_LookAt = transform;
         }
     }
 
     public void disableFreeCam()
     {
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InputAxisName = "";
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InputAxisName = "";
+        camera.m_YAxis.m_InputAxisName = "";
+        camera.m_XAxis.m_InputAxisName = "";
     }
 
     public void enableFreeCam()
     {
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InputAxisName = "Mouse Y";
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InputAxisName = "Mouse X";
+        camera.m_YAxis.m_InputAxisName = "Mouse Y";
+        camera.m_XAxis.m_InputAxisName = "Mouse X";
     }
 }
