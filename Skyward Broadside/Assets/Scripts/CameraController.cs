@@ -11,19 +11,30 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        cameraObj = thisCam.GetComponent<Cinemachine.CinemachineFreeLook>();
         if (photonView.IsMine)
         {
             thisCam = Instantiate(shipCam);
+            cameraObj = thisCam.GetComponent<Cinemachine.CinemachineFreeLook>();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
     public void disableFreeCam()
     {
         cameraObj.m_YAxis.m_InputAxisName = "";
-        cameraObj.m_XAxis.m_InputAxisName = "";
+        //cameraObj.m_XAxis.m_InputAxisName = "";
     }
 
     public void enableFreeCam()

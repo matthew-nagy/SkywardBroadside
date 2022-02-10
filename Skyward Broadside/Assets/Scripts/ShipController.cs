@@ -18,15 +18,15 @@ public class ShipController : MonoBehaviourPun
     public float turnSpeed = 10f;
 
     [Tooltip("How much the ship weighs; controls how forces act")]
-    public float mass = 1f;
+    public float mass = 5f;
     [Tooltip("The force the ship produces to drive it forwards")]
-    public float engineDriveForce = 10f;
+    public float engineDriveForce = 6f;
     [Tooltip("Force the ship can produce to break. Airflaps, for example")]
     public float flapsBreakingForce = 15f;
     [Tooltip("Drag from propeler not being fast enough to push air or something")]
-    public float propelerDragCoefficient = 12f;
+    public float propelerDragCoefficient = 0.05f;
     [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
-    public float bodyDragCoefficient = 0.3f;
+    public float bodyDragCoefficient = 0.0002f;
 
     RequestedControls playerInput;
 
@@ -194,12 +194,16 @@ public class ShipController : MonoBehaviourPun
         }
 
         Vector3 dragForce = -1 * bodyDragCoefficient * velocity * velocity.magnitude;
+        //Both Beta and Alpha in terms of car physics, as the body's direction is always the same as the "wheel"'s direction
+        float slipAngle = Vector3.Dot(transform.forward, velocity.normalized);
+
+
+
         Vector3 propellerDrag = -1 * propelerDragCoefficient * velocity;
 
         Vector3 longuitudinalForce = drivingForce + breakingForce + dragForce + propellerDrag;
         Vector3 acceleration = longuitudinalForce / mass;
         velocity += acceleration;
-
 
 
         //float resistanceAngle = Vector2.Angle(Vector2.up ,new Vector2(velocity.x, velocity.y) * -1f);
