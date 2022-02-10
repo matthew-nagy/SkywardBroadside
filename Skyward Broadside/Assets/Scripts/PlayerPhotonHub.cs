@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class PlayerPhotonHub : MonoBehaviour
@@ -8,6 +10,9 @@ public class PlayerPhotonHub : MonoBehaviour
     public float forceToDamageMultiplier;
 
     private float currHealth;
+    private float cannonBallAmmo;
+    private float explosiveAmmo;
+    private int currentWeapon;
 
     //The actual ship of the player
     private GameObject PlayerShip;
@@ -21,7 +26,13 @@ public class PlayerPhotonHub : MonoBehaviour
 
         // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
         currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
+        cannonBallAmmo = PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
+        explosiveAmmo = PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
         updateScript.UpdateGUIHealth(currHealth);
+        updateScript.UpdateGUIAmmo(cannonBallAmmo);
+        updateScript.UpdateGUIExplosiveAmmo(explosiveAmmo);
+        currentWeapon = PlayerShip.GetComponentInChildren<BasicCannonController>().currentWeapon;
+        UpdateWeapon(currentWeapon);
     }
 
     // Update is called once per frame
@@ -36,5 +47,32 @@ public class PlayerPhotonHub : MonoBehaviour
         currHealth -= healthVal;
         print(currHealth);
         updateScript.UpdateGUIHealth(currHealth);
+    }
+
+    public void UpdateAmmo(string type, float ammoLevel)
+    {
+        switch (type)
+        {
+            case "Cannonball":
+                updateScript.UpdateGUIAmmo(ammoLevel);
+                break;
+            case "ExplosiveCannonball":
+                updateScript.UpdateGUIExplosiveAmmo(ammoLevel);
+                break;
+            default:
+                throw new ArgumentException("Invalid string value for type");
+        }
+    }
+
+    public void UpdateWeapon(int newWeapon)
+    {
+        currentWeapon = newWeapon; 
+        string weapon = currentWeapon switch
+        {
+            0 => "Normal",
+            1 => "Explosive",
+            _ => throw new ArgumentException("Invalid weapon number"),
+        };
+        updateScript.UpdateWeapon(weapon);
     }
 }
