@@ -1691,8 +1691,20 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7770159726163961640, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
+      propertyPath: angularMass
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770159726163961640, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
+      propertyPath: angularAccel
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770159726163961640, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
       propertyPath: accelerateSpeed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770159726163961640, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
+      propertyPath: angularFriction
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7770159726163961640, guid: 74967ae28a2713b499c042681bb34d0d, type: 3}
       propertyPath: engineDriveForce

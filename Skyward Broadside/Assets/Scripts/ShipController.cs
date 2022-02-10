@@ -15,7 +15,9 @@ public class ShipController : MonoBehaviourPun
 {
     Rigidbody rigidBody;
 
-    public float turnSpeed = 10f;
+    public float angularAccel = 10f;
+    public float angularMass = 5f;
+    public float angularFriction = 0.02f;
 
     [Tooltip("How much the ship weighs; controls how forces act")]
     public float mass = 5f;
@@ -117,7 +119,7 @@ public class ShipController : MonoBehaviourPun
     {
         HandleForce();
 
-        Quaternion deltaRotation = Quaternion.Euler(turnDirection * turnSpeed * Time.fixedDeltaTime);
+        Quaternion deltaRotation = Quaternion.Euler(turnDirection);
         rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
 
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
@@ -173,6 +175,7 @@ public class ShipController : MonoBehaviourPun
     {
         Vector3 drivingForce = new Vector3(0, 0, 0);
         Vector3 breakingForce = new Vector3(0, 0, 0);
+        Vector3 turningForce = new Vector3(0, 0, 0);
         //Now react to player input
         if (playerInput.forwards)
         {
@@ -183,15 +186,18 @@ public class ShipController : MonoBehaviourPun
             breakingForce = transform.forward * -1 * flapsBreakingForce;
         }
 
-        turnDirection = new Vector3(0, 0, 0);
+
         if (playerInput.turnRight)
         {
-            turnDirection = new Vector3(0, turnSpeed, 0);
+            turningForce = new Vector3(0, angularAccel, 0);
         }
         if (playerInput.turnLeft)
         {
-            turnDirection = new Vector3(0, turnSpeed * -1.0f, 0);
+            turningForce = new Vector3(0, angularAccel * -1.0f, 0);
         }
+
+        Vector3 angularAgainst = -1 * turnDirection * angularFriction;
+        turnDirection += (turningForce + angularAgainst) / angularMass;
 
         Vector3 dragForce = -1 * bodyDragCoefficient * velocity * velocity.magnitude;
         //Both Beta and Alpha in terms of car physics, as the body's direction is always the same as the "wheel"'s direction
