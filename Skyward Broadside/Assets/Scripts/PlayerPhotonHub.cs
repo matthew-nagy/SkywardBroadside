@@ -1,8 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 
 public class PlayerPhotonHub : MonoBehaviour
 {
@@ -14,6 +19,8 @@ public class PlayerPhotonHub : MonoBehaviour
     private float explosiveAmmo;
     private int currentWeapon;
 
+    private int deaths;
+
     //The actual ship of the player
     private GameObject PlayerShip;
     private GuiUpdateScript updateScript;
@@ -21,6 +28,10 @@ public class PlayerPhotonHub : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var properties = new Hashtable();
+        properties.Add("deaths", deaths);
+        PhotonNetwork.SetPlayerCustomProperties(properties);
+        
         PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
         updateScript = GameObject.Find("User GUI").GetComponent<GuiUpdateScript>();
 
@@ -45,8 +56,29 @@ public class PlayerPhotonHub : MonoBehaviour
     {
         float healthVal = collisionMagnitude * forceToDamageMultiplier;
         currHealth -= healthVal;
-        print(currHealth);
+
+        if (currHealth < 0)
+        {
+            die();
+        }
         updateScript.UpdateGUIHealth(currHealth);
+    }
+
+    private void die()
+    {
+        // update player death count
+        var properties = new Hashtable();
+        properties.Add("deaths", ++deaths);
+        PhotonNetwork.SetPlayerCustomProperties(properties);           
+        
+        // respawn
+        currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
+        cannonBallAmmo = PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
+        explosiveAmmo = PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
+
+        PlayerShip.transform.position = new Vector3(Random.Range(-25, 25), 5f, Random.Range(-25, 25));
+        
+        Debug.Log(deaths);
     }
 
     public void UpdateAmmo(string type, float ammoLevel)
