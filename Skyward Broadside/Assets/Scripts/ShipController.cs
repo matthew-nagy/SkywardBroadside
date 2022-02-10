@@ -11,7 +11,6 @@ public class ShipController : MonoBehaviourPun
     float turnSpeed = 20f;
     //float thrust;
     float topSpeed = 7f;
-    public float currHealth = 100f;
 
     float angle;
     Vector3 velocity;
@@ -159,7 +158,6 @@ public class ShipController : MonoBehaviourPun
             velocity = finalVelocity;
         }
 
-        print("Jeepers");
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
         gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collision.impulse.magnitude);
 
