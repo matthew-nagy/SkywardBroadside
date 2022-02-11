@@ -33,6 +33,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     RequestedControls playerInput;
 
+    float moveSpeed = 5f;
     //Speed to move
     Vector3 velocity;
     //Matched to velocity on fixed update, then used in collision calculations
@@ -76,10 +77,29 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             return;
         }
+        
+        if (!isDisabled)
+        {
+            GetPlayerInput();
+            GetWeaponInput();
+        }
+        else
+        {
+            playerInput = new RequestedControls();
+            velocityBeforeCollision = velocity;
 
-        GetPlayerInput();
+            if (timerDisabled < 3.0f)
+            {
+                timerDisabled += Time.deltaTime;
+            }
+            else
+            {
+                isDisabled = false;
+                timerDisabled = 0f;
+            }
+        }
 
-        GetWeaponInput();
+        
 
     }
 

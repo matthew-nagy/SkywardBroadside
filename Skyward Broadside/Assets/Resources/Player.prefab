@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231acc4437bea24ab8116137bf8cd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  someMultiplier: 5
+  forceToDamageMultiplier: 0
 --- !u!1001 &7770159725660443265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60,6 +60,18 @@ PrefabInstance:
       propertyPath: equippedWeapons.Array.data[0]
       value: 
       objectReference: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+    - target: {fileID: 1845835177, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: angularMass
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845835177, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: angularAccel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845835177, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: angularFriction
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2067313920, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: shipCam
       value: 
@@ -74,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: ObservedComponents.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471704, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_Name
