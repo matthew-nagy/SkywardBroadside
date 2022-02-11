@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPhotonHub : MonoBehaviour
 {
     // THIS IS PUBLIC FOR NOW, TO ALLOW FINE TUNING DURING TESTING EASIER.
-    public float forceToDamageMultiplier;
+    public float forceToDamageMultiplier = 0.1f;
 
     private float currHealth;
 
