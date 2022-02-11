@@ -3,18 +3,42 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
+struct RequestedControls
+{
+    public bool forwards;
+    public bool backwards;
+    public bool turnRight;
+    public bool turnLeft;
+}
+
 public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 {
+
     Rigidbody rigidBody;
 
-    float moveSpeed;
-    float turnSpeed = 20f;
-    //float thrust;
-    float topSpeed = 7f;
+    public float angularAccel = 10f;
+    public float angularMass = 5f;
+    public float angularFriction = 0.02f;
 
-    float angle;
+    [Tooltip("How much the ship weighs; controls how forces act")]
+    public float mass = 5f;
+    [Tooltip("The force the ship produces to drive it forwards")]
+    public float engineDriveForce = 6f;
+    [Tooltip("Force the ship can produce to break. Airflaps, for example")]
+    public float flapsBreakingForce = 15f;
+    [Tooltip("Drag from propeler not being fast enough to push air or something")]
+    public float propelerDragCoefficient = 0.05f;
+    [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
+    public float bodyDragCoefficient = 0.0002f;
+
+    RequestedControls playerInput;
+
+    //Speed to move
     Vector3 velocity;
+    //Matched to velocity on fixed update, then used in collision calculations
     public Vector3 velocityBeforeCollision;
+    //Direction the ship is currently turning, in degrees.
+    //I imagine I can increase this to do with angular momentum(?)
     Vector3 turnDirection;
     float acceleration = 1f;
     float deceleration = 1f;
@@ -25,6 +49,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        playerInput = new RequestedControls();
+        velocity = new Vector3(0, 0, 0);
+        velocityBeforeCollision = new Vector3(0, 0, 0);
+        turnDirection = new Vector3(0, 0, 0);
     }
 
     void Awake()
@@ -49,47 +77,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
-        if (!isDisabled)
-        {
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
-            turnDirection = new Vector3(0, 1, 0) * horizontalInput;
+        GetPlayerInput();
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                moveSpeed = moveSpeed + acceleration * Time.fixedDeltaTime;
-                velocity = transform.forward * moveSpeed;
+        GetWeaponInput();
 
-
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                moveSpeed = moveSpeed + (-deceleration) * Time.fixedDeltaTime;
-                velocity = transform.forward * moveSpeed;
-
-            }
-
-            moveSpeed = Mathf.Clamp(moveSpeed, 0, topSpeed);
-        }
-        else
-        {
-            velocityBeforeCollision = velocity;
-
-            if (timerDisabled < 3.0f)
-            {
-                timerDisabled += Time.deltaTime;
-            }
-            else
-            {
-                isDisabled = false;
-                timerDisabled = 0f;
-            }
-
-        }
-
-        getInput();
     }
 
-    void getInput()
+    void GetWeaponInput()
     {
         if (Input.GetKey(KeyCode.Mouse1) && transform.GetComponent<WeaponsController>().freeCamEnabled && !transform.GetComponent<WeaponsController>().weaponCamEnabled)
         {
@@ -101,14 +95,41 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    void GetPlayerInput()
+    {
+
+        playerInput = new RequestedControls();
+
+        float forwardsBackwards = Input.GetAxisRaw("Vertical");
+        float turn = Input.GetAxisRaw("Horizontal");
+        if (forwardsBackwards > 0.0)
+        {
+            playerInput.forwards = true;
+        }
+        else if (forwardsBackwards < 0.0)
+        {
+            playerInput.backwards = true;
+        }
+
+        if (turn > 0.0)
+        {
+            playerInput.turnRight = true;
+        }
+        else if (turn < 0.0)
+        {
+            playerInput.turnLeft = true;
+        }
+    }
+
     private void FixedUpdate()
     {
-        Quaternion deltaRotation = Quaternion.Euler(turnDirection * turnSpeed * Time.fixedDeltaTime);
+        HandleForce();
+
+        Quaternion deltaRotation = Quaternion.Euler(turnDirection);
         rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
 
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
         velocityBeforeCollision = velocity;
-
 
     }
 
@@ -161,6 +182,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             isDisabled = true;
         }
+      // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
+      gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collision.impulse.magnitude);
 
     }
 
@@ -183,8 +206,68 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             this.moveSpeed = (float)stream.ReceiveNext();
 
         }
+
     }
     #endregion
 
+    static public float GetResistiveForce(float density, float resistiveCoefficient, float area, float v_squared)
+    {
+        return 0.5f * density * resistiveCoefficient * area * v_squared;
+    }
+    static public float GetResistanceProportionAgainstVelocity(Vector3 resistiveForce, Vector3 forwardDirection)
+    {
+        //If its turning, you don't want all the force applied
+        return Mathf.Abs(Vector3.Dot(resistiveForce.normalized, forwardDirection.normalized));
+    }
+
+    void HandleForce()
+    {
+        Vector3 drivingForce = new Vector3(0, 0, 0);
+        Vector3 breakingForce = new Vector3(0, 0, 0);
+        Vector3 turningForce = new Vector3(0, 0, 0);
+        //Now react to player input
+        if (playerInput.forwards)
+        {
+            drivingForce = transform.forward * engineDriveForce;
+        }
+        else if (playerInput.backwards)
+        {
+            breakingForce = transform.forward * -1 * flapsBreakingForce;
+        }
+
+
+        if (playerInput.turnRight)
+        {
+            turningForce = new Vector3(0, angularAccel, 0);
+        }
+        if (playerInput.turnLeft)
+        {
+            turningForce = new Vector3(0, angularAccel * -1.0f, 0);
+        }
+
+        Vector3 angularAgainst = -1 * turnDirection * angularFriction;
+        turnDirection += (turningForce + angularAgainst) / angularMass;
+
+        Vector3 dragForce = -1 * bodyDragCoefficient * velocity * velocity.magnitude;
+        //Both Beta and Alpha in terms of car physics, as the body's direction is always the same as the "wheel"'s direction
+        float slipAngle = Vector3.Dot(transform.forward, velocity.normalized);
+
+
+
+        Vector3 propellerDrag = -1 * propelerDragCoefficient * velocity;
+
+        Vector3 longuitudinalForce = drivingForce + breakingForce + dragForce + propellerDrag;
+        Vector3 acceleration = longuitudinalForce / mass;
+        velocity += acceleration;
+
+
+        //float resistanceAngle = Vector2.Angle(Vector2.up ,new Vector2(velocity.x, velocity.y) * -1f);
+        //float resistanceArea = shipWidth * Mathf.Cos(resistanceAngle) + shipLegth * Mathf.Sin(resistanceAngle);
+        //float resistance = GetResistiveForce(airDensity, resistanceCoefficient * velocity.magnitude, resistanceArea, Mathf.Pow(velocity.magnitude, 2f));
+        //Force against the ship
+        //Vector3 resistiveForce = resistance * -1 * velocity.normalized;
+
+        //velocity += resistiveForce / mass;
+    }
 
 }

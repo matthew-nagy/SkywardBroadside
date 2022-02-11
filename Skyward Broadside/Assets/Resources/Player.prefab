@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9096857088395882344}
+  - component: {fileID: 4973095797510214742}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4973095797510214742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3502563226704232635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a231acc4437bea24ab8116137bf8cd0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  someMultiplier: 5
 --- !u!1001 &7770159725660443265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38,9 +52,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9096857088395882344}
     m_Modifications:
-    - target: {fileID: 1845835176, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
+    - target: {fileID: 333654823, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 333654823, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: equippedWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+    - target: {fileID: 2067313920, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: shipCam
+      value: 
+      objectReference: {fileID: 7167950620029611010, guid: 1f12a0732c013bc40b99005a4ea3be40, type: 3}
+    - target: {fileID: 3156508978856252400, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22c80165fe6f6344d9e1bfdc374979b1, type: 2}
+    - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: sceneViewId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471704, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_Name

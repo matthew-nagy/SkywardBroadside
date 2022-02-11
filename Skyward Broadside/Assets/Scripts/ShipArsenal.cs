@@ -12,6 +12,8 @@ public class ShipArsenal : MonoBehaviour
 
     public List<GameObject> equippedWeapons;
 
+    public float maxHealth;
+
     private void Start()
     {
         cannonballAmmo = maxCannonballAmmo;
