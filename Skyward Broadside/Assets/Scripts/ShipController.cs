@@ -137,7 +137,7 @@ public class ShipController : MonoBehaviourPun
 
         if (!collision.gameObject.name.Contains("Ball"))
         {
-            return;
+            //return;
         }
 
 
@@ -158,6 +158,9 @@ public class ShipController : MonoBehaviourPun
 
             velocity = finalVelocity;
         }
+
+        // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
+        gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collision.impulse.magnitude);
 
     }
 

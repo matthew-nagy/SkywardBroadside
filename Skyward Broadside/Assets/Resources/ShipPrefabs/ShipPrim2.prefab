@@ -911,7 +911,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4644661021023321349}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.448, y: 0.04000008, z: -0.3141666}
+  m_LocalPosition: {x: 0.448, y: 0.04000008, z: -0.314}
   m_LocalScale: {x: 0.74999994, y: 0.20522864, z: 0.12499999}
   m_Children:
   - {fileID: 5069262259036917024}
@@ -1319,6 +1319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e9407cc2bfbaa43b81a5fc9e1112a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocityBeforeCollision: {x: 0, y: 0, z: 0}
 --- !u!114 &333654823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,7 +1387,10 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8742184167560547195}
+  - {fileID: 7728106693520202950}
+  - {fileID: 5151696107110722967}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
