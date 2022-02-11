@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -8527977871886571945}
   - component: {fileID: 6357757886373269347}
   - component: {fileID: 4843399686929617305}
+  - component: {fileID: 4092998852668929923}
   m_Layer: 3
   m_Name: ExplosiveCannonball
   m_TagString: ExplosiveCannonball
@@ -238,3 +239,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &4092998852668929923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3799885530754182095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b6281221e3013489594d2f2d4b7493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}

@@ -15,6 +15,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject ammoType;
     public Transform shotOrigin;
 
+
     bool shootingSignal;
     bool shot;
     bool reloading;
@@ -133,6 +134,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
         GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);
         newCannonBall.GetComponent<Rigidbody>().velocity = shotOrigin.transform.forward * power;
+        newCannonBall.GetComponent<CannonballController>().owner = getShipTransform().gameObject;
 
         weaponStatusReloading();
 

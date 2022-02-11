@@ -11,8 +11,9 @@ struct RequestedControls
     public bool turnLeft;
 }
 
-public class ShipController : MonoBehaviourPun
+public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 {
+
     Rigidbody rigidBody;
 
     public float angularAccel = 10f;
@@ -39,6 +40,10 @@ public class ShipController : MonoBehaviourPun
     //Direction the ship is currently turning, in degrees.
     //I imagine I can increase this to do with angular momentum(?)
     Vector3 turnDirection;
+    float acceleration = 1f;
+    float deceleration = 1f;
+    bool isDisabled;
+    float timerDisabled;
 
     // Start is called before the first frame update
     void Start()
@@ -92,6 +97,7 @@ public class ShipController : MonoBehaviourPun
 
     void GetPlayerInput()
     {
+
         playerInput = new RequestedControls();
 
         float forwardsBackwards = Input.GetAxisRaw("Vertical");
@@ -135,34 +141,74 @@ public class ShipController : MonoBehaviourPun
             return;
         }
 
-        if (!collision.gameObject.name.Contains("Ball"))
+        if (collision.gameObject.name.Contains("ball"))
         {
-            //return;
+            
+            GameObject cannonballOwner = collision.gameObject.GetComponent<CannonballController>().owner;
+            print("I'm in pain");
+            if (!GameObject.ReferenceEquals(cannonballOwner, gameObject)) {
+                Vector3 velocityCannonball = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
+                Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityCannonball;
+                moveSpeed = finalVelocity.magnitude;
+
+                velocity = finalVelocity;
+            }
         }
 
 
         if (collision.gameObject.tag == "Ship")
         {
-            print("Collision");
+            //print("Collision");
+            print(collision.gameObject.name);
 
             Vector3 initialVelocity = velocityBeforeCollision;
             float massA = rigidBody.mass;
-
+            Vector3 centreA = transform.position;
 
             Vector3 colliderInitialVelocity = collision.transform.GetComponent<ShipController>().velocityBeforeCollision;
             float massB = collision.rigidbody.mass;
+            Vector3 centreB = collision.transform.position;
+            print("Collider's velocity: " + colliderInitialVelocity);
+            print("Collider's centre: " + centreB);
+            print("Collider's mass: " + massB);
 
 
-            Vector3 finalVelocity = ((massA - massB) / (massA + massB)) * initialVelocity + (2 * massB / (massA + massB)) * colliderInitialVelocity;
-            print(finalVelocity);
+            Vector3 finalVelocity = initialVelocity - (2 * massB / (massA + massB)) * (Vector3.Dot(initialVelocity - colliderInitialVelocity, centreA - centreB) / Vector3.SqrMagnitude(centreA - centreB)) * (centreA - centreB);
+            finalVelocity = 0.8f * finalVelocity;
+            print("Final velocity: " + finalVelocity);
+            moveSpeed = finalVelocity.magnitude;
 
             velocity = finalVelocity;
-        }
 
-        // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
-        gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collision.impulse.magnitude);
+            isDisabled = true;
+        }
+      // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
+      gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collision.impulse.magnitude);
 
     }
+
+    #region Pun Synchronisation
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(velocityBeforeCollision);
+            stream.SendNext(velocity);
+            stream.SendNext(isDisabled);
+            stream.SendNext(moveSpeed);
+
+        }
+        else
+        {
+            this.velocityBeforeCollision = (Vector3)stream.ReceiveNext();
+            this.velocity = (Vector3)stream.ReceiveNext();
+            this.isDisabled = (bool)stream.ReceiveNext();
+            this.moveSpeed = (float)stream.ReceiveNext();
+
+        }
+
+    }
+    #endregion
 
     static public float GetResistiveForce(float density, float resistiveCoefficient, float area, float v_squared)
     {
