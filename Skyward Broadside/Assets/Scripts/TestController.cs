@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
+using Photon.Pun;
 
-public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
+public class TestController : MonoBehaviourPun
 {
     Rigidbody rigidBody;
 
-    float moveSpeed;
+    float moveSpeed = 2f;
     float turnSpeed = 20f;
     //float thrust;
     float topSpeed = 7f;
@@ -51,24 +51,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (!isDisabled)
         {
-            float horizontalInput = Input.GetAxisRaw("Horizontal");
-            turnDirection = new Vector3(0, 1, 0) * horizontalInput;
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                moveSpeed = moveSpeed + acceleration * Time.fixedDeltaTime;
-                velocity = transform.forward * moveSpeed;
-
-
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                moveSpeed = moveSpeed + (-deceleration) * Time.fixedDeltaTime;
-                velocity = transform.forward * moveSpeed;
-
-            }
-
-            moveSpeed = Mathf.Clamp(moveSpeed, 0, topSpeed);
+            velocity = transform.forward * moveSpeed;
         }
         else
         {
@@ -120,19 +103,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
-        if (collision.gameObject.name.Contains("ball"))
-        {
-            
-            GameObject cannonballOwner = collision.gameObject.GetComponent<CannonballController>().owner;
-            print("I'm in pain");
-            if (!GameObject.ReferenceEquals(cannonballOwner, gameObject)) {
-                Vector3 velocityCannonball = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
-                Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityCannonball;
-                moveSpeed = finalVelocity.magnitude;
-
-                velocity = finalVelocity;
-            }
-        }
+        //if (!collision.gameObject.name.Contains("Ball"))
+        //{
+        //    return;
+        //}
 
 
         if (collision.gameObject.tag == "Ship")
@@ -142,11 +116,11 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             Vector3 initialVelocity = velocityBeforeCollision;
             float massA = rigidBody.mass;
-            Vector3 centreA = transform.position;
+            Vector3 centreA = rigidBody.position;
 
             Vector3 colliderInitialVelocity = collision.transform.GetComponent<ShipController>().velocityBeforeCollision;
             float massB = collision.rigidbody.mass;
-            Vector3 centreB = collision.transform.position;
+            Vector3 centreB = collision.rigidbody.position;
             print("Collider's velocity: " + colliderInitialVelocity);
             print("Collider's centre: " + centreB);
             print("Collider's mass: " + massB);
@@ -163,28 +137,4 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
     }
-
-    #region Pun Synchronisation
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(velocityBeforeCollision);
-            stream.SendNext(velocity);
-            stream.SendNext(isDisabled);
-            stream.SendNext(moveSpeed);
-
-        }
-        else
-        {
-            this.velocityBeforeCollision = (Vector3)stream.ReceiveNext();
-            this.velocity = (Vector3)stream.ReceiveNext();
-            this.isDisabled = (bool)stream.ReceiveNext();
-            this.moveSpeed = (float)stream.ReceiveNext();
-
-        }
-    }
-    #endregion
-
-
 }
