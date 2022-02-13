@@ -25,7 +25,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     [Tooltip("The force the ship produces to drive it forwards")]
     public float engineDriveForce = 6f;
     [Tooltip("Force the ship can produce to break. Airflaps, for example")]
-    public float flapsBreakingForce = 15f;
+    public float flapsBreakingCoefficient = 0.2f;
     [Tooltip("Drag from propeler not being fast enough to push air or something")]
     public float propelerDragCoefficient = 0.05f;
     [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
@@ -252,7 +252,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else if (playerInput.backwards)
         {
-            breakingForce = transform.forward * -1 * flapsBreakingForce;
+            breakingForce = -1 * flapsBreakingCoefficient * velocity * velocity.magnitude;
         }
 
 
@@ -278,7 +278,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         Vector3 longuitudinalForce = drivingForce + breakingForce + dragForce + propellerDrag;
         Vector3 acceleration = longuitudinalForce / mass;
+        Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
         velocity += acceleration;
+
+        //If its too damn much deceleration, 
+        if(Vector3.Dot(preVel, velocity) < -0.8)
+        {
+            velocity = Vector3.zero;
+        }
 
 
         //float resistanceAngle = Vector2.Angle(Vector2.up ,new Vector2(velocity.x, velocity.y) * -1f);

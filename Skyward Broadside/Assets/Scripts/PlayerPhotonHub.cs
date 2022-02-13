@@ -9,6 +9,9 @@ public class PlayerPhotonHub : MonoBehaviour
 
     private float currHealth;
 
+    //Allow single player testing
+    bool disabled;
+
     //The actual ship of the player
     private GameObject PlayerShip;
     private GuiUpdateScript updateScript;
@@ -17,11 +20,20 @@ public class PlayerPhotonHub : MonoBehaviour
     void Start()
     {
         PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
-        updateScript = GameObject.Find("User GUI").GetComponent<GuiUpdateScript>();
-
-        // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
-        currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
-        updateScript.UpdateGUIHealth(currHealth);
+        GameObject userGUI = GameObject.Find("User GUI");
+        if(userGUI != null)
+        {
+            updateScript = userGUI.GetComponent<GuiUpdateScript>();
+            disabled = false;
+            // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
+            currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
+            updateScript.UpdateGUIHealth(currHealth);
+        }
+        else
+        {
+            disabled = true;
+            Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
+        }
     }
 
     // Update is called once per frame
@@ -32,9 +44,12 @@ public class PlayerPhotonHub : MonoBehaviour
 
     public void UpdateHealth(float collisionMagnitude)
     {
-        float healthVal = collisionMagnitude * forceToDamageMultiplier;
-        currHealth -= healthVal;
-        print(currHealth);
-        updateScript.UpdateGUIHealth(currHealth);
+        if (!disabled)
+        {
+            float healthVal = collisionMagnitude * forceToDamageMultiplier;
+            currHealth -= healthVal;
+            print(currHealth);
+            updateScript.UpdateGUIHealth(currHealth);
+        }
     }
 }
