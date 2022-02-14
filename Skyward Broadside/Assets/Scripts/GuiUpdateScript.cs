@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class GuiUpdateScript : MonoBehaviour
     {
         // This will at some point have some complicated extra stuff for a more interesting GUI i.e. dial control
         // but this is simple atm
-        health.text = healthVal.ToString();
+        health.text = Math.Round(healthVal).ToString();
     }
 
     public void UpdateGUIAmmo(float ammo)
