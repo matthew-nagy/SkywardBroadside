@@ -7,26 +7,39 @@ public class CameraController : MonoBehaviourPunCallbacks
 {
     public GameObject shipCam;
     GameObject thisCam;
+    Cinemachine.CinemachineFreeLook cameraObj;
 
     private void Start()
     {
         if (photonView.IsMine)
         {
             thisCam = Instantiate(shipCam);
-            thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_Follow = transform;
-            thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_LookAt = transform;
+            cameraObj = thisCam.GetComponent<Cinemachine.CinemachineFreeLook>();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            cameraObj.m_Follow = transform;
+            cameraObj.m_LookAt = transform;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
     public void disableFreeCam()
     {
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InputAxisName = "";
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InputAxisName = "";
+        cameraObj.m_YAxis.m_InputAxisName = "";
+        //cameraObj.m_XAxis.m_InputAxisName = "";
     }
 
     public void enableFreeCam()
     {
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_YAxis.m_InputAxisName = "Mouse Y";
-        thisCam.GetComponent<Cinemachine.CinemachineFreeLook>().m_XAxis.m_InputAxisName = "Mouse X";
+        cameraObj.m_YAxis.m_InputAxisName = "Mouse Y";
+        cameraObj.m_XAxis.m_InputAxisName = "Mouse X";
     }
 }

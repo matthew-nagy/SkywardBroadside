@@ -15,6 +15,9 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject ammoType;
     public Transform shotOrigin;
 
+    KeyCode secondaryFireKey = KeyCode.O;
+
+
     bool shootingSignal;
     bool shot;
     bool reloading;
@@ -95,7 +98,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             weaponAim();
 
             //attempt to fire the cannon
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !reloading && !shootingSignal)
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !shootingSignal)
             {
                 if (ammoLevel > 0)
                 {
@@ -134,6 +137,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
         GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);
         newCannonBall.GetComponent<Rigidbody>().velocity = shotOrigin.transform.forward * power;
+        newCannonBall.GetComponent<CannonballController>().owner = getShipTransform().gameObject;
 
         weaponStatusReloading();
 

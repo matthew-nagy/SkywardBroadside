@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6620519392950256671}
   - component: {fileID: 1985538825401212054}
   - component: {fileID: -9186656814902345108}
+  - component: {fileID: 2731695474217339481}
   m_Layer: 3
   m_Name: Cannonball
   m_TagString: Cannonball
@@ -220,3 +221,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &2731695474217339481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8578972288085489722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b6281221e3013489594d2f2d4b7493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}

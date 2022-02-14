@@ -15,7 +15,7 @@ using Random = UnityEngine.Random;
 public class PlayerPhotonHub : PhotonTeamsManager
 {
     // THIS IS PUBLIC FOR NOW, TO ALLOW FINE TUNING DURING TESTING EASIER.
-    public float forceToDamageMultiplier;
+    public float forceToDamageMultiplier = 0.1f;
 
     private float currHealth;
     private float cannonBallAmmo;
@@ -23,6 +23,9 @@ public class PlayerPhotonHub : PhotonTeamsManager
     private int currentWeapon;
 
     private int deaths;
+
+    //Allow single player testing
+    bool disabled;
 
     //The actual ship of the player
     private GameObject PlayerShip;
@@ -36,17 +39,27 @@ public class PlayerPhotonHub : PhotonTeamsManager
         PhotonNetwork.SetPlayerCustomProperties(properties);
         
         PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
-        updateScript = GameObject.Find("User GUI").GetComponent<GuiUpdateScript>();
 
-        // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
-        currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
-        cannonBallAmmo = PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
-        explosiveAmmo = PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
-        updateScript.UpdateGUIHealth(currHealth);
-        updateScript.UpdateGUIAmmo(cannonBallAmmo);
-        updateScript.UpdateGUIExplosiveAmmo(explosiveAmmo);
-        currentWeapon = PlayerShip.GetComponentInChildren<BasicCannonController>().currentWeapon;
-        UpdateWeapon(currentWeapon);
+        GameObject userGUI = GameObject.Find("User GUI");
+        if(userGUI != null)
+        {
+            updateScript = userGUI.GetComponent<GuiUpdateScript>();
+            disabled = false;
+            // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
+            currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
+            updateScript.UpdateGUIHealth(currHealth);
+            cannonBallAmmo = PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
+            explosiveAmmo = PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
+            updateScript.UpdateGUIAmmo(cannonBallAmmo);
+            updateScript.UpdateGUIExplosiveAmmo(explosiveAmmo);
+            currentWeapon = PlayerShip.GetComponentInChildren<BasicCannonController>().currentWeapon;
+            UpdateWeapon(currentWeapon);
+        }
+        else
+        {
+            disabled = true;
+            Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
+        }
     }
 
     // Update is called once per frame
@@ -81,14 +94,17 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     public void UpdateHealth(float collisionMagnitude)
     {
-        float healthVal = collisionMagnitude * forceToDamageMultiplier;
-        currHealth -= healthVal;
-
-        if (currHealth < 0)
+        if (!disabled)
         {
-            die();
+            float healthVal = collisionMagnitude * forceToDamageMultiplier;
+            currHealth -= healthVal;
+            if (currHealth < 0)
+            {
+                die();
+            }
+            print(currHealth);
+            updateScript.UpdateGUIHealth(currHealth);
         }
-        updateScript.UpdateGUIHealth(currHealth);
     }
 
     private void die()
