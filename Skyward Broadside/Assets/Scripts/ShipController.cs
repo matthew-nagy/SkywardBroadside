@@ -107,13 +107,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     void GetWeaponInput()
     {
-        if (Input.GetKey(KeyCode.Mouse1) && transform.GetComponent<WeaponsController>().freeCamEnabled && !transform.GetComponent<WeaponsController>().weaponCamEnabled)
+        if (Input.GetKey(KeyCode.Mouse1) && !transform.GetComponent<WeaponsController>().hasEnabledWeapons())
         {
-            transform.GetComponent<WeaponsController>().enableRightSideWeapons();
+            transform.GetComponent<WeaponsController>().enableSideWeapons();
         }
-        else if (!Input.GetKey(KeyCode.Mouse1) && !transform.GetComponent<WeaponsController>().freeCamEnabled && transform.GetComponent<WeaponsController>().weaponCamEnabled)
+        else if (!Input.GetKey(KeyCode.Mouse1) && transform.GetComponent<WeaponsController>().hasEnabledWeapons())
         {
-            transform.GetComponent<WeaponsController>().disableRightSideWeapons();
+            transform.GetComponent<WeaponsController>().disableSideWeapons();
         }
     }
 
