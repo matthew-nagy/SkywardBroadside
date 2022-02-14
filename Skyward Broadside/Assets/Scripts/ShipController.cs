@@ -62,7 +62,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
         if (photonView.IsMine)
         {
-            //PlayerManager.LocalPlayerInstance.controller = this;
+            //Despite doing this in start, sometimes it just doesn't happen
+            rigidBody = GetComponent<Rigidbody>();
+            rigidBody.interpolation = RigidbodyInterpolation.Extrapolate;
         }
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
