@@ -157,6 +157,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnCollisionEnter(Collision collision)
     {
+        float collisionMag = collision.impulse.magnitude;
         Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
         if (!photonView.IsMine)
         {
@@ -203,9 +204,12 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             velocity = finalVelocity;
 
             isDisabled = true;
+            // the 10 is needed because otherwise you insta-kill each other upon contact
+            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
+
         }
       // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
-      gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collision.impulse.magnitude);
+      gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collisionMag);
 
     }
 
