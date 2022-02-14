@@ -2,14 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 
-public class PlayerPhotonHub : MonoBehaviour
+public class PlayerPhotonHub : PhotonTeamsManager
 {
     // THIS IS PUBLIC FOR NOW, TO ALLOW FINE TUNING DURING TESTING EASIER.
     public float forceToDamageMultiplier;
@@ -49,7 +52,31 @@ public class PlayerPhotonHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateScores();
+    }
+
+    public void UpdateScores()
+    {
+        int myTeamScore = 0;
+        int enemyTeamScore = 0;
+        var myTeam = PhotonNetwork.LocalPlayer.GetPhotonTeam();
+        foreach ( var player in PhotonNetwork.CurrentRoom.Players)
+        {
+            var team = player.Value.GetPhotonTeam();
+            int playersScore = (int)player.Value.CustomProperties["deaths"];
+            Debug.Log(playersScore);
+            // playersScore contains the players number of deaths and so must be added to the 
+            // opposing teams score
+            if (myTeam == team)
+            {
+                enemyTeamScore += playersScore;
+            }
+            else
+            {
+                myTeamScore += playersScore;
+            }
+        }
+        updateScript.UpdateGUIScores(myTeamScore, enemyTeamScore);
     }
 
     public void UpdateHealth(float collisionMagnitude)

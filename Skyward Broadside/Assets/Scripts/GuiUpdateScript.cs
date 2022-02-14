@@ -9,6 +9,8 @@ public class GuiUpdateScript : MonoBehaviour
     public Text normalAmmo;
     public Text explosiveAmmo;
     public Text weapon;
+    public Text myScore;
+    public Text otherScore;
 
     public void UpdateGUIHealth(float healthVal)
     {
@@ -29,6 +31,12 @@ public class GuiUpdateScript : MonoBehaviour
     public void UpdateWeapon(string weaponName)
     {
         weapon.text = weaponName;
+    }
+
+    public void UpdateGUIScores(int myTeam, int otherTeam)
+    {
+        myScore.text = myTeam.ToString();
+        otherScore.text = otherTeam.ToString();
     }
 
 }
