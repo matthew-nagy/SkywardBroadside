@@ -15,6 +15,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject ammoType;
     public Transform shotOrigin;
 
+    KeyCode secondaryFireKey = KeyCode.O;
+
 
     bool shootingSignal;
     bool shot;
@@ -95,7 +97,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             weaponAim();
 
             //attempt to fire the cannon
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !reloading && !shootingSignal)
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !shootingSignal)
             {
                 if (ammoLevel > 0)
                 {
