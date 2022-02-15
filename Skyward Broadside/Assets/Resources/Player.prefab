@@ -402,6 +402,7 @@ MonoBehaviour:
   reloadTime: 2
   ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 975021837639076183}
+  currentWeapon: 0
 --- !u!120 &7744639925486181864
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -519,6 +520,7 @@ MonoBehaviour:
   reloadTime: 2
   ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 8438325541659090813}
+  currentWeapon: 0
 --- !u!114 &4291630867476399288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,6 +655,7 @@ MonoBehaviour:
   reloadTime: 2
   ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 7605844243754440490}
+  currentWeapon: 0
 --- !u!114 &4927746476598721564
 MonoBehaviour:
   m_ObjectHideFlags: 0

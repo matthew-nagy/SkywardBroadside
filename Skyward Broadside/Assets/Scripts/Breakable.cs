@@ -9,6 +9,27 @@ public class Breakable : MonoBehaviour
     public bool broken;
     public float mass;
 
+    public BreakMaster owner;
+
+    void Start()
+    {
+        owner.IncrimentBreakables();    
+    }
+
+    private void OnDestroy()
+    {
+        owner.RegisterBreakableDestroyed();
+    }
+
+    private void Update()
+    {
+        if (owner.HasShattered() && !broken)
+        {
+            //transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime);
+            _break(breakForce * owner.shatterStrength, gameObject.GetComponent<Rigidbody>(), "Shattered", transform.position + Vector3.up * 0.01f);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!broken)
@@ -34,6 +55,7 @@ public class Breakable : MonoBehaviour
                     print("impact");
                     rb.AddExplosionForce(impulseMagnitude * collisionMultiplier, contactPoint, 2);
                 }
+                owner.DecrimentBreakables();
             }
 
         }

@@ -211,8 +211,16 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
 
         }
-      // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
-      gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collisionMag);
+        // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
+        PlayerPhotonHub photonHub = gameObject.GetComponentInParent<PlayerPhotonHub>();
+        if(photonHub == null)
+        {
+            Debug.LogWarning("Player does not have attatched photonHub");
+        }
+        else
+        {
+            photonHub.UpdateHealth(collisionMag);
+        }
 
     }
 
