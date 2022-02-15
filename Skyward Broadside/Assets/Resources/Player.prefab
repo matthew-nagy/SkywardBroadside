@@ -44,14 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231acc4437bea24ab8116137bf8cd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-
   listFoldIsOpen: 1
   teamsList:
   - Name: Blue
     Code: 1
   - Name: Red
     Code: 2
-  forceToDamageMultiplier: 0
+  forceToDamageMultiplier: 0.1
 --- !u!1001 &7770159725660443265
 PrefabInstance:
   m_ObjectHideFlags: 0
