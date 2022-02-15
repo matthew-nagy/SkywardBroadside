@@ -165,11 +165,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         if (collision.gameObject.name.Contains("ball"))
-        {
-            
+        {   
             GameObject cannonballOwner = collision.gameObject.GetComponent<CannonballController>().owner;
-            print("I'm in pain");
             if (!GameObject.ReferenceEquals(cannonballOwner, gameObject)) {
+                print("I'm in pain");
                 Vector3 velocityCannonball = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
                 Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityCannonball;
                 moveSpeed = finalVelocity.magnitude;
