@@ -8,6 +8,9 @@ Shader "Unlit/NewUnlitShader"
         _ScrollVector1("Scroll direction 1", Vector) = (0.25, 0.0, 0.0, 0.0)
         _ScrollVector2("Scroll direction 2", Vector) = (-0.1, 0.15, 0.0, 0.0)
         _ScrollSpeedFactor("Scroll speed factor", float) = 0.3
+
+        _FlowSpeed("Water flow", Vector) = (0.1, 0.05, 0.0, 0.0)
+        _Scale("Water scale", float) = 1.0
     }
     SubShader
     {
@@ -44,6 +47,9 @@ Shader "Unlit/NewUnlitShader"
             float4 _ScrollVector2;
             float _ScrollSpeedFactor;
 
+            float4 _FlowSpeed;
+            float _Scale;
+
 
             v2f vert (appdata v)
             {
@@ -56,12 +62,18 @@ Shader "Unlit/NewUnlitShader"
             fixed4 frag(v2f i) : SV_Target
             {
                 float2 samplePosition = i.uv;
-                float2 dispUV1 = i.uv + _ScrollVector1.xy * _Time.x * _ScrollSpeedFactor;
-                float2 dispUV2 = i.uv + _ScrollVector2.xy * _Time.x * _ScrollSpeedFactor;
+                //Now scale it
+                samplePosition *= _Scale;
+
+                //Add flow
+                samplePosition += _FlowSpeed * _Time.x;
+
+                //Add displacement maps
+                float2 dispUV1 = i.uv * _Scale + _ScrollVector1.xy * _Time.x * _ScrollSpeedFactor;
+                float2 dispUV2 = i.uv * _Scale + _ScrollVector2.xy * _Time.x * _ScrollSpeedFactor;
                 float displacementFactor = tex2D(_DisplacementTexture, dispUV1).r + tex2D(_DisplacementTexture, dispUV2);
                 //We now have a value -1 <-> 1
                 displacementFactor -= 1;
-                
                 samplePosition += float2(1.0, 1.0) * displacementFactor * _DisplacementStrength;
 
                 fixed4 col = tex2D(_WaterTexture, samplePosition);
