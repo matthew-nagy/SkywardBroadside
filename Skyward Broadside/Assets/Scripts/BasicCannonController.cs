@@ -17,7 +17,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
     KeyCode secondaryFireKey = KeyCode.Space;
 
-
     bool shootingSignal;
     bool shot;
     bool reloading;

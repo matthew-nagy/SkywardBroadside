@@ -4,47 +4,111 @@ using UnityEngine;
 
 public class WeaponsController : MonoBehaviour
 {
-    public bool freeCamEnabled;
-    public bool weaponCamEnabled;
+    public List<GameObject> leftCannons;
+    bool leftEnabled = false;
+    public List<GameObject> rightCannons;
+    bool rightEnabled = false;
 
-    public GameObject cannon1;
-    public GameObject cannon3;
-    public GameObject cannon5;
+    bool weaponsHot = false;
+
+    public bool hasEnabledWeapons()
+    {
+        return leftEnabled || rightEnabled;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        freeCamEnabled = true;
     }
 
-    public void enableRightSideWeapons()
+    private void Update()
     {
-        freeCamEnabled = false;
-        weaponCamEnabled = true;
+        if (weaponsHot)
+        {
+            Cinemachine.CinemachineFreeLook camera = transform.GetComponent<CameraController>().cameraObj;
+            Vector3 viewDir3D = camera.transform.forward;
+            Vector2 viewDir2D = new Vector2(viewDir3D.x, viewDir3D.z);
+            Vector2 shipRight2D = new Vector2(transform.right.x, transform.right.z);
+            bool activateRight = Vector2.Dot(viewDir2D, shipRight2D) > 0.0;
 
-        cannon1.GetComponent<BasicCannonController>().controllerActive = true;
-        cannon3.GetComponent<BasicCannonController>().controllerActive = true;
-        cannon5.GetComponent<BasicCannonController>().controllerActive = true;
+            if (activateRight)
+            {
+                if (leftEnabled)
+                {
+                    DeactivateSide();
+                    ActivateSide(rightCannons);
+                }
+                else if (!rightEnabled)
+                {
+                    ActivateSide(rightCannons);
+                }
+            }
+            else
+            {
+                if (rightEnabled)
+                {
+                    DeactivateSide();
+                    ActivateSide(leftCannons);
+                }
+                else if (!leftEnabled)
+                {
+                    ActivateSide(leftCannons);
+                }
+            }
+        }
+    }
 
-        cannon1.transform.rotation = transform.rotation;
-        cannon1.transform.Rotate(0, 0, 90);
-        cannon3.transform.rotation = transform.rotation;
-        cannon3.transform.Rotate(0, 0, 90);
-        cannon5.transform.rotation = transform.rotation;
-        cannon5.transform.Rotate(0, 0, 90);
+    public void enableSideWeapons()
+    {
+        weaponsHot = true;
+    }
 
+    public void disableSideWeapons()
+    {
+        DeactivateSide();
+        weaponsHot = false;
+    }
+
+
+    private void ActivateSide(List<GameObject> cannons)
+    {
+        if (cannons == leftCannons)
+        {
+            leftEnabled = true;
+        }
+        else
+        {
+            rightEnabled = true;
+        }
+
+        foreach (GameObject o in cannons)
+        {
+            o.GetComponent<BasicCannonController>().controllerActive = true;
+            o.transform.rotation = transform.rotation;
+            o.transform.Rotate(0, 0, 90);
+        }
+        //I don't think this doesn much anymore
         this.transform.GetComponent<CameraController>().disableFreeCam();
     }
-
-    public void disableRightSideWeapons()
+    private void DeactivateSide()
     {
-        freeCamEnabled = true;
-        weaponCamEnabled = false;
+        List<GameObject> cannons;
+        if (leftEnabled)
+        {
+            leftEnabled = false;
+            cannons = leftCannons;
+        }
+        else
+        {
+            rightEnabled = false;
+            cannons = rightCannons;
+        }
+        foreach (GameObject o in cannons)
+        {
+            o.GetComponent<BasicCannonController>().controllerActive = false;
+        }
 
-        cannon1.GetComponent<BasicCannonController>().controllerActive = false;
-        cannon3.GetComponent<BasicCannonController>().controllerActive = false;
-        cannon5.GetComponent<BasicCannonController>().controllerActive = false;
-
+        //I don't think this doesn much anymore
         this.transform.GetComponent<CameraController>().enableFreeCam();
     }
 }
