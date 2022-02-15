@@ -15,7 +15,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject ammoType;
     public Transform shotOrigin;
 
-    KeyCode secondaryFireButton = KeyCode.O;
+    KeyCode secondaryFireKey = KeyCode.Space;
 
     bool shootingSignal;
     bool shot;
@@ -24,11 +24,12 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
     bool changingWeaponSignal;
     bool changedWeapon;
-    int currentWeapon;
+    public int currentWeapon;
 
     // Start is called before the first frame update
     void Start()
     {
+        switchWeapon(0);
         getAmmoLevel();
 
         //set the "aiming line" to green to show weapons are ready
@@ -96,7 +97,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             weaponAim();
 
             //attempt to fire the cannon
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(secondaryFireButton)) && !reloading && !shootingSignal)
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !shootingSignal)
             {
                 if (ammoLevel > 0)
                 {
@@ -169,6 +170,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         //check not trying to switch to same ammo that is currently selected
         if (ammoType != getShipTransform().GetComponent<ShipArsenal>().equippedWeapons[weaponId])
         {
+            
+            GetComponentInParent<PlayerPhotonHub>().UpdateWeapon(weaponId);
             ammoType = getShipTransform().GetComponent<ShipArsenal>().equippedWeapons[weaponId];
             getAmmoLevel();
             if (ammoLevel > 0)
@@ -212,11 +215,14 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (ammoType.name == "Cannonball")
         {
-            getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
+            float ammoLevel = getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
+            GetComponentInParent<PlayerPhotonHub>().UpdateAmmo(ammoType.name, ammoLevel);
+            
         }
         if (ammoType.name == "ExplosiveCannonball")
         {
-            getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
+            float ammoLevel = getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
+            GetComponentInParent<PlayerPhotonHub>().UpdateAmmo(ammoType.name, ammoLevel);
         }
     }
 
