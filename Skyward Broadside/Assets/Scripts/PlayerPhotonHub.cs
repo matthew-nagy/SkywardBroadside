@@ -45,7 +45,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
         {
             updateScript = userGUI.GetComponent<GuiUpdateScript>();
             disabled = false;
-            // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
+            // We would want a way of accessing the players ship type, and fetching the max health of only that. Probably could do it with an enum or something
             currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
             updateScript.UpdateGUIHealth(currHealth);
             cannonBallAmmo = PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
@@ -102,7 +102,6 @@ public class PlayerPhotonHub : PhotonTeamsManager
             {
                 die();
             }
-            print(currHealth);
             updateScript.UpdateGUIHealth(currHealth);
         }
     }
