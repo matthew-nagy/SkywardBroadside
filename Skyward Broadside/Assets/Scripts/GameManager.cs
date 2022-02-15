@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
+        print("Leaving Room");
     }
     
     #endregion

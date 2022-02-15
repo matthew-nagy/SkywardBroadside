@@ -176,6 +176,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
                 velocity = finalVelocity;
             }
+            else
+            {
+                collisionMag = 0f;
+            }
         }
 
 
