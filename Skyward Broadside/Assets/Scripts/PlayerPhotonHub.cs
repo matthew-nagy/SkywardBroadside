@@ -82,7 +82,6 @@ public class PlayerPhotonHub : PhotonTeamsManager
         foreach ( var player in PhotonNetwork.CurrentRoom.Players)
         {
             var team = player.Value.GetPhotonTeam();
-
             var properties = player.Value.CustomProperties;
             int playersScore = properties.ContainsKey("deaths") ? (int) properties["deaths"] : 0;
             Debug.Log(playersScore);
