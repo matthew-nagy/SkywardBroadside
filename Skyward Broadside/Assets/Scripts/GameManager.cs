@@ -80,10 +80,10 @@ public class GameManager : MonoBehaviourPunCallbacks
                     {
                         PhotonNetwork.LocalPlayer.SwitchTeam("Blue");
                     }
-                    Debug.Log("Joined");
+                    //Debug.Log("Joined");
                 }
                 
-                Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
+                //Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
             }
             else
             {
