@@ -13,6 +13,7 @@ public class GuiUpdateScript : MonoBehaviour
     public Text myScore;
     public Text otherScore;
     public Text timer;
+    public GameObject gameOverScreen;
 
     private float gameLength = 360f; //6 mins
     private float timeRemaining;
@@ -62,6 +63,9 @@ public class GuiUpdateScript : MonoBehaviour
         int seconds = Mathf.FloorToInt(timeRemaining % 60f);
 
         timer.text = String.Format("{0:00}:{1:00}", minutes, seconds);
-
+        if (timeRemaining <= 0f)
+        {
+            gameOverScreen.SetActive(true);
+        }
     }
 }
