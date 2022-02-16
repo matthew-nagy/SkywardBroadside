@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -67,21 +69,21 @@ public class PlayerPhotonHub : PhotonTeamsManager
     // Update is called once per frame
     void Update()
     {
-        if (!disabled)
-        {
-            UpdateScores();
-        }
     }
 
     public void UpdateScores()
     {
+        if (disabled) {
+          return;
+        }
         int myTeamScore = 0;
         int enemyTeamScore = 0;
         var myTeam = PhotonNetwork.LocalPlayer.GetPhotonTeam();
         foreach ( var player in PhotonNetwork.CurrentRoom.Players)
         {
             var team = player.Value.GetPhotonTeam();
-            int playersScore = (int)player.Value.CustomProperties["deaths"];
+            var properties = player.Value.CustomProperties;
+            int playersScore = properties.ContainsKey("deaths") ? (int) properties["deaths"] : 0;
             Debug.Log(playersScore);
             // playersScore contains the players number of deaths and so must be added to the 
             // opposing teams score
@@ -121,7 +123,10 @@ public class PlayerPhotonHub : PhotonTeamsManager
         // update player death count
         var properties = new Hashtable();
         properties.Add("deaths", ++deaths);
-        PhotonNetwork.SetPlayerCustomProperties(properties);           
+        PhotonNetwork.SetPlayerCustomProperties(properties);
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+        PhotonNetwork.RaiseEvent(1, null, raiseEventOptions, SendOptions.SendReliable);
         
         // respawn
         currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
@@ -171,6 +176,25 @@ public class PlayerPhotonHub : PhotonTeamsManager
         else
         {
             Debug.LogWarning("Cannot update weapons on gui, photon hub'su update script is null");
+        }
+    }
+
+    private void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
+    }
+
+    private void OnEvent(EventData photonEvent)
+    {
+        byte eventCode = photonEvent.Code;
+        if (eventCode == 1)
+        {
+            UpdateScores();
         }
     }
 }
