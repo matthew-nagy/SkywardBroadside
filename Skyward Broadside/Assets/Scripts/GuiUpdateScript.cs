@@ -12,6 +12,20 @@ public class GuiUpdateScript : MonoBehaviour
     public Text weapon;
     public Text myScore;
     public Text otherScore;
+    public Text timer;
+
+    private float gameLength = 360f; //6 mins
+    private float timeRemaining;
+
+    private void Start()
+    {
+        timeRemaining = gameLength;
+    }
+
+    private void Update()
+    {
+        UpdateTimer();
+    }
 
     public void UpdateGUIHealth(float healthVal)
     {
@@ -40,4 +54,14 @@ public class GuiUpdateScript : MonoBehaviour
         otherScore.text = otherTeam.ToString();
     }
 
+    private void UpdateTimer()
+    {
+        timeRemaining -= Time.deltaTime;
+        timeRemaining = Mathf.Clamp(timeRemaining, 0f, 360f);
+        int minutes = Mathf.FloorToInt(timeRemaining / 60f);
+        int seconds = Mathf.FloorToInt(timeRemaining % 60f);
+
+        timer.text = String.Format("{0:00}:{1:00}", minutes, seconds);
+
+    }
 }
