@@ -8,16 +8,8 @@ RWTexture3D<float4> Result;
 uint width;
 uint height;
 uint depth;
-
 float falloff_sharpness;
 float falloff_start;
-
-float3 hash33(float3 p3)
-{
-	p3 = frac(p3 * float3(.1031, .1030, .0973));
-    p3 += dot(p3, p3.yxz+33.33);
-    return frac((p3.xxy + p3.yxx)*p3.zyx);
-}
 
 [numthreads(8,8,8)]
 void FalloffGen (uint3 id : SV_DispatchThreadID)
@@ -28,16 +20,11 @@ void FalloffGen (uint3 id : SV_DispatchThreadID)
 
     float3 pos = float3(x,y,z);
     float3 centre = float3(0.5f,0.5f,0.5f);
-    float d = distance(pos,centre) * 2;
+    float d = distance(pos,centre);
 
     // y = min(max( a(x - b)^3 ,0),1)
     float fd = falloff_sharpness * pow(d - falloff_start, 3);
     float falloff = min(max(fd,0), 1); //bound between 0 and 1
-
-    //ENCODE SOME RANDOM OFFSET DATA INTO THE BUBBLE SIZE
-    float3 offset = hash33(id.xyz);
-
     
-    Result[id.xyz] = float4(falloff, offset.x, offset.y, offset.x);
+    Result[id.xyz] = float4(falloff, falloff, falloff, 1);
 }
-

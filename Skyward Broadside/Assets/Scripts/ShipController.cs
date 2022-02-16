@@ -107,13 +107,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     void GetWeaponInput()
     {
-        if (Input.GetKey(KeyCode.Mouse1) && !transform.GetComponent<WeaponsController>().hasEnabledWeapons())
+        if (Input.GetKey(KeyCode.Mouse1) && transform.GetComponent<WeaponsController>().freeCamEnabled && !transform.GetComponent<WeaponsController>().weaponCamEnabled)
         {
-            transform.GetComponent<WeaponsController>().enableSideWeapons();
+            transform.GetComponent<WeaponsController>().enableRightSideWeapons();
         }
-        else if (!Input.GetKey(KeyCode.Mouse1) && transform.GetComponent<WeaponsController>().hasEnabledWeapons())
+        else if (!Input.GetKey(KeyCode.Mouse1) && !transform.GetComponent<WeaponsController>().freeCamEnabled && transform.GetComponent<WeaponsController>().weaponCamEnabled)
         {
-            transform.GetComponent<WeaponsController>().disableSideWeapons();
+            transform.GetComponent<WeaponsController>().disableRightSideWeapons();
         }
     }
 
@@ -165,19 +165,16 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         if (collision.gameObject.name.Contains("ball"))
-        {   
+        {
+            
             GameObject cannonballOwner = collision.gameObject.GetComponent<CannonballController>().owner;
+            print("I'm in pain");
             if (!GameObject.ReferenceEquals(cannonballOwner, gameObject)) {
-                print("I'm in pain");
                 Vector3 velocityCannonball = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
                 Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityCannonball;
                 moveSpeed = finalVelocity.magnitude;
 
                 velocity = finalVelocity;
-            }
-            else
-            {
-                collisionMag = 0f;
             }
         }
 
@@ -211,16 +208,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
 
         }
-        // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
-        PlayerPhotonHub photonHub = gameObject.GetComponentInParent<PlayerPhotonHub>();
-        if(photonHub == null)
-        {
-            Debug.LogWarning("Player does not have attatched photonHub");
-        }
-        else
-        {
-            photonHub.UpdateHealth(collisionMag);
-        }
+      // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
+      gameObject.GetComponentInParent<PlayerPhotonHub>().UpdateHealth(collisionMag);
 
     }
 

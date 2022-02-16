@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
-using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -43,10 +41,8 @@ public class PlayerPhotonHub : PhotonTeamsManager
         PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
 
         GameObject userGUI = GameObject.Find("User GUI");
-        Debug.Log(userGUI);
         if(userGUI != null)
         {
-            Debug.Log("Inside the if part with the value " + userGUI);
             updateScript = userGUI.GetComponent<GuiUpdateScript>();
             disabled = false;
             // We would want a way of accessing the players ship type, and fetching the max health of only that. Probably could do it with an enum or something
@@ -69,22 +65,18 @@ public class PlayerPhotonHub : PhotonTeamsManager
     // Update is called once per frame
     void Update()
     {
+        UpdateScores();
     }
 
     public void UpdateScores()
     {
-        if (disabled) {
-          return;
-        }
         int myTeamScore = 0;
         int enemyTeamScore = 0;
         var myTeam = PhotonNetwork.LocalPlayer.GetPhotonTeam();
         foreach ( var player in PhotonNetwork.CurrentRoom.Players)
         {
             var team = player.Value.GetPhotonTeam();
-
-            var properties = player.Value.CustomProperties;
-            int playersScore = properties.ContainsKey("deaths") ? (int) properties["deaths"] : 0;
+            int playersScore = (int)player.Value.CustomProperties["deaths"];
             Debug.Log(playersScore);
             // playersScore contains the players number of deaths and so must be added to the 
             // opposing teams score
@@ -102,19 +94,14 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     public void UpdateHealth(float collisionMagnitude)
     {
-        float healthVal = collisionMagnitude * forceToDamageMultiplier;
-        currHealth -= healthVal;
-        if (currHealth < 0)
+        if (!disabled)
         {
-            die();
-        }
-        print(currHealth);
-        if (updateScript == null)
-        {
-            Debug.LogWarning("Cannot update health on gui: photon hub's update script is null");
-        }
-        else
-        {
+            float healthVal = collisionMagnitude * forceToDamageMultiplier;
+            currHealth -= healthVal;
+            if (currHealth < 0)
+            {
+                die();
+            }
             updateScript.UpdateGUIHealth(currHealth);
         }
     }
@@ -124,10 +111,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
         // update player death count
         var properties = new Hashtable();
         properties.Add("deaths", ++deaths);
-        PhotonNetwork.SetPlayerCustomProperties(properties);
-
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
-        PhotonNetwork.RaiseEvent(1, null, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.SetPlayerCustomProperties(properties);           
         
         // respawn
         currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
@@ -141,23 +125,16 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     public void UpdateAmmo(string type, float ammoLevel)
     {
-        if (updateScript != null)
+        switch (type)
         {
-            switch (type)
-            {
-                case "Cannonball":
-                    updateScript.UpdateGUIAmmo(ammoLevel);
-                    break;
-                case "ExplosiveCannonball":
-                    updateScript.UpdateGUIExplosiveAmmo(ammoLevel);
-                    break;
-                default:
-                    throw new ArgumentException("Invalid string value for type");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Cannot update cannons: photon hubs update script is null");
+            case "Cannonball":
+                updateScript.UpdateGUIAmmo(ammoLevel);
+                break;
+            case "ExplosiveCannonball":
+                updateScript.UpdateGUIExplosiveAmmo(ammoLevel);
+                break;
+            default:
+                throw new ArgumentException("Invalid string value for type");
         }
     }
 
@@ -170,32 +147,6 @@ public class PlayerPhotonHub : PhotonTeamsManager
             1 => "Explosive",
             _ => throw new ArgumentException("Invalid weapon number"),
         };
-        if (updateScript != null)
-        {
-            updateScript.UpdateWeapon(weapon);
-        }
-        else
-        {
-            Debug.LogWarning("Cannot update weapons on gui, photon hub'su update script is null");
-        }
-    }
-
-    private void OnEnable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
-    }
-
-    private void OnDisable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
-    }
-
-    private void OnEvent(EventData photonEvent)
-    {
-        byte eventCode = photonEvent.Code;
-        if (eventCode == 1)
-        {
-            UpdateScores();
-        }
+        updateScript.UpdateWeapon(weapon);
     }
 }

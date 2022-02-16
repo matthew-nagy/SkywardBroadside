@@ -15,7 +15,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject ammoType;
     public Transform shotOrigin;
 
-    KeyCode secondaryFireKey = KeyCode.Space;
+    KeyCode secondaryFireKey = KeyCode.O;
+
 
     bool shootingSignal;
     bool shot;

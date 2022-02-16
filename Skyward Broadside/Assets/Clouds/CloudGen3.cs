@@ -1,85 +1,29 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class CloudGen3 : MonoBehaviour
 {
     public int cloud_width = 10;
     public int cloud_height = 10;
     public int cloud_depth = 10;
 
-    public Color cloud_colour = new Color(1f, 0.9f, 0.9f, 0.7f);
-    private int maxDimension = 10;
-    private Vector3 dimensionRatios;
-
-
-    private float cloud_scale = 10;
-    public float bubble_size = 1.0f;
-
-    private float phase = 0.0f;
-
-    private float phaseAdvanceFreq = 0.1f;
-    public float phaseAdvanceAmount = 0.01f;
-
-    private float quad_width = 1.0f;
-    private float quad_height = 1.0f;
+    public float quad_width = 0.5f;
+    public float quad_height = 0.5f;
 
     public Vector3 shaderScale;
 
-    private Material myMat;
+    public Material myMat;
 
     MeshRenderer meshRenderer;
     Mesh mesh;
 
     void Start()
     {
-        Debug.Log("CLOUD IS HERE");
-
-        string id = cloud_width + "_" + cloud_height + "_" + cloud_depth;
-
-        myMat = new Material(Shader.Find("Unlit/CloudShader"));
-
-        Texture3D noiseTexture = Resources.Load<Texture3D>("CloudTextures/" + id + "_noise");
-        Texture3D falloffTexture = Resources.Load<Texture3D>("CloudTextures/" + id + "_falloff");
-
-#if UNITY_EDITOR //Only try to create assets in editor
-        if (!noiseTexture)
-        {
-            noiseTexture = CloudUtils.Generate(cloud_width, cloud_height, cloud_depth, 5, 12345);
-            CloudUtils.SaveAsAsset(noiseTexture, id + "_noise");
-        }
-
-        if (!falloffTexture)
-        {
-            falloffTexture = CloudUtils.GenerateFalloff(cloud_width, cloud_height, cloud_depth, 32, 0.65f);
-            CloudUtils.SaveAsAsset(falloffTexture, id + "_falloff");
-        }
-#endif
-
-        if (!noiseTexture || !falloffTexture)
-        {
-            Debug.LogWarning("CLOUDS MISSING TEXTURES AH BALLS");
-        }
-
-        ComputeMaxDimension();
-        ComputeDimensionRatios();
-
-        cloud_scale = maxDimension;
-
-        myMat.SetTexture("_Noisemap", noiseTexture);
-        myMat.SetTexture("_Falloffmap", falloffTexture);
-        myMat.SetFloat("_Scale", cloud_scale);
-        myMat.SetFloat("_BubbleSize", bubble_size);
-        myMat.SetVector("_DimensionRatios", dimensionRatios);
-        myMat.SetVector("_CloudPos", gameObject.transform.position);
-        myMat.SetVector("_CloudColour", cloud_colour);
-        InvokeRepeating("AdvancePhase", 0.0f, phaseAdvanceFreq);
-
         if (cloud_width * cloud_height * cloud_depth * 4 > 65535)
         {
             Debug.LogWarning("Cloud is bigger than vertex limit!!!");
         }
-
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.sharedMaterial = myMat;
 
@@ -154,40 +98,13 @@ public class CloudGen3 : MonoBehaviour
         // mesh.SetColors(colors);
 
         meshFilter.mesh = mesh;
-        shaderScale = new Vector3(cloud_width, cloud_height, cloud_depth);
-
+        shaderScale = new Vector3(cloud_width,cloud_height,cloud_depth);
+        //gameObject.transform.localScale = shaderScale;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        ComputeMaxDimension();
-        ComputeDimensionRatios();
-
-        cloud_scale = maxDimension;
-        myMat.SetFloat("_Scale", cloud_scale);
-        myMat.SetFloat("_BubbleSize", bubble_size);
-        myMat.SetVector("_DimensionRatios", dimensionRatios);
-        myMat.SetVector("_CloudPos", gameObject.transform.position);
-        myMat.SetFloat("_Phase", phase);
-        myMat.SetVector("_CloudColour", cloud_colour);
-
-    }
-
-    private void ComputeMaxDimension()
-    {
-        maxDimension = Math.Max(cloud_width, Math.Max(cloud_height, cloud_depth));
-    }
-
-    private void ComputeDimensionRatios()
-    {
-        dimensionRatios = new Vector3((float)cloud_width / maxDimension, (float)cloud_height / maxDimension, (float)cloud_depth / maxDimension);
-    }
-
-    private void AdvancePhase()
-    {
-        // Debug.Log("Phase: " + phase);
-        phase += phaseAdvanceAmount;
     }
 }

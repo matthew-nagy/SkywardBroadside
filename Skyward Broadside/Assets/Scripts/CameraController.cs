@@ -7,9 +7,7 @@ public class CameraController : MonoBehaviourPunCallbacks
 {
     public GameObject shipCam;
     GameObject thisCam;
-    //Used in the weapons controller to figure out what cannons to enable
-    [Tooltip("DON'T HECCIN TOUCH THIS")]
-    public Cinemachine.CinemachineFreeLook cameraObj;
+    Cinemachine.CinemachineFreeLook cameraObj;
 
     private void Start()
     {
