@@ -81,6 +81,11 @@ public class PlayerPhotonHub : PhotonTeamsManager
         foreach ( var player in PhotonNetwork.CurrentRoom.Players)
         {
             var team = player.Value.GetPhotonTeam();
+            if(team == null)
+            {
+                Debug.LogWarning("Player doesn't have a team");
+                return;
+            }
             int playersScore = (int)player.Value.CustomProperties["deaths"];
             Debug.Log(playersScore);
             // playersScore contains the players number of deaths and so must be added to the 
