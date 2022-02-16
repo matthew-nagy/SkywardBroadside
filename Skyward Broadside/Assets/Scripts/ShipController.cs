@@ -180,9 +180,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 collisionMag = 0f;
             }
         }
-
-
-        if (collision.gameObject.tag == "Ship")
+        else if (collision.gameObject.tag == "Ship")
         {
             //print("Collision");
             print(collision.gameObject.name);
@@ -211,6 +209,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
 
         }
+        else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
+        {
+            print("terrain");
+            velocity = -0.8f * velocity;
+            isDisabled = true;
+
+            collisionMag = rigidBody.mass * 0.2f * velocityBeforeCollision.magnitude;
+        }
+
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
         PlayerPhotonHub photonHub = gameObject.GetComponentInParent<PlayerPhotonHub>();
         if(photonHub == null)

@@ -32,10 +32,20 @@ public class Breakable : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        print("Collision");
         if (!broken)
         {
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-            _break(collision.impulse.magnitude, rb, collision.collider.tag, collision.contacts[0].point);
+            float impulse = collision.impulse.magnitude;
+            if (collision.gameObject.tag == "Ship")
+            {
+                Vector3 velocityBeforeCollision = collision.gameObject.GetComponent<ShipController>().velocityBeforeCollision;
+
+                //Currently assuming ship loses 20% of its speed in collision
+                //Then multiplying by some constant in an attempt to get it to actually destroy some of the island lol
+                impulse = collision.rigidbody.mass * 0.2f * velocityBeforeCollision.magnitude * 1000f;
+            }
+            _break(impulse, rb, collision.collider.tag, collision.contacts[0].point);
         }
     }
 
@@ -50,7 +60,7 @@ public class Breakable : MonoBehaviour
                 rb = gameObject.GetComponent<Rigidbody>();
                 rb.mass = mass;
                 rb.useGravity = true;
-                if (colliderTag == "RegularProjectile")
+                if (colliderTag == "RegularProjectile" || colliderTag == "Ship")
                 {
                     print("impact");
                     rb.AddExplosionForce(impulseMagnitude * collisionMultiplier, contactPoint, 2);
