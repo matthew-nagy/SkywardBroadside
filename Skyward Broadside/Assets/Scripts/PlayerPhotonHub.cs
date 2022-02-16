@@ -43,8 +43,10 @@ public class PlayerPhotonHub : PhotonTeamsManager
         PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
 
         GameObject userGUI = GameObject.Find("User GUI");
+        Debug.Log(userGUI);
         if(userGUI != null)
         {
+            Debug.Log("Inside the if part with the value " + userGUI);
             updateScript = userGUI.GetComponent<GuiUpdateScript>();
             disabled = false;
             // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
@@ -71,6 +73,9 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     public void UpdateScores()
     {
+        if (disabled) {
+          return;
+        }
         int myTeamScore = 0;
         int enemyTeamScore = 0;
         var myTeam = PhotonNetwork.LocalPlayer.GetPhotonTeam();
@@ -96,15 +101,19 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     public void UpdateHealth(float collisionMagnitude)
     {
-        if (!disabled)
+        float healthVal = collisionMagnitude * forceToDamageMultiplier;
+        currHealth -= healthVal;
+        if (currHealth < 0)
         {
-            float healthVal = collisionMagnitude * forceToDamageMultiplier;
-            currHealth -= healthVal;
-            if (currHealth < 0)
-            {
-                die();
-            }
-            print(currHealth);
+            die();
+        }
+        print(currHealth);
+        if (updateScript == null)
+        {
+            Debug.LogWarning("Cannot update health on gui: photon hub's update script is null");
+        }
+        else
+        {
             updateScript.UpdateGUIHealth(currHealth);
         }
     }
@@ -131,16 +140,23 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     public void UpdateAmmo(string type, float ammoLevel)
     {
-        switch (type)
+        if (updateScript != null)
         {
-            case "Cannonball":
-                updateScript.UpdateGUIAmmo(ammoLevel);
-                break;
-            case "ExplosiveCannonball":
-                updateScript.UpdateGUIExplosiveAmmo(ammoLevel);
-                break;
-            default:
-                throw new ArgumentException("Invalid string value for type");
+            switch (type)
+            {
+                case "Cannonball":
+                    updateScript.UpdateGUIAmmo(ammoLevel);
+                    break;
+                case "ExplosiveCannonball":
+                    updateScript.UpdateGUIExplosiveAmmo(ammoLevel);
+                    break;
+                default:
+                    throw new ArgumentException("Invalid string value for type");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Cannot update cannons: photon hubs update script is null");
         }
     }
 
@@ -153,7 +169,14 @@ public class PlayerPhotonHub : PhotonTeamsManager
             1 => "Explosive",
             _ => throw new ArgumentException("Invalid weapon number"),
         };
-        updateScript.UpdateWeapon(weapon);
+        if (updateScript != null)
+        {
+            updateScript.UpdateWeapon(weapon);
+        }
+        else
+        {
+            Debug.LogWarning("Cannot update weapons on gui, photon hub'su update script is null");
+        }
     }
 
     private void OnEnable()
