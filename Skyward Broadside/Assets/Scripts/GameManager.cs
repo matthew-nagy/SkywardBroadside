@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using UnityEngine.AI;
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Tooltip("The prefab to use for representing the player")]
     public GameObject playerPrefab;
+
+    // red and blue player prefabs to distinguish between teams
+    public GameObject redPlayerPrefab;
+    public GameObject bluePlayerPrefab;
     
     #region Photon Callbacks
 
@@ -42,7 +47,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Instance = this;
 
-        if (playerPrefab == null)
+        if (playerPrefab == null || redPlayerPrefab == null || bluePlayerPrefab == null)
         {
             Debug.LogError("<Color=Red><a>Missing</a></Color> ship prefab reference. Please set it up in GameObject 'Game Manager'", this);
         }
@@ -51,13 +56,45 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (PlayerManager.LocalPlayerInstance == null)
             {
                 Debug.LogFormat("We are instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
-                PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                if (TeamButton.joinTeam == "Red")
+                {
+                    PhotonNetwork.Instantiate(this.redPlayerPrefab.name, new Vector3(5f, 5f, 0f), Quaternion.identity, 0);
+                    if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
+                    {
+                       PhotonNetwork.LocalPlayer.JoinTeam("Red");
+                    }
+                    else
+                    {
+                        PhotonNetwork.LocalPlayer.SwitchTeam("Red");
+                    }
+                    Debug.Log("Joined");
+                }
+                else if (TeamButton.joinTeam == "Blue")
+                {
+                    PhotonNetwork.Instantiate(this.bluePlayerPrefab.name, new Vector3(-5f, 5f, 0f), Quaternion.identity, 0);
+                    if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
+                    {
+                        PhotonNetwork.LocalPlayer.JoinTeam("Blue");
+                    }
+                    else
+                    {
+                        PhotonNetwork.LocalPlayer.SwitchTeam("Blue");
+                    }
+                    //Debug.Log("Joined");
+                }
+                
+                //Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
             }
             else
             {
                 Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
             }
         }
+    }
+
+    private void Update()
+    {
+        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
     }
 
     void LoadArena()
