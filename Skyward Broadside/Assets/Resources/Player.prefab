@@ -51,6 +51,10 @@ MonoBehaviour:
   - Name: Red
     Code: 2
   forceToDamageMultiplier: 0.1
+  teamMaterials:
+  - {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
+  - {fileID: 2100000, guid: f10128d790506c64dbe94649edee76ac, type: 2}
+  myTeam: -1
 --- !u!1001 &7770159725660443265
 PrefabInstance:
   m_ObjectHideFlags: 0

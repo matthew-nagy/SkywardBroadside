@@ -13,6 +13,9 @@ public class BreakMaster : MonoBehaviour
     public float shatterStrength = 1.2f;
     bool shatter = false;
 
+    public float cameraShellDeleteThreshold = 0.9f;
+    bool shellDeleted = false;
+
     //How many updates since shattered
     int shatterCounter = 0;
     //How many updates once shattered before deletion
@@ -25,11 +28,6 @@ public class BreakMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (destroyedOwnedBreakables == peakOwnedBreakables)
-        {
-            Debug.LogWarning("Deleted the master");
-            Destroy(gameObject);
-        }
     }
 
     public bool HasShattered()
@@ -59,5 +57,14 @@ public class BreakMaster : MonoBehaviour
     public void RegisterBreakableDestroyed()
     {
         destroyedOwnedBreakables += 1;
+        Debug.Log("BM now at " + destroyedOwnedBreakables + "/" + peakOwnedBreakables);
+
+        float db = (float)destroyedOwnedBreakables;
+        float max = (float)peakOwnedBreakables;
+        if(db >= (max * cameraShellDeleteThreshold) && !shellDeleted)
+        {
+            Destroy(transform.Find("Camera collider").gameObject);
+            shellDeleted = true;
+        }
     }
 }
