@@ -32,6 +32,11 @@ public class Breakable : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Ignore islands
+        if(collision.gameObject.layer == 7)
+        {
+            return;
+        }
         print("Collision");
         if (!broken)
         {

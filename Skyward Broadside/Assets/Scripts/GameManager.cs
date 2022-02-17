@@ -16,9 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Tooltip("The prefab to use for representing the player")]
     public GameObject playerPrefab;
 
-    // red and blue player prefabs and spawns to distinguish between teams
-    public GameObject redPlayerPrefab;
-    public GameObject bluePlayerPrefab;
+    // red and blue player spawns to distinguish between teams
     public GameObject redSpawn;
     public GameObject blueSpawn;
     
@@ -49,7 +47,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Instance = this;
 
-        if (playerPrefab == null || redPlayerPrefab == null || bluePlayerPrefab == null)
+        if (playerPrefab == null)
         {
             Debug.LogError("<Color=Red><a>Missing</a></Color> ship prefab reference. Please set it up in GameObject 'Game Manager'", this);
         }
@@ -61,7 +59,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 if (TeamButton.joinTeam == "Red")
                 {
                     Vector3 spawnPoint = redSpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
-                    PhotonNetwork.Instantiate(this.redPlayerPrefab.name, spawnPoint, Quaternion.identity, 0);
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0).GetComponent<PlayerPhotonHub>().SetTeam(1);
                     Debug.Log(spawnPoint);
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {
@@ -76,7 +74,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 else if (TeamButton.joinTeam == "Blue")
                 {
                     Vector3 spawnPoint = blueSpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
-                    PhotonNetwork.Instantiate(this.bluePlayerPrefab.name, spawnPoint, Quaternion.identity, 0);
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0).GetComponent<PlayerPhotonHub>().SetTeam(0);
                     Debug.Log(spawnPoint);
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {

@@ -33,6 +33,20 @@ public class PlayerPhotonHub : PhotonTeamsManager
     private GameObject PlayerShip;
     private GuiUpdateScript updateScript;
 
+    public List<Material> teamMaterials;
+    public int myTeam = -1;
+
+    public void SetTeam(int team)
+    {
+        myTeam = team;
+        Material givenMaterial = teamMaterials[team];
+        if(givenMaterial == null)
+        {
+            Debug.LogError("Material was null");
+        }
+        transform.Find("Ship").transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
