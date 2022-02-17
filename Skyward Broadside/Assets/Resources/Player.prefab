@@ -128,26 +128,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: ObservedComponents.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: ObservedComponents.Array.data[2]
+      value: 
+      objectReference: {fileID: 4088082031444181289}
     - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: ObservedComponents.Array.data[3]
       value: 
-      objectReference: {fileID: 7694551955800727932}
+      objectReference: {fileID: 1335138294948960762}
     - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: ObservedComponents.Array.data[4]
       value: 
-      objectReference: {fileID: 66119190081080903}
+      objectReference: {fileID: 7694551955800727932}
     - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: ObservedComponents.Array.data[5]
       value: 
-      objectReference: {fileID: 2744860487748048708}
+      objectReference: {fileID: 66119190081080903}
     - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: ObservedComponents.Array.data[6]
       value: 
-      objectReference: {fileID: 3218850298161364758}
+      objectReference: {fileID: 2744860487748048708}
     - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: ObservedComponents.Array.data[7]
+      value: 
+      objectReference: {fileID: 3218850298161364758}
+    - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: ObservedComponents.Array.data[8]
       value: 
       objectReference: {fileID: 1173904337959220880}
     - target: {fileID: 5904769780344471704, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
@@ -200,6 +208,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+--- !u!1 &4189706437996139033 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5904769780344471704, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+  m_PrefabInstance: {fileID: 7770159725660443265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4189706437996139032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5904769780344471705, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
@@ -210,6 +223,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4644661021023321349, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
   m_PrefabInstance: {fileID: 7770159725660443265}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1335138294948960762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8742184167560547195, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+  m_PrefabInstance: {fileID: 7770159725660443265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3143514245748699012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ebf8811680c43439cc4df25bedfbad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &387526563615507485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7977531083847440028, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
@@ -407,6 +431,22 @@ MonoBehaviour:
   ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 975021837639076183}
   currentWeapon: 0
+--- !u!114 &4088082031444181289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4189706437996139033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!120 &7744639925486181864
 LineRenderer:
   m_ObjectHideFlags: 0
