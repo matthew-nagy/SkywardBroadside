@@ -16,9 +16,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Tooltip("The prefab to use for representing the player")]
     public GameObject playerPrefab;
 
-    // red and blue player prefabs to distinguish between teams
+    // red and blue player prefabs and spawns to distinguish between teams
     public GameObject redPlayerPrefab;
     public GameObject bluePlayerPrefab;
+    public GameObject redSpawn;
+    public GameObject blueSpawn;
     
     #region Photon Callbacks
 
@@ -58,7 +60,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Debug.LogFormat("We are instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
                 if (TeamButton.joinTeam == "Red")
                 {
-                    PhotonNetwork.Instantiate(this.redPlayerPrefab.name, new Vector3(5f, 5f, 0f), Quaternion.identity, 0);
+                    Vector3 spawnPoint = redSpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+                    PhotonNetwork.Instantiate(this.redPlayerPrefab.name, spawnPoint, Quaternion.identity, 0);
+                    Debug.Log(spawnPoint);
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {
                        PhotonNetwork.LocalPlayer.JoinTeam("Red");
@@ -71,7 +75,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
                 else if (TeamButton.joinTeam == "Blue")
                 {
-                    PhotonNetwork.Instantiate(this.bluePlayerPrefab.name, new Vector3(-5f, 5f, 0f), Quaternion.identity, 0);
+                    Vector3 spawnPoint = blueSpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+                    PhotonNetwork.Instantiate(this.bluePlayerPrefab.name, spawnPoint, Quaternion.identity, 0);
+                    Debug.Log(spawnPoint);
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {
                         PhotonNetwork.LocalPlayer.JoinTeam("Blue");
@@ -94,7 +100,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
+
     }
 
     void LoadArena()
