@@ -46,6 +46,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     bool isDisabled;
     float timerDisabled;
 
+    int teamMaterialIndex = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +67,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             //Despite doing this in start, sometimes it just doesn't happen
             rigidBody = GetComponent<Rigidbody>();
             rigidBody.interpolation = RigidbodyInterpolation.Extrapolate;
+            teamMaterialIndex = GetComponentInParent<PlayerPhotonHub>().myTeam;
         }
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -244,7 +247,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(velocity);
             stream.SendNext(isDisabled);
             stream.SendNext(moveSpeed);
-
+            stream.SendNext(teamMaterialIndex);
         }
         else
         {
@@ -252,7 +255,18 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             this.velocity = (Vector3)stream.ReceiveNext();
             this.isDisabled = (bool)stream.ReceiveNext();
             this.moveSpeed = (float)stream.ReceiveNext();
-
+            int matIndex = (int)stream.ReceiveNext();
+            if(teamMaterialIndex == -1)
+            {
+                teamMaterialIndex = matIndex;
+                transform.Rotate(new Vector3(20, 34, 162));
+                PlayerPhotonHub pph = GetComponentInParent<PlayerPhotonHub>();
+                if(pph == null)
+                {
+                    transform.Translate(new Vector3(0, 10, 0));
+                }
+                pph.SetTeam(teamMaterialIndex);
+            }
         }
 
     }
