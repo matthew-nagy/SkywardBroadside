@@ -25,7 +25,6 @@ public class GuiUpdateScript : MonoBehaviour
 
     private void Update()
     {
-        UpdateTimer();
     }
 
     public void UpdateGUIHealth(float healthVal)
@@ -55,17 +54,8 @@ public class GuiUpdateScript : MonoBehaviour
         otherScore.text = otherTeam.ToString();
     }
 
-    private void UpdateTimer()
+    public void UpdateTimer(TimeSpan timeRemaining)
     {
-        timeRemaining -= Time.deltaTime;
-        timeRemaining = Mathf.Clamp(timeRemaining, 0f, 360f);
-        int minutes = Mathf.FloorToInt(timeRemaining / 60f);
-        int seconds = Mathf.FloorToInt(timeRemaining % 60f);
-
-        timer.text = String.Format("{0:00}:{1:00}", minutes, seconds);
-        if (timeRemaining <= 0f)
-        {
-            gameOverScreen.SetActive(true);
-        }
+         timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
     }
 }
