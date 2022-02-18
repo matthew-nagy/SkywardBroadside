@@ -100,30 +100,19 @@ public class PlayerPhotonHub : PhotonTeamsManager
         }
     }
 
-    public void UpdateScores()
+    public void UpdateScores(Hashtable properties)
     {
-        if (disabled) {
-            return;
-        }
-        int myTeamScore = 0;
-        int enemyTeamScore = 0;
-        var myTeam = PhotonNetwork.LocalPlayer.GetPhotonTeam();
-        foreach ( var player in PhotonNetwork.CurrentRoom.Players)
+        int myTeamScore;
+        int enemyTeamScore;
+        if (myTeam == 0)
         {
-            var team = player.Value.GetPhotonTeam();
-            var properties = player.Value.CustomProperties;
-            int playersScore = properties.ContainsKey("deaths") ? (int) properties["deaths"] : 0;
-            Debug.Log(playersScore);
-            // playersScore contains the players number of deaths and so must be added to the 
-            // opposing teams score
-            if (myTeam == team)
-            {
-                enemyTeamScore += playersScore;
-            }
-            else
-            {
-                myTeamScore += playersScore;
-            }
+            myTeamScore = (int)properties["blueTeam"];
+            enemyTeamScore = (int)properties["redTeam"];
+        }
+        else
+        {
+            myTeamScore = (int)properties["redTeam"];
+            enemyTeamScore = (int)properties["blueTeam"];
         }
         updateScript.UpdateGUIScores(myTeamScore, enemyTeamScore);
     }
@@ -153,8 +142,10 @@ public class PlayerPhotonHub : PhotonTeamsManager
         properties.Add("deaths", ++deaths);
         PhotonNetwork.SetPlayerCustomProperties(properties);
 
+        int content = myTeam;
+
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
-        PhotonNetwork.RaiseEvent(1, null, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent(1, myTeam, raiseEventOptions, SendOptions.SendReliable);
         
         // respawn
         currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
@@ -239,10 +230,34 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     private void OnEvent(EventData photonEvent)
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+        
         byte eventCode = photonEvent.Code;
         if (eventCode == 1)
         {
-            UpdateScores();
+            int team = (int)photonEvent.CustomData;
+            var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+            int redScore = (int)properties["redScore"];
+            int blueScore = (int) properties["blueScore"];
+            switch (team)
+            {
+                case 0:
+                    properties[redScore] = redScore + 1;
+                    break;
+                case 1:
+                    properties[blueScore] = blueScore + 1;
+                    break;
+            }
+
+            PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
         }
+    }
+
+    private void OnRoomPropertiesUpdate(Hashtable properties)
+    {
+        UpdateScores(properties);
     }
 }
