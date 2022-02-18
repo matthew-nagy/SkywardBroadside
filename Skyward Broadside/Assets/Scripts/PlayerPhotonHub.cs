@@ -34,6 +34,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
     private GuiUpdateScript updateScript;
 
     public List<Material> teamMaterials;
+    public List<Color> teamColours;
     public int myTeam = -1;
 
     public void SetTeam(int team)
@@ -45,6 +46,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
             Debug.LogError("Material was null");
         }
         Transform ship = transform.Find("Ship");
+        ship.gameObject.GetComponent<ShipController>().teamColour = teamColours[team];
         ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
     }
 
