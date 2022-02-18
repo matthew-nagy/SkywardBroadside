@@ -8,6 +8,7 @@ TagManager:
   - ExplosiveCannonball
   - Cannonball
   - Terrain
+  - Island
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - PostProcessing
   - Island
-  - 
-  - 
+  - Projectile
+  - Player
   - 
   - 
   - 

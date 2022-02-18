@@ -166,7 +166,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
 
         float collisionMag = collision.impulse.magnitude;
-        Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
+        //Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
         if (!photonView.IsMine)
         {
             return;
