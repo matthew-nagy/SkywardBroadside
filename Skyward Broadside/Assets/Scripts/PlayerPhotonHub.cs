@@ -34,6 +34,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
     private GuiUpdateScript updateScript;
 
     public List<Material> teamMaterials;
+    public List<Color> teamColours;
     public int myTeam = -1;
 
     public void SetTeam(int team)
@@ -44,7 +45,9 @@ public class PlayerPhotonHub : PhotonTeamsManager
         {
             Debug.LogError("Material was null");
         }
-        transform.Find("Ship").transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
+        Transform ship = transform.Find("Ship");
+        ship.gameObject.GetComponent<ShipController>().teamColour = teamColours[team];
+        ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
     }
 
     // Start is called before the first frame update
@@ -79,6 +82,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
             Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
     }
+
 
     // Update is called once per frame
     void Update()
