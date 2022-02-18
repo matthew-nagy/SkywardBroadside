@@ -45,6 +45,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     float deceleration = 1f;
     bool isDisabled;
     float timerDisabled;
+    float totalDisabledTime;
+
+    public Color teamColour;
+    bool colourSet = false;
 
     // Start is called before the first frame update
     void Start()
@@ -90,7 +94,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             playerInput = new RequestedControls();
             velocityBeforeCollision = velocity;
 
-            if (timerDisabled < 3.0f)
+            if (timerDisabled < totalDisabledTime)
             {
                 timerDisabled += Time.deltaTime;
             }
@@ -209,17 +213,21 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             velocity = finalVelocity;
 
             isDisabled = true;
+            totalDisabledTime = 1f;
             // the 10 is needed because otherwise you insta-kill each other upon contact
-            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
+            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 100;
 
         }
         else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
         {
             print("terrain");
-            velocity = -0.8f * velocity;
-            isDisabled = true;
 
-            collisionMag = rigidBody.mass * 0.2f * velocityBeforeCollision.magnitude;
+            velocity = -0.3f * velocity;
+            isDisabled = true;
+            totalDisabledTime = 0.5f;
+
+            //0.5 multiplier to keep damage in check
+            collisionMag = rigidBody.mass * 0.7f * velocityBeforeCollision.magnitude * 0.5f;
         }
 
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
@@ -244,7 +252,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(velocity);
             stream.SendNext(isDisabled);
             stream.SendNext(moveSpeed);
-
+            stream.SendNext(teamColour.r);
+            stream.SendNext(teamColour.g);
+            stream.SendNext(teamColour.b);
         }
         else
         {
@@ -252,7 +262,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             this.velocity = (Vector3)stream.ReceiveNext();
             this.isDisabled = (bool)stream.ReceiveNext();
             this.moveSpeed = (float)stream.ReceiveNext();
-
+            float r = (float)stream.ReceiveNext();
+            float g = (float)stream.ReceiveNext();
+            float b = (float)stream.ReceiveNext();
+            if(!colourSet)
+            {
+                transform.Find("Body").gameObject.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
+                colourSet = true;
+            }
         }
 
     }
