@@ -7,6 +7,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public bool controllerActive;
     public bool masterCannon;
+    public bool invertControls;
 
     public float rotationSensitivity;
     public float power;
@@ -201,6 +202,10 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void weaponAim()
     {
         float rotationInput = Input.GetAxisRaw("Mouse Y");
+        if (invertControls)
+        {
+            rotationInput = -rotationInput;
+        }
         transform.Rotate(new Vector3(0, 0, rotationInput));
         transform.GetComponent<LineRenderer>().enabled = true;
     }
