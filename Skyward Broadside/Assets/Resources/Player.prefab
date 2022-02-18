@@ -54,6 +54,9 @@ MonoBehaviour:
   teamMaterials:
   - {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
   - {fileID: 2100000, guid: f10128d790506c64dbe94649edee76ac, type: 2}
+  teamColours:
+  - {r: 0, g: 0, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
   myTeam: -1
 --- !u!1001 &7770159725660443265
 PrefabInstance:

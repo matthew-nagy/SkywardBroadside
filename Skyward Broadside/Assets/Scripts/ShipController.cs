@@ -47,6 +47,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     float timerDisabled;
     float totalDisabledTime;
 
+    public Color teamColour;
+    bool colourSet = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -249,7 +252,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(velocity);
             stream.SendNext(isDisabled);
             stream.SendNext(moveSpeed);
-
+            stream.SendNext(teamColour.r);
+            stream.SendNext(teamColour.g);
+            stream.SendNext(teamColour.b);
         }
         else
         {
@@ -257,7 +262,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             this.velocity = (Vector3)stream.ReceiveNext();
             this.isDisabled = (bool)stream.ReceiveNext();
             this.moveSpeed = (float)stream.ReceiveNext();
-
+            float r = (float)stream.ReceiveNext();
+            float g = (float)stream.ReceiveNext();
+            float b = (float)stream.ReceiveNext();
+            if(!colourSet)
+            {
+                transform.Find("Body").gameObject.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
+                colourSet = true;
+            }
         }
 
     }

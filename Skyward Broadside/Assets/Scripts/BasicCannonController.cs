@@ -17,14 +17,16 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
     KeyCode secondaryFireKey = KeyCode.Space;
 
-    bool shootingSignal;
-    bool shot;
     bool reloading;
     float ammoLevel;
 
     bool changingWeaponSignal;
     bool changedWeapon;
     public int currentWeapon;
+
+    bool serverShootFlag;
+    bool sendShootToClient;
+    bool clientShootFlag;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +38,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         transform.GetComponent<LineRenderer>().startColor = Color.green;
         transform.GetComponent<LineRenderer>().endColor = Color.green;
 
-        shootingSignal = shot = changingWeaponSignal = changedWeapon = false;
+        serverShootFlag = sendShootToClient = clientShootFlag = changingWeaponSignal = changedWeapon = false;
     }
 
     void Awake()
@@ -52,18 +54,34 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         DontDestroyOnLoad(this.gameObject);
     }
 
+    void ServerUpdate()
+    {
+        getInput();
+        if (serverShootFlag)
+        {
+            serverShootFlag = false;
+            fire();
+        }
+    }
+    void ClientUpdate()
+    {
+        if (clientShootFlag)
+        {
+            clientShootFlag = false;
+            fire();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (photonView.IsMine)
         {
-            getInput();
+            ServerUpdate();
         }
-
-        if (shootingSignal)
+        else
         {
-            fire();
-            shot = true;
+            ClientUpdate();
         }
 
         if (changingWeaponSignal)
@@ -79,10 +97,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
     void removeUsedInput()
     {
-        if (shootingSignal)
-        {
-            shootingSignal = false;
-        }
         if (changedWeapon)
         {
             changingWeaponSignal = false;
@@ -97,11 +111,11 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             weaponAim();
 
             //attempt to fire the cannon
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !shootingSignal)
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag)
             {
                 if (ammoLevel > 0)
                 {
-                    shootingSignal = true;
+                    serverShootFlag = sendShootToClient = true;
                 }
             }
 
@@ -111,14 +125,14 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             transform.GetComponent<LineRenderer>().enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !reloading && !shootingSignal)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !reloading && !serverShootFlag)
         {
             changingWeaponSignal = true;
             currentWeapon = 0;
         }
 
         //change ammo type to explosive cannonball
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !reloading && !shootingSignal)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !reloading && !serverShootFlag)
         {
             changingWeaponSignal = true;
             currentWeapon = 1;
@@ -228,17 +242,29 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
     #region IPunStuff
 
+    void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)
+    {
+        stream.SendNext(sendShootToClient);
+        if (sendShootToClient)
+        {
+            sendShootToClient = false;
+
+            stream.SendNext(transform.rotation);
+        }
+    }
+    void ClientPhotonStream(PhotonStream stream, PhotonMessageInfo info)
+    {
+        clientShootFlag = (bool)stream.ReceiveNext();
+        if (clientShootFlag)
+        {
+            transform.rotation = (Quaternion)stream.ReceiveNext();
+        }
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(shot);
-            if (shot)
-            {
-                stream.SendNext(transform.rotation);
-                stream.SendNext(transform.position);
-                shot = false;
-            }
+            ServerPhotonStream(stream, info);
 
             stream.SendNext(changedWeapon);
             if (changedWeapon)
@@ -250,12 +276,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else
         {
-            shootingSignal = (bool)stream.ReceiveNext();
-            if (shootingSignal)
-            {
-                transform.rotation = ((Quaternion)stream.ReceiveNext());
-                transform.position = ((Vector3)stream.ReceiveNext());
-            }
+            ClientPhotonStream(stream, info);
 
             changingWeaponSignal = (bool)stream.ReceiveNext();
             currentWeapon = (int)stream.ReceiveNext();

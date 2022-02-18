@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
@@ -34,7 +35,11 @@ public class PlayerPhotonHub : PhotonTeamsManager
     private GuiUpdateScript updateScript;
 
     public List<Material> teamMaterials;
+    public List<Color> teamColours;
     public int myTeam = -1;
+
+    private DateTime gameStartTime;
+    private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
 
     public void SetTeam(int team)
     {
@@ -44,7 +49,9 @@ public class PlayerPhotonHub : PhotonTeamsManager
         {
             Debug.LogError("Material was null");
         }
-        transform.Find("Ship").transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
+        Transform ship = transform.Find("Ship");
+        ship.gameObject.GetComponent<ShipController>().teamColour = teamColours[team];
+        ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
     }
 
     // Start is called before the first frame update
@@ -53,6 +60,8 @@ public class PlayerPhotonHub : PhotonTeamsManager
         var properties = new Hashtable();
         properties.Add("deaths", deaths);
         PhotonNetwork.SetPlayerCustomProperties(properties);
+
+       
         
         PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
 
@@ -78,17 +87,27 @@ public class PlayerPhotonHub : PhotonTeamsManager
             disabled = true;
             Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
+        UpdateTimerFromMaster();
     }
+
 
     // Update is called once per frame
     void Update()
     {
+        if (gameStartTime == DateTime.MinValue)
+        {
+            UpdateTimerFromMaster();
+        }
+        else
+        {
+            UpdateTimer();
+        }
     }
 
     public void UpdateScores()
     {
         if (disabled) {
-          return;
+            return;
         }
         int myTeamScore = 0;
         int enemyTeamScore = 0;
@@ -121,7 +140,6 @@ public class PlayerPhotonHub : PhotonTeamsManager
         {
             die();
         }
-        print(currHealth);
         if (updateScript == null)
         {
             Debug.LogWarning("Cannot update health on gui: photon hub's update script is null");
@@ -190,6 +208,26 @@ public class PlayerPhotonHub : PhotonTeamsManager
         else
         {
             Debug.LogWarning("Cannot update weapons on gui, photon hub'su update script is null");
+        }
+    }
+
+    public void UpdateTimerFromMaster()
+    {
+        var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+        
+        gameStartTime = roomProperties.ContainsKey("startTime") ? DateTime.Parse((string) roomProperties["startTime"]) : DateTime.MinValue;
+    }
+
+    private void UpdateTimer()
+    {
+        DateTime endTime = gameStartTime.Add(gameLength);
+        TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
+        
+        updateScript.UpdateTimer(timeRemaining);
+        if (timeRemaining < TimeSpan.Zero)
+        {
+            disabled = true;
+            updateScript.gameOverScreen.SetActive(true);
         }
     }
 
