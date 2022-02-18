@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ using Photon.Pun.UtilityScripts;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     void Start()
     {
         Instance = this;
+        
 
         if (playerPrefab == null)
         {
@@ -63,7 +67,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     Debug.Log(spawnPoint);
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {
-                       PhotonNetwork.LocalPlayer.JoinTeam("Red");
+                        PhotonNetwork.LocalPlayer.JoinTeam("Red");
                     }
                     else
                     {
@@ -94,6 +98,11 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
             }
         }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            setRoomStartTime();
+        }
     }
 
     private void Update()
@@ -111,11 +120,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("GameWorld");
     }
 
+    void setRoomStartTime()
+    {
+        DateTime currentTime = System.DateTime.Now;
+       
+        Hashtable properties = new Hashtable();
+        properties.Add("startTime", currentTime.ToString());
+        PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+    }
+
     #endregion
     
     #region Photon Callbacks
 
-    // not the behaviour we want, calls LoadArena whenever new player joins?
     public override void OnPlayerEnteredRoom(Player other)
     {
         Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
@@ -123,8 +140,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
-            
-            //LoadArena();
         }
     }
 
@@ -135,8 +150,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient);
-
-            //LoadArena();
         }
     }
         
