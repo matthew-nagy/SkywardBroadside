@@ -222,12 +222,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             print("terrain");
 
-            velocity = -0.3f * velocity;
-            isDisabled = true;
-            totalDisabledTime = 0.5f;
+            if (!collision.gameObject.GetComponent<Breakable>().broken)
+            {
+                velocity = -0.5f * velocity;
+                isDisabled = true;
+                totalDisabledTime = 0.5f;
+            }
 
             //0.5 multiplier to keep damage in check
-            collisionMag = rigidBody.mass * 0.7f * velocityBeforeCollision.magnitude * 0.5f;
+            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude * 0.5f;
         }
 
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health

@@ -18,7 +18,7 @@ using Random = UnityEngine.Random;
 public class PlayerPhotonHub : PhotonTeamsManager
 {
     // THIS IS PUBLIC FOR NOW, TO ALLOW FINE TUNING DURING TESTING EASIER.
-    public float forceToDamageMultiplier = 0.1f;
+    public float forceToDamageMultiplier = 0.2f;
 
     private float currHealth;
     private float cannonBallAmmo;
