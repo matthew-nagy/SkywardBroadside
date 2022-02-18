@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
@@ -34,7 +35,14 @@ public class PlayerPhotonHub : PhotonTeamsManager
     private GuiUpdateScript updateScript;
 
     public List<Material> teamMaterials;
+    public List<Color> teamColours;
     public int myTeam = -1;
+
+    private DateTime gameStartTime;
+    private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
+
+    // time used in respawn invincibility
+    private DateTime spawnTime;
 
     public void SetTeam(int team)
     {
@@ -44,15 +52,20 @@ public class PlayerPhotonHub : PhotonTeamsManager
         {
             Debug.LogError("Material was null");
         }
-        transform.Find("Ship").transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
+        Transform ship = transform.Find("Ship");
+        ship.gameObject.GetComponent<ShipController>().teamColour = teamColours[team];
+        ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        spawnTime = System.DateTime.Now;
         var properties = new Hashtable();
         properties.Add("deaths", deaths);
         PhotonNetwork.SetPlayerCustomProperties(properties);
+
+       
         
         PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
 
@@ -78,17 +91,27 @@ public class PlayerPhotonHub : PhotonTeamsManager
             disabled = true;
             Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
+        UpdateTimerFromMaster();
     }
+
 
     // Update is called once per frame
     void Update()
     {
+        if (gameStartTime == DateTime.MinValue)
+        {
+            UpdateTimerFromMaster();
+        }
+        else
+        {
+            UpdateTimer();
+        }
     }
 
     public void UpdateScores()
     {
         if (disabled) {
-          return;
+            return;
         }
         int myTeamScore = 0;
         int enemyTeamScore = 0;
@@ -115,20 +138,23 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     public void UpdateHealth(float collisionMagnitude)
     {
-        float healthVal = collisionMagnitude * forceToDamageMultiplier;
-        currHealth -= healthVal;
-        if (currHealth < 0)
+        // player gets 1 second of invincibility after joining the room and each time they respawn
+        if ((System.DateTime.Now - spawnTime).TotalSeconds > 1)
         {
-            die();
-        }
-        print(currHealth);
-        if (updateScript == null)
-        {
-            Debug.LogWarning("Cannot update health on gui: photon hub's update script is null");
-        }
-        else
-        {
-            updateScript.UpdateGUIHealth(currHealth);
+            float healthVal = collisionMagnitude * forceToDamageMultiplier;
+            currHealth -= healthVal;
+            if (currHealth < 0)
+            {
+                die();
+            }
+            if (updateScript == null)
+            {
+                Debug.LogWarning("Cannot update health on gui: photon hub's update script is null");
+            }
+            else
+            {
+                updateScript.UpdateGUIHealth(currHealth);
+            }
         }
     }
 
@@ -147,8 +173,16 @@ public class PlayerPhotonHub : PhotonTeamsManager
         cannonBallAmmo = PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
         explosiveAmmo = PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
 
-        PlayerShip.transform.position = new Vector3(Random.Range(-25, 25), 5f, Random.Range(-25, 25));
-        
+        if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Red")
+        {
+            PlayerShip.transform.position = new Vector3(300f, 5f, -400f) + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+        }
+        else if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Blue")
+        {
+            PlayerShip.transform.position = new Vector3(-160f, 5f, -80f) + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+        }
+        spawnTime = System.DateTime.Now;
+
         Debug.Log(deaths);
     }
 
@@ -190,6 +224,26 @@ public class PlayerPhotonHub : PhotonTeamsManager
         else
         {
             Debug.LogWarning("Cannot update weapons on gui, photon hub'su update script is null");
+        }
+    }
+
+    public void UpdateTimerFromMaster()
+    {
+        var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+        
+        gameStartTime = roomProperties.ContainsKey("startTime") ? DateTime.Parse((string) roomProperties["startTime"]) : DateTime.MinValue;
+    }
+
+    private void UpdateTimer()
+    {
+        DateTime endTime = gameStartTime.Add(gameLength);
+        TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
+        
+        updateScript.UpdateTimer(timeRemaining);
+        if (timeRemaining < TimeSpan.Zero)
+        {
+            disabled = true;
+            updateScript.gameOverScreen.SetActive(true);
         }
     }
 

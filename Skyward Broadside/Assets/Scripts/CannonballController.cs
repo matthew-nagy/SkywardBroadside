@@ -18,6 +18,11 @@ public class CannonballController : MonoBehaviour
         
     }
 
-    
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (owner != collision.gameObject)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
