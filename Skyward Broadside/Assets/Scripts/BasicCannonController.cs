@@ -115,7 +115,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && !shootingSignal)
         {
-            print("ChangeWeaponsignal");
             changingWeaponSignal = true;
             currentWeapon = 0;
         }
@@ -157,7 +156,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
         weaponStatusReloading();
 
-        updateArsenal();
+        updateArsenal(currentWeapon);
 
         Invoke("weaponStatusReady", 2);        
     }
@@ -222,19 +221,11 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     //update ships ammo levels
-    void updateArsenal()
+    void updateArsenal(int weaponId)
     {
-        if (ammoType.name == "Cannonball")
-        {
-            float ammoLevel = getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
-            GetComponentInParent<PlayerPhotonHub>().UpdateAmmo(ammoType.name, ammoLevel);
-            
-        }
-        if (ammoType.name == "ExplosiveCannonball")
-        {
-            float ammoLevel = getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
-            GetComponentInParent<PlayerPhotonHub>().UpdateAmmo(ammoType.name, ammoLevel);
-        }
+        getShipTransform().GetComponent<ShipArsenal>().reduceAmmo(weaponId);
+        getAmmoLevel();
+        GetComponentInParent<PlayerPhotonHub>().UpdateAmmo(ammoType.name, ammoLevel);
     }
 
     #region IPunStuff

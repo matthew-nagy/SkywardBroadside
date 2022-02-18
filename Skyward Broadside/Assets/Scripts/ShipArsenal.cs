@@ -19,4 +19,16 @@ public class ShipArsenal : MonoBehaviour
         cannonballAmmo = maxCannonballAmmo;
         explosiveCannonballAmmo = maxExplosiveCannonballAmmo;
     }
+
+    public void reduceAmmo(int weaponID)
+    {
+        if (weaponID == 0)
+        {
+            cannonballAmmo--;
+        }
+        if (weaponID == 1)
+        {
+            explosiveCannonballAmmo--;
+        }
+    }
 }

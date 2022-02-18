@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6357757886373269347}
   - component: {fileID: 4843399686929617305}
   - component: {fileID: 4092998852668929923}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: ExplosiveCannonball
   m_TagString: ExplosiveCannonball
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPower: 100000
-  explosionRadius: 5
+  explosionRadius: 10
   explodableObjects:
     serializedVersion: 2
     m_Bits: 119
@@ -251,4 +251,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b6281221e3013489594d2f2d4b7493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}

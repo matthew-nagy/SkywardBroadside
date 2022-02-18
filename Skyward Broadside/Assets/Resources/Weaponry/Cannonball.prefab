@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1985538825401212054}
   - component: {fileID: -9186656814902345108}
   - component: {fileID: 2731695474217339481}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Cannonball
   m_TagString: Cannonball
   m_Icon: {fileID: 0}
@@ -233,4 +233,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b6281221e3013489594d2f2d4b7493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
