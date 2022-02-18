@@ -16,18 +16,18 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     Rigidbody rigidBody;
 
-    public float angularAccel = 10f;
+    public float angularAccel = 2f;
     public float angularMass = 5f;
     public float angularFriction = 0.02f;
 
     [Tooltip("How much the ship weighs; controls how forces act")]
     public float mass = 5f;
     [Tooltip("The force the ship produces to drive it forwards")]
-    public float engineDriveForce = 6f;
+    public float engineDriveForce = 2.25f;
     [Tooltip("Force the ship can produce to break. Airflaps, for example")]
-    public float flapsBreakingCoefficient = 0.2f;
+    public float flapsBreakingCoefficient = 0.00000002f;
     [Tooltip("Drag from propeler not being fast enough to push air or something")]
-    public float propelerDragCoefficient = 0.05f;
+    public float propelerDragCoefficient = 0.055f;
     [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
     public float bodyDragCoefficient = 0.0002f;
 

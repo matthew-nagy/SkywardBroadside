@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1953,7 +1953,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Use WASD keys to move. W: Forwards, A: Left, S: Back, D: Right. Right
     click to aim, and then left click or space to shoot. You can pan your camera
-    by moving your mouse. Good luck, and sink those enemy ships!'
+    by moving your mouse. Press Esc to recover your mouse. Good luck, and sink those
+    enemy ships!'
 --- !u!222 &1724332669
 CanvasRenderer:
   m_ObjectHideFlags: 0
