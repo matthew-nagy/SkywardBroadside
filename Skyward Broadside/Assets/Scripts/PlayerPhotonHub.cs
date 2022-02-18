@@ -121,7 +121,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
         {
             die();
         }
-        print(currHealth);
+        //print(currHealth);
         if (updateScript == null)
         {
             Debug.LogWarning("Cannot update health on gui: photon hub's update script is null");

@@ -72,6 +72,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             changedWeapon = true;
         }
 
+        updateLineRenderer();
+
         removeUsedInput();
 
         getAmmoLevel();
@@ -97,7 +99,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             weaponAim();
 
             //attempt to fire the cannon
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !shootingSignal)
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !shootingSignal && !changingWeaponSignal)
             {
                 if (ammoLevel > 0)
                 {
@@ -111,14 +113,15 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             transform.GetComponent<LineRenderer>().enabled = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !reloading && !shootingSignal)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !shootingSignal)
         {
+            print("ChangeWeaponsignal");
             changingWeaponSignal = true;
             currentWeapon = 0;
         }
 
         //change ammo type to explosive cannonball
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !reloading && !shootingSignal)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !shootingSignal)
         {
             changingWeaponSignal = true;
             currentWeapon = 1;
@@ -128,6 +131,20 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     Transform getShipTransform()
     {
         return transform.root.GetChild(0);
+    }
+
+    void updateLineRenderer()
+    {
+        if (ammoLevel <= 0)
+        {
+            transform.GetComponent<LineRenderer>().startColor = Color.red;
+            transform.GetComponent<LineRenderer>().endColor = Color.red;
+        }
+        if (ammoLevel > 0 && !reloading)
+        {
+            transform.GetComponent<LineRenderer>().startColor = Color.green;
+            transform.GetComponent<LineRenderer>().endColor = Color.green;
+        }
     }
 
     //fire the cannon
@@ -170,7 +187,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         //check not trying to switch to same ammo that is currently selected
         if (ammoType != getShipTransform().GetComponent<ShipArsenal>().equippedWeapons[weaponId])
         {
-            
             GetComponentInParent<PlayerPhotonHub>().UpdateWeapon(weaponId);
             ammoType = getShipTransform().GetComponent<ShipArsenal>().equippedWeapons[weaponId];
             getAmmoLevel();
@@ -194,18 +210,13 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void weaponStatusReady()
     {
         reloading = false;
-        getAmmoLevel();
-        if (ammoLevel > 0)
-        {
-            transform.GetComponent<LineRenderer>().startColor = Color.green;
-            transform.GetComponent<LineRenderer>().endColor = Color.green;
-        }
     }
 
     //set the "aiming line" to red to show weapons are reloading
     void weaponStatusReloading()
     {
         reloading = true;
+        getAmmoLevel();
         transform.GetComponent<LineRenderer>().startColor = Color.red;
         transform.GetComponent<LineRenderer>().endColor = Color.red;
     }

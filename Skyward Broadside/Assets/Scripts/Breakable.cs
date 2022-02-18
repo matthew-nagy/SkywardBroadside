@@ -37,7 +37,7 @@ public class Breakable : MonoBehaviour
         {
             return;
         }
-        print("Collision");
+        //print("Collision");
         if (!broken)
         {
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
