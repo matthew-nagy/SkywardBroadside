@@ -17,13 +17,13 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   scale:
-    overrideState: 0
+    overrideState: 1
     value: 2
   edgeScaler:
-    overrideState: 0
+    overrideState: 1
     value: 800
   depthDrawThreshold:
-    overrideState: 0
+    overrideState: 1
     value: 0.03
 --- !u!114 &11400000
 MonoBehaviour:
@@ -57,14 +57,14 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   focusDistance:
-    overrideState: 0
+    overrideState: 1
     value: 10
   aperture:
-    overrideState: 0
+    overrideState: 1
     value: 5.6
   focalLength:
-    overrideState: 0
+    overrideState: 1
     value: 50
   kernelSize:
-    overrideState: 0
+    overrideState: 1
     value: 1
