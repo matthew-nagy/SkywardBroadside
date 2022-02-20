@@ -30,8 +30,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public float propelerDragCoefficient = 0.055f;
     [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
     public float bodyDragCoefficient = 0.0002f;
-    [Tooltip("Reversing force")]
-    public float reversingForceCoefficient;
+    [Tooltip("Proportion of reversing force compared to forwards possible force")]
+    public float reversingForceProportion = 0.05f;
+    [Tooltip("Limit of forwards momentum before reversing starts rather than breaking")]
+    public float breakToReverseThreashold = 8f;
 
     RequestedControls playerInput;
 
@@ -290,6 +292,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         return Mathf.Abs(Vector3.Dot(resistiveForce.normalized, forwardDirection.normalized));
     }
 
+    bool GoingForwards()
+    {
+        if(velocity.magnitude > breakToReverseThreashold && Vector3.Dot(transform.forward, velocity) > 0.0f)
+        {
+            return true;
+        }
+        return false;
+    }
     void HandleForce()
     {
         Vector3 drivingForce = new Vector3(0, 0, 0);
@@ -300,15 +310,17 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             drivingForce = transform.forward * engineDriveForce;
         }
-        else if (playerInput.backwards && Vector3.Dot(velocity, transform.forward) > 0f)
+        else if (playerInput.backwards)
         {
-            breakingForce = -1 * flapsBreakingCoefficient * velocity * velocity.magnitude;
+            if (GoingForwards())
+            {
+                breakingForce = -1 * flapsBreakingCoefficient * velocity * velocity.magnitude;
+            }
+            else
+            {
+                drivingForce = transform.forward * engineDriveForce * -1 * reversingForceProportion;
+            }
         }
-        else if(playerInput.backwards)
-        {
-            drivingForce = transform.forward * -1 * reversingForceCoefficient;
-        }
-
 
         if (playerInput.turnRight)
         {

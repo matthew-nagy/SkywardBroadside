@@ -86,8 +86,16 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1845835177, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: breakToReverseThreashold
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845835177, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: flapsBreakingCoefficient
       value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845835177, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: reversingForceProportion
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2067313920, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: shipCam
