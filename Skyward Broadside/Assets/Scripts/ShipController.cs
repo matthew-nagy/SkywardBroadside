@@ -30,6 +30,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public float propelerDragCoefficient = 0.055f;
     [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
     public float bodyDragCoefficient = 0.0002f;
+    [Tooltip("Proportion of reversing force compared to forwards possible force")]
+    public float reversingForceProportion = 0.05f;
+    [Tooltip("Limit of forwards momentum before reversing starts rather than breaking")]
+    public float breakToReverseThreashold = 8f;
 
     RequestedControls playerInput;
 
@@ -288,6 +292,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         return Mathf.Abs(Vector3.Dot(resistiveForce.normalized, forwardDirection.normalized));
     }
 
+    bool GoingForwards()
+    {
+        if(velocity.magnitude > breakToReverseThreashold && Vector3.Dot(transform.forward, velocity) > 0.0f)
+        {
+            return true;
+        }
+        return false;
+    }
     void HandleForce()
     {
         Vector3 drivingForce = new Vector3(0, 0, 0);
@@ -300,9 +312,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else if (playerInput.backwards)
         {
-            breakingForce = -1 * flapsBreakingCoefficient * velocity * velocity.magnitude;
+            if (GoingForwards())
+            {
+                breakingForce = -1 * flapsBreakingCoefficient * velocity * velocity.magnitude;
+            }
+            else
+            {
+                drivingForce = transform.forward * engineDriveForce * -1 * reversingForceProportion;
+            }
         }
-
 
         if (playerInput.turnRight)
         {
@@ -317,8 +335,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         turnDirection += (turningForce + angularAgainst) / angularMass;
 
         Vector3 dragForce = -1 * bodyDragCoefficient * velocity * velocity.magnitude;
-        //Both Beta and Alpha in terms of car physics, as the body's direction is always the same as the "wheel"'s direction
-        float slipAngle = Vector3.Dot(transform.forward, velocity.normalized);
 
 
 
@@ -328,21 +344,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 acceleration = longuitudinalForce / mass;
         Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
         velocity += acceleration;
-
-        //If its too damn much deceleration, 
-        if(Vector3.Dot(preVel, velocity) < -0.8)
-        {
-            velocity = Vector3.zero;
-        }
-
-
-        //float resistanceAngle = Vector2.Angle(Vector2.up ,new Vector2(velocity.x, velocity.y) * -1f);
-        //float resistanceArea = shipWidth * Mathf.Cos(resistanceAngle) + shipLegth * Mathf.Sin(resistanceAngle);
-        //float resistance = GetResistiveForce(airDensity, resistanceCoefficient * velocity.magnitude, resistanceArea, Mathf.Pow(velocity.magnitude, 2f));
-        //Force against the ship
-        //Vector3 resistiveForce = resistance * -1 * velocity.normalized;
-
-        //velocity += resistiveForce / mass;
     }
 
 }

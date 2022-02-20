@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Rendering.PostProcessing;
 
 public class CameraController : MonoBehaviourPunCallbacks
 {
     public GameObject shipCam;
+    public PostProcessProfile toonProfile;
     GameObject thisCam;
     //Used in the weapons controller to figure out what cannons to enable
     [Tooltip("DON'T HECCIN TOUCH THIS")]
@@ -21,6 +23,7 @@ public class CameraController : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.Locked;
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
+
         }
     }
 
