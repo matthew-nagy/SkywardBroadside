@@ -85,10 +85,18 @@ PrefabInstance:
       propertyPath: angularFriction
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1845835177, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: flapsBreakingCoefficient
+      value: 0.002
+      objectReference: {fileID: 0}
     - target: {fileID: 2067313920, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: shipCam
       value: 
       objectReference: {fileID: 7167950620029611010, guid: 1f12a0732c013bc40b99005a4ea3be40, type: 3}
+    - target: {fileID: 2067313920, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: toonProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: e1411cb9cfaccce43908e2c288f45174, type: 2}
     - target: {fileID: 2067313921, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: leftCannons.Array.size
       value: 3

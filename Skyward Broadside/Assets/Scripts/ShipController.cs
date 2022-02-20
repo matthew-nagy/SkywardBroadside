@@ -30,6 +30,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public float propelerDragCoefficient = 0.055f;
     [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
     public float bodyDragCoefficient = 0.0002f;
+    [Tooltip("Reversing force")]
+    public float reversingForceCoefficient;
 
     RequestedControls playerInput;
 
@@ -298,9 +300,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             drivingForce = transform.forward * engineDriveForce;
         }
-        else if (playerInput.backwards)
+        else if (playerInput.backwards && Vector3.Dot(velocity, transform.forward) > 0f)
         {
             breakingForce = -1 * flapsBreakingCoefficient * velocity * velocity.magnitude;
+        }
+        else if(playerInput.backwards)
+        {
+            drivingForce = transform.forward * -1 * reversingForceCoefficient;
         }
 
 
@@ -317,8 +323,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         turnDirection += (turningForce + angularAgainst) / angularMass;
 
         Vector3 dragForce = -1 * bodyDragCoefficient * velocity * velocity.magnitude;
-        //Both Beta and Alpha in terms of car physics, as the body's direction is always the same as the "wheel"'s direction
-        float slipAngle = Vector3.Dot(transform.forward, velocity.normalized);
 
 
 
@@ -328,21 +332,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 acceleration = longuitudinalForce / mass;
         Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
         velocity += acceleration;
-
-        //If its too damn much deceleration, 
-        if(Vector3.Dot(preVel, velocity) < -0.8)
-        {
-            velocity = Vector3.zero;
-        }
-
-
-        //float resistanceAngle = Vector2.Angle(Vector2.up ,new Vector2(velocity.x, velocity.y) * -1f);
-        //float resistanceArea = shipWidth * Mathf.Cos(resistanceAngle) + shipLegth * Mathf.Sin(resistanceAngle);
-        //float resistance = GetResistiveForce(airDensity, resistanceCoefficient * velocity.magnitude, resistanceArea, Mathf.Pow(velocity.magnitude, 2f));
-        //Force against the ship
-        //Vector3 resistiveForce = resistance * -1 * velocity.normalized;
-
-        //velocity += resistiveForce / mass;
     }
 
 }
