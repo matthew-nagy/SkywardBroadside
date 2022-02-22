@@ -18,13 +18,13 @@ MonoBehaviour:
     value: 1
   scale:
     overrideState: 1
-    value: 2
+    value: 3
   edgeScaler:
     overrideState: 1
     value: 800
   depthDrawThreshold:
     overrideState: 1
-    value: 0.03
+    value: 0.005
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

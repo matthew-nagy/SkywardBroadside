@@ -10,7 +10,7 @@ Shader "Unlit/CellShader"
         SubShader
         {
             Blend SrcAlpha OneMinusSrcAlpha
-            Tags {"Queue" = "Transparent" "RenderType" = "Transparent"}
+            Tags {"Queue" = "Opaque"}// "RenderType" = "Transparent" }
             LOD 100
             Cull[_Cull]
             ZWrite On
