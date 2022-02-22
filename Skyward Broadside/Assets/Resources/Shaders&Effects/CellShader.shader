@@ -4,11 +4,13 @@ Shader "Unlit/CellShader"
     {
         _MainTex("Texture", 2D) = "white" {}
         _Colour("Colour", Color) = (1, 1, 1, 1)
+        _ScriptAlpha("Script alpha", float) = 1.0
         _AmbientLevel("Ambient light level", Range(0,1)) = 0.2
     }
         SubShader
         {
-            Tags { "RenderType" = "Opaque" }
+            Blend SrcAlpha OneMinusSrcAlpha
+            Tags {"Queue" = "Transparent" "RenderType" = "Transparent"}
             LOD 100
             Cull[_Cull]
             ZWrite On
@@ -41,6 +43,7 @@ Shader "Unlit/CellShader"
                 float4 _MainTex_ST;
                 float4 _Colour;
                 float _AmbientLevel;
+                float _ScriptAlpha;
 
                 float getAOI(float3 normalVec, float3 lightVec)
                 {
@@ -106,6 +109,7 @@ Shader "Unlit/CellShader"
                     fixed4 col = tex2D(_MainTex, i.uv) * _Colour;
                     float cellShade = CellShade(i.worldNormal, i.viewDir, _WorldSpaceLightPos0.xyz);
                     col *= cellShade;
+                    col.a = _ScriptAlpha;
                     return col;
                 }
                 ENDCG
