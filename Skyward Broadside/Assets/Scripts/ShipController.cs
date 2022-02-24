@@ -54,6 +54,12 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public Color teamColour;
     bool colourSet = false;
 
+    public List<ParticleSystem> pDriveSystem;
+    public List<ParticleSystem> pClockwiseJets;
+    public List<ParticleSystem> pAntiClockwiseJets;
+    public List<ParticleSystem> pShootUpJet;
+    public List<ParticleSystem> pShootDownJet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -310,7 +316,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             drivingForce = transform.forward * engineDriveForce;
         }
-        else if (playerInput.backwards)
+        SetParticles(pDriveSystem, playerInput.forwards);
+
+        if (playerInput.backwards)
         {
             if (GoingForwards())
             {
@@ -326,10 +334,12 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             turningForce = new Vector3(0, angularAccel, 0);
         }
+        SetParticles(pClockwiseJets, playerInput.turnRight);
         if (playerInput.turnLeft)
         {
             turningForce = new Vector3(0, angularAccel * -1.0f, 0);
         }
+        SetParticles(pClockwiseJets, playerInput.turnLeft);
 
         Vector3 angularAgainst = -1 * turnDirection * angularFriction;
         turnDirection += (turningForce + angularAgainst) / angularMass;
@@ -346,4 +356,19 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         velocity += acceleration;
     }
 
+
+    void SetParticles(List<ParticleSystem> systems, bool on)
+    {
+        foreach(ParticleSystem ps in systems)
+        {
+            if (on)
+            {
+                ps.Play();
+            }
+            else
+            {
+                ps.Stop();
+            }
+        }
+    }
 }
