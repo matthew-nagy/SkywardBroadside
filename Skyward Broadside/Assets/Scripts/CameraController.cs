@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviourPunCallbacks
     [Tooltip("DON'T HECCIN TOUCH THIS")]
     public Cinemachine.CinemachineFreeLook cameraObj;
 
+    bool freeCamDisabled;
+
     private void Start()
     {
         if (photonView.IsMine)
@@ -34,24 +36,46 @@ public class CameraController : MonoBehaviourPunCallbacks
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
-    }
 
+        if (photonView.IsMine)
+        {
+            if (freeCamDisabled)
+            {
+                Vector3 targetPos = GetComponent<TargetingSystem>().currentTarget.transform.position;
+                Vector3 v = gameObject.transform.position - targetPos;
+                Vector3 vnorm = (gameObject.transform.position - targetPos).normalized;
+                v = v + (vnorm * 15f);
+                v.y = v.y + 4;
+                cameraObj.transform.position = targetPos + v;
+            }
+        }
+
+    }
+    
     public void disableFreeCam()
     {
+        freeCamDisabled = true;
         cameraObj.m_XAxis.m_InputAxisName = "";
         cameraObj.m_YAxis.m_InputAxisName = "";
         cameraObj.m_XAxis.m_InputAxisValue = 0;
         cameraObj.m_YAxis.m_InputAxisValue = 0;
+        cameraObj.m_Follow = null;
     }
 
     public void enableFreeCam()
     {
+        freeCamDisabled = false;
         cameraObj.m_XAxis.m_InputAxisName = "Mouse X";
         cameraObj.m_YAxis.m_InputAxisName = "Mouse Y";
     }
 
-    public void setFollowTarget(GameObject target)
+    public void setLookAtTarget(GameObject target)
     {
         cameraObj.m_LookAt = target.transform;
+    }
+
+    public void setFollowTarget(GameObject target)
+    {
+        cameraObj.m_Follow = target.transform;
     }
 }

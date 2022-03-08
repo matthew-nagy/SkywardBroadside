@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class TargetingSystem : MonoBehaviourPunCallbacks
 {
-    GameObject currentTarget;
+    public GameObject currentTarget;
     bool targetAquired;
     bool targetOutlined;
     bool lockedOn;
@@ -64,7 +64,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     void lockOnToTarget(GameObject currentTarget)
     {
         lockedOn = true;
-        GetComponent<CameraController>().setFollowTarget(currentTarget);
+        GetComponent<CameraController>().setLookAtTarget(currentTarget);
         GetComponent<CameraController>().disableFreeCam();
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.green;
     }
@@ -72,6 +72,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     void unLockToTarget()
     {
         lockedOn = false;
+        GetComponent<CameraController>().setLookAtTarget(transform.gameObject);
         GetComponent<CameraController>().setFollowTarget(transform.gameObject);
         GetComponent<CameraController>().enableFreeCam();
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
