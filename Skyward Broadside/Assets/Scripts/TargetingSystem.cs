@@ -7,6 +7,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 {
     GameObject currentTarget;
     bool targetAquired;
+    bool targetOutlined;
     bool lockedOn;
     public LayerMask layerMask;
 
@@ -21,36 +22,84 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     }
 
     private void Update()
-    {
+    { 
         if (photonView.IsMine)
         {
-            if (lockedOn)
+            getInput();
+
+            if (targetOutlined)
             {
                 checkVisible(currentTarget);
+                if (!lockedOn)
+                {
+                    checkStillClosest(currentTarget);
+                }
             }
             else
             {
                 GameObject closestEnemy = findClosestEnemyInView();
                 if (targetAquired)
                 {
-                    lockOn(closestEnemy);
+                    highlightTarget(closestEnemy);
                 }
             }
         }
     }
 
+    void getInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            if (!lockedOn && targetAquired)
+            {
+                lockOnToTarget(currentTarget);
+            }
+            else if (lockedOn)
+            {
+                unLockToTarget();
+            }
+        }
+    }
+
+    void lockOnToTarget(GameObject currentTarget)
+    {
+        lockedOn = true;
+        GetComponent<CameraController>().setFollowTarget(currentTarget);
+        GetComponent<CameraController>().disableFreeCam();
+        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.green;
+    }
+
+    void unLockToTarget()
+    {
+        lockedOn = false;
+        GetComponent<CameraController>().setFollowTarget(transform.gameObject);
+        GetComponent<CameraController>().enableFreeCam();
+        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
+    }
+
     void checkVisible(GameObject currentTarget)
     {
-        GameObject closestEnemy = findClosestEnemyInView();
         RaycastHit hit;
         if (Physics.Linecast(transform.position, currentTarget.transform.position, out hit, layerMask))
         {
-            if (hit.collider.gameObject != currentTarget || currentTarget != closestEnemy)
+            if (hit.collider.gameObject != currentTarget)
             {
-                lockedOn = false;
+                targetOutlined = false;
                 targetAquired = false;
                 currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
+                unLockToTarget();
             }
+        }
+    }
+
+    void checkStillClosest(GameObject currentTarget)
+    {
+        GameObject closestEnemy = findClosestEnemyInView();
+        if (currentTarget != closestEnemy)
+        {
+            targetOutlined = false;
+            targetAquired = false;
+            currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
         }
     }
 
@@ -83,9 +132,9 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         return closestEnemy;
     }
 
-    void lockOn(GameObject closestEnemy)
+    void highlightTarget(GameObject closestEnemy)
     {
-        lockedOn = true;
+        targetOutlined = true;
         currentTarget = closestEnemy;
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 10;
     }

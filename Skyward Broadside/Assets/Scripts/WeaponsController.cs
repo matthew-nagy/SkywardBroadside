@@ -87,8 +87,6 @@ public class WeaponsController : MonoBehaviour
             o.transform.rotation = transform.rotation;
             o.transform.Rotate(0, 0, 90);
         }
-        //I don't think this doesn much anymore
-        this.transform.GetComponent<CameraController>().disableFreeCam();
     }
     private void DeactivateSide()
     {
@@ -107,8 +105,5 @@ public class WeaponsController : MonoBehaviour
         {
             o.GetComponent<BasicCannonController>().controllerActive = false;
         }
-
-        //I don't think this doesn much anymore
-        this.transform.GetComponent<CameraController>().enableFreeCam();
     }
 }

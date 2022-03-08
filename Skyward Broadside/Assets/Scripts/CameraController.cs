@@ -38,13 +38,20 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     public void disableFreeCam()
     {
+        cameraObj.m_XAxis.m_InputAxisName = "";
         cameraObj.m_YAxis.m_InputAxisName = "";
-        //cameraObj.m_XAxis.m_InputAxisName = "";
+        cameraObj.m_XAxis.m_InputAxisValue = 0;
+        cameraObj.m_YAxis.m_InputAxisValue = 0;
     }
 
     public void enableFreeCam()
     {
-        cameraObj.m_YAxis.m_InputAxisName = "Mouse Y";
         cameraObj.m_XAxis.m_InputAxisName = "Mouse X";
+        cameraObj.m_YAxis.m_InputAxisName = "Mouse Y";
+    }
+
+    public void setFollowTarget(GameObject target)
+    {
+        cameraObj.m_LookAt = target.transform;
     }
 }
