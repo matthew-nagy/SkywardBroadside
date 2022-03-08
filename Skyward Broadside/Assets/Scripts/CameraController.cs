@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.Locked;
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
-
+            gameObject.GetComponent<TargetingSystem>().myCam = cameraObj;
         }
     }
 
