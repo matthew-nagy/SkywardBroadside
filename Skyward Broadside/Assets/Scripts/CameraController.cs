@@ -36,7 +36,10 @@ public class CameraController : MonoBehaviourPunCallbacks
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+    }
 
+    private void LateUpdate()
+    {
         if (photonView.IsMine)
         {
             if (freeCamDisabled)
@@ -49,9 +52,8 @@ public class CameraController : MonoBehaviourPunCallbacks
                 cameraObj.transform.position = targetPos + v;
             }
         }
-
     }
-    
+
     public void disableFreeCam()
     {
         freeCamDisabled = true;
