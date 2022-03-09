@@ -47,6 +47,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     Vector3 turnDirection;
     float acceleration = 1f;
     float deceleration = 1f;
+    float verticalAcceleration = 1f;
+    float verticalDeceleration = 1f;
+    float verticalSpeed;
+    float maxVerticalSpeed = 5f;
     bool isDisabled;
     float timerDisabled;
     float totalDisabledTime;
@@ -68,6 +72,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         velocity = new Vector3(0, 0, 0);
         velocityBeforeCollision = new Vector3(0, 0, 0);
         turnDirection = new Vector3(0, 0, 0);
+        verticalSpeed = 0;
     }
 
     void Awake()
@@ -165,6 +170,16 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
 
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
+
+        //if (Input.GetKey(KeyCode.R))
+        //{
+        //    rigidBody.MovePosition(rigidBody.position + Vector3.up * verticalSpeed * Time.fixedDeltaTime);
+        //}
+        //else if (Input.GetKey(KeyCode.F))
+        //{
+        //    rigidBody.MovePosition(rigidBody.position + Vector3.down * verticalSpeed * Time.fixedDeltaTime);
+        //}
+
         velocityBeforeCollision = velocity;
 
     }
@@ -354,6 +369,30 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 acceleration = longuitudinalForce / mass;
         Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
         velocity += acceleration;
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            verticalSpeed += verticalAcceleration;
+        }
+        else if (Input.GetKey(KeyCode.F))
+        {
+            verticalSpeed -= verticalAcceleration;
+        }
+        else
+        {
+            if (verticalSpeed <= 0f)
+            {
+                verticalSpeed += verticalDeceleration;
+                Mathf.Clamp(verticalSpeed, -maxVerticalSpeed, 0f);
+            }
+            else
+            {
+                verticalSpeed -= verticalDeceleration;
+                Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
+            }
+        }
+
+        velocity.y = verticalSpeed;
     }
 
 
