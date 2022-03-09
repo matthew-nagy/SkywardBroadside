@@ -238,13 +238,16 @@ public class PlayerPhotonHub : PhotonTeamsManager
     {
         DateTime endTime = gameStartTime.Add(gameLength);
         TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
-        
-        updateScript.UpdateTimer(timeRemaining);
+
         if (timeRemaining < TimeSpan.Zero)
         {
             disabled = true;
             updateScript.gameOverScreen.SetActive(true);
+            timeRemaining = TimeSpan.Zero;
         }
+
+        updateScript.UpdateTimer(timeRemaining);
+        
     }
 
     private void OnEnable()
