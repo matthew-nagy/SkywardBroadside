@@ -126,8 +126,8 @@ public class GameManager : MonoBehaviourPunCallbacks
        
         Hashtable properties = new Hashtable();
         properties.Add("startTime", currentTime.ToString());
-        properties.Add("redScore", 0);
-        properties.Add("blueScore", 0);
+        int[] scores = {0, 0};
+        properties.Add("scores", scores);
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 

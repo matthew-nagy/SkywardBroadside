@@ -40,6 +40,8 @@ public class PlayerPhotonHub : PhotonTeamsManager
     private DateTime gameStartTime;
     private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
 
+    private bool gotScores = false;
+
     public void SetTeam(int team)
     {
         myTeam = team;
@@ -54,11 +56,9 @@ public class PlayerPhotonHub : PhotonTeamsManager
     // Start is called before the first frame update
     void Start()
     {
-        var properties = new Hashtable();
-        properties.Add("deaths", deaths);
-        PhotonNetwork.SetPlayerCustomProperties(properties);
-
-       
+        //var properties = new Hashtable();
+        //properties.Add("deaths", deaths);
+        //PhotonNetwork.SetPlayerCustomProperties(properties);
         
         PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
 
@@ -78,6 +78,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
             updateScript.UpdateGUIExplosiveAmmo(explosiveAmmo);
             currentWeapon = PlayerShip.GetComponentInChildren<BasicCannonController>().currentWeapon;
             UpdateWeapon(currentWeapon);
+            FetchScores();
         }
         else
         {
@@ -98,23 +99,34 @@ public class PlayerPhotonHub : PhotonTeamsManager
         {
             UpdateTimer();
         }
+
+        if (!gotScores)
+        {
+            FetchScores();
+        }
     }
 
-    public void UpdateScores(Hashtable properties)
+    public void UpdateScores(int[] scores)
     {
-        int myTeamScore;
-        int enemyTeamScore;
-        if (myTeam == 0)
+        if (myTeam == 1)
         {
-            myTeamScore = (int)properties["blueTeam"];
-            enemyTeamScore = (int)properties["redTeam"];
+            updateScript.UpdateGUIScores(scores[0], scores[1]);
         }
         else
         {
-            myTeamScore = (int)properties["redTeam"];
-            enemyTeamScore = (int)properties["blueTeam"];
+            updateScript.UpdateGUIScores(scores[1], scores[0]);
         }
-        updateScript.UpdateGUIScores(myTeamScore, enemyTeamScore);
+    }
+
+    public void FetchScores()
+    {
+        var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+        if (properties.ContainsKey("score"))
+        {
+            var scores = (int[]) properties["score"];
+            UpdateScores(scores);
+            gotScores = true;
+        }
     }
 
     public void UpdateHealth(float collisionMagnitude)
@@ -230,34 +242,29 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
     private void OnEvent(EventData photonEvent)
     {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-        
+        Debug.LogFormat("RECEIVED EVENT {0}", photonEvent.Code);
         byte eventCode = photonEvent.Code;
         if (eventCode == 1)
         {
-            int team = (int)photonEvent.CustomData;
-            var properties = PhotonNetwork.CurrentRoom.CustomProperties;
-            int redScore = (int)properties["redScore"];
-            int blueScore = (int) properties["blueScore"];
-            switch (team)
+            if (!PhotonNetwork.IsMasterClient)
             {
-                case 0:
-                    properties[redScore] = redScore + 1;
-                    break;
-                case 1:
-                    properties[blueScore] = blueScore + 1;
-                    break;
+                return;
             }
 
-            PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
-        }
-    }
+            int team = (int) photonEvent.CustomData;
+            var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+            int[] scores = properties.ContainsKey("scores") ? (int[]) properties["scores"] : new int[] {0, 0};
+            scores[team] += 1;
 
-    private void OnRoomPropertiesUpdate(Hashtable properties)
-    {
-        UpdateScores(properties);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+            PhotonNetwork.RaiseEvent(2, scores, raiseEventOptions, SendOptions.SendReliable); 
+        }
+        else if (eventCode == 2)
+        {
+            Debug.Log("RECEIVED UPDATE TO UPDATE SCORES");
+            var scores = (int[])photonEvent.CustomData;
+            UpdateScores(scores);    
+        }
     }
 }
