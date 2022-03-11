@@ -79,7 +79,6 @@ public class PlayerUI : MonoBehaviourPun
 
 
         targetPosition = playerRb.position;
-        print(targetPosition);
         targetPosition.y += heightAbovePlayer;
         transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
 
