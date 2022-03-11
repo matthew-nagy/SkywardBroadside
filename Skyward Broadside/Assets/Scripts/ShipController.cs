@@ -93,7 +93,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
@@ -102,7 +101,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (!isDisabled)
         {
             GetPlayerInput();
-            GetWeaponInput();
+            //GetWeaponInput();
         }
         else
         {
@@ -118,21 +117,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 isDisabled = false;
                 timerDisabled = 0f;
             }
-        }
-
-        
-
-    }
-
-    void GetWeaponInput()
-    {
-        if (Input.GetKey(KeyCode.Mouse1) && !transform.GetComponent<WeaponsController>().hasEnabledWeapons())
-        {
-            transform.GetComponent<WeaponsController>().enableSideWeapons();
-        }
-        else if (!Input.GetKey(KeyCode.Mouse1) && transform.GetComponent<WeaponsController>().hasEnabledWeapons())
-        {
-            transform.GetComponent<WeaponsController>().disableSideWeapons();
         }
     }
 
