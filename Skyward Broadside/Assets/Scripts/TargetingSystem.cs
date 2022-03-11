@@ -8,7 +8,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     public GameObject currentTarget;
     bool targetAquired;
     bool targetOutlined;
-    bool lockedOn;
+    public bool lockedOn;
     public LayerMask layerMask;
 
     public Cinemachine.CinemachineFreeLook myCam;
