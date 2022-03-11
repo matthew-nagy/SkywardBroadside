@@ -14,13 +14,20 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
-public class PlayerPhotonHub : PhotonTeamsManager
+public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
 {
     // THIS IS PUBLIC FOR NOW, TO ALLOW FINE TUNING DURING TESTING EASIER.
     public float forceToDamageMultiplier = 0.2f;
 
-    private float currHealth;
+    [Tooltip("The Player's UI GameObject Prefab")]
+    [SerializeField]
+    public GameObject PlayerUiPrefab;
+
+    public string playerName { get; set; }
+
+    public float currHealth { get; set; }
     private float cannonBallAmmo;
     private float explosiveAmmo;
     private int currentWeapon;
@@ -55,6 +62,19 @@ public class PlayerPhotonHub : PhotonTeamsManager
         Transform ship = transform.Find("Ship");
         ship.gameObject.GetComponent<ShipController>().teamColour = teamColours[team];
         ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
+    }
+
+    private void Awake()
+    {
+        if (PlayerPrefs.HasKey("PlayerName"))
+        {
+            playerName = PlayerPrefs.GetString("PlayerName");
+        }
+        else
+        {
+            playerName = "Player";
+        }
+        
     }
 
     // Start is called before the first frame update
@@ -92,6 +112,23 @@ public class PlayerPhotonHub : PhotonTeamsManager
             Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
         UpdateTimerFromMaster();
+
+        //Instantiate UI (username and health)
+        if (PlayerUiPrefab != null)
+        {
+            GameObject _uiGo = Instantiate(PlayerUiPrefab);
+
+            //Send a message to instance we created
+            //Requires receiver, will be alerted if no component to respond to it
+            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+ 
+        }
+        else
+        {
+            Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
+        }
+
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
 
@@ -227,6 +264,11 @@ public class PlayerPhotonHub : PhotonTeamsManager
         }
     }
 
+    public void SetName(string name)
+    {
+        playerName = name;
+    }
+
     public void UpdateTimerFromMaster()
     {
         var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
@@ -238,13 +280,16 @@ public class PlayerPhotonHub : PhotonTeamsManager
     {
         DateTime endTime = gameStartTime.Add(gameLength);
         TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
-        
-        updateScript.UpdateTimer(timeRemaining);
+
         if (timeRemaining < TimeSpan.Zero)
         {
             disabled = true;
             updateScript.gameOverScreen.SetActive(true);
+            timeRemaining = TimeSpan.Zero;
         }
+
+        updateScript.UpdateTimer(timeRemaining);
+        
     }
 
     private void OnEnable()
@@ -263,6 +308,31 @@ public class PlayerPhotonHub : PhotonTeamsManager
         if (eventCode == 1)
         {
             UpdateScores();
+        }
+    }
+
+    void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode loadingMode)
+    {
+        this.OnLevelWasLoaded(scene.buildIndex);
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        //Instantiate player UI (username and health)
+        GameObject _uiGo = Instantiate(this.PlayerUiPrefab);
+        _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+
+    }
+
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(currHealth);
+        }
+        else
+        {
+            currHealth = (float)stream.ReceiveNext();
         }
     }
 }
