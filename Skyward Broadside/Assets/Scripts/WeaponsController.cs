@@ -4,111 +4,38 @@ using UnityEngine;
 
 public class WeaponsController : MonoBehaviour
 {
-    public List<GameObject> leftCannons;
-    bool leftEnabled = false;
-    public List<GameObject> rightCannons;
-    bool rightEnabled = false;
+    public List<GameObject> allCannnos;
+    public float thresholdAngle;
 
-    bool weaponsHot = false;
-
-    public bool hasEnabledWeapons()
-    {
-        return leftEnabled || rightEnabled;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    bool weaponsHot;
 
     private void Update()
     {
+        weaponsHot = GetComponent<TargetingSystem>().lockedOn;
         if (weaponsHot)
         {
-            Cinemachine.CinemachineFreeLook camera = transform.GetComponent<CameraController>().cameraObj;
-            Vector3 viewDir3D = camera.transform.forward;
-            Vector2 viewDir2D = new Vector2(viewDir3D.x, viewDir3D.z);
-            Vector2 shipRight2D = new Vector2(transform.right.x, transform.right.z);
-            bool activateRight = Vector2.Dot(viewDir2D, shipRight2D) > 0.0;
-
-            if (activateRight)
+            foreach (GameObject cannon in allCannnos)
             {
-                if (leftEnabled)
+                if (checkLineOfSight(cannon))
                 {
-                    DeactivateSide();
-                    ActivateSide(rightCannons);
+                    cannon.GetComponent<BasicCannonController>().cannonActive = true;
                 }
-                else if (!rightEnabled)
+                else
                 {
-                    ActivateSide(rightCannons);
-                }
-            }
-            else
-            {
-                if (rightEnabled)
-                {
-                    DeactivateSide();
-                    ActivateSide(leftCannons);
-                }
-                else if (!leftEnabled)
-                {
-                    ActivateSide(leftCannons);
+                    cannon.GetComponent<BasicCannonController>().cannonActive = false;
                 }
             }
         }
     }
 
-    public void enableSideWeapons()
+    bool checkLineOfSight(GameObject cannon)
     {
-        weaponsHot = true;
-    }
-
-    public void disableSideWeapons()
-    {
-        DeactivateSide();
-        weaponsHot = false;
-    }
-
-
-    private void ActivateSide(List<GameObject> cannons)
-    {
-        if (cannons == leftCannons)
+        Vector3 vecToTarget = GetComponent<TargetingSystem>().currentTarget.transform.position - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
+        float angle = Vector3.Angle(cannon.GetComponent<BasicCannonController>().shotOrigin.forward, vecToTarget);
+        if (angle > thresholdAngle)
         {
-            leftEnabled = true;
+            return false;
         }
-        else
-        {
-            rightEnabled = true;
-        }
-
-        foreach (GameObject o in cannons)
-        {
-            o.GetComponent<BasicCannonController>().controllerActive = true;
-            o.transform.rotation = transform.rotation;
-            o.transform.Rotate(0, 0, 90);
-        }
-        //I don't think this doesn much anymore
-        this.transform.GetComponent<CameraController>().disableFreeCam();
-    }
-    private void DeactivateSide()
-    {
-        List<GameObject> cannons;
-        if (leftEnabled)
-        {
-            leftEnabled = false;
-            cannons = leftCannons;
-        }
-        else
-        {
-            rightEnabled = false;
-            cannons = rightCannons;
-        }
-        foreach (GameObject o in cannons)
-        {
-            o.GetComponent<BasicCannonController>().controllerActive = false;
-        }
-
-        //I don't think this doesn much anymore
-        this.transform.GetComponent<CameraController>().enableFreeCam();
+        return true;
     }
 }

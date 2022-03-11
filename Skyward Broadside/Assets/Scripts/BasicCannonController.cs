@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 {
-    public bool controllerActive;
+    public bool cannonActive;
     public bool masterCannon;
     public bool invertControls;
 
@@ -34,10 +34,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     {
         switchWeapon(0);
         getAmmoLevel();
-
-        //set the "aiming line" to green to show weapons are ready
-        transform.GetComponent<LineRenderer>().startColor = Color.green;
-        transform.GetComponent<LineRenderer>().endColor = Color.green;
 
         serverShootFlag = sendShootToClient = clientShootFlag = changingWeaponSignal = changedWeapon = false;
     }
@@ -91,7 +87,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             changedWeapon = true;
         }
 
-        updateLineRenderer();
+        //updateLineRenderer();
 
         removeUsedInput();
 
@@ -109,10 +105,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     //inspired by https://www.youtube.com/watch?v=RnEO3MRPr5Y&ab_channel=AdamKonig
     void getInput()
     {
-        if (controllerActive)
+        if (cannonActive)
         {
-            weaponAim();
-
             //attempt to fire the cannon
             if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag && !changingWeaponSignal)
             {
@@ -123,10 +117,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             }
 
         }
-        else
-        {
-            transform.GetComponent<LineRenderer>().enabled = false;
-        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1) && !serverShootFlag)
         {
             changingWeaponSignal = true;
@@ -146,26 +137,33 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         return transform.root.GetChild(0);
     }
 
-    void updateLineRenderer()
-    {
-        if (ammoLevel <= 0)
-        {
-            transform.GetComponent<LineRenderer>().startColor = Color.red;
-            transform.GetComponent<LineRenderer>().endColor = Color.red;
-        }
-        if (ammoLevel > 0 && !reloading)
-        {
-            transform.GetComponent<LineRenderer>().startColor = Color.green;
-            transform.GetComponent<LineRenderer>().endColor = Color.green;
-        }
-    }
-
     //fire the cannon
     void fire()
     {
+        GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);        
+        GameObject ship = getShipTransform().gameObject;
 
-        GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);
-        newCannonBall.GetComponent<Rigidbody>().velocity = shotOrigin.transform.forward * power;
+        GameObject target = transform.root.Find("Ship").GetComponent<TargetingSystem>().currentTarget;
+        float xDiff = target.transform.position.x - ship.transform.position.x;
+        float yDiff = target.transform.position.y - ship.transform.position.y;
+        float zDiff = target.transform.position.z - ship.transform.position.z;
+
+        float distToTarget = Mathf.Sqrt(xDiff * xDiff + zDiff * zDiff);
+        float time = distToTarget / power;
+
+        float Vy = (-0.5f * time * Physics.gravity.y) + yDiff / time;
+        float Vx = xDiff / time;
+        float Vz = zDiff / time;
+
+        float targetXVels = target.GetComponent<Rigidbody>().velocity.x;
+        float targetYVels = target.GetComponent<Rigidbody>().velocity.y;
+        float targetZVels = target.GetComponent<Rigidbody>().velocity.z;
+
+        Vx = Vx + targetXVels;
+        Vy = Vy + targetYVels;
+        Vz = Vz + targetZVels;
+
+        newCannonBall.GetComponent<Rigidbody>().velocity = new Vector3(Vx, Vy, Vz);
         newCannonBall.GetComponent<CannonballController>().owner = getShipTransform().gameObject;
 
         weaponStatusReloading();
@@ -211,31 +209,16 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    //aim weapons
-    void weaponAim()
-    {
-        float rotationInput = Input.GetAxisRaw("Mouse Y");
-        if (invertControls)
-        {
-            rotationInput = -rotationInput;
-        }
-        transform.Rotate(new Vector3(0, 0, rotationInput));
-        transform.GetComponent<LineRenderer>().enabled = true;
-    }
-
-    //reload finished and if ammo is available set aiming line to green
+    //reload finished
     void weaponStatusReady()
     {
         reloading = false;
     }
 
-    //set the "aiming line" to red to show weapons are reloading
     void weaponStatusReloading()
     {
         reloading = true;
         getAmmoLevel();
-        transform.GetComponent<LineRenderer>().startColor = Color.red;
-        transform.GetComponent<LineRenderer>().endColor = Color.red;
     }
 
     //update ships ammo levels
