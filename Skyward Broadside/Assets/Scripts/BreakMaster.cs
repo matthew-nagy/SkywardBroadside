@@ -57,7 +57,7 @@ public class BreakMaster : MonoBehaviour
     public void RegisterBreakableDestroyed()
     {
         destroyedOwnedBreakables += 1;
-        Debug.Log("BM now at " + destroyedOwnedBreakables + "/" + peakOwnedBreakables);
+        //Debug.Log("BM now at " + destroyedOwnedBreakables + "/" + peakOwnedBreakables);
 
         float db = (float)destroyedOwnedBreakables;
         float max = (float)peakOwnedBreakables;

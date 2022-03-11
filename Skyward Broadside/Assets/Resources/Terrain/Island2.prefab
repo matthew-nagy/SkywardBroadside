@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5294748365586524184}
   m_Layer: 6
   m_Name: Sphere_cell.254
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,9 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &9802966117008279
 GameObject:
@@ -129,7 +127,7 @@ GameObject:
   - component: {fileID: 7815935287871845402}
   m_Layer: 6
   m_Name: Sphere_cell.145
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,9 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &10144149769356623
 GameObject:
@@ -243,7 +239,7 @@ GameObject:
   - component: {fileID: 5674602135229316500}
   m_Layer: 6
   m_Name: Sphere_cell.087
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -338,9 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &109731910920315694
 GameObject:
@@ -357,7 +351,7 @@ GameObject:
   - component: {fileID: 1615166708963493911}
   m_Layer: 6
   m_Name: Sphere_cell.158
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -452,9 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &218681922072888256
 GameObject:
@@ -471,7 +463,7 @@ GameObject:
   - component: {fileID: 9146974886199197447}
   m_Layer: 6
   m_Name: Sphere_cell.223
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -566,9 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &252500459494897311
 GameObject:
@@ -585,7 +575,7 @@ GameObject:
   - component: {fileID: 7153716576953206664}
   m_Layer: 6
   m_Name: Sphere_cell.010
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -680,9 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &261765185023746018
 GameObject:
@@ -699,7 +687,7 @@ GameObject:
   - component: {fileID: 9164917797453346609}
   m_Layer: 6
   m_Name: Sphere_cell.072
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -794,9 +782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &275698154441703106
 GameObject:
@@ -813,7 +799,7 @@ GameObject:
   - component: {fileID: 8449853106493922240}
   m_Layer: 6
   m_Name: Sphere_cell.043
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -908,9 +894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &352318548423520825
 GameObject:
@@ -927,7 +911,7 @@ GameObject:
   - component: {fileID: 2505167306461606206}
   m_Layer: 6
   m_Name: Sphere_cell.057
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1022,9 +1006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &432014494270677351
 GameObject:
@@ -1041,7 +1023,7 @@ GameObject:
   - component: {fileID: 2758968762081220317}
   m_Layer: 6
   m_Name: Sphere_cell.167
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1136,9 +1118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &453555724290279803
 GameObject:
@@ -1155,7 +1135,7 @@ GameObject:
   - component: {fileID: 8539899875923724323}
   m_Layer: 6
   m_Name: Sphere_cell.239
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1250,9 +1230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &509125485111577598
 GameObject:
@@ -1269,7 +1247,7 @@ GameObject:
   - component: {fileID: 9195498234609517680}
   m_Layer: 6
   m_Name: Sphere_cell.174
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1364,9 +1342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &667403106839024133
 GameObject:
@@ -1383,7 +1359,7 @@ GameObject:
   - component: {fileID: 7027753966121747244}
   m_Layer: 6
   m_Name: Sphere_cell.100
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1478,9 +1454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &755392280796632134
 GameObject:
@@ -1497,7 +1471,7 @@ GameObject:
   - component: {fileID: 6099044997773978284}
   m_Layer: 6
   m_Name: Sphere_cell.033
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1592,9 +1566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &779207821310202101
 GameObject:
@@ -1611,7 +1583,7 @@ GameObject:
   - component: {fileID: 4383220565793133261}
   m_Layer: 6
   m_Name: Sphere_cell.274
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1706,9 +1678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &821879453505086442
 GameObject:
@@ -1725,7 +1695,7 @@ GameObject:
   - component: {fileID: 960888080452204668}
   m_Layer: 6
   m_Name: Sphere_cell.030
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1820,9 +1790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &871042457707458346
 GameObject:
@@ -1839,7 +1807,7 @@ GameObject:
   - component: {fileID: 3130928029145876521}
   m_Layer: 6
   m_Name: Sphere_cell.242
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1934,9 +1902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &898374068207810564
 GameObject:
@@ -1953,7 +1919,7 @@ GameObject:
   - component: {fileID: 8699134142996672844}
   m_Layer: 6
   m_Name: Sphere_cell.264
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2048,9 +2014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &934652720628218252
 GameObject:
@@ -2067,7 +2031,7 @@ GameObject:
   - component: {fileID: 4491860526545240581}
   m_Layer: 6
   m_Name: Sphere_cell.141
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2162,9 +2126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &961518927197970052
 GameObject:
@@ -2181,7 +2143,7 @@ GameObject:
   - component: {fileID: 7493746685860038384}
   m_Layer: 6
   m_Name: Sphere_cell.270
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2276,9 +2238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &980605632501746400
 GameObject:
@@ -2295,7 +2255,7 @@ GameObject:
   - component: {fileID: 344213888307052207}
   m_Layer: 6
   m_Name: Sphere_cell.140
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2390,9 +2350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1008106197226888729
 GameObject:
@@ -2409,7 +2367,7 @@ GameObject:
   - component: {fileID: 7312278274116561087}
   m_Layer: 6
   m_Name: Sphere_cell.233
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2504,9 +2462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1061652669683287980
 GameObject:
@@ -2523,7 +2479,7 @@ GameObject:
   - component: {fileID: 5304054589875517457}
   m_Layer: 6
   m_Name: Sphere_cell.209
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2618,9 +2574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1080638226235361924
 GameObject:
@@ -2637,7 +2591,7 @@ GameObject:
   - component: {fileID: 5263934121952430704}
   m_Layer: 6
   m_Name: Sphere_cell.199
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2732,9 +2686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1195647405500042270
 GameObject:
@@ -2751,7 +2703,7 @@ GameObject:
   - component: {fileID: 4566111967928533239}
   m_Layer: 6
   m_Name: Sphere_cell.113
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2846,9 +2798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1210936775674662904
 GameObject:
@@ -2865,7 +2815,7 @@ GameObject:
   - component: {fileID: 3788766542609953623}
   m_Layer: 6
   m_Name: Sphere_cell.266
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2960,9 +2910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1230673943917196631
 GameObject:
@@ -2979,7 +2927,7 @@ GameObject:
   - component: {fileID: 8689986821293628792}
   m_Layer: 6
   m_Name: Sphere_cell.006
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3074,9 +3022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1272158483251884268
 GameObject:
@@ -3093,7 +3039,7 @@ GameObject:
   - component: {fileID: 8380811804697974611}
   m_Layer: 6
   m_Name: Sphere_cell.176
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3188,9 +3134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1325051693264190405
 GameObject:
@@ -3207,7 +3151,7 @@ GameObject:
   - component: {fileID: 156259454915546069}
   m_Layer: 6
   m_Name: Sphere_cell.161
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3302,9 +3246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1390471219304111690
 GameObject:
@@ -3321,7 +3263,7 @@ GameObject:
   - component: {fileID: 3196263514918769752}
   m_Layer: 6
   m_Name: Sphere_cell.031
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3416,9 +3358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1446709824577701045
 GameObject:
@@ -3435,7 +3375,7 @@ GameObject:
   - component: {fileID: 8039637387291777645}
   m_Layer: 6
   m_Name: Sphere_cell.085
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3530,9 +3470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1461548632009882315
 GameObject:
@@ -3549,7 +3487,7 @@ GameObject:
   - component: {fileID: 9060694907768470772}
   m_Layer: 6
   m_Name: Sphere_cell.228
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3644,9 +3582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1492931587393525167
 GameObject:
@@ -3663,7 +3599,7 @@ GameObject:
   - component: {fileID: 6384420264318292590}
   m_Layer: 6
   m_Name: Sphere_cell.119
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3758,9 +3694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1494721310952369737
 GameObject:
@@ -3777,7 +3711,7 @@ GameObject:
   - component: {fileID: 4693006553341885558}
   m_Layer: 6
   m_Name: Sphere_cell.168
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3872,9 +3806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1560190169393262109
 GameObject:
@@ -3891,7 +3823,7 @@ GameObject:
   - component: {fileID: 8545954716158798486}
   m_Layer: 6
   m_Name: Sphere_cell.034
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3986,9 +3918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1588290724210237217
 GameObject:
@@ -4005,7 +3935,7 @@ GameObject:
   - component: {fileID: 5288421053960627447}
   m_Layer: 6
   m_Name: Sphere_cell.135
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4100,9 +4030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1589126429160284005
 GameObject:
@@ -4119,7 +4047,7 @@ GameObject:
   - component: {fileID: 28674854112231816}
   m_Layer: 6
   m_Name: Sphere_cell.082
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4214,9 +4142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1700213090874570147
 GameObject:
@@ -4233,7 +4159,7 @@ GameObject:
   - component: {fileID: 5240028146799918162}
   m_Layer: 6
   m_Name: Sphere_cell.106
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4328,9 +4254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1731066650785187440
 GameObject:
@@ -4347,7 +4271,7 @@ GameObject:
   - component: {fileID: 4249479168436901885}
   m_Layer: 6
   m_Name: Sphere_cell.137
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4442,9 +4366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1741679489147328855
 GameObject:
@@ -4687,6 +4609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shatterThreashold: 0.1
   shatterStrength: 1.2
+  cameraShellDeleteThreshold: 0.9
 --- !u!1 &1844736859675591054
 GameObject:
   m_ObjectHideFlags: 0
@@ -4702,7 +4625,7 @@ GameObject:
   - component: {fileID: 2671696437895868510}
   m_Layer: 6
   m_Name: Sphere_cell.229
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4797,9 +4720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1845812671837238370
 GameObject:
@@ -4816,7 +4737,7 @@ GameObject:
   - component: {fileID: 7580084608409427463}
   m_Layer: 6
   m_Name: Sphere_cell.232
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4911,9 +4832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &1964653143752115449
 GameObject:
@@ -4930,7 +4849,7 @@ GameObject:
   - component: {fileID: 1060518080603638584}
   m_Layer: 6
   m_Name: Sphere_cell.007
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5025,9 +4944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2001387083683626278
 GameObject:
@@ -5044,7 +4961,7 @@ GameObject:
   - component: {fileID: 8982042629797769506}
   m_Layer: 6
   m_Name: Sphere_cell.136
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5139,9 +5056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2016438766236745427
 GameObject:
@@ -5158,7 +5073,7 @@ GameObject:
   - component: {fileID: 8819509693288829909}
   m_Layer: 6
   m_Name: Sphere_cell.104
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5253,9 +5168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2119448023127270510
 GameObject:
@@ -5272,7 +5185,7 @@ GameObject:
   - component: {fileID: 5044822527719373851}
   m_Layer: 6
   m_Name: Sphere_cell.188
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5367,9 +5280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2151335680205529756
 GameObject:
@@ -5386,7 +5297,7 @@ GameObject:
   - component: {fileID: 9149222926760866046}
   m_Layer: 6
   m_Name: Sphere_cell.160
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5481,9 +5392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2217371726881452832
 GameObject:
@@ -5500,7 +5409,7 @@ GameObject:
   - component: {fileID: 300269098344435101}
   m_Layer: 6
   m_Name: Sphere_cell.060
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5595,9 +5504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2226353676977685055
 GameObject:
@@ -5614,7 +5521,7 @@ GameObject:
   - component: {fileID: 2594801035462932382}
   m_Layer: 6
   m_Name: Sphere_cell.052
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5709,9 +5616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2345340238307306943
 GameObject:
@@ -5728,7 +5633,7 @@ GameObject:
   - component: {fileID: 5419059735638900725}
   m_Layer: 6
   m_Name: Sphere_cell.252
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5823,9 +5728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2383937790195158191
 GameObject:
@@ -5842,7 +5745,7 @@ GameObject:
   - component: {fileID: 8820722607184357417}
   m_Layer: 6
   m_Name: Sphere_cell.231
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5937,9 +5840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2499845011004250666
 GameObject:
@@ -5956,7 +5857,7 @@ GameObject:
   - component: {fileID: 7477170970734424863}
   m_Layer: 6
   m_Name: Sphere_cell.200
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6051,9 +5952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2520853228956180771
 GameObject:
@@ -6070,7 +5969,7 @@ GameObject:
   - component: {fileID: 3092114249217970221}
   m_Layer: 6
   m_Name: Sphere_cell.048
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6165,9 +6064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2533529632508838460
 GameObject:
@@ -6184,7 +6081,7 @@ GameObject:
   - component: {fileID: 152431854670204506}
   m_Layer: 6
   m_Name: Sphere_cell.075
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6279,9 +6176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2561335067037483744
 GameObject:
@@ -6298,7 +6193,7 @@ GameObject:
   - component: {fileID: 3010243201440481851}
   m_Layer: 6
   m_Name: Sphere_cell.069
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6393,9 +6288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2568073181246623199
 GameObject:
@@ -6412,7 +6305,7 @@ GameObject:
   - component: {fileID: 7752730081535456924}
   m_Layer: 6
   m_Name: Sphere_cell.255
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6507,9 +6400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2675740432376758940
 GameObject:
@@ -6526,7 +6417,7 @@ GameObject:
   - component: {fileID: 5354273288883600578}
   m_Layer: 6
   m_Name: Sphere_cell.221
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6621,9 +6512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2692240488152050969
 GameObject:
@@ -6640,7 +6529,7 @@ GameObject:
   - component: {fileID: 3027594092578164978}
   m_Layer: 6
   m_Name: Sphere_cell.262
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6735,9 +6624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2766505238955315485
 GameObject:
@@ -6754,7 +6641,7 @@ GameObject:
   - component: {fileID: 4799275497423216985}
   m_Layer: 6
   m_Name: Sphere_cell.251
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6849,9 +6736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2786470314354231611
 GameObject:
@@ -6868,7 +6753,7 @@ GameObject:
   - component: {fileID: 5023309386604308571}
   m_Layer: 6
   m_Name: Sphere_cell.230
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6963,9 +6848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2854068466218722870
 GameObject:
@@ -6982,7 +6865,7 @@ GameObject:
   - component: {fileID: 7327073451818285175}
   m_Layer: 6
   m_Name: Sphere_cell.014
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7077,9 +6960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2855083261888920037
 GameObject:
@@ -7096,7 +6977,7 @@ GameObject:
   - component: {fileID: 3831694966184549879}
   m_Layer: 6
   m_Name: Sphere_cell.240
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7191,9 +7072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2893842386768393180
 GameObject:
@@ -7210,7 +7089,7 @@ GameObject:
   - component: {fileID: 4020350893412853612}
   m_Layer: 6
   m_Name: Sphere_cell.130
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7305,9 +7184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &2937028284819663109
 GameObject:
@@ -7324,7 +7201,7 @@ GameObject:
   - component: {fileID: 5567947031601589253}
   m_Layer: 6
   m_Name: Sphere_cell.164
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7419,9 +7296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3043891577469164346
 GameObject:
@@ -7438,7 +7313,7 @@ GameObject:
   - component: {fileID: 3694122311098729211}
   m_Layer: 6
   m_Name: Sphere_cell.248
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7533,9 +7408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3058282438717661614
 GameObject:
@@ -7552,7 +7425,7 @@ GameObject:
   - component: {fileID: 4800093566388592276}
   m_Layer: 6
   m_Name: Sphere_cell.247
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7647,9 +7520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3135230513305529730
 GameObject:
@@ -7666,7 +7537,7 @@ GameObject:
   - component: {fileID: 3589206623890614037}
   m_Layer: 6
   m_Name: Sphere_cell.115
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7761,9 +7632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3208312594032600320
 GameObject:
@@ -7780,7 +7649,7 @@ GameObject:
   - component: {fileID: 6978715020941870711}
   m_Layer: 6
   m_Name: Sphere_cell.170
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7875,9 +7744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3233517998534712558
 GameObject:
@@ -7894,7 +7761,7 @@ GameObject:
   - component: {fileID: 6012445611444226299}
   m_Layer: 6
   m_Name: Sphere_cell.061
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7989,9 +7856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3267006636989845825
 GameObject:
@@ -8008,7 +7873,7 @@ GameObject:
   - component: {fileID: 6796246649549261193}
   m_Layer: 6
   m_Name: Sphere_cell.181
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8103,9 +7968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3363347155148295826
 GameObject:
@@ -8122,7 +7985,7 @@ GameObject:
   - component: {fileID: 3496185302237074254}
   m_Layer: 6
   m_Name: Sphere_cell.269
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8217,9 +8080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3457836996083861392
 GameObject:
@@ -8236,7 +8097,7 @@ GameObject:
   - component: {fileID: 8163244503391413934}
   m_Layer: 6
   m_Name: Sphere_cell.059
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8331,9 +8192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3458371466713139965
 GameObject:
@@ -8350,7 +8209,7 @@ GameObject:
   - component: {fileID: 485856793816027863}
   m_Layer: 6
   m_Name: Sphere_cell.225
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8445,9 +8304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3487489634980886299
 GameObject:
@@ -8464,7 +8321,7 @@ GameObject:
   - component: {fileID: 262554933069241146}
   m_Layer: 6
   m_Name: Sphere_cell.091
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8559,9 +8416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3500766005861503012
 GameObject:
@@ -8578,7 +8433,7 @@ GameObject:
   - component: {fileID: 4664372423412046942}
   m_Layer: 6
   m_Name: Sphere_cell.037
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8673,9 +8528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3505872730699887445
 GameObject:
@@ -8692,7 +8545,7 @@ GameObject:
   - component: {fileID: 765470556447399856}
   m_Layer: 6
   m_Name: Sphere_cell.172
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8787,9 +8640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3536567748998001289
 GameObject:
@@ -8806,7 +8657,7 @@ GameObject:
   - component: {fileID: 6914816128606398936}
   m_Layer: 6
   m_Name: Sphere_cell.189
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8901,9 +8752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3537959080378839418
 GameObject:
@@ -8920,7 +8769,7 @@ GameObject:
   - component: {fileID: 1038847653206491593}
   m_Layer: 6
   m_Name: Sphere_cell.064
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9015,9 +8864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3542040058844083075
 GameObject:
@@ -9034,7 +8881,7 @@ GameObject:
   - component: {fileID: 5053330310331285190}
   m_Layer: 6
   m_Name: Sphere_cell.035
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9129,9 +8976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3544888165004968969
 GameObject:
@@ -9148,7 +8993,7 @@ GameObject:
   - component: {fileID: 4975005233638501549}
   m_Layer: 6
   m_Name: Sphere_cell.249
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9243,9 +9088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3567879044594094256
 GameObject:
@@ -9262,7 +9105,7 @@ GameObject:
   - component: {fileID: 8456169476910480714}
   m_Layer: 6
   m_Name: Sphere_cell.267
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9357,9 +9200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3580885518648841044
 GameObject:
@@ -9376,7 +9217,7 @@ GameObject:
   - component: {fileID: 3667473301017874441}
   m_Layer: 6
   m_Name: Sphere_cell.184
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9471,9 +9312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3643662038369616810
 GameObject:
@@ -9490,7 +9329,7 @@ GameObject:
   - component: {fileID: 6939688456640817498}
   m_Layer: 6
   m_Name: Sphere_cell.096
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9585,9 +9424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3670503602357843350
 GameObject:
@@ -9604,7 +9441,7 @@ GameObject:
   - component: {fileID: 2929602697963548821}
   m_Layer: 6
   m_Name: Sphere_cell.250
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9699,9 +9536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3720180864961338945
 GameObject:
@@ -9718,7 +9553,7 @@ GameObject:
   - component: {fileID: 2567804391745217572}
   m_Layer: 6
   m_Name: Sphere_cell.024
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9813,9 +9648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3748072353619498712
 GameObject:
@@ -9832,7 +9665,7 @@ GameObject:
   - component: {fileID: 8195674179526449560}
   m_Layer: 6
   m_Name: Sphere_cell.019
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9927,9 +9760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3902489906844618496
 GameObject:
@@ -9946,7 +9777,7 @@ GameObject:
   - component: {fileID: 1908159514408871567}
   m_Layer: 6
   m_Name: Sphere_cell.017
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10041,9 +9872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3928447624675069083
 GameObject:
@@ -10060,7 +9889,7 @@ GameObject:
   - component: {fileID: 6821319413580390609}
   m_Layer: 6
   m_Name: Sphere_cell.171
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10155,9 +9984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3949442088217930514
 GameObject:
@@ -10174,7 +10001,7 @@ GameObject:
   - component: {fileID: 3492441174225411492}
   m_Layer: 6
   m_Name: Sphere_cell.203
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10269,9 +10096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3964781242764480136
 GameObject:
@@ -10288,7 +10113,7 @@ GameObject:
   - component: {fileID: 3635811591132943341}
   m_Layer: 6
   m_Name: Sphere_cell.139
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10383,9 +10208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &3982930956373414920
 GameObject:
@@ -10402,7 +10225,7 @@ GameObject:
   - component: {fileID: 2091433488394339476}
   m_Layer: 6
   m_Name: Sphere_cell.109
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10497,9 +10320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4115639133200160409
 GameObject:
@@ -10516,7 +10337,7 @@ GameObject:
   - component: {fileID: 200080737850004103}
   m_Layer: 6
   m_Name: Sphere_cell.022
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10611,9 +10432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4157085212506125152
 GameObject:
@@ -10630,7 +10449,7 @@ GameObject:
   - component: {fileID: 7671517846219482619}
   m_Layer: 6
   m_Name: Sphere_cell.026
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10725,9 +10544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4318197957129344681
 GameObject:
@@ -10744,7 +10561,7 @@ GameObject:
   - component: {fileID: 6069350186806256232}
   m_Layer: 6
   m_Name: Sphere_cell.173
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10839,9 +10656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4425629722838052308
 GameObject:
@@ -10858,7 +10673,7 @@ GameObject:
   - component: {fileID: 8644913040293776810}
   m_Layer: 6
   m_Name: Sphere_cell.265
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10953,9 +10768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4505269503426877597
 GameObject:
@@ -10972,7 +10785,7 @@ GameObject:
   - component: {fileID: 7623837382802564925}
   m_Layer: 6
   m_Name: Sphere_cell.257
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11067,9 +10880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4544301172334918052
 GameObject:
@@ -11086,7 +10897,7 @@ GameObject:
   - component: {fileID: 5710885366817940575}
   m_Layer: 6
   m_Name: Sphere_cell.124
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11181,9 +10992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4545999562515603120
 GameObject:
@@ -11200,7 +11009,7 @@ GameObject:
   - component: {fileID: 6278741304635708934}
   m_Layer: 6
   m_Name: Sphere_cell.195
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11295,9 +11104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4573128496254877156
 GameObject:
@@ -11314,7 +11121,7 @@ GameObject:
   - component: {fileID: 3063783476616975471}
   m_Layer: 6
   m_Name: Sphere_cell.144
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11409,9 +11216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4666539334291744361
 GameObject:
@@ -11428,7 +11233,7 @@ GameObject:
   - component: {fileID: 5936154245556056295}
   m_Layer: 6
   m_Name: Sphere_cell.147
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11523,9 +11328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4721342466201776797
 GameObject:
@@ -11542,7 +11345,7 @@ GameObject:
   - component: {fileID: 1494969183136065593}
   m_Layer: 6
   m_Name: Sphere_cell.169
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11637,9 +11440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4777045008184891979
 GameObject:
@@ -11656,7 +11457,7 @@ GameObject:
   - component: {fileID: 6930009585478481376}
   m_Layer: 6
   m_Name: Sphere_cell.009
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11751,9 +11552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4786674298076734411
 GameObject:
@@ -11770,7 +11569,7 @@ GameObject:
   - component: {fileID: 1846121128783693591}
   m_Layer: 6
   m_Name: Sphere_cell.028
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11865,9 +11664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4812225955680648466
 GameObject:
@@ -11884,7 +11681,7 @@ GameObject:
   - component: {fileID: 5561734496260995534}
   m_Layer: 6
   m_Name: Sphere_cell.185
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11979,9 +11776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4864573254933375772
 GameObject:
@@ -11998,7 +11793,7 @@ GameObject:
   - component: {fileID: 111499695806402113}
   m_Layer: 6
   m_Name: Sphere_cell.186
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12093,9 +11888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4936854577843724401
 GameObject:
@@ -12112,7 +11905,7 @@ GameObject:
   - component: {fileID: 4974507704200493752}
   m_Layer: 6
   m_Name: Sphere_cell.218
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12207,9 +12000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4946416129636135035
 GameObject:
@@ -12226,7 +12017,7 @@ GameObject:
   - component: {fileID: 5515446844489690553}
   m_Layer: 6
   m_Name: Sphere_cell.089
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12321,9 +12112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &4975254958538745217
 GameObject:
@@ -12340,7 +12129,7 @@ GameObject:
   - component: {fileID: 8198919290560032623}
   m_Layer: 6
   m_Name: Sphere_cell.111
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12435,9 +12224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5022318489494829468
 GameObject:
@@ -12454,7 +12241,7 @@ GameObject:
   - component: {fileID: 4557118286227084121}
   m_Layer: 6
   m_Name: Sphere_cell.053
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12549,9 +12336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5068832420027289037
 GameObject:
@@ -12568,7 +12353,7 @@ GameObject:
   - component: {fileID: 1387725571351112565}
   m_Layer: 6
   m_Name: Sphere_cell.131
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12663,9 +12448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5083266038231137047
 GameObject:
@@ -12682,7 +12465,7 @@ GameObject:
   - component: {fileID: 8855190657516066113}
   m_Layer: 6
   m_Name: Sphere_cell.071
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12777,9 +12560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5148900669494868589
 GameObject:
@@ -12796,7 +12577,7 @@ GameObject:
   - component: {fileID: 7197497654731021930}
   m_Layer: 6
   m_Name: Sphere_cell.080
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12891,9 +12672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5185977232268681422
 GameObject:
@@ -12910,7 +12689,7 @@ GameObject:
   - component: {fileID: 3883973592637402410}
   m_Layer: 6
   m_Name: Sphere_cell.191
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13005,9 +12784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5254437631968680259
 GameObject:
@@ -13024,7 +12801,7 @@ GameObject:
   - component: {fileID: 4582033993288929200}
   m_Layer: 6
   m_Name: Sphere_cell.213
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13119,9 +12896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5380873588300567254
 GameObject:
@@ -13138,7 +12913,7 @@ GameObject:
   - component: {fileID: 2855036505461915920}
   m_Layer: 6
   m_Name: Sphere_cell.192
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13233,9 +13008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5430699326478533797
 GameObject:
@@ -13252,7 +13025,7 @@ GameObject:
   - component: {fileID: 4249176202492348892}
   m_Layer: 6
   m_Name: Sphere_cell.159
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13347,9 +13120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5486105158149391256
 GameObject:
@@ -13366,7 +13137,7 @@ GameObject:
   - component: {fileID: 5375167413250933627}
   m_Layer: 6
   m_Name: Sphere_cell.197
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13461,9 +13232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5508825552944194021
 GameObject:
@@ -13480,7 +13249,7 @@ GameObject:
   - component: {fileID: 2615710306875720440}
   m_Layer: 6
   m_Name: Sphere_cell.046
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13575,9 +13344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5529185371472139559
 GameObject:
@@ -13594,7 +13361,7 @@ GameObject:
   - component: {fileID: 3948253930717225329}
   m_Layer: 6
   m_Name: Sphere_cell.150
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13689,9 +13456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5574390001250533400
 GameObject:
@@ -13708,7 +13473,7 @@ GameObject:
   - component: {fileID: 4563766183894804973}
   m_Layer: 6
   m_Name: Sphere_cell.020
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13803,9 +13568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5574426301029431720
 GameObject:
@@ -13822,7 +13585,7 @@ GameObject:
   - component: {fileID: 6220669295528502394}
   m_Layer: 6
   m_Name: Sphere_cell.068
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13917,9 +13680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5619364941441151293
 GameObject:
@@ -13936,7 +13697,7 @@ GameObject:
   - component: {fileID: 4411882542256802700}
   m_Layer: 6
   m_Name: Sphere_cell.196
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14031,9 +13792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5694354934141443540
 GameObject:
@@ -14050,7 +13809,7 @@ GameObject:
   - component: {fileID: 7571858794682567840}
   m_Layer: 6
   m_Name: Sphere_cell.165
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14145,9 +13904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5757948023649085572
 GameObject:
@@ -14164,7 +13921,7 @@ GameObject:
   - component: {fileID: 8141064312898352381}
   m_Layer: 6
   m_Name: Sphere_cell.001
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14259,9 +14016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5773806100971105570
 GameObject:
@@ -14278,7 +14033,7 @@ GameObject:
   - component: {fileID: 4389035095222750321}
   m_Layer: 6
   m_Name: Sphere_cell.208
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14373,9 +14128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5813088117395168836
 GameObject:
@@ -14392,7 +14145,7 @@ GameObject:
   - component: {fileID: 1145172865184728991}
   m_Layer: 6
   m_Name: Sphere_cell.077
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14487,9 +14240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5829405593986196852
 GameObject:
@@ -14506,7 +14257,7 @@ GameObject:
   - component: {fileID: 3266224733282444226}
   m_Layer: 6
   m_Name: Sphere_cell.108
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14601,9 +14352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &5865933770730789206
 GameObject:
@@ -14620,7 +14369,7 @@ GameObject:
   - component: {fileID: 7526342232205496798}
   m_Layer: 6
   m_Name: Sphere_cell.261
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14715,9 +14464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6021717632092344290
 GameObject:
@@ -14734,7 +14481,7 @@ GameObject:
   - component: {fileID: 3384055798083077951}
   m_Layer: 6
   m_Name: Sphere_cell.253
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14829,9 +14576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6077086754883916894
 GameObject:
@@ -14848,7 +14593,7 @@ GameObject:
   - component: {fileID: 8623446121012870595}
   m_Layer: 6
   m_Name: Sphere_cell.062
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14943,9 +14688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6091457310069066199
 GameObject:
@@ -14962,7 +14705,7 @@ GameObject:
   - component: {fileID: 5831409367196792859}
   m_Layer: 6
   m_Name: Sphere_cell.219
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15057,9 +14800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6096624175702594889
 GameObject:
@@ -15076,7 +14817,7 @@ GameObject:
   - component: {fileID: 5954121243157757167}
   m_Layer: 6
   m_Name: Sphere_cell.220
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15171,9 +14912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6120062738433215297
 GameObject:
@@ -15190,7 +14929,7 @@ GameObject:
   - component: {fileID: 3728779239828259006}
   m_Layer: 6
   m_Name: Sphere_cell.263
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15285,9 +15024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6292206260820457029
 GameObject:
@@ -15304,7 +15041,7 @@ GameObject:
   - component: {fileID: 2805361682261341476}
   m_Layer: 6
   m_Name: Sphere_cell.152
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15399,9 +15136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6328173100547969566
 GameObject:
@@ -15418,7 +15153,7 @@ GameObject:
   - component: {fileID: 5952182182145032091}
   m_Layer: 6
   m_Name: Sphere_cell.079
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15513,9 +15248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6353713218343603710
 GameObject:
@@ -15532,7 +15265,7 @@ GameObject:
   - component: {fileID: 3771707870299281775}
   m_Layer: 6
   m_Name: Sphere_cell.273
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15627,9 +15360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6366989458281418530
 GameObject:
@@ -15646,7 +15377,7 @@ GameObject:
   - component: {fileID: 6405187955622923778}
   m_Layer: 6
   m_Name: Sphere_cell.182
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15741,9 +15472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6406482605436920884
 GameObject:
@@ -15760,7 +15489,7 @@ GameObject:
   - component: {fileID: 8799166294321744453}
   m_Layer: 6
   m_Name: Sphere_cell.056
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15855,9 +15584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6460231292080911353
 GameObject:
@@ -15874,7 +15601,7 @@ GameObject:
   - component: {fileID: 8129891822895804969}
   m_Layer: 6
   m_Name: Sphere_cell.202
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15969,9 +15696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6498836060166970744
 GameObject:
@@ -15988,7 +15713,7 @@ GameObject:
   - component: {fileID: 2879132461905087932}
   m_Layer: 6
   m_Name: Sphere_cell.050
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16083,9 +15808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6546129182799840432
 GameObject:
@@ -16102,7 +15825,7 @@ GameObject:
   - component: {fileID: 7922280194678587313}
   m_Layer: 6
   m_Name: Sphere_cell.204
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16197,9 +15920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6548611973459368513
 GameObject:
@@ -16216,7 +15937,7 @@ GameObject:
   - component: {fileID: 2950200797828305805}
   m_Layer: 6
   m_Name: Sphere_cell.272
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16311,9 +16032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6596475491156985253
 GameObject:
@@ -16330,7 +16049,7 @@ GameObject:
   - component: {fileID: 6433679596240223782}
   m_Layer: 6
   m_Name: Sphere_cell.099
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16425,9 +16144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6708169969999265350
 GameObject:
@@ -16444,7 +16161,7 @@ GameObject:
   - component: {fileID: 162093977797795515}
   m_Layer: 6
   m_Name: Sphere_cell.005
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16539,9 +16256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6709405114227778158
 GameObject:
@@ -16558,7 +16273,7 @@ GameObject:
   - component: {fileID: 6908372416791522151}
   m_Layer: 6
   m_Name: Sphere_cell.066
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16653,9 +16368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6783493459051897192
 GameObject:
@@ -16672,7 +16385,7 @@ GameObject:
   - component: {fileID: 3345350807881910090}
   m_Layer: 6
   m_Name: Sphere_cell.155
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16767,9 +16480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6972646948876509198
 GameObject:
@@ -16786,7 +16497,7 @@ GameObject:
   - component: {fileID: 2402797877630968401}
   m_Layer: 6
   m_Name: Sphere_cell.258
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16881,9 +16592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &6988056519781125283
 GameObject:
@@ -16900,7 +16609,7 @@ GameObject:
   - component: {fileID: 1914551166403349843}
   m_Layer: 6
   m_Name: Sphere_cell.076
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16995,9 +16704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7026235871865244484
 GameObject:
@@ -17014,7 +16721,7 @@ GameObject:
   - component: {fileID: 7184055621351034665}
   m_Layer: 6
   m_Name: Sphere_cell.207
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17109,9 +16816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7050893917091401413
 GameObject:
@@ -17128,7 +16833,7 @@ GameObject:
   - component: {fileID: 5127391238129548695}
   m_Layer: 6
   m_Name: Sphere_cell.153
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17223,9 +16928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7076797506741548446
 GameObject:
@@ -17242,7 +16945,7 @@ GameObject:
   - component: {fileID: 2887266668581026177}
   m_Layer: 6
   m_Name: Sphere_cell.190
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17337,9 +17040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7133807259720887320
 GameObject:
@@ -17401,7 +17102,7 @@ GameObject:
   - component: {fileID: 3587417807952850526}
   m_Layer: 6
   m_Name: Sphere_cell.123
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17496,9 +17197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7219251289267836381
 GameObject:
@@ -17515,7 +17214,7 @@ GameObject:
   - component: {fileID: 6851158356826462237}
   m_Layer: 6
   m_Name: Sphere_cell.078
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17610,9 +17309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7297390520717066923
 GameObject:
@@ -17629,7 +17326,7 @@ GameObject:
   - component: {fileID: 3410557989542510859}
   m_Layer: 6
   m_Name: Sphere_cell.175
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17724,9 +17421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7344608137724437414
 GameObject:
@@ -17743,7 +17438,7 @@ GameObject:
   - component: {fileID: 1162347615563559337}
   m_Layer: 6
   m_Name: Sphere_cell.243
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17838,9 +17533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7620889287736181041
 GameObject:
@@ -17857,7 +17550,7 @@ GameObject:
   - component: {fileID: 1080648292610887340}
   m_Layer: 6
   m_Name: Sphere_cell.016
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17952,9 +17645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7636123221720264485
 GameObject:
@@ -17971,7 +17662,7 @@ GameObject:
   - component: {fileID: 5857843027019106133}
   m_Layer: 6
   m_Name: Sphere_cell.070
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18066,9 +17757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7696904136630158095
 GameObject:
@@ -18085,7 +17774,7 @@ GameObject:
   - component: {fileID: 5837800978344582543}
   m_Layer: 6
   m_Name: Sphere_cell.217
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18180,9 +17869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7721604642005659688
 GameObject:
@@ -18199,7 +17886,7 @@ GameObject:
   - component: {fileID: 8972163675588493007}
   m_Layer: 6
   m_Name: Sphere_cell.036
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18294,9 +17981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7725739545281598915
 GameObject:
@@ -18313,7 +17998,7 @@ GameObject:
   - component: {fileID: 2619274030651171309}
   m_Layer: 6
   m_Name: Sphere_cell.081
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18408,9 +18093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7729558295613140411
 GameObject:
@@ -18427,7 +18110,7 @@ GameObject:
   - component: {fileID: 1382595409074906681}
   m_Layer: 6
   m_Name: Sphere_cell.236
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18522,9 +18205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7743947992316708935
 GameObject:
@@ -18541,7 +18222,7 @@ GameObject:
   - component: {fileID: 6554939105312579966}
   m_Layer: 6
   m_Name: Sphere_cell.146
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18636,9 +18317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7752655697031677029
 GameObject:
@@ -18655,7 +18334,7 @@ GameObject:
   - component: {fileID: 3875571190948623438}
   m_Layer: 6
   m_Name: Sphere_cell.166
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18750,9 +18429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7912385129832059759
 GameObject:
@@ -18769,7 +18446,7 @@ GameObject:
   - component: {fileID: 2208959320722229277}
   m_Layer: 6
   m_Name: Sphere_cell.067
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18864,9 +18541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &7962208885717879369
 GameObject:
@@ -18883,7 +18558,7 @@ GameObject:
   - component: {fileID: 1785757079364117505}
   m_Layer: 6
   m_Name: Sphere_cell.018
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18978,9 +18653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8017873488178041938
 GameObject:
@@ -18997,7 +18670,7 @@ GameObject:
   - component: {fileID: 6430535322426596508}
   m_Layer: 6
   m_Name: Sphere_cell.212
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19092,9 +18765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8033567507112225480
 GameObject:
@@ -19111,7 +18782,7 @@ GameObject:
   - component: {fileID: 9130390253483860752}
   m_Layer: 6
   m_Name: Sphere_cell.084
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19206,9 +18877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8085630917696043942
 GameObject:
@@ -19225,7 +18894,7 @@ GameObject:
   - component: {fileID: 9015361064968860780}
   m_Layer: 6
   m_Name: Sphere_cell.245
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19320,9 +18989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8101498143820993446
 GameObject:
@@ -19339,7 +19006,7 @@ GameObject:
   - component: {fileID: 2524339042392322376}
   m_Layer: 6
   m_Name: Sphere_cell.011
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19434,9 +19101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8118423881794340679
 GameObject:
@@ -19453,7 +19118,7 @@ GameObject:
   - component: {fileID: 4078527263998981108}
   m_Layer: 6
   m_Name: Sphere_cell.193
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19548,9 +19213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8152700206459386153
 GameObject:
@@ -19567,7 +19230,7 @@ GameObject:
   - component: {fileID: 7511793083352284905}
   m_Layer: 6
   m_Name: Sphere_cell.023
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19662,9 +19325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8159784046121413944
 GameObject:
@@ -19681,7 +19342,7 @@ GameObject:
   - component: {fileID: 7942288921415278983}
   m_Layer: 6
   m_Name: Sphere_cell.154
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19776,9 +19437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8182841136246392708
 GameObject:
@@ -19795,7 +19454,7 @@ GameObject:
   - component: {fileID: 1155892882260696921}
   m_Layer: 6
   m_Name: Sphere_cell.093
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19890,9 +19549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8203496318237648463
 GameObject:
@@ -19909,7 +19566,7 @@ GameObject:
   - component: {fileID: 1779193868556271994}
   m_Layer: 6
   m_Name: Sphere_cell.090
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20004,9 +19661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8323289670545325417
 GameObject:
@@ -20023,7 +19678,7 @@ GameObject:
   - component: {fileID: 4104738684553936451}
   m_Layer: 6
   m_Name: Sphere_cell.183
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20118,9 +19773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8482425635188075734
 GameObject:
@@ -20137,7 +19790,7 @@ GameObject:
   - component: {fileID: 7855449270518050515}
   m_Layer: 6
   m_Name: Sphere_cell.074
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20232,9 +19885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8492706249344338086
 GameObject:
@@ -20251,7 +19902,7 @@ GameObject:
   - component: {fileID: 8949452236844381644}
   m_Layer: 6
   m_Name: Sphere_cell.107
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20346,9 +19997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8508561092399054127
 GameObject:
@@ -20365,7 +20014,7 @@ GameObject:
   - component: {fileID: 5377848062649672108}
   m_Layer: 6
   m_Name: Sphere_cell.244
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20460,9 +20109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8585883438002011565
 GameObject:
@@ -20479,7 +20126,7 @@ GameObject:
   - component: {fileID: 8346267682858195957}
   m_Layer: 6
   m_Name: Sphere_cell.086
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20574,9 +20221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8692135470087801417
 GameObject:
@@ -20593,7 +20238,7 @@ GameObject:
   - component: {fileID: 8684579015934464466}
   m_Layer: 6
   m_Name: Sphere_cell.003
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20688,9 +20333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8720615965216938467
 GameObject:
@@ -20707,7 +20350,7 @@ GameObject:
   - component: {fileID: 693524648530293055}
   m_Layer: 6
   m_Name: Sphere_cell.045
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20802,9 +20445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8724163388032734562
 GameObject:
@@ -20821,7 +20462,7 @@ GameObject:
   - component: {fileID: 6031854503680873254}
   m_Layer: 6
   m_Name: Sphere_cell.065
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20916,9 +20557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8738536217068385636
 GameObject:
@@ -20935,7 +20574,7 @@ GameObject:
   - component: {fileID: 6630427454198590076}
   m_Layer: 6
   m_Name: Sphere_cell.025
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21030,9 +20669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8800410373928960576
 GameObject:
@@ -21049,7 +20686,7 @@ GameObject:
   - component: {fileID: 5661039117167540186}
   m_Layer: 6
   m_Name: Sphere_cell.157
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21144,9 +20781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8812153079209427887
 GameObject:
@@ -21163,7 +20798,7 @@ GameObject:
   - component: {fileID: 8331778906292837743}
   m_Layer: 6
   m_Name: Sphere_cell.156
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21258,9 +20893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8854770988647776960
 GameObject:
@@ -21277,7 +20910,7 @@ GameObject:
   - component: {fileID: 9222125820970966090}
   m_Layer: 6
   m_Name: Sphere_cell.198
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21372,9 +21005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8875344064058446221
 GameObject:
@@ -21391,7 +21022,7 @@ GameObject:
   - component: {fileID: 4458129083804190332}
   m_Layer: 6
   m_Name: Sphere_cell.117
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21486,9 +21117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8981081588083365930
 GameObject:
@@ -21505,7 +21134,7 @@ GameObject:
   - component: {fileID: 1375413995117308265}
   m_Layer: 6
   m_Name: Sphere_cell.027
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21600,9 +21229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &8994368655728722282
 GameObject:
@@ -21619,7 +21246,7 @@ GameObject:
   - component: {fileID: 3716391765986745580}
   m_Layer: 6
   m_Name: Sphere_cell.126
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21714,9 +21341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &9016641052755750246
 GameObject:
@@ -21733,7 +21358,7 @@ GameObject:
   - component: {fileID: 6149567083803043040}
   m_Layer: 6
   m_Name: Sphere_cell.083
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21828,9 +21453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &9040190650905579427
 GameObject:
@@ -21847,7 +21470,7 @@ GameObject:
   - component: {fileID: 4910724091990859118}
   m_Layer: 6
   m_Name: Sphere_cell.235
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21942,9 +21565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &9049867175681137943
 GameObject:
@@ -21961,7 +21582,7 @@ GameObject:
   - component: {fileID: 3890544663058744929}
   m_Layer: 6
   m_Name: Sphere_cell.073
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22056,9 +21677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &9054306136117647618
 GameObject:
@@ -22075,7 +21694,7 @@ GameObject:
   - component: {fileID: 5653108592152679734}
   m_Layer: 6
   m_Name: Sphere_cell.103
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22170,9 +21789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &9085449131201680345
 GameObject:
@@ -22189,7 +21806,7 @@ GameObject:
   - component: {fileID: 5888367274175250863}
   m_Layer: 6
   m_Name: Sphere_cell.013
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22284,9 +21901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &9134307685317844728
 GameObject:
@@ -22303,7 +21918,7 @@ GameObject:
   - component: {fileID: 1153087493469152476}
   m_Layer: 6
   m_Name: Sphere_cell.133
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22398,9 +22013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}
 --- !u!1 &9204872872442156802
 GameObject:
@@ -22417,7 +22030,7 @@ GameObject:
   - component: {fileID: 25203093812138991}
   m_Layer: 6
   m_Name: Sphere_cell.112
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22512,7 +22125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakForce: 10
-  collisionMultiplier: 20
   broken: 0
-  mass: 5
   owner: {fileID: 5787494081013602934}

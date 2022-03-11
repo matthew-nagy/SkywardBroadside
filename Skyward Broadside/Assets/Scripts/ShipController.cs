@@ -16,20 +16,24 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     Rigidbody rigidBody;
 
-    public float angularAccel = 10f;
+    public float angularAccel = 2f;
     public float angularMass = 5f;
     public float angularFriction = 0.02f;
 
     [Tooltip("How much the ship weighs; controls how forces act")]
     public float mass = 5f;
     [Tooltip("The force the ship produces to drive it forwards")]
-    public float engineDriveForce = 6f;
+    public float engineDriveForce = 2.25f;
     [Tooltip("Force the ship can produce to break. Airflaps, for example")]
-    public float flapsBreakingCoefficient = 0.2f;
+    public float flapsBreakingCoefficient = 0.00000002f;
     [Tooltip("Drag from propeler not being fast enough to push air or something")]
-    public float propelerDragCoefficient = 0.05f;
+    public float propelerDragCoefficient = 0.055f;
     [Tooltip("Drag on the body. This must be smaller than propeler drag, as its multplied by velocity later")]
     public float bodyDragCoefficient = 0.0002f;
+    [Tooltip("Proportion of reversing force compared to forwards possible force")]
+    public float reversingForceProportion = 0.05f;
+    [Tooltip("Limit of forwards momentum before reversing starts rather than breaking")]
+    public float breakToReverseThreashold = 8f;
 
     RequestedControls playerInput;
 
@@ -45,6 +49,16 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     float deceleration = 1f;
     bool isDisabled;
     float timerDisabled;
+    float totalDisabledTime;
+
+    public Color teamColour;
+    bool colourSet = false;
+
+    public List<ParticleSystem> pDriveSystem;
+    public List<ParticleSystem> pClockwiseJets;
+    public List<ParticleSystem> pAntiClockwiseJets;
+    public List<ParticleSystem> pShootUpJet;
+    public List<ParticleSystem> pShootDownJet;
 
     // Start is called before the first frame update
     void Start()
@@ -90,7 +104,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             playerInput = new RequestedControls();
             velocityBeforeCollision = velocity;
 
-            if (timerDisabled < 3.0f)
+            if (timerDisabled < totalDisabledTime)
             {
                 timerDisabled += Time.deltaTime;
             }
@@ -162,7 +176,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
 
         float collisionMag = collision.impulse.magnitude;
-        Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
+        //Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
         if (!photonView.IsMine)
         {
             return;
@@ -209,17 +223,24 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             velocity = finalVelocity;
 
             isDisabled = true;
+            totalDisabledTime = 1f;
             // the 10 is needed because otherwise you insta-kill each other upon contact
-            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
+            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 100;
 
         }
         else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
         {
             print("terrain");
-            velocity = -0.8f * velocity;
-            isDisabled = true;
 
-            collisionMag = rigidBody.mass * 0.2f * velocityBeforeCollision.magnitude;
+            if (!collision.gameObject.GetComponent<Breakable>().broken)
+            {
+                velocity = -0.5f * velocity;
+                isDisabled = true;
+                totalDisabledTime = 0.5f;
+            }
+
+            //0.5 multiplier to keep damage in check
+            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude * 0.5f;
         }
 
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
@@ -244,7 +265,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(velocity);
             stream.SendNext(isDisabled);
             stream.SendNext(moveSpeed);
-
+            stream.SendNext(teamColour.r);
+            stream.SendNext(teamColour.g);
+            stream.SendNext(teamColour.b);
         }
         else
         {
@@ -252,7 +275,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             this.velocity = (Vector3)stream.ReceiveNext();
             this.isDisabled = (bool)stream.ReceiveNext();
             this.moveSpeed = (float)stream.ReceiveNext();
-
+            float r = (float)stream.ReceiveNext();
+            float g = (float)stream.ReceiveNext();
+            float b = (float)stream.ReceiveNext();
+            if(!colourSet)
+            {
+                transform.Find("Body").gameObject.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
+                colourSet = true;
+            }
         }
 
     }
@@ -268,6 +298,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         return Mathf.Abs(Vector3.Dot(resistiveForce.normalized, forwardDirection.normalized));
     }
 
+    bool GoingForwards()
+    {
+        if(velocity.magnitude > breakToReverseThreashold && Vector3.Dot(transform.forward, velocity) > 0.0f)
+        {
+            return true;
+        }
+        return false;
+    }
     void HandleForce()
     {
         Vector3 drivingForce = new Vector3(0, 0, 0);
@@ -278,27 +316,35 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             drivingForce = transform.forward * engineDriveForce;
         }
-        else if (playerInput.backwards)
-        {
-            breakingForce = -1 * flapsBreakingCoefficient * velocity * velocity.magnitude;
-        }
+        SetParticles(pDriveSystem, playerInput.forwards);
 
+        if (playerInput.backwards)
+        {
+            if (GoingForwards())
+            {
+                breakingForce = -1 * flapsBreakingCoefficient * velocity * velocity.magnitude;
+            }
+            else
+            {
+                drivingForce = transform.forward * engineDriveForce * -1 * reversingForceProportion;
+            }
+        }
 
         if (playerInput.turnRight)
         {
             turningForce = new Vector3(0, angularAccel, 0);
         }
+        SetParticles(pClockwiseJets, playerInput.turnRight);
         if (playerInput.turnLeft)
         {
             turningForce = new Vector3(0, angularAccel * -1.0f, 0);
         }
+        SetParticles(pClockwiseJets, playerInput.turnLeft);
 
         Vector3 angularAgainst = -1 * turnDirection * angularFriction;
         turnDirection += (turningForce + angularAgainst) / angularMass;
 
         Vector3 dragForce = -1 * bodyDragCoefficient * velocity * velocity.magnitude;
-        //Both Beta and Alpha in terms of car physics, as the body's direction is always the same as the "wheel"'s direction
-        float slipAngle = Vector3.Dot(transform.forward, velocity.normalized);
 
 
 
@@ -308,21 +354,21 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 acceleration = longuitudinalForce / mass;
         Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
         velocity += acceleration;
-
-        //If its too damn much deceleration, 
-        if(Vector3.Dot(preVel, velocity) < -0.8)
-        {
-            velocity = Vector3.zero;
-        }
-
-
-        //float resistanceAngle = Vector2.Angle(Vector2.up ,new Vector2(velocity.x, velocity.y) * -1f);
-        //float resistanceArea = shipWidth * Mathf.Cos(resistanceAngle) + shipLegth * Mathf.Sin(resistanceAngle);
-        //float resistance = GetResistiveForce(airDensity, resistanceCoefficient * velocity.magnitude, resistanceArea, Mathf.Pow(velocity.magnitude, 2f));
-        //Force against the ship
-        //Vector3 resistiveForce = resistance * -1 * velocity.normalized;
-
-        //velocity += resistiveForce / mass;
     }
 
+
+    void SetParticles(List<ParticleSystem> systems, bool on)
+    {
+        foreach(ParticleSystem ps in systems)
+        {
+            if (on)
+            {
+                ps.Play();
+            }
+            else
+            {
+                ps.Stop();
+            }
+        }
+    }
 }

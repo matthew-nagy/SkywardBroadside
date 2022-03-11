@@ -37,17 +37,13 @@ public class Explosive : MonoBehaviour
         foreach (Collider collider in collidersInRange)
         {
             Breakable breakable = collider.GetComponent<Breakable>();
-            Rigidbody rb = collider.GetComponent<Rigidbody>();
-
             if (breakable != null)
             {
-                breakable._break(explosionPower, rb, gameObject.tag, new Vector3 ());
-            }
-
-            rb = collider.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.AddExplosionForce(explosionPower, transform.position, explosionRadius);
+                if (!breakable.broken)
+                {
+                    breakable._break();
+                }
+                breakable.applyForce(collider.GetComponent<Rigidbody>(), explosionPower, collider.ClosestPoint(transform.position), explosionRadius);
             }
         }
         Destroy(gameObject);
