@@ -380,12 +380,12 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else
         {
-            if (verticalSpeed <= 0f)
+            if (verticalSpeed < 0f)
             {
                 verticalSpeed += verticalDeceleration;
                 Mathf.Clamp(verticalSpeed, -maxVerticalSpeed, 0f);
             }
-            else
+            else if (verticalSpeed > 0f)
             {
                 verticalSpeed -= verticalDeceleration;
                 Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
