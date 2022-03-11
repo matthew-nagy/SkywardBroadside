@@ -105,7 +105,10 @@ public class PlayerUI : MonoBehaviourPun
         }
 
         targetTransform = this.target.GetComponent<Transform>();
-        targetRenderer = this.target.GetComponent<Renderer>();
+
+        //Getting the renderer of one of the child primitive objects
+        //This probs won't work when we add the proper airship model in unless we add a mesh renderer
+        targetRenderer = target.GetComponentInChildren<Renderer>();
 
         
     }
