@@ -115,7 +115,6 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
             disabled = true;
             Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
-        InvokeRepeating("NearBaseRegen", 0, 1.0f);
         UpdateTimerFromMaster();
 
         //Instantiate UI (username and health)
@@ -134,6 +133,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         }
 
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+        InvokeRepeating("NearBaseRegen", 0, 1.0f);
     }
 
 
@@ -179,6 +179,10 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     }
     public void NearBaseRegen()
     {
+        if (PhotonNetwork.LocalPlayer == null)
+        {
+
+        }
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Red")
         {
             if (Vector3.Distance(PlayerShip.transform.position, redSpawn) < 120)
