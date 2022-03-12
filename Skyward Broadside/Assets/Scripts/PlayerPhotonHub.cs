@@ -133,7 +133,8 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         }
 
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
-        InvokeRepeating("NearBaseRegen", 0, 1.0f);
+        Invoke("RegenInvoker", 5f);
+
     }
 
 
@@ -177,12 +178,13 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         }
         updateScript.UpdateGUIScores(myTeamScore, enemyTeamScore);
     }
+
+    public void RegenInvoker()
+    {
+        InvokeRepeating("NearBaseRegen", 0, 1f);
+    }
     public void NearBaseRegen()
     {
-        if (PhotonNetwork.LocalPlayer == null)
-        {
-
-        }
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Red")
         {
             if (Vector3.Distance(PlayerShip.transform.position, redSpawn) < 120)
