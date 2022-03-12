@@ -13,6 +13,9 @@ using Photon.Realtime;
 [RequireComponent(typeof(InputField))]
 public class PlayerNameInputField : MonoBehaviour
 {
+
+    public PlayerPhotonHub player;
+
     #region Private Constants
     
     // Store the PlayerPref Key to avoid typos
@@ -61,6 +64,8 @@ public class PlayerNameInputField : MonoBehaviour
         PhotonNetwork.NickName = value;
         
         PlayerPrefs.SetString(playerNamePrefKey, value);
+
+        //player.SetName(value);
     }
     
     #endregion

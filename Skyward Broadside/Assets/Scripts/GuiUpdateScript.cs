@@ -56,6 +56,6 @@ public class GuiUpdateScript : MonoBehaviour
 
     public void UpdateTimer(TimeSpan timeRemaining)
     {
-         timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
+        timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
     }
 }
