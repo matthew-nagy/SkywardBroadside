@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviourPunCallbacks
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
             gameObject.GetComponent<TargetingSystem>().myCam = cameraObj;
+            gameObject.GetComponent<ShipController>().SetCameraObject(cameraObj.gameObject);
         }
     }
 
