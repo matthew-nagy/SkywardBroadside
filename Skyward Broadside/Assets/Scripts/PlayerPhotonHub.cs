@@ -44,6 +44,10 @@ public class PlayerPhotonHub : PhotonTeamsManager
     // time used in respawn invincibility
     private DateTime spawnTime;
 
+    // spawn positions
+    private Vector3 redSpawn = new Vector3(300f, 5f, -400f);
+    private Vector3 blueSpawn = new Vector3(-160f, 5f, -80f);
+
     public void SetTeam(int team)
     {
         myTeam = team;
@@ -91,6 +95,7 @@ public class PlayerPhotonHub : PhotonTeamsManager
             disabled = true;
             Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
+        InvokeRepeating("NearBaseRegen", 0, 1.0f);
         UpdateTimerFromMaster();
     }
 
@@ -135,6 +140,33 @@ public class PlayerPhotonHub : PhotonTeamsManager
         }
         updateScript.UpdateGUIScores(myTeamScore, enemyTeamScore);
     }
+    public void NearBaseRegen()
+    {
+        if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Red")
+        {
+            if (Vector3.Distance(PlayerShip.transform.position, redSpawn) < 120)
+            {
+                currHealth = Math.Min(currHealth + 0.05f * PlayerShip.GetComponent<ShipArsenal>().maxHealth, PlayerShip.GetComponent<ShipArsenal>().maxHealth);
+                updateScript.UpdateGUIHealth(currHealth);
+                PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo + 3,PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo);
+                PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo + 1, PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo);
+                updateScript.UpdateGUIAmmo(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo);
+                updateScript.UpdateGUIExplosiveAmmo(PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo);
+            }
+        }
+        else if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Blue")
+        {
+            if (Vector3.Distance(PlayerShip.transform.position, blueSpawn) < 120)
+            {
+                currHealth = Math.Min(currHealth + 0.05f * PlayerShip.GetComponent<ShipArsenal>().maxHealth, PlayerShip.GetComponent<ShipArsenal>().maxHealth);
+                updateScript.UpdateGUIHealth(currHealth);
+                PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo + 3, PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo);
+                PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo + 1, PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo);
+                updateScript.UpdateGUIAmmo(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo);
+                updateScript.UpdateGUIExplosiveAmmo(PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo);
+            }
+        }
+    }
 
     public void UpdateHealth(float collisionMagnitude)
     {
@@ -175,11 +207,11 @@ public class PlayerPhotonHub : PhotonTeamsManager
 
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Red")
         {
-            PlayerShip.transform.position = new Vector3(300f, 5f, -400f) + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+            PlayerShip.transform.position = redSpawn + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
         }
         else if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Blue")
         {
-            PlayerShip.transform.position = new Vector3(-160f, 5f, -80f) + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+            PlayerShip.transform.position = blueSpawn + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
         }
         spawnTime = System.DateTime.Now;
 
