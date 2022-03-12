@@ -64,6 +64,20 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public List<ParticleSystem> pShootUpJet;
     public List<ParticleSystem> pShootDownJet;
 
+    GameObject cameraObject;
+    public void SetCameraObject(GameObject cam)
+    {
+        cameraObject = cam;
+    }
+
+    public void InformOfFire()
+    {
+        if (photonView.IsMine)
+        {
+            cameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -175,6 +189,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
 
         float collisionMag = collision.impulse.magnitude;
+        if (photonView.IsMine)
+        {
+            cameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
+        }
         //Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
         if (!photonView.IsMine)
         {

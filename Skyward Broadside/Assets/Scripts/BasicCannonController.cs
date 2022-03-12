@@ -137,9 +137,21 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         return transform.root.GetChild(0);
     }
 
+    void SendShakeEvent()
+    {
+        if (photonView.IsMine)
+        {
+            ShipController myController = gameObject.GetComponentInParent<ShipController>();
+            myController.InformOfFire();
+        }
+    }
+
     //fire the cannon
     void fire()
     {
+
+        SendShakeEvent();
+
         GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);        
         GameObject ship = getShipTransform().gameObject;
 
