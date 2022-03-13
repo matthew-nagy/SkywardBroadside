@@ -16,6 +16,14 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public struct ReloadStation
+{
+    public GameObject gameObject;      //A game object so that, should the station move about, the position is still correct
+    public float reloadRadius;      //How close the ship must be in order to begin reloading
+}
+
+
 public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
 {
     // THIS IS PUBLIC FOR NOW, TO ALLOW FINE TUNING DURING TESTING EASIER.
@@ -38,7 +46,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     bool disabled;
 
     //The actual ship of the player
-    private GameObject PlayerShip;
+    private GameObject playerShip;
     private GuiUpdateScript updateScript;
 
     public List<Material> teamMaterials;
@@ -54,6 +62,14 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     // spawn positions
     private Vector3 redSpawn = new Vector3(300f, 5f, -400f);
     private Vector3 blueSpawn = new Vector3(-160f, 5f, -80f);
+
+    public float regenFactorOfMaxHealth = 0.05f;
+    public int regenOfCannonballsPerReloadPeriod = 3;
+    public int regenOfExplosiveCannonballPerReloadPeriod = 1;
+    public float regenSecondsPerReloads = 1f;
+
+    public List<ReloadStation> redReloadStations;
+    public List<ReloadStation> blueReloadStations;
 
     public void SetTeam(int team)
     {
@@ -84,6 +100,9 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+        redReloadStations = new List<ReloadStation>();
+        blueReloadStations = new List<ReloadStation>();
+
         spawnTime = System.DateTime.Now;
         var properties = new Hashtable();
         properties.Add("deaths", deaths);
@@ -91,7 +110,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
 
        
         
-        PlayerShip = this.gameObject.transform.GetChild(0).gameObject;
+        playerShip = this.gameObject.transform.GetChild(0).gameObject;
 
         GameObject userGUI = GameObject.Find("User GUI");
         Debug.Log(userGUI);
@@ -101,13 +120,13 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
             updateScript = userGUI.GetComponent<GuiUpdateScript>();
             disabled = false;
             // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
-            currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
+            currHealth = playerShip.GetComponent<ShipArsenal>().maxHealth;
             updateScript.UpdateGUIHealth(currHealth);
-            cannonBallAmmo = PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
-            explosiveAmmo = PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
+            cannonBallAmmo = playerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
+            explosiveAmmo = playerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
             updateScript.UpdateGUIAmmo(cannonBallAmmo);
             updateScript.UpdateGUIExplosiveAmmo(explosiveAmmo);
-            currentWeapon = PlayerShip.GetComponentInChildren<BasicCannonController>().currentWeapon;
+            currentWeapon = playerShip.GetComponentInChildren<BasicCannonController>().currentWeapon;
             UpdateWeapon(currentWeapon);
         }
         else
@@ -132,7 +151,10 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
             Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
         }
 
+        GameObject.Find("Game Manager").GetComponent<GameManager>().serverPlayerPhotonHub = this;
+
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+        //In 5 seconds, start repeating. This gives the game a chance to load photon stuff in
         Invoke("RegenInvoker", 5f);
 
     }
@@ -181,32 +203,42 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
 
     public void RegenInvoker()
     {
-        InvokeRepeating("NearBaseRegen", 0, 1f);
+        InvokeRepeating("NearBaseRegen", 0, regenSecondsPerReloads);
     }
+
+    void ReloadShipArsenal(ShipArsenal arsenal)
+    {
+        currHealth = Math.Min(currHealth + regenFactorOfMaxHealth * arsenal.maxHealth, arsenal.maxHealth);
+        updateScript.UpdateGUIHealth(currHealth);
+        arsenal.cannonballAmmo = Math.Min(arsenal.cannonballAmmo + regenOfCannonballsPerReloadPeriod, arsenal.maxCannonballAmmo);
+        arsenal.explosiveCannonballAmmo = Math.Min(arsenal.explosiveCannonballAmmo + regenOfExplosiveCannonballPerReloadPeriod, arsenal.maxExplosiveCannonballAmmo);
+        updateScript.UpdateGUIAmmo(arsenal.cannonballAmmo);
+        updateScript.UpdateGUIExplosiveAmmo(arsenal.explosiveCannonballAmmo);
+    }
+
     public void NearBaseRegen()
     {
+        ShipArsenal arsenal = playerShip.GetComponent<ShipArsenal>();
+        List<ReloadStation> reloadStations;
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Red")
         {
-            if (Vector3.Distance(PlayerShip.transform.position, redSpawn) < 120)
-            {
-                currHealth = Math.Min(currHealth + 0.05f * PlayerShip.GetComponent<ShipArsenal>().maxHealth, PlayerShip.GetComponent<ShipArsenal>().maxHealth);
-                updateScript.UpdateGUIHealth(currHealth);
-                PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo + 3,PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo);
-                PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo + 1, PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo);
-                updateScript.UpdateGUIAmmo(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo);
-                updateScript.UpdateGUIExplosiveAmmo(PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo);
-            }
+            reloadStations = redReloadStations;
         }
         else if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Blue")
         {
-            if (Vector3.Distance(PlayerShip.transform.position, blueSpawn) < 120)
+            reloadStations = blueReloadStations;
+        }
+        else
+        {
+            Debug.LogError("Player is trying to reload on neither red nor blue teams");
+            reloadStations = new List<ReloadStation>();
+        }
+
+        foreach (ReloadStation station in reloadStations)
+        {
+            if (Vector3.Distance(playerShip.transform.position, station.gameObject.transform.position) <= station.reloadRadius)
             {
-                currHealth = Math.Min(currHealth + 0.05f * PlayerShip.GetComponent<ShipArsenal>().maxHealth, PlayerShip.GetComponent<ShipArsenal>().maxHealth);
-                updateScript.UpdateGUIHealth(currHealth);
-                PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo + 3, PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo);
-                PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo + 1, PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo);
-                updateScript.UpdateGUIAmmo(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo);
-                updateScript.UpdateGUIExplosiveAmmo(PlayerShip.GetComponent<ShipArsenal>().explosiveCannonballAmmo);
+                ReloadShipArsenal(arsenal);
             }
         }
     }
@@ -244,17 +276,17 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         PhotonNetwork.RaiseEvent(1, null, raiseEventOptions, SendOptions.SendReliable);
         
         // respawn
-        currHealth = PlayerShip.GetComponent<ShipArsenal>().maxHealth;
-        cannonBallAmmo = PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
-        explosiveAmmo = PlayerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
+        currHealth = playerShip.GetComponent<ShipArsenal>().maxHealth;
+        cannonBallAmmo = playerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
+        explosiveAmmo = playerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
 
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Red")
         {
-            PlayerShip.transform.position = redSpawn + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+            playerShip.transform.position = redSpawn + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
         }
         else if (PhotonNetwork.LocalPlayer.GetPhotonTeam().Name == "Blue")
         {
-            PlayerShip.transform.position = blueSpawn + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+            playerShip.transform.position = blueSpawn + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
         }
         spawnTime = System.DateTime.Now;
 
