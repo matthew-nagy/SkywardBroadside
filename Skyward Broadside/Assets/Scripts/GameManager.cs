@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     // red and blue player spawns to distinguish between teams
     public GameObject redSpawn;
     public GameObject blueSpawn;
+
+    //The player photon hub for the person playing this instance
+    public PlayerPhotonHub serverPlayerPhotonHub;
     
     #region Photon Callbacks
 
