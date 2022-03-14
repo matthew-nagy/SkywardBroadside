@@ -43,10 +43,12 @@ public class ReloadRegister : MonoBehaviour
         if(myTeam == "Red")
         {
             pph.redReloadStations.Add(myStation);
+            Blackboard.redReloadObjects.Add(gameObject);
         }
         else if(myTeam == "Blue")
         {
             pph.blueReloadStations.Add(myStation);
+            Blackboard.blueReloadObjects.Add(gameObject);
         }
         else
         {
