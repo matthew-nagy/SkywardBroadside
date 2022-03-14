@@ -20,6 +20,7 @@ public class CameraController : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             thisCam = Instantiate(shipCam);
+            Blackboard.shipCamera = thisCam;
             cameraObj = thisCam.GetComponent<Cinemachine.CinemachineFreeLook>();
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;

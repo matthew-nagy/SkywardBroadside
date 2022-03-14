@@ -64,6 +64,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         progressLabel.SetActive(false);
         controlPanel.SetActive(true);
+
+        Random.InitState((int)System.DateTime.Now.Ticks);
+        PlayerPrefs.SetFloat("UUID", Random.Range(float.MinValue, float.MaxValue));
     }
     
     #endregion

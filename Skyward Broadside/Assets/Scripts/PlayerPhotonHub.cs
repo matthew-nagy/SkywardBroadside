@@ -34,6 +34,8 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     public GameObject PlayerUiPrefab;
 
     public string playerName { get; set; }
+    public float playerID { get; set; }
+    bool clientRegisteredID = false;
 
     public float currHealth { get; set; }
     private float cannonBallAmmo;
@@ -94,12 +96,23 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         {
             playerName = "Player";
         }
+
+        if (PlayerPrefs.HasKey("UUID"))
+        {
+            playerID = PlayerPrefs.GetFloat("UUID");
+        }
+        else
+        {
+            Debug.LogError("Player does not have a universal unique ID");
+        }
         
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        Blackboard.playerPhotonHub = this;
+
         redReloadStations = new List<ReloadStation>();
         blueReloadStations = new List<ReloadStation>();
 
@@ -399,10 +412,16 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(currHealth);
+            stream.SendNext(playerID);
         }
         else
         {
             currHealth = (float)stream.ReceiveNext();
+            playerID = (float)playerID;
+            if (!clientRegisteredID)
+            {
+                Blackboard.registerPlayer(gameObject, playerID);
+            }
         }
     }
 }

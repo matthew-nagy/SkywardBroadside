@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     void Start()
     {
         Instance = this;
+        Blackboard.gameManager = this;
         
 
         if (playerPrefab == null)
