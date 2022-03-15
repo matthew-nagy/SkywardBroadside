@@ -18,6 +18,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             gameObject.layer = 2;
+            transform.Find("Body").gameObject.layer = 2;
         }
     }
 
