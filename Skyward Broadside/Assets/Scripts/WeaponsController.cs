@@ -13,6 +13,7 @@ public class WeaponsController : MonoBehaviour
     private void Update()
     {
         weaponsHot = GetComponent<TargetingSystem>().lockedOn;
+        print(weaponsHot);
         if (weaponsHot)
         {
             foreach (GameObject cannon in allCannnos)
@@ -25,6 +26,13 @@ public class WeaponsController : MonoBehaviour
                 {
                     cannon.GetComponent<BasicCannonController>().cannonActive = false;
                 }
+            }
+        }
+        else
+        {
+            foreach (GameObject cannon in allCannnos)
+            {
+                cannon.GetComponent<BasicCannonController>().cannonActive = false;
             }
         }
     }
