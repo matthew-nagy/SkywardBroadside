@@ -29,6 +29,9 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     bool sendShootToClient;
     bool clientShootFlag;
 
+    [SerializeField]
+    int currentTargetId;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +57,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void ServerUpdate()
     {
         getInput();
+        currentTargetId = transform.root.Find("Ship").GetComponent<TargetingSystem>().currentTargetId;
         if (serverShootFlag)
         {
             serverShootFlag = false;
@@ -155,7 +159,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);        
         GameObject ship = getShipTransform().gameObject;
 
-        GameObject target = transform.root.Find("Ship").GetComponent<TargetingSystem>().currentTarget;
+        GameObject target = PhotonView.Find(currentTargetId).gameObject;
         float xDiff = target.transform.position.x - ship.transform.position.x;
         float yDiff = target.transform.position.y - ship.transform.position.y;
         float zDiff = target.transform.position.z - ship.transform.position.z;
@@ -252,6 +256,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
             stream.SendNext(transform.rotation);
         }
+        stream.SendNext(currentTargetId);
     }
     void ClientPhotonStream(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -260,6 +265,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             transform.rotation = (Quaternion)stream.ReceiveNext();
         }
+        currentTargetId = (int)stream.ReceiveNext();
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

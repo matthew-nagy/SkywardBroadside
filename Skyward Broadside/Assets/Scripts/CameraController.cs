@@ -46,7 +46,8 @@ public class CameraController : MonoBehaviourPunCallbacks
         {
             if (freeCamDisabled)
             {
-                Vector3 targetPos = GetComponent<TargetingSystem>().currentTarget.transform.position;
+                GameObject target = PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId).gameObject;
+                Vector3 targetPos = target.transform.position;
                 Vector3 v = gameObject.transform.position - targetPos;
                 Vector3 vnorm = (gameObject.transform.position - targetPos).normalized;
                 v = v + (vnorm * 15f);

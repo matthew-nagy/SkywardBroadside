@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class WeaponsController : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class WeaponsController : MonoBehaviour
 
     bool checkLineOfSight(GameObject cannon)
     {
-        Vector3 vecToTarget = GetComponent<TargetingSystem>().currentTarget.transform.position - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
+        GameObject target = PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId).gameObject;
+        Vector3 vecToTarget = target.transform.position - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
         float angle = Vector3.Angle(cannon.GetComponent<BasicCannonController>().shotOrigin.forward, vecToTarget);
         if (angle > thresholdAngle)
         {

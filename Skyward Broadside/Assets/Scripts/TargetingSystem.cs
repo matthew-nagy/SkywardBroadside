@@ -5,9 +5,9 @@ using Photon.Pun;
 
 public class TargetingSystem : MonoBehaviourPunCallbacks
 {
-    public GameObject currentTarget;
+    GameObject currentTarget;
+    public int currentTargetId;
     bool targetAquired;
-    bool targetOutlined;
     public bool lockedOn;
     public LayerMask layerMask;
 
@@ -27,7 +27,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             getInput();
 
-            if (targetOutlined)
+            if (targetAquired)
             {
                 checkVisible(currentTarget);
                 if (!lockedOn)
@@ -40,6 +40,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
                 GameObject closestEnemy = findClosestEnemyInView();
                 if (targetAquired)
                 {
+                    currentTargetId = closestEnemy.gameObject.GetComponent<PhotonView>().ViewID;
                     highlightTarget(closestEnemy);
                 }
             }
@@ -85,8 +86,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             if (hit.collider.gameObject != currentTarget)
             {
-                targetOutlined = false;
                 targetAquired = false;
+                currentTargetId = 0;
                 currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
                 unLockToTarget();
             }
@@ -98,8 +99,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         GameObject closestEnemy = findClosestEnemyInView();
         if (currentTarget != closestEnemy)
         {
-            targetOutlined = false;
             targetAquired = false;
+            currentTargetId = 0;
             currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
         }
     }
@@ -135,7 +136,6 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 
     void highlightTarget(GameObject closestEnemy)
     {
-        targetOutlined = true;
         currentTarget = closestEnemy;
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 10;
     }
