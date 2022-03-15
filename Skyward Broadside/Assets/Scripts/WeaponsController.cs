@@ -13,7 +13,6 @@ public class WeaponsController : MonoBehaviour
     private void Update()
     {
         weaponsHot = GetComponent<TargetingSystem>().lockedOn;
-        print(weaponsHot);
         if (weaponsHot)
         {
             foreach (GameObject cannon in allCannnos)

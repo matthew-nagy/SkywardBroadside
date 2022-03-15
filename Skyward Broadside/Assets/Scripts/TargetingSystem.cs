@@ -67,7 +67,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         lockedOn = true;
         GetComponent<CameraController>().setLookAtTarget(currentTarget);
         GetComponent<CameraController>().disableFreeCam();
-        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.green;
+        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
     }
 
     void unLockToTarget()
@@ -76,7 +76,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         GetComponent<CameraController>().setLookAtTarget(transform.gameObject);
         GetComponent<CameraController>().setFollowTarget(transform.gameObject);
         GetComponent<CameraController>().enableFreeCam();
-        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
+        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
     }
 
     void checkVisible(GameObject currentTarget)
@@ -137,6 +137,6 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     void highlightTarget(GameObject closestEnemy)
     {
         currentTarget = closestEnemy;
-        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 10;
+        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 5;
     }
 }
