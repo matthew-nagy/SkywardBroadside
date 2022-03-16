@@ -91,6 +91,12 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 1, a: 0}
   - {r: 1, g: 0, b: 0, a: 0}
   myTeam: -1
+  regenFactorOfMaxHealth: 0.05
+  regenOfCannonballsPerReloadPeriod: 3
+  regenOfExplosiveCannonballPerReloadPeriod: 1
+  regenSecondsPerReloads: 1
+  redReloadStations: []
+  blueReloadStations: []
 --- !u!114 &6775707615636866609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5373,6 +5379,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 8248026052378480356, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8274868381019723751, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -5508,6 +5518,7 @@ MonoBehaviour:
   ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 975021837639076183}
   currentWeapon: 0
+  currentTargetId: 0
 --- !u!114 &2362082671797488833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5521,7 +5532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.9395391, b: 0, a: 1}
   outlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
@@ -5551,7 +5562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11f1222922ec6e4dbb684f9df961756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTarget: {fileID: 0}
+  currentTargetId: 0
   lockedOn: 0
   layerMask:
     serializedVersion: 2
@@ -5578,6 +5589,7 @@ MonoBehaviour:
   ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 8438325541659090813}
   currentWeapon: 0
+  currentTargetId: 0
 --- !u!114 &1173904337959220880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5599,6 +5611,7 @@ MonoBehaviour:
   ammoType: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 7605844243754440490}
   currentWeapon: 0
+  currentTargetId: 0
 --- !u!114 &7825151622322101920
 MonoBehaviour:
   m_ObjectHideFlags: 0
