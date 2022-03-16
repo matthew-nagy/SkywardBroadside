@@ -3,12 +3,32 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
+
+[System.Serializable]
 struct RequestedControls
 {
     public bool forwards;
     public bool backwards;
     public bool turnRight;
     public bool turnLeft;
+
+    public void PhotonSerialize(PhotonStream stream)
+    {
+        stream.SendNext(forwards);
+        stream.SendNext(backwards);
+        stream.SendNext(turnRight);
+        stream.SendNext(turnLeft);
+    }
+
+    static public RequestedControls PhotonDeserialize(PhotonStream stream)
+    {
+        RequestedControls controls = new RequestedControls();
+        controls.forwards = (bool)stream.ReceiveNext();
+        controls.backwards = (bool)stream.ReceiveNext();
+        controls.turnRight = (bool)stream.ReceiveNext();
+        controls.turnLeft = (bool)stream.ReceiveNext();
+        return controls;
+    }
 }
 
 public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
@@ -87,6 +107,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         velocityBeforeCollision = new Vector3(0, 0, 0);
         turnDirection = new Vector3(0, 0, 0);
         verticalSpeed = 0;
+        playerInput = new RequestedControls();
     }
 
     void Awake()
@@ -285,6 +306,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(teamColour.r);
             stream.SendNext(teamColour.g);
             stream.SendNext(teamColour.b);
+            playerInput.PhotonSerialize(stream);
         }
         else
         {
@@ -300,6 +322,21 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 transform.Find("Body").gameObject.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
                 colourSet = true;
             }
+
+            RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
+            if(newInput.forwards != playerInput.forwards)
+            {
+                SetParticles(pDriveSystem, newInput.forwards);
+            }
+            if(newInput.turnLeft != playerInput.turnLeft)
+            {
+                SetParticles(pAntiClockwiseJets, newInput.turnLeft);
+            }
+            if(newInput.turnRight != playerInput.turnRight)
+            {
+                SetParticles(pClockwiseJets, newInput.turnRight);
+            }
+            playerInput = newInput;
         }
 
     }
