@@ -336,6 +336,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 SetParticles(pClockwiseJets, newInput.turnRight);
             }
+            playerInput = newInput;
         }
 
     }
