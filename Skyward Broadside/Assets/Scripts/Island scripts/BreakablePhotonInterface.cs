@@ -7,7 +7,7 @@ using Photon.Realtime;
 
 public class BreakablePhotonInterface : MonoBehaviour
 {
-    public List<Breakable> children;
+    public List<Breakable> children = new List<Breakable>();
 
     // Start is called before the first frame update
     void Start()
