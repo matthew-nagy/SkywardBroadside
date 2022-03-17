@@ -4943,6 +4943,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1845835176, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1845835177, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: angularMass
       value: 7

@@ -227,6 +227,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
 
         float collisionMag = collision.impulse.magnitude;
+        print(collision.gameObject.name);
         if (photonView.IsMine)
         {
             cameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
@@ -247,6 +248,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 moveSpeed = finalVelocity.magnitude;
 
                 velocity = finalVelocity;
+
+                //Scale collision magnitude so don't insta die on getting hit by cannonball
+
+                collisionMag = collisionMag * 0.4f;
             }
             else
             {
@@ -256,7 +261,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         else if (collision.gameObject.tag == "Ship")
         {
             //print("Collision");
-            print(collision.gameObject.name);
 
             Vector3 initialVelocity = velocityBeforeCollision;
             float massA = rigidBody.mass;
@@ -280,7 +284,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             isDisabled = true;
             totalDisabledTime = 1f;
             // the 10 is needed because otherwise you insta-kill each other upon contact
-            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 100;
+            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
 
         }
         else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
@@ -294,8 +298,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 totalDisabledTime = 0.5f;
             }
 
-            //0.5 multiplier to keep damage in check
-            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude * 0.5f;
+            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude;
         }
 
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
