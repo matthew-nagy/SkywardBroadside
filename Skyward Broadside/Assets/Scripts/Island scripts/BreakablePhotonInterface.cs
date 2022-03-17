@@ -20,7 +20,8 @@ public class BreakablePhotonInterface : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             GameObject obj = PhotonNetwork.Instantiate("Terrain/BreakMasterPrefab", transform.position, Quaternion.identity);
-            RegisterChildrenAndDestroy(obj.GetComponent<BreakMaster>());
+            RegisterChildren(obj.GetComponent<BreakMaster>());
+            Destroy(this);
         }
         else
         {
@@ -29,18 +30,18 @@ public class BreakablePhotonInterface : MonoBehaviour
                 if (bm.IsInLocatioOf(transform))
                 {
                     Debug.Log("Break master located");
-                    RegisterChildrenAndDestroy(bm);
+                    RegisterChildren(bm);
+                    Destroy(this);
                 }
             }
         }
     }
 
-    void RegisterChildrenAndDestroy(BreakMaster owner)
+    void RegisterChildren(BreakMaster owner)
     {
         foreach(Breakable child in children)
         {
             child.RegisterOwner(owner);
         }
-        Destroy(this);
     }
 }
