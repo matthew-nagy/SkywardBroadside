@@ -29,6 +29,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     {
         Blackboard.breakMasters.Add(this);
         Debug.Log("Break master created");
+        children = new List<Breakable>();
     }
 
     // Update is called once per frame

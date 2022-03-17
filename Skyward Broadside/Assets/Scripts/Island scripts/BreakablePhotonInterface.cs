@@ -7,6 +7,7 @@ using Photon.Realtime;
 
 public class BreakablePhotonInterface : MonoBehaviour
 {
+    bool created = false;
     public List<Breakable> children = new List<Breakable>();
 
     // Start is called before the first frame update
@@ -17,22 +18,18 @@ public class BreakablePhotonInterface : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && !created)
         {
-            GameObject obj = PhotonNetwork.Instantiate("Terrain/BreakMasterPrefab", transform.position, Quaternion.identity);
-            RegisterChildren(obj.GetComponent<BreakMaster>());
-            Destroy(this);
+            PhotonNetwork.Instantiate("Terrain/BreakMasterPrefab", transform.position, Quaternion.identity);
+            created = true;
         }
-        else
+        foreach (BreakMaster bm in Blackboard.breakMasters)
         {
-            foreach (BreakMaster bm in Blackboard.breakMasters)
+            if (bm.IsInLocatioOf(transform))
             {
-                if (bm.IsInLocatioOf(transform))
-                {
-                    Debug.Log("Break master located");
-                    RegisterChildren(bm);
-                    Destroy(this);
-                }
+                Debug.Log("Break master located");
+                RegisterChildren(bm);
+                Destroy(this);
             }
         }
     }
