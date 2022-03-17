@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3598685727036236883}
   - component: {fileID: 3598685727036236892}
   - component: {fileID: 3598685727036236893}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Ocean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3598685727225851273}
   - component: {fileID: 3598685727225851279}
   - component: {fileID: 3598685727225851272}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: FloorCuller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3598685727484187006}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

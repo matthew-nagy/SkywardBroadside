@@ -11,6 +11,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     bool targetAquired;
     public bool lockedOn;
     public LayerMask layerMask;
+    public LayerMask ffLayerMask;
+    public float maxTargetDistance;
 
     public Cinemachine.CinemachineFreeLook myCam;
 
@@ -161,7 +163,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             Transform camTransform = myCam.gameObject.transform;
             RaycastHit hit;
-            if (Physics.Raycast(camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), out hit))
+            if (Physics.Raycast(ray: camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), hitInfo: out hit, layerMask: ffLayerMask, maxDistance: maxTargetDistance))
             {
                 freeFireTargetPos = hit.transform.position;
             }
