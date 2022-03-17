@@ -19,7 +19,7 @@ public class BreakablePhotonInterface : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            GameObject obj = PhotonNetwork.Instantiate("Resources/Terrain/BreakMasterPrefab", transform.position, Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate("Terrain/BreakMasterPrefab", transform.position, Quaternion.identity);
             RegisterChildrenAndDestroy(obj.GetComponent<BreakMaster>());
         }
         else
