@@ -35,7 +35,6 @@ public class Breakable : MonoBehaviour
         {
             return;
         }
-        //print("Collision");
         float impactForce;
         if (collision.gameObject.tag == "Ship")
         {

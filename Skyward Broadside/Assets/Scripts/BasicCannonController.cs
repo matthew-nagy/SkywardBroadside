@@ -29,8 +29,10 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     bool sendShootToClient;
     bool clientShootFlag;
 
-    [SerializeField]
     int currentTargetId;
+    public bool lockedOn;
+    bool localLockOn;
+    Vector3 freeFireTargetPos;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +59,17 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void ServerUpdate()
     {
         getInput();
-        currentTargetId = transform.root.Find("Ship").GetComponent<TargetingSystem>().currentTargetId;
+
+        //fire at target we are locked to
+        if (lockedOn)
+        {
+            currentTargetId = getShipTransform().GetComponent<TargetingSystem>().currentTargetId;
+        } //free fire
+        else
+        {
+            freeFireTargetPos = getShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
+        }
+
         if (serverShootFlag)
         {
             serverShootFlag = false;
@@ -79,9 +91,11 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (photonView.IsMine)
         {
             ServerUpdate();
+            localLockOn = lockedOn;
         }
         else
         {
+            lockedOn = localLockOn;
             ClientUpdate();
         }
 
@@ -153,16 +167,39 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     //fire the cannon
     void fire()
     {
-
         SendShakeEvent();
 
-        GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);        
+        GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);   
+        
+        if (!photonView.IsMine)
+        {
+            newCannonBall.layer = 10;
+        }
+
         GameObject ship = getShipTransform().gameObject;
 
-        GameObject target = PhotonView.Find(currentTargetId).gameObject;
-        float xDiff = target.transform.position.x - ship.transform.position.x;
-        float yDiff = target.transform.position.y - ship.transform.position.y;
-        float zDiff = target.transform.position.z - ship.transform.position.z;
+        GameObject target;
+        Vector3 targetPos;
+        float targetXVels = 0;
+        float targetYVels = 0;
+        float targetZVels = 0;
+        //if we are lockedOn get target obj, velocity, and pos
+        if (lockedOn)
+        {
+            target = PhotonView.Find(currentTargetId).gameObject;
+            targetPos = PhotonView.Find(currentTargetId).transform.position;
+            targetXVels = target.GetComponent<Rigidbody>().velocity.x;
+            targetYVels = target.GetComponent<Rigidbody>().velocity.y;
+            targetZVels = target.GetComponent<Rigidbody>().velocity.z;
+        } //if we are free firing, just get target pos
+        else
+        {
+            targetPos = freeFireTargetPos;
+        }
+
+        float xDiff = targetPos.x - ship.transform.position.x;
+        float yDiff = targetPos.y - ship.transform.position.y;
+        float zDiff = targetPos.z - ship.transform.position.z;
 
         float distToTarget = Mathf.Sqrt(xDiff * xDiff + zDiff * zDiff);
         float time = distToTarget / power;
@@ -170,10 +207,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         float Vy = (-0.5f * time * Physics.gravity.y) + yDiff / time;
         float Vx = xDiff / time;
         float Vz = zDiff / time;
-
-        float targetXVels = target.GetComponent<Rigidbody>().velocity.x;
-        float targetYVels = target.GetComponent<Rigidbody>().velocity.y;
-        float targetZVels = target.GetComponent<Rigidbody>().velocity.z;
 
         Vx = Vx + targetXVels;
         Vy = Vy + targetYVels;
@@ -257,6 +290,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(transform.rotation);
         }
         stream.SendNext(currentTargetId);
+        stream.SendNext(freeFireTargetPos);
+        stream.SendNext(localLockOn);
     }
     void ClientPhotonStream(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -266,6 +301,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             transform.rotation = (Quaternion)stream.ReceiveNext();
         }
         currentTargetId = (int)stream.ReceiveNext();
+        freeFireTargetPos = (Vector3)stream.ReceiveNext();
+        localLockOn = (bool)stream.ReceiveNext();
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
