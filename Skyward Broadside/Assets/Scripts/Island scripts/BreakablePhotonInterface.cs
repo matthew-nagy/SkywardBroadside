@@ -12,22 +12,25 @@ public class BreakablePhotonInterface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            GameObject obj = PhotonNetwork.Instantiate("Resources/Terrain/BreakMasterPrefab", transform.position, Quaternion.identity);
-            RegisterChildrenAndDestroy(obj.GetComponent<BreakMaster>());
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach(BreakMaster bm in Blackboard.breakMasters)
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (bm.IsInLocatioOf(transform))
+            GameObject obj = PhotonNetwork.Instantiate("Resources/Terrain/BreakMasterPrefab", transform.position, Quaternion.identity);
+            RegisterChildrenAndDestroy(obj.GetComponent<BreakMaster>());
+        }
+        else
+        {
+            foreach (BreakMaster bm in Blackboard.breakMasters)
             {
-                Debug.Log("Break master located");
-                RegisterChildrenAndDestroy(bm);
+                if (bm.IsInLocatioOf(transform))
+                {
+                    Debug.Log("Break master located");
+                    RegisterChildrenAndDestroy(bm);
+                }
             }
         }
     }

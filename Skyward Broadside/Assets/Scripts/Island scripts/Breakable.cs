@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Breakable : MonoBehaviour
 {
+    public BreakablePhotonInterface breakPhotonInterface;
     public float breakForce;
     public bool broken;
     Rigidbody myRigidBody;
@@ -13,7 +14,8 @@ public class Breakable : MonoBehaviour
 
 
     void Start()
-    { 
+    {
+        breakPhotonInterface.children.Add(this);
     }
 
     private void OnDestroy()
