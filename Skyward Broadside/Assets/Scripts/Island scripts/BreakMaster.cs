@@ -125,6 +125,10 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
                 SyncEvent se = (SyncEvent)stream.ReceiveNext();
                 HandleSyncEvent(se);
             }
+            foreach(Breakable i in children)
+            {
+                i.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f);
+            }
         }
 
     }
