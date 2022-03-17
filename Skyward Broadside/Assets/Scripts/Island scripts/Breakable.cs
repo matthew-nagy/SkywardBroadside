@@ -12,6 +12,9 @@ public class Breakable : MonoBehaviour
     int indexInOwner;
     BreakMaster owner;
 
+    static public float secondsPerSyncEvent = 1.5f;
+    float secondsSinceSync = 0.0f;
+
 
     void Start()
     {
@@ -20,10 +23,23 @@ public class Breakable : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (isMasterPhoton)
+        {
+            SendSyncCommand(true);
+        }
     }
 
     private void Update()
     {
+        if(myRigidBody != null && isMasterPhoton)
+        {
+            secondsSinceSync += Time.deltaTime;
+            if(secondsSinceSync >= secondsPerSyncEvent)
+            {
+                secondsSinceSync = 0;
+                SendSyncCommand(false);
+            }
+        }
     }
 
     public void RegisterOwner(BreakMaster newOwner)
@@ -105,7 +121,32 @@ public class Breakable : MonoBehaviour
     //Tells the break master that this is now broken
     void SendBreakCommand(float force, Vector3 contactPoint, float forceRadius)
     {
+        BreakEvent be = new BreakEvent();
+        be.indexInOwner = indexInOwner;
+        be.force = force;
+        be.contactPoint = contactPoint;
+        be.forceRadius = forceRadius;
 
+        owner.RegisterBreakEvent(be);
+    }
+
+    //Tells the break master where this componant is
+    void SendSyncCommand(bool shouldDelete)
+    {
+        SyncEvent se = new SyncEvent();
+        se.indexInOwner = indexInOwner;
+        se.delete = shouldDelete;
+        se.position = myRigidBody.position;
+        se.velocity = myRigidBody.velocity;
+
+        owner.RegisterSyncEvent(se);
+    }
+
+    public void PhotonSync(SyncEvent e)
+    {
+        transform.position = e.position;
+        myRigidBody.position = e.position;
+        myRigidBody.velocity = e.velocity;
     }
 
     public void GamePlayApplyForce(float force, Vector3 contactPoint, float forceRadius)
