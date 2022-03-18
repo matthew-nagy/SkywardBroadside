@@ -122,7 +122,12 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     }
     void HandleSyncEvent(SyncEvent e)
     {
-        if (e.delete)
+        //It could be a delete event when it was already deleted
+        if (children[e.indexInOwner] == null)
+        {
+            return;
+        }
+            if (e.delete)
         {
             Destroy(children[e.indexInOwner].gameObject);
         }
