@@ -20,7 +20,6 @@ public class PlayerInfoPPH : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine)
         {
             currHealth = parentPlayer.GetComponent<PlayerPhotonHub>().currHealth;
-            print(currHealth);
         }
         
     }
