@@ -24,12 +24,12 @@ public class PlayerUI : MonoBehaviourPun
 
     Vector3 playerPos;
     float heightAbovePlayer = 0.5f;
-    Transform targetTransform;
     Renderer targetRenderer;
     CanvasGroup _canvasGroup;
     Vector3 targetPosition;
 
     Rigidbody playerRb;
+    PlayerInfoPPH playerInfo;
 
     //Player the health bar and name is attached to
     private PlayerPhotonHub target;
@@ -47,12 +47,6 @@ public class PlayerUI : MonoBehaviourPun
         _canvasGroup = this.GetComponent<CanvasGroup>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -65,7 +59,7 @@ public class PlayerUI : MonoBehaviourPun
         // Reflect the Player Health
         if (playerHealthSlider != null)
         {
-            playerHealthSlider.value = (int)target.currHealth;
+            playerHealthSlider.value = (int)playerInfo.currHealth;
         }
     }
 
@@ -98,19 +92,16 @@ public class PlayerUI : MonoBehaviourPun
         //Cache references for efficiency
         target = _target;
         playerRb = _target.GetComponentInChildren<Rigidbody>();
+        playerInfo = _target.GetComponentInChildren<PlayerInfoPPH>();
         if (playerNameText != null)
         {
             var photonView = playerRb.GetComponent<PhotonView>();
             playerNameText.text = photonView.Owner.NickName;
         }
 
-        targetTransform = this.target.GetComponent<Transform>();
-
         //Getting the renderer of one of the child primitive objects
         //This probs won't work when we add the proper airship model in unless we add a mesh renderer
         targetRenderer = target.GetComponentInChildren<Renderer>();
-
-        
     }
     #endregion
 }
