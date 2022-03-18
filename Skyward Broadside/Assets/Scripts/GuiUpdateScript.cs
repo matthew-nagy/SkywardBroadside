@@ -14,6 +14,8 @@ public class GuiUpdateScript : MonoBehaviour
     public Text otherScore;
     public Text timer;
     public GameObject gameOverScreen;
+    public Text gameOverYourTeam;
+    public Text gameOverOtherTeam;
 
     private float gameLength = 360f; //6 mins
     private float timeRemaining;
@@ -31,7 +33,7 @@ public class GuiUpdateScript : MonoBehaviour
     {
         // This will at some point have some complicated extra stuff for a more interesting GUI i.e. dial control
         // but this is simple atm
-        health.text = Math.Round(healthVal).ToString();
+        health.text = Math.Ceiling(healthVal).ToString();
     }
 
     public void UpdateGUIAmmo(float ammo)
@@ -51,7 +53,10 @@ public class GuiUpdateScript : MonoBehaviour
     public void UpdateGUIScores(int myTeam, int otherTeam)
     {
         myScore.text = myTeam.ToString();
+        gameOverYourTeam.text = myTeam.ToString();
+        
         otherScore.text = otherTeam.ToString();
+        gameOverOtherTeam.text = otherTeam.ToString();
     }
 
     public void UpdateTimer(TimeSpan timeRemaining)
