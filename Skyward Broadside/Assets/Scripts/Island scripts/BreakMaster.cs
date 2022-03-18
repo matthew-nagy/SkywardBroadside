@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
+[System.Serializable]
 public struct BreakEvent
 {
     //Helps the BreakMaster locate which child its refering to
@@ -14,6 +15,7 @@ public struct BreakEvent
     public float forceRadius;
 }
 
+[System.Serializable]
 public struct SyncEvent
 {
     //Helps the BreakMaster locate which child its refering to
@@ -32,6 +34,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     List<Breakable> children;
     List<BreakEvent> breakEvents;
     List<SyncEvent> syncEvents;
+    bool init = false;
 
 
     public bool IsInLocatioOf(Transform t)
@@ -68,6 +71,8 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
 
         breakEvents = new List<BreakEvent>();
         syncEvents = new List<SyncEvent>();
+
+        init = true;
     }
 
     // Update is called once per frame
@@ -125,9 +130,13 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
                 SyncEvent se = (SyncEvent)stream.ReceiveNext();
                 HandleSyncEvent(se);
             }
-            foreach(Breakable i in children)
+
+            if (children != null)
             {
-                i.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f);
+                foreach (Breakable i in children)
+                {
+                    i.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f);
+                }
             }
         }
 
