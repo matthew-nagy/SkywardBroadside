@@ -68,6 +68,7 @@ public class Breakable : MonoBehaviour
                 if (!broken)
                 {
                     Break(impactForce, collision.GetContact(0).point, 2);
+                    SendBreakCommand(impactForce, collision.GetContact(0).point, 2);
                 }
                 else
                 {
@@ -88,7 +89,6 @@ public class Breakable : MonoBehaviour
                 else
                 {
                     applyForce(impactForce, collision.GetContact(0).point, 2);
-                    SendBreakCommand(impactForce, collision.GetContact(0).point, 2);
                 }
             }
         }

@@ -141,6 +141,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
             foreach(BreakEvent be in breakEvents)
             {
                 be.PhotonSend(stream);
+                Debug.Log("Break event sent");
             }
             breakEvents.Clear();
 
@@ -148,6 +149,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
             foreach(SyncEvent se in syncEvents)
             {
                 se.PhotonSend(stream);
+                Debug.Log("Sync event sent");
             }
             syncEvents.Clear();
         }
