@@ -11,9 +11,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     bool targetAquired;
     public bool lockedOn;
     public LayerMask layerMask;
-    public LayerMask ffLayerMask;
-    public float maxTargetDistance;
-
+    public float maxTargetDistance; //for free fire only atm
+    public bool targetDestroyed;
     public Cinemachine.CinemachineFreeLook myCam;
 
     private void Start()
@@ -86,7 +85,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
     }
 
-    void unLockToTarget()
+    public void unLockToTarget()
     {
         lockedOn = false;
         GetComponent<CameraController>().setLookAtTarget(transform.gameObject);
@@ -162,14 +161,14 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             Transform camTransform = myCam.gameObject.transform;
             RaycastHit hit;
-            if (Physics.Raycast(ray: camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), hitInfo: out hit, layerMask: ffLayerMask, maxDistance: maxTargetDistance))
+            if (Physics.Raycast(ray: camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), hitInfo: out hit, layerMask: layerMask, maxDistance: maxTargetDistance))
             {
                 freeFireTargetPos = hit.transform.position;
             }
             else
             {
                 Vector3 fireDir = (camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f))).direction;
-                freeFireTargetPos = camTransform.position + (fireDir * 20);
+                freeFireTargetPos = transform.position + (fireDir * 20);
             }
         }
 

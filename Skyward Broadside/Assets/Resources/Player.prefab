@@ -5572,10 +5572,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 579
-  ffLayerMask:
-    serializedVersion: 2
-    m_Bits: 579
   maxTargetDistance: 1000
+  targetDestroyed: 0
   myCam: {fileID: 0}
 --- !u!114 &2744860487748048708
 MonoBehaviour:
