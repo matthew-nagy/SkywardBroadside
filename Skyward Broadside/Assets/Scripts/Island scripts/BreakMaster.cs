@@ -163,7 +163,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
             }
 
             int recirecievingSyncEvent = (int)stream.ReceiveNext();
-            for (int i = 0; i < recievingBreakEvents; i++)
+            for (int i = 0; i < recirecievingSyncEvent; i++)
             {
                 SyncEvent se = SyncEvent.PhotonRecieve(stream);
                 HandleSyncEvent(se);
