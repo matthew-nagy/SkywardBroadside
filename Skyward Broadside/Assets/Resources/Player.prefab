@@ -4980,6 +4980,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7167950620029611010, guid: 1f12a0732c013bc40b99005a4ea3be40, type: 3}
     - target: {fileID: 2067313920, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: lockOnCam
+      value: 
+      objectReference: {fileID: 4664997638776018354, guid: b0e49f037ca7f5d47b29bdb723860b77, type: 3}
+    - target: {fileID: 2067313920, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: toonProfile
       value: 
       objectReference: {fileID: 11400000, guid: e1411cb9cfaccce43908e2c288f45174, type: 2}

@@ -41,7 +41,7 @@ public class CameraShaker : MonoBehaviour
 
     public void DoShakeEvent(CameraShakeEvent incommingEvent)
     {
-        StartCoroutine("Shake", incommingEvent);
+        //StartCoroutine("Shake", incommingEvent);
     }
 
     public IEnumerator Shake(CameraShakeEvent incommingEvent)
