@@ -11,6 +11,8 @@ struct RequestedControls
     public bool backwards;
     public bool turnRight;
     public bool turnLeft;
+    public bool up;
+    public bool down;
 
     public void PhotonSerialize(PhotonStream stream)
     {
@@ -18,6 +20,8 @@ struct RequestedControls
         stream.SendNext(backwards);
         stream.SendNext(turnRight);
         stream.SendNext(turnLeft);
+        stream.SendNext(up);
+        stream.SendNext(down);
     }
 
     static public RequestedControls PhotonDeserialize(PhotonStream stream)
@@ -27,6 +31,8 @@ struct RequestedControls
         controls.backwards = (bool)stream.ReceiveNext();
         controls.turnRight = (bool)stream.ReceiveNext();
         controls.turnLeft = (bool)stream.ReceiveNext();
+        controls.up = (bool)stream.ReceiveNext();
+        controls.down = (bool)stream.ReceiveNext();
         return controls;
     }
 }
@@ -182,29 +188,17 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             playerInput.turnLeft = true;
         }
 
-        if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.LeftShift))
+
+        if (Input.GetKey(KeyCode.R)  || Input.GetKey(KeyCode.LeftShift))
         {
-            verticalSpeed += verticalAcceleration;
+            Debug.Log("Everything is bad");
+            playerInput.up = true;
         }
         else if (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.LeftControl))
         {
-            verticalSpeed -= verticalAcceleration;
+            playerInput.down = true;
         }
-        else
-        {
-            if (verticalSpeed < 0f)
-            {
-                verticalSpeed += verticalDeceleration;
-                Mathf.Clamp(verticalSpeed, -maxVerticalSpeed, 0f);
-            }
-            else if (verticalSpeed > 0f)
-            {
-                verticalSpeed -= verticalDeceleration;
-                Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
-            }
-        }
-
-        velocity.y = verticalSpeed;
+        
     }
 
     private void FixedUpdate()
@@ -415,6 +409,31 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         SetParticles(pClockwiseJets, playerInput.turnLeft);
 
+        if (playerInput.up)
+        {
+            verticalSpeed += verticalAcceleration;
+            Debug.Log("Shit me sideways");
+        }
+        else if (playerInput.down)
+        {
+            verticalSpeed -= verticalAcceleration;
+        }
+        else
+        {
+            if (verticalSpeed < 0f)
+            {
+                verticalSpeed += verticalDeceleration;
+                Mathf.Clamp(verticalSpeed, -maxVerticalSpeed, 0f);
+            }
+            else if (verticalSpeed > 0f)
+            {
+                verticalSpeed -= verticalDeceleration;
+                Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
+            }
+        }
+        SetParticles(pShootUpJet, playerInput.up);
+        SetParticles(pShootDownJet, playerInput.up);
+
         Vector3 angularAgainst = -1 * turnDirection * angularFriction;
         turnDirection += (turningForce + angularAgainst) / angularMass;
 
@@ -428,6 +447,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 acceleration = longuitudinalForce / mass;
         Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
         velocity += acceleration;
+        velocity.y = verticalSpeed;
 
     }
 
