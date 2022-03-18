@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            setRoomStartTime();
+            setRoomStartTimeAndInitialScores();
         }
     }
 
@@ -124,12 +124,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("GameWorld");
     }
 
-    void setRoomStartTime()
+    void setRoomStartTimeAndInitialScores()
     {
         DateTime currentTime = System.DateTime.Now;
        
         Hashtable properties = new Hashtable();
         properties.Add("startTime", currentTime.ToString());
+        int[] scores = {0, 0};
+        properties.Add("scores", scores);
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 
