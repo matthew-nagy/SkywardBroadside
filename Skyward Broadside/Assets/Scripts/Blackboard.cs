@@ -13,6 +13,8 @@ public class Blackboard : MonoBehaviour
     static public List<GameObject> redReloadObjects = new List<GameObject>();
     static public List<GameObject> blueReloadObjects = new List<GameObject>();
 
+    static public List<BreakMaster> breakMasters = new List<BreakMaster>();
+
 
     static Dictionary<float, GameObject> playersByID = new Dictionary<float, GameObject>();
 

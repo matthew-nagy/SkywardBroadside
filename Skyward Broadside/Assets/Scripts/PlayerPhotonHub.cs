@@ -58,6 +58,8 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     private DateTime gameStartTime;
     private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
 
+    private bool gotScores = false;
+
     // time used in respawn invincibility
     private DateTime spawnTime;
 
@@ -72,7 +74,6 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
 
     public List<ReloadStation> redReloadStations;
     public List<ReloadStation> blueReloadStations;
-
     public void SetTeam(int team)
     {
         myTeam = team;
@@ -111,6 +112,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+
         Blackboard.playerPhotonHub = this;
 
         redReloadStations = new List<ReloadStation>();
@@ -141,6 +143,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
             updateScript.UpdateGUIExplosiveAmmo(explosiveAmmo);
             currentWeapon = playerShip.GetComponentInChildren<BasicCannonController>().currentWeapon;
             UpdateWeapon(currentWeapon);
+            FetchScores();
         }
         else
         {
@@ -184,34 +187,34 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         {
             UpdateTimer();
         }
+
+        if (!gotScores)
+        {
+            FetchScores();
+        }
     }
 
-    public void UpdateScores()
+    public void UpdateScores(int[] scores)
     {
-        if (disabled) {
-            return;
-        }
-        int myTeamScore = 0;
-        int enemyTeamScore = 0;
-        var myTeam = PhotonNetwork.LocalPlayer.GetPhotonTeam();
-        foreach ( var player in PhotonNetwork.CurrentRoom.Players)
+        if (myTeam == 1)
         {
-            var team = player.Value.GetPhotonTeam();
-            var properties = player.Value.CustomProperties;
-            int playersScore = properties.ContainsKey("deaths") ? (int) properties["deaths"] : 0;
-            Debug.Log(playersScore);
-            // playersScore contains the players number of deaths and so must be added to the 
-            // opposing teams score
-            if (myTeam == team)
-            {
-                enemyTeamScore += playersScore;
-            }
-            else
-            {
-                myTeamScore += playersScore;
-            }
+            updateScript.UpdateGUIScores(scores[0], scores[1]);
         }
-        updateScript.UpdateGUIScores(myTeamScore, enemyTeamScore);
+        else
+        {
+            updateScript.UpdateGUIScores(scores[1], scores[0]);
+        }
+    }
+
+    public void FetchScores()
+    {
+        var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+        if (properties.ContainsKey("score"))
+        {
+            var scores = (int[]) properties["score"];
+            UpdateScores(scores);
+            gotScores = true;
+        }
     }
 
     public void RegenInvoker()
@@ -263,7 +266,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         {
             float healthVal = collisionMagnitude * forceToDamageMultiplier;
             currHealth -= healthVal;
-            if (currHealth < 0)
+            if (currHealth <= 0.00)
             {
                 die();
             }
@@ -275,6 +278,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
             {
                 updateScript.UpdateGUIHealth(currHealth);
             }
+
         }
     }
 
@@ -285,8 +289,10 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         properties.Add("deaths", ++deaths);
         PhotonNetwork.SetPlayerCustomProperties(properties);
 
+        int content = myTeam;
+
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
-        PhotonNetwork.RaiseEvent(1, null, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent(1,myTeam, raiseEventOptions, SendOptions.SendReliable);
         
         // respawn
         currHealth = playerShip.GetComponent<ShipArsenal>().maxHealth;
@@ -390,7 +396,24 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         byte eventCode = photonEvent.Code;
         if (eventCode == 1)
         {
-            UpdateScores();
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return;
+            }
+
+            int team = (int) photonEvent.CustomData;
+            var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+            int[] scores = properties.ContainsKey("scores") ? (int[]) properties["scores"] : new int[] {0, 0};
+            scores[team] += 1;
+
+            PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+            PhotonNetwork.RaiseEvent(2, scores, raiseEventOptions, SendOptions.SendReliable);
+        }
+        else if (eventCode == 2)
+        {
+            var scores = (int[]) photonEvent.CustomData;
+            UpdateScores(scores);
         }
     }
 
@@ -411,12 +434,12 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(currHealth);
+            //stream.SendNext(currHealth);
             stream.SendNext(playerID);
         }
         else
         {
-            currHealth = (float)stream.ReceiveNext();
+            //currHealth = (float)stream.ReceiveNext();
             playerID = (float)playerID;
             if (!clientRegisteredID)
             {
