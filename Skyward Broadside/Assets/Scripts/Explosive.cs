@@ -41,9 +41,12 @@ public class Explosive : MonoBehaviour
             {
                 if (!breakable.broken)
                 {
-                    breakable._break();
+                    breakable.GamePlayBreakCommand(explosionPower, collider.ClosestPoint(transform.position), explosionRadius);
                 }
-                breakable.applyForce(collider.GetComponent<Rigidbody>(), explosionPower, collider.ClosestPoint(transform.position), explosionRadius);
+                else
+                {
+                    breakable.GamePlayApplyForce(explosionPower, collider.ClosestPoint(transform.position), explosionRadius);
+                }
             }
         }
         Destroy(gameObject);

@@ -74,7 +74,6 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
 
     public List<ReloadStation> redReloadStations;
     public List<ReloadStation> blueReloadStations;
-
     public void SetTeam(int team)
     {
         myTeam = team;
@@ -113,6 +112,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+
         Blackboard.playerPhotonHub = this;
 
         redReloadStations = new List<ReloadStation>();
@@ -278,6 +278,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
             {
                 updateScript.UpdateGUIHealth(currHealth);
             }
+
         }
     }
 
@@ -433,12 +434,12 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(currHealth);
+            //stream.SendNext(currHealth);
             stream.SendNext(playerID);
         }
         else
         {
-            currHealth = (float)stream.ReceiveNext();
+            //currHealth = (float)stream.ReceiveNext();
             playerID = (float)playerID;
             if (!clientRegisteredID)
             {

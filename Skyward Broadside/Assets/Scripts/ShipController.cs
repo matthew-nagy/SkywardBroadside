@@ -67,10 +67,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     Vector3 turnDirection;
     float acceleration = 1f;
     float deceleration = 1f;
-    float verticalAcceleration = 1f;
-    float verticalDeceleration = 1f;
+    float verticalAcceleration = 0.3f;
+    float verticalDeceleration = 0.3f;
     float verticalSpeed;
-    float maxVerticalSpeed = 5f;
+    float maxVerticalSpeed = 1.5f;
     bool isDisabled;
     float timerDisabled;
     float totalDisabledTime;
@@ -153,6 +153,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 timerDisabled = 0f;
             }
         }
+
+        verticalSpeed = velocity.y;
     }
 
     void GetPlayerInput()
@@ -179,6 +181,30 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             playerInput.turnLeft = true;
         }
+
+        if (Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.LeftShift))
+        {
+            verticalSpeed += verticalAcceleration;
+        }
+        else if (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.LeftControl))
+        {
+            verticalSpeed -= verticalAcceleration;
+        }
+        else
+        {
+            if (verticalSpeed < 0f)
+            {
+                verticalSpeed += verticalDeceleration;
+                Mathf.Clamp(verticalSpeed, -maxVerticalSpeed, 0f);
+            }
+            else if (verticalSpeed > 0f)
+            {
+                verticalSpeed -= verticalDeceleration;
+                Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
+            }
+        }
+
+        velocity.y = verticalSpeed;
     }
 
     private void FixedUpdate()
@@ -189,15 +215,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
 
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
-
-        //if (Input.GetKey(KeyCode.R))
-        //{
-        //    rigidBody.MovePosition(rigidBody.position + Vector3.up * verticalSpeed * Time.fixedDeltaTime);
-        //}
-        //else if (Input.GetKey(KeyCode.F))
-        //{
-        //    rigidBody.MovePosition(rigidBody.position + Vector3.down * verticalSpeed * Time.fixedDeltaTime);
-        //}
 
         velocityBeforeCollision = velocity;
 
@@ -210,6 +227,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
 
         float collisionMag = collision.impulse.magnitude;
+        print(collision.gameObject.name);
         if (photonView.IsMine)
         {
             cameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
@@ -230,6 +248,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 moveSpeed = finalVelocity.magnitude;
 
                 velocity = finalVelocity;
+
+                //Scale collision magnitude so don't insta die on getting hit by cannonball
+
+                collisionMag = collisionMag * 0.4f;
             }
             else
             {
@@ -239,7 +261,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         else if (collision.gameObject.tag == "Ship")
         {
             //print("Collision");
-            print(collision.gameObject.name);
 
             Vector3 initialVelocity = velocityBeforeCollision;
             float massA = rigidBody.mass;
@@ -263,7 +284,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             isDisabled = true;
             totalDisabledTime = 1f;
             // the 10 is needed because otherwise you insta-kill each other upon contact
-            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 100;
+            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
 
         }
         else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
@@ -277,8 +298,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 totalDisabledTime = 0.5f;
             }
 
-            //0.5 multiplier to keep damage in check
-            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude * 0.5f;
+            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude;
         }
 
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
@@ -409,29 +429,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
         velocity += acceleration;
 
-        if (Input.GetKey(KeyCode.R))
-        {
-            verticalSpeed += verticalAcceleration;
-        }
-        else if (Input.GetKey(KeyCode.F))
-        {
-            verticalSpeed -= verticalAcceleration;
-        }
-        else
-        {
-            if (verticalSpeed < 0f)
-            {
-                verticalSpeed += verticalDeceleration;
-                Mathf.Clamp(verticalSpeed, -maxVerticalSpeed, 0f);
-            }
-            else if (verticalSpeed > 0f)
-            {
-                verticalSpeed -= verticalDeceleration;
-                Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
-            }
-        }
-
-        velocity.y = verticalSpeed;
     }
 
 
