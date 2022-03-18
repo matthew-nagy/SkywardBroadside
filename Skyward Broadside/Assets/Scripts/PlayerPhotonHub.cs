@@ -266,7 +266,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         {
             float healthVal = collisionMagnitude * forceToDamageMultiplier;
             currHealth -= healthVal;
-            if (currHealth < 0)
+            if (currHealth <= 0.00)
             {
                 die();
             }
