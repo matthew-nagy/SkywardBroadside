@@ -24,7 +24,7 @@ public struct ReloadStation
 }
 
 
-public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
+public class PlayerPhotonHub : MonoBehaviour
 {
     // THIS IS PUBLIC FOR NOW, TO ALLOW FINE TUNING DURING TESTING EASIER.
     public float forceToDamageMultiplier = 0.2f;
@@ -428,23 +428,5 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         GameObject _uiGo = Instantiate(this.PlayerUiPrefab);
         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
 
-    }
-
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            //stream.SendNext(currHealth);
-            stream.SendNext(playerID);
-        }
-        else
-        {
-            //currHealth = (float)stream.ReceiveNext();
-            playerID = (float)playerID;
-            if (!clientRegisteredID)
-            {
-                Blackboard.registerPlayer(gameObject, playerID);
-            }
-        }
     }
 }
