@@ -13,6 +13,24 @@ public struct BreakEvent
     public float force;
     public Vector3 contactPoint;
     public float forceRadius;
+
+    public void PhotonSend(PhotonStream stream)
+    {
+        stream.SendNext(indexInOwner);
+        stream.SendNext(force);
+        stream.SendNext(contactPoint);
+        stream.SendNext(forceRadius);
+    }
+
+    public static BreakEvent PhotonRecieve(PhotonStream stream)
+    {
+        BreakEvent be = new BreakEvent();
+        be.indexInOwner = (int)stream.ReceiveNext();
+        be.force = (float)stream.ReceiveNext();
+        be.contactPoint = (Vector3)stream.ReceiveNext();
+        be.forceRadius = (float)stream.ReceiveNext();
+        return be;
+    }
 }
 
 [System.Serializable]
@@ -27,6 +45,24 @@ public struct SyncEvent
 
     //Should this breakable be deleted
     public bool delete;
+
+    public void PhotonSend(PhotonStream stream)
+    {
+        stream.SendNext(indexInOwner);
+        stream.SendNext(position);
+        stream.SendNext(velocity);
+        stream.SendNext(delete);
+    }
+
+    public static SyncEvent PhotonRecieve(PhotonStream stream)
+    {
+        SyncEvent se = new SyncEvent();
+        se.indexInOwner = (int)stream.ReceiveNext();
+        se.position = (Vector3)stream.ReceiveNext();
+        se.velocity = (Vector3)stream.ReceiveNext();
+        se.delete = (bool)stream.ReceiveNext();
+        return se;
+    }
 }
 
 public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
@@ -104,14 +140,14 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(breakEvents.Count);
             foreach(BreakEvent be in breakEvents)
             {
-                stream.SendNext(be);
+                be.PhotonSend(stream);
             }
             breakEvents.Clear();
 
             stream.SendNext(syncEvents.Count);
             foreach(SyncEvent se in syncEvents)
             {
-                stream.SendNext(se);
+                se.PhotonSend(stream);
             }
             syncEvents.Clear();
         }
@@ -120,14 +156,14 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
             int recievingBreakEvents = (int)stream.ReceiveNext();
             for(int i = 0; i < recievingBreakEvents; i++)
             {
-                BreakEvent be = (BreakEvent)stream.ReceiveNext();
+                BreakEvent be = BreakEvent.PhotonRecieve(stream);
                 HandleBreakEvent(be);
             }
 
             int recirecievingSyncEvent = (int)stream.ReceiveNext();
             for (int i = 0; i < recievingBreakEvents; i++)
             {
-                SyncEvent se = (SyncEvent)stream.ReceiveNext();
+                SyncEvent se = SyncEvent.PhotonRecieve(stream);
                 HandleSyncEvent(se);
             }
 
