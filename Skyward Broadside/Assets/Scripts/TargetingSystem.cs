@@ -7,10 +7,12 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 {
     GameObject currentTarget;
     public int currentTargetId;
+    public Vector3 freeFireTargetPos;
     bool targetAquired;
     public bool lockedOn;
     public LayerMask layerMask;
-
+    public float maxTargetDistance; //for free fire only atm
+    public bool targetDestroyed;
     public Cinemachine.CinemachineFreeLook myCam;
 
     private void Start()
@@ -19,11 +21,23 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             gameObject.layer = 2;
             transform.Find("Body").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon1").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon2").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon3").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon4").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon5").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon6").gameObject.layer = 2;
+            transform.Find("Body").Find("BalloonLeft").gameObject.layer = 2;
+            transform.Find("Body").Find("BalloonRight").gameObject.layer = 2;
+            transform.Find("Body").Find("Propeller").gameObject.layer = 2;
+            transform.Find("Body").Find("Propeller").Find("Blade2").gameObject.layer = 2;
+            transform.Find("Body").Find("Propeller").Find("Blade1").gameObject.layer = 2;
         }
     }
 
     private void Update()
-    { 
+    {
         if (photonView.IsMine)
         {
             getInput();
@@ -71,11 +85,10 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
     }
 
-    void unLockToTarget()
+    public void unLockToTarget()
     {
         lockedOn = false;
         GetComponent<CameraController>().setLookAtTarget(transform.gameObject);
-        GetComponent<CameraController>().setFollowTarget(transform.gameObject);
         GetComponent<CameraController>().enableFreeCam();
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
     }
@@ -130,7 +143,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
                         }
                     }
                 }
-            } 
+            }
         }
         return closestEnemy;
     }
@@ -139,5 +152,25 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     {
         currentTarget = closestEnemy;
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 5;
+    }
+
+    //cast a ray from the camera forwards to find a object to shoot at. If no object hit by ray, fire a default distance in that direction
+    public void aquireFreeFireTarget()
+    {
+        if (photonView.IsMine)
+        {
+            Transform camTransform = myCam.gameObject.transform;
+            RaycastHit hit;
+            if (Physics.Raycast(ray: camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), hitInfo: out hit, layerMask: layerMask, maxDistance: maxTargetDistance))
+            {
+                freeFireTargetPos = hit.transform.position;
+            }
+            else
+            {
+                Vector3 fireDir = (camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f))).direction;
+                freeFireTargetPos = transform.position + (fireDir * 20);
+            }
+        }
+
     }
 }
