@@ -72,8 +72,6 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
 
     public List<ReloadStation> redReloadStations;
     public List<ReloadStation> blueReloadStations;
-
-    private PlayerInfoPPH playerInfo;
     public void SetTeam(int team)
     {
         myTeam = team;
@@ -172,11 +170,6 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         //In 5 seconds, start repeating. This gives the game a chance to load photon stuff in
         Invoke("RegenInvoker", 5f);
 
-        //playerInfo = GetComponentInChildren<PlayerInfoPPH>();
-        //if (playerInfo != null)
-        //{
-        //    playerInfo.currHealth = currHealth;
-        //}
     }
 
 
@@ -282,10 +275,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
             {
                 updateScript.UpdateGUIHealth(currHealth);
             }
-            if (playerInfo != null)
-            {
-                //playerInfo.currHealth = currHealth;
-            }
+
         }
     }
 
