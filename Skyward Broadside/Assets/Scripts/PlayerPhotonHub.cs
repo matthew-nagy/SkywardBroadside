@@ -137,12 +137,8 @@ public class PlayerPhotonHub : MonoBehaviour
             // We would want a way of accessing the players ship, and fetching the max health of only that. Probably could do it with an enum or something
             currHealth = playerShip.GetComponent<ShipArsenal>().maxHealth;
             updateScript.UpdateGUIHealth(currHealth);
-            cannonBallAmmo = playerShip.GetComponent<ShipArsenal>().maxCannonballAmmo; 
-            explosiveAmmo = playerShip.GetComponent<ShipArsenal>().maxExplosiveCannonballAmmo;
-            updateScript.UpdateGUIAmmo(cannonBallAmmo);
-            updateScript.UpdateGUIExplosiveAmmo(explosiveAmmo);
-            currentWeapon = playerShip.GetComponentInChildren<BasicCannonController>().currentWeapon;
-            UpdateWeapon(currentWeapon);
+            UpdateAmmo();
+            UpdateWeapon();
             FetchScores();
         }
         else
@@ -191,6 +187,12 @@ public class PlayerPhotonHub : MonoBehaviour
         if (!gotScores)
         {
             FetchScores();
+        }
+
+        if (playerShip.GetComponent<PhotonView>().IsMine)
+        {
+            UpdateAmmo();
+            UpdateWeapon();
         }
     }
 
@@ -312,21 +314,13 @@ public class PlayerPhotonHub : MonoBehaviour
         Debug.Log(deaths);
     }
 
-    public void UpdateAmmo(string type, float ammoLevel)
+    public void UpdateAmmo()
     {
         if (updateScript != null)
         {
-            switch (type)
-            {
-                case "Cannonball":
-                    updateScript.UpdateGUIAmmo(ammoLevel);
-                    break;
-                case "ExplosiveCannonball":
-                    updateScript.UpdateGUIExplosiveAmmo(ammoLevel);
-                    break;
-                default:
-                    throw new ArgumentException("Invalid string value for type");
-            }
+            ShipArsenal sa = transform.Find("Ship").GetComponent<ShipArsenal>();
+            updateScript.UpdateGUIAmmo(sa.cannonballAmmo);
+            updateScript.UpdateGUIExplosiveAmmo(sa.explosiveCannonballAmmo);
         }
         else
         {
@@ -334,18 +328,11 @@ public class PlayerPhotonHub : MonoBehaviour
         }
     }
 
-    public void UpdateWeapon(int newWeapon)
+    public void UpdateWeapon()
     {
-        currentWeapon = newWeapon; 
-        string weapon = currentWeapon switch
-        {
-            0 => "Normal",
-            1 => "Explosive",
-            _ => throw new ArgumentException("Invalid weapon number"),
-        };
         if (updateScript != null)
         {
-            updateScript.UpdateWeapon(weapon);
+            updateScript.UpdateWeapon(transform.Find("Ship").GetComponent<WeaponsController>().currentWeaponId);
         }
         else
         {

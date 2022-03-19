@@ -5,50 +5,199 @@ using Photon.Pun;
 
 public class WeaponsController : MonoBehaviour
 {
-    public List<GameObject> allCannnos;
-    public float thresholdAngle;
+    public List<GameObject> cannons;
+    public float cannonThresholdAngle;
+
+    public int currentWeaponId;
 
     bool lockedOn;
+    bool switchedWeapon;
+
+    List<int> equippedWeapons = new List<int>();
+
+    private void Start()
+    {
+        //enable regular cannons on start
+        enableWeapon(0);
+    }
+
+    //equip any weapons that are marked as true (enabled) by the ship arsenal
+    public void equipWeapons()
+    {
+        Dictionary<int, bool> allWeapons = GetComponent<ShipArsenal>().weapons;
+        foreach (int weaponId in allWeapons.Keys)
+        {
+            if (allWeapons[weaponId])
+            {
+                equippedWeapons.Add(weaponId);
+            }
+        }
+    }
 
     private void Update()
     {
+        getInput();
+
         lockedOn = GetComponent<TargetingSystem>().lockedOn;
 
-        //not free firing, we are locked to a target
+        switch (currentWeaponId)
+        {
+            case 0:
+                disableExplosiveCannons();
+                enableCannons();
+                break;
+
+            case 1:
+                disableCannons();
+                enableExplosiveCannons();
+                break;
+
+            default:
+                Debug.LogError("No weapon equipped!");
+                break;
+        }
+        switchedWeapon = false;
+    }
+
+    void getInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            enableWeapon(equippedWeapons[0]);
+            switchedWeapon = true;
+            
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            enableWeapon(equippedWeapons[1]);
+            switchedWeapon = true;
+        }
+    }
+
+    void enableWeapon(int weaponId)
+    {
+        currentWeaponId = weaponId;
+    }
+
+    void enableCannons()
+    {
+        int ammoCount = GetComponent<ShipArsenal>().cannonballAmmo;
+        int noOfEnabledCannons = 0;
+
         if (lockedOn)
         {
-            foreach (GameObject cannon in allCannnos)
+            foreach (GameObject cannon in cannons)
             {
-                //enable each cannon that has line of sight to our target and let it know we are lockedOn to a target
-                if (checkLineOfSight(cannon))
+                if (switchedWeapon)
                 {
-                    cannon.GetComponent<BasicCannonController>().cannonActive = true;
+                    cannon.GetComponent<BasicCannonController>().reload();
+                }
+
+                if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                {
+                    cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
                     cannon.GetComponent<BasicCannonController>().lockedOn = true;
+                    noOfEnabledCannons++;
                 }
                 else
                 {
-                    cannon.GetComponent<BasicCannonController>().cannonActive = false;
-                    cannon.GetComponent<BasicCannonController>().lockedOn = true;
+                    cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
+                    cannon.GetComponent<BasicCannonController>().lockedOn = false;
                 }
             }
-        } //free firing, no target lock. 
+        }
         else
         {
             GetComponent<TargetingSystem>().aquireFreeFireTarget();
-            foreach (GameObject cannon in allCannnos)
+            foreach (GameObject cannon in cannons)
             {
-                //enable each cannon that has line of sight to the object in our crosshair (free fire target), let it know we are not locked on.
-                if (checkLineOfSight(cannon))
+                if (switchedWeapon)
                 {
-                    cannon.GetComponent<BasicCannonController>().cannonActive = true;
+                    cannon.GetComponent<BasicCannonController>().reload();
+                }
+
+                if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                {
+                    cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
                     cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                    noOfEnabledCannons++;
                 }
                 else
                 {
-                    cannon.GetComponent<BasicCannonController>().cannonActive = false;
+                    cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
                     cannon.GetComponent<BasicCannonController>().lockedOn = false;
                 }
             }
+        }
+    }
+
+    void disableCannons()
+    {
+        foreach (GameObject cannon in cannons)
+        {
+            cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
+            cannon.GetComponent<BasicCannonController>().lockedOn = false;
+        }
+    }
+
+    void enableExplosiveCannons()
+    {
+        int ammoCount = GetComponent<ShipArsenal>().explosiveCannonballAmmo;
+        int noOfEnabledCannons = 0;
+
+        if (lockedOn)
+        {
+            foreach (GameObject cannon in cannons)
+            {
+                if (switchedWeapon)
+                {
+                    cannon.GetComponent<ExplosiveCannonController>().reload();
+                }
+
+                if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                {
+                    cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
+                    cannon.GetComponent<ExplosiveCannonController>().lockedOn = true;
+                    noOfEnabledCannons++;
+                }
+                else
+                {
+                    cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
+                    cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                }
+            }
+        }
+        else
+        {
+            GetComponent<TargetingSystem>().aquireFreeFireTarget();
+            foreach (GameObject cannon in cannons)
+            {
+                if (switchedWeapon)
+                {
+                    cannon.GetComponent<ExplosiveCannonController>().reload();
+                }
+
+                if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                {
+                    cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
+                    cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                    noOfEnabledCannons++;
+                }
+                else
+                {
+                    cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
+                    cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                }
+            }
+        }
+    }
+
+    void disableExplosiveCannons()
+    {
+        foreach (GameObject cannon in cannons)
+        {
+            cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
+            cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
         }
     }
 
@@ -69,7 +218,7 @@ public class WeaponsController : MonoBehaviour
         }
 
         float angle = Vector3.Angle(cannon.GetComponent<BasicCannonController>().shotOrigin.forward, vecToTarget);
-        if (angle > thresholdAngle)
+        if (angle > cannonThresholdAngle)
         {
             return false;
         }
