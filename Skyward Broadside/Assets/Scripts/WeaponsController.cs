@@ -53,7 +53,7 @@ public class WeaponsController : MonoBehaviour
                 break;
 
             default:
-                Debug.LogError("No weapon equipped!");
+                Debug.LogError("Invalid weapon Id");
                 break;
         }
         switchedWeapon = false;

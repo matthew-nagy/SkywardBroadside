@@ -5251,7 +5251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5151696107110722967, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: shotPower
-      value: 30
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5151696107110722967, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: projectile
@@ -5387,7 +5387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7728106693520202950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: shotPower
-      value: 30
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7728106693520202950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: projectile
@@ -5447,7 +5447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742184167560547195, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: shotPower
-      value: 30
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8742184167560547195, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: projectile
@@ -5583,7 +5583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 975021837639076183}
@@ -5601,7 +5601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 975021837639076183}
@@ -5637,7 +5637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 3282143572945084321}
@@ -5702,7 +5702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 3491107400434477597}
@@ -5720,7 +5720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 8438325541659090813}
@@ -5738,7 +5738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 8438325541659090813}
@@ -5756,7 +5756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 4074268247564703699}
@@ -5774,7 +5774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 7605844243754440490}
@@ -5792,7 +5792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponEnabled: 0
-  shotPower: 30
+  shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 7605844243754440490}
