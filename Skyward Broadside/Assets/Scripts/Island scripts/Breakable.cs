@@ -15,13 +15,15 @@ public class Breakable : MonoBehaviour
     //Used to prevent Sync hell at the end of the game
     bool applicationQuit;
 
-    static public float secondsPerSyncEvent = 1.5f;
+    static public float maxSecondsPerSyncEvent = 0.8f;
+    private float secondsToNextSync;
     float secondsSinceSync = 0.0f;
 
 
     void Start()
     {
         breakPhotonInterface.children.Add(this);
+        secondsToNextSync = 0.03F;
     }
 
     private void OnApplicationQuit()
@@ -46,10 +48,15 @@ public class Breakable : MonoBehaviour
         if(myRigidBody != null && isMasterPhoton)
         {
             secondsSinceSync += Time.deltaTime;
-            if(secondsSinceSync >= secondsPerSyncEvent)
+            if(secondsSinceSync >= secondsToNextSync)
             {
                 secondsSinceSync = 0;
                 SendSyncCommand(false);
+                secondsToNextSync *= 1.5f;
+                if(secondsToNextSync > maxSecondsPerSyncEvent)
+                {
+                    secondsToNextSync = maxSecondsPerSyncEvent;
+                }
             }
         }
     }
@@ -85,6 +92,7 @@ public class Breakable : MonoBehaviour
                 else
                 {
                     applyForce(impactForce, collision.GetContact(0).point, 2);
+                    SendSyncCommand(false);
                 }
             }
         }
@@ -101,6 +109,7 @@ public class Breakable : MonoBehaviour
                 else
                 {
                     applyForce(impactForce, collision.GetContact(0).point, 2);
+                    SendSyncCommand(false);
                 }
             }
         }
@@ -167,6 +176,7 @@ public class Breakable : MonoBehaviour
         if (isMasterPhoton)
         {
             applyForce(force, contactPoint, forceRadius);
+            SendSyncCommand(false);
         }
     }
     void applyForce(float force, Vector3 contactPoint, float forceRadius)
