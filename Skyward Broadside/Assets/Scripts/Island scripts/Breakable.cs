@@ -12,6 +12,9 @@ public class Breakable : MonoBehaviour
     int indexInOwner;
     BreakMaster owner;
 
+    //Used to prevent Sync hell at the end of the game
+    bool applicationQuit;
+
     static public float secondsPerSyncEvent = 1.5f;
     float secondsSinceSync = 0.0f;
 
@@ -21,11 +24,20 @@ public class Breakable : MonoBehaviour
         breakPhotonInterface.children.Add(this);
     }
 
+    private void OnApplicationQuit()
+    {
+        applicationQuit = true;
+    }
+
     private void OnDestroy()
     {
         if (isMasterPhoton)
         {
-            SendSyncCommand(true);
+            //At the end of the game for example
+            if (applicationQuit != true)
+            {
+                SendSyncCommand(true);
+            }
         }
     }
 
@@ -104,6 +116,7 @@ public class Breakable : MonoBehaviour
         if (isMasterPhoton)
         {
             Break(force, contactPoint, forceRadius);
+            SendBreakCommand(force, contactPoint, forceRadius);
         }
     }
 
