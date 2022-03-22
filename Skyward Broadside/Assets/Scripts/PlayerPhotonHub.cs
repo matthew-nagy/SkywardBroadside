@@ -74,6 +74,8 @@ public class PlayerPhotonHub : MonoBehaviour
 
     public List<ReloadStation> redReloadStations;
     public List<ReloadStation> blueReloadStations;
+
+    public GameObject healthbarAndName;
     public void SetTeam(int team)
     {
         myTeam = team;
@@ -428,5 +430,10 @@ public class PlayerPhotonHub : MonoBehaviour
         GameObject _uiGo = Instantiate(this.PlayerUiPrefab);
         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
 
+    }
+
+    public void SetUI(GameObject UI)
+    {
+        healthbarAndName = UI;
     }
 }
