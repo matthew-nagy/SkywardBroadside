@@ -140,9 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31e29b7963d37b479aae2776f124bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloud_width: 40
-  cloud_height: 10
-  cloud_depth: 40
+  cloud_width: 10
+  cloud_height: 20
+  cloud_depth: 30
   cloud_colour: {r: 1, g: 0.9, b: 0.9, a: 0.7}
   bubble_size: 7
   phaseAdvanceAmount: 0.01
