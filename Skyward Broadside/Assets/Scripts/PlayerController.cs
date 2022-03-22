@@ -1,89 +1,152 @@
-using System.Collections;
-using System.Collections.Generic;
-using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
+using Photon.Pun.UtilityScripts;
+using System;
+using System.Collections.Generic;
 
-public class PlayerController : MonoBehaviourPun
+public class PlayerController : MonoBehaviourPun, IPunObservable
 {
-    /*private float moveSpeed = 7.0f;
-    private float turnSpeed = 50.0f;
-    private float angle;
-    private Vector3 velocity;
-    private Vector3 angularVelocity;
+    private GuiUpdateScript updateScript;
+    private int deaths;
 
-    [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
-    public static GameObject LocalPlayerInstance;
-    
-    #region MonoBehaviour Callbacks
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        CameraFollowPlayer camera = GameObject.FindObjectOfType<CameraFollowPlayer>();
+    public int myTeam;
 
-        if (camera != null)
+    // spawn positions
+    private Vector3 redSpawn = new Vector3(300f, 5f, -400f);
+    private Vector3 blueSpawn = new Vector3(-160f, 5f, -80f);
+
+    private readonly float regenSecondsPerReloads = 1f;
+
+    public DateTime spawnTime;
+
+    public bool resupply;
+
+    private void Start()
+    { 
+        if (photonView.IsMine)
         {
-            if (photonView.IsMine)
+            updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;
+
+            var properties = new Hashtable
             {
-                camera.player = transform;
+                { "deaths", deaths }
+            };
+            PhotonNetwork.SetPlayerCustomProperties(properties);
+
+            spawnTime = DateTime.Now;
+
+            UpdateHealth();
+            UpdateAmmo();
+            UpdateWeapon();
+
+            Invoke(nameof(RegenInvoker), 5f);
+        }
+    }
+
+    private void Update()
+    {
+        if (photonView.IsMine)
+        {
+            UpdateHealth();
+            UpdateAmmo();
+            UpdateWeapon();
+        }
+    }
+
+    void UpdateHealth()
+    {
+        if (updateScript != null)
+        {
+            float health = GetComponent<ShipArsenal>().health;
+            if (health < 0f)
+            {
+                Die();
             }
+            updateScript.UpdateGUIHealth(health);
         }
         else
         {
-            Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on Ship prefab.", this);
+            Debug.LogWarning("Cannot update cannons: photon hubs update script is null");
         }
     }
 
-    void Awake()
+    void UpdateAmmo()
     {
-        // #Important
-        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
-        if (photonView.IsMine)
+        if (updateScript != null)
         {
-            PlayerManager.LocalPlayerInstance = this.gameObject;
+            ShipArsenal sa = GetComponent<ShipArsenal>();
+            updateScript.UpdateGUIAmmo(sa.cannonballAmmo);
+            updateScript.UpdateGUIExplosiveAmmo(sa.explosiveCannonballAmmo);
         }
-        // #Critical
-        // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
-        DontDestroyOnLoad(this.gameObject);
+        else
+        {
+            Debug.LogWarning("Cannot update ammo: photon hubs update script is null");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateWeapon()
     {
-        if (!photonView.IsMine && PhotonNetwork.IsConnected)
+        if (updateScript != null)
         {
-            return;
+            updateScript.UpdateWeapon(GetComponent<WeaponsController>().currentWeaponId);
         }
-        
-        float forwardDirection = Input.GetAxisRaw("Vertical");
-        float sideDirection = Input.GetAxisRaw("Horizontal");
-
-        velocity = transform.forward * forwardDirection * moveSpeed;
-        angularVelocity = new Vector3(0, sideDirection * turnSpeed, 0);
+        else
+        {
+            Debug.LogWarning("Cannot update weapon on gui, photon hub'su update script is null");
+        }
     }
 
-    void FixedUpdate()
+    void Die()
     {
-        transform.position += velocity * Time.deltaTime;
-        transform.Rotate(angularVelocity * Time.deltaTime);
+        // update player death count
+        var properties = new System.Collections.Hashtable
+        {
+            { "deaths", ++deaths }
+        };
+        PhotonNetwork.SetPlayerCustomProperties(properties);
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(1, myTeam, raiseEventOptions, SendOptions.SendReliable);
+
+        GetComponent<ShipArsenal>().respawn();
+
+        if (myTeam == 0)
+        {
+            transform.position = redSpawn + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
+        }
+        else if (myTeam == 1)
+        {
+            transform.position = blueSpawn + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
+        }
+        spawnTime = DateTime.Now;
+
+        Debug.Log(deaths);
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void RegenInvoker()
     {
-        Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-
-        if (!collision.gameObject.name.Contains("Ball"))
-        {
-            return;
-        }
-
-        transform.position = new Vector3(0, 0, 0);
+        InvokeRepeating(nameof(ReloadShipArsenal), 0, regenSecondsPerReloads);
     }
-    
-    #endregion*/
+
+    void ReloadShipArsenal()
+    {
+        if (resupply)
+        {
+            GetComponent<ShipArsenal>().resupply();
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(myTeam);
+        }
+        else
+        {
+            myTeam = (int)stream.ReceiveNext();
+        }
+    }
 }

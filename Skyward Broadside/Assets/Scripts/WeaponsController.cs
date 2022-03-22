@@ -5,8 +5,12 @@ using Photon.Pun;
 
 public class WeaponsController : MonoBehaviour
 {
-    public List<GameObject> cannons;
-    public float cannonThresholdAngle;
+    [SerializeField]
+    List<GameObject> cannons;
+    [SerializeField]
+    GameObject gatlingGun;
+    [SerializeField]
+    float cannonThresholdAngle;
 
     public int currentWeaponId;
 
@@ -44,12 +48,20 @@ public class WeaponsController : MonoBehaviour
         {
             case 0:
                 disableExplosiveCannons();
+                disableGatlingGun();
                 enableCannons();
                 break;
 
             case 1:
                 disableCannons();
+                disableGatlingGun();
                 enableExplosiveCannons();
+                break;
+
+            case 2:
+                disableCannons();
+                disableExplosiveCannons();
+                enableGatlingGun();
                 break;
 
             default:
@@ -70,6 +82,11 @@ public class WeaponsController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             enableWeapon(equippedWeapons[1]);
+            switchedWeapon = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            enableWeapon(equippedWeapons[2]);
             switchedWeapon = true;
         }
     }
@@ -199,6 +216,16 @@ public class WeaponsController : MonoBehaviour
             cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
             cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
         }
+    }
+
+    void enableGatlingGun()
+    {
+        gatlingGun.GetComponent<GatlingGunController>().weaponEnabled = true;
+    }
+
+    void disableGatlingGun()
+    {
+        gatlingGun.GetComponent<GatlingGunController>().weaponEnabled = false;
     }
 
     bool checkLineOfSight(GameObject cannon)

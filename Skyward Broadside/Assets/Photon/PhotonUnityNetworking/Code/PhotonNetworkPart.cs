@@ -61,6 +61,11 @@ namespace Photon.Pun
             }
         }
 
+        public static void SetPlayerCustomProperties(System.Collections.Hashtable properties)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Returns a new iterable collection of current photon views.
         /// </summary>

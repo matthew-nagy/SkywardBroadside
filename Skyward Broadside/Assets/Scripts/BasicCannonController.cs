@@ -91,7 +91,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             //attempt to fire the cannon
             if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag)
             {
-                //need to check ammo level first
                 serverShootFlag = sendShootToClient = true;
             }
         }

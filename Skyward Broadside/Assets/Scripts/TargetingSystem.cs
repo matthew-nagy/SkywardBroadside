@@ -20,6 +20,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             gameObject.layer = 2;
+            transform.Find("Weapons").gameObject.layer = 2;
+            transform.Find("Weapons").Find("GatlingGun").gameObject.layer = 2;
             transform.Find("Body").gameObject.layer = 2;
             transform.Find("Body").Find("CannonBay").gameObject.layer = 2;
             transform.Find("Body").Find("CannonBay").Find("Cannon1").gameObject.layer = 2;
@@ -163,7 +165,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             RaycastHit hit;
             if (Physics.Raycast(ray: camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), hitInfo: out hit, layerMask: layerMask, maxDistance: maxTargetDistance))
             {
-                freeFireTargetPos = hit.transform.position;
+                freeFireTargetPos = hit.point;
             }
             else
             {

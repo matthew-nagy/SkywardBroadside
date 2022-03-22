@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+
 public class ReloadRegister : MonoBehaviour
 {
     [System.Serializable]
@@ -12,10 +13,9 @@ public class ReloadRegister : MonoBehaviour
         public string teamName;
     }
 
-    public float reloadRadius = 60f;
-
     public List<TeamToMat> teamMaterials;
     public string myTeam;
+    public int myTeamNo;
 
     public int meshCircleResolution = 30;
 
@@ -24,42 +24,36 @@ public class ReloadRegister : MonoBehaviour
 
     public Material friendlyReloadMaterial;
 
-
     Mesh reloadFieldMesh;
 
-    // Update is called once per frame
-    void Update()
+    private float reloadRadius;
+
+    private void Start()
     {
-        PlayerPhotonHub pph = GameObject.Find("Game Manager").GetComponent<GameManager>().serverPlayerPhotonHub;
-        if(pph == null || PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
-        {   //Photon hasn't finished loading in yet, do this next turn
-            return;
-        }
+        reloadRadius = GetComponent<SphereCollider>().radius;
+        Invoke(nameof(Setup), 1f);
+    }
 
-        ReloadStation myStation = new ReloadStation();
-        myStation.reloadRadius = reloadRadius;
-        myStation.gameObject = gameObject;
-
-        if(myTeam == "Red")
+    void Setup()
+    {
+        if (myTeam == "Red")
         {
-            pph.redReloadStations.Add(myStation);
-            Blackboard.redReloadObjects.Add(gameObject);
+            myTeamNo = 0;
         }
-        else if(myTeam == "Blue")
+        else if (myTeam == "Blue")
         {
-            pph.blueReloadStations.Add(myStation);
-            Blackboard.blueReloadObjects.Add(gameObject);
+            myTeamNo = 1;
         }
         else
         {
-            Debug.LogError("Cannot find a team with name '" + myTeam + ".");
+            Debug.LogError("Invalid team name");
         }
 
-        foreach(TeamToMat ttm in teamMaterials)
+        foreach (TeamToMat ttm in teamMaterials)
         {
-            if(myTeam == ttm.teamName)
+            if (myTeam == ttm.teamName)
             {
-                foreach(GameObject go in materialSettingObjects)
+                foreach (GameObject go in materialSettingObjects)
                 {
                     go.GetComponent<Renderer>().material = ttm.material;
                 }
@@ -67,12 +61,26 @@ public class ReloadRegister : MonoBehaviour
             }
         }
 
-        if(myTeam == PhotonNetwork.LocalPlayer.GetPhotonTeam().Name)
+        if (myTeam == PhotonNetwork.LocalPlayer.GetPhotonTeam().Name)
         {
             CreateDisplayMesh();
         }
+    }
 
-        Destroy(this);
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Ship")
+        {
+            other.gameObject.GetComponent<PlayerController>().resupply = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Ship")
+        {
+            other.gameObject.GetComponent<PlayerController>().resupply = false;
+        }
     }
 
     void CreateDisplayMesh()

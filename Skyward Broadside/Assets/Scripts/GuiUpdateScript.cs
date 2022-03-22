@@ -57,6 +57,10 @@ public class GuiUpdateScript : MonoBehaviour
                 weapon.text = "Explosive cannonball";
                 break;
 
+            case 2:
+                weapon.text = "Gatling gun";
+                break;
+
             default:
                 Debug.LogError("Invalid weapon Id");
                 break;
