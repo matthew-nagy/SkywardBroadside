@@ -9,7 +9,6 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviourPun, IPunObservable
 {
     private GuiUpdateScript updateScript;
-    private int deaths;
 
     public int myTeam;
 
@@ -28,12 +27,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine)
         {
             updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;
-
-            var properties = new Hashtable
-            {
-                { "deaths", deaths }
-            };
-            PhotonNetwork.SetPlayerCustomProperties(properties);
 
             spawnTime = DateTime.Now;
 
@@ -100,29 +93,22 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     void Die()
     {
-        // update player death count
-        var properties = new System.Collections.Hashtable
+        if (photonView.IsMine)
         {
-            { "deaths", ++deaths }
-        };
-        PhotonNetwork.SetPlayerCustomProperties(properties);
+            transform.root.GetComponent<PlayerPhotonHub>().AddDeath();
 
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(1, myTeam, raiseEventOptions, SendOptions.SendReliable);
+            GetComponent<ShipArsenal>().respawn();
 
-        GetComponent<ShipArsenal>().respawn();
-
-        if (myTeam == 0)
-        {
-            transform.position = redSpawn + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
+            if (myTeam == 0)
+            {
+                transform.position = redSpawn + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
+            }
+            else if (myTeam == 1)
+            {
+                transform.position = blueSpawn + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
+            }
+            spawnTime = DateTime.Now;
         }
-        else if (myTeam == 1)
-        {
-            transform.position = blueSpawn + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
-        }
-        spawnTime = DateTime.Now;
-
-        Debug.Log(deaths);
     }
 
     public void RegenInvoker()

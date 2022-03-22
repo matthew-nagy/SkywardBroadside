@@ -8,8 +8,12 @@ using System.Threading;
 using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
 public class PlayerPhotonHub : MonoBehaviour
@@ -30,6 +34,8 @@ public class PlayerPhotonHub : MonoBehaviour
     public List<Material> teamMaterials;
     public List<Color> teamColours;
     public int myTeam = -1;
+
+    private int deaths;
 
     private DateTime gameStartTime;
     private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
@@ -74,7 +80,11 @@ public class PlayerPhotonHub : MonoBehaviour
     void Start()
     {
         Blackboard.playerPhotonHub = this;
-        
+
+        var properties = new Hashtable();
+        properties.Add("deaths", deaths);
+        PhotonNetwork.SetPlayerCustomProperties(properties);
+
         GameObject userGUI = GameObject.Find("User GUI");
         Debug.Log(userGUI);
         if(userGUI != null)
@@ -113,18 +123,21 @@ public class PlayerPhotonHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameStartTime == DateTime.MinValue)
+        if (transform.Find("Ship").GetComponent<PhotonView>().IsMine)
         {
-            UpdateTimerFromMaster();
-        }
-        else
-        {
-            UpdateTimer();
-        }
+            if (gameStartTime == DateTime.MinValue)
+            {
+                UpdateTimerFromMaster();
+            }
+            else
+            {
+                UpdateTimer();
+            }
 
-        if (!gotScores)
-        {
-            FetchScores();
+            if (!gotScores)
+            {
+                FetchScores();
+            }
         }
     }
 
@@ -179,6 +192,19 @@ public class PlayerPhotonHub : MonoBehaviour
         
     }
 
+    public void AddDeath()
+    {
+        // update player death count
+        var properties = new Hashtable();
+        properties.Add("deaths", ++deaths);
+        PhotonNetwork.SetPlayerCustomProperties(properties);
+
+        int content = myTeam;
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(1, myTeam, raiseEventOptions, SendOptions.SendReliable);
+    }
+
     private void OnEnable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
@@ -199,18 +225,18 @@ public class PlayerPhotonHub : MonoBehaviour
                 return;
             }
 
-            int team = (int) photonEvent.CustomData;
+            int team = (int)photonEvent.CustomData;
             var properties = PhotonNetwork.CurrentRoom.CustomProperties;
-            int[] scores = properties.ContainsKey("scores") ? (int[]) properties["scores"] : new int[] {0, 0};
+            int[] scores = properties.ContainsKey("scores") ? (int[])properties["scores"] : new int[] { 0, 0 };
             scores[team] += 1;
 
             PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
             PhotonNetwork.RaiseEvent(2, scores, raiseEventOptions, SendOptions.SendReliable);
         }
         else if (eventCode == 2)
         {
-            var scores = (int[]) photonEvent.CustomData;
+            var scores = (int[])photonEvent.CustomData;
             UpdateScores(scores);
         }
     }
@@ -225,5 +251,6 @@ public class PlayerPhotonHub : MonoBehaviour
         //Instantiate player UI (username and health)
         GameObject _uiGo = Instantiate(this.PlayerUiPrefab);
         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+
     }
 }

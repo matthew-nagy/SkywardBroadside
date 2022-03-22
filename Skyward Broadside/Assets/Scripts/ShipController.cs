@@ -92,7 +92,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     GameObject cameraObject;
 
-    private readonly float forceToDamageMultiplier = 0.2f;
+    private readonly float forceToDamageMultiplier = 0.1f;
 
     public void SetCameraObject(GameObject cam)
     {

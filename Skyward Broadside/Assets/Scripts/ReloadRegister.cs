@@ -69,7 +69,7 @@ public class ReloadRegister : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ship")
+        if (other.tag == "Ship" && other.gameObject.GetComponent<PlayerController>().myTeam == myTeamNo)
         {
             other.gameObject.GetComponent<PlayerController>().resupply = true;
         }
@@ -77,7 +77,7 @@ public class ReloadRegister : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Ship")
+        if (other.tag == "Ship" && other.gameObject.GetComponent<PlayerController>().myTeam == myTeamNo)
         {
             other.gameObject.GetComponent<PlayerController>().resupply = false;
         }

@@ -111,13 +111,9 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 dir = (targetPos - shotOrigin.transform.position).normalized;
         if (Physics.Raycast(shotOrigin.transform.position, dir, out hit, float.MaxValue, layerMask))
         {
-            //print(hit.collider.gameObject.GetComponent<PhotonView>().ViewID);
-            if (getShipTransform().GetComponent<PhotonView>().IsMine) 
+            if (hit.collider.gameObject.name == "Ship")
             {
-                if (hit.collider.gameObject.name == "Ship")
-                {
-                    hit.collider.gameObject.GetComponent<ShipArsenal>().doDamage(1f);
-                }
+                hit.collider.gameObject.GetComponent<ShipArsenal>().hitMe("gatling");
             }
 
             TrailRenderer tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.identity);

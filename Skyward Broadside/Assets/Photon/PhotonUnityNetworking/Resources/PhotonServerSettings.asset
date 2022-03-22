@@ -40,6 +40,8 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - SetMyTeam
+  - impact
+  - impact1
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

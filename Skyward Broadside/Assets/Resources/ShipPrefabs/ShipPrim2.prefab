@@ -6008,6 +6008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTeam: 0
+  resupply: 0
 --- !u!114 &333654823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6085,6 +6086,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 1845835177}
   - {fileID: 3677656253428083502}
+  - {fileID: 333654823}
   - {fileID: 8284063763415918183}
   - {fileID: 3563038887837870392}
   - {fileID: 6151942759068910397}

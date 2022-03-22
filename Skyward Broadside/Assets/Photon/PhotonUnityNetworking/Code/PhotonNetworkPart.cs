@@ -76,11 +76,6 @@ namespace Photon.Pun
             }
         }
 
-        public static void SetPlayerCustomProperties(System.Collections.Hashtable properties)
-        {
-            throw new NotImplementedException();
-        }
-
         public static int ViewCount
         {
             get { return photonViewList.Count; }

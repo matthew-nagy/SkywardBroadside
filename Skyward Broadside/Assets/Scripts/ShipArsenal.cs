@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class ShipArsenal : MonoBehaviour
+public class ShipArsenal : MonoBehaviourPun, IPunObservable
 {
     public float maxHealth;
     public int maxCannonballAmmo;
@@ -50,6 +50,26 @@ public class ShipArsenal : MonoBehaviour
         }
     }
 
+    public void hitMe(string weaponName)
+    {
+        switch (weaponName)
+        {
+            case "gatling":
+                photonView.RPC(nameof(impact1), RpcTarget.All);
+                break;
+
+            default:
+                Debug.LogError("Invalid weapon name");
+                break;
+        }
+    }
+
+    [PunRPC]
+    void impact1()
+    {
+        health -= 1f;
+    }
+
     public void respawn()
     {
         cannonballAmmo = maxCannonballAmmo;
@@ -62,5 +82,10 @@ public class ShipArsenal : MonoBehaviour
         health = Math.Min(health + regenFactorOfMaxHealth * maxHealth, maxHealth);
         cannonballAmmo = Math.Min(cannonballAmmo + regenOfCannonballsPerReloadPeriod, maxCannonballAmmo);
         explosiveCannonballAmmo = Math.Min(explosiveCannonballAmmo + regenOfExplosiveCannonballPerReloadPeriod, maxExplosiveCannonballAmmo);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        stream.Serialize(ref health);
     }
 }

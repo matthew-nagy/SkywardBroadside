@@ -42,6 +42,11 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
+            if (currentTarget == null)
+            {
+                targetAquired = lockedOn = false;
+            }
+
             getInput();
 
             if (targetAquired)
