@@ -168,36 +168,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         playerInput = new RequestedControls();
 
-        float forwardsBackwards = Input.GetAxisRaw("Vertical");
-        float turn = Input.GetAxisRaw("Horizontal");
-        if (forwardsBackwards > 0.0)
-        {
-            playerInput.forwards = true;
-        }
-        else if (forwardsBackwards < 0.0)
-        {
-            playerInput.backwards = true;
-        }
+        playerInput.forwards = SBControls.forwards.IsHeld();
+        playerInput.backwards = SBControls.backwards.IsHeld();
+        playerInput.turnLeft = SBControls.left.IsHeld();
+        playerInput.turnRight = SBControls.right.IsHeld();
 
-        if (turn > 0.0)
-        {
-            playerInput.turnRight = true;
-        }
-        else if (turn < 0.0)
-        {
-            playerInput.turnLeft = true;
-        }
-
-
-        if (Input.GetKey(KeyCode.R)  || Input.GetKey(KeyCode.LeftShift))
-        {
-            Debug.Log("Everything is bad");
-            playerInput.up = true;
-        }
-        else if (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.LeftControl))
-        {
-            playerInput.down = true;
-        }
+        playerInput.up = SBControls.yAxisUp.IsHeld();
+        playerInput.down = SBControls.yAxisDown.IsHeld();
         
     }
 

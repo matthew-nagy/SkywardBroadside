@@ -16,8 +16,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject ammoType;
     public Transform shotOrigin;
 
-    KeyCode secondaryFireKey = KeyCode.Space;
-
     bool reloading;
     float ammoLevel;
 
@@ -126,7 +124,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (cannonActive)
         {
             //attempt to fire the cannon
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag && !changingWeaponSignal)
+            if (SBControls.shoot.IsHeld() && !reloading && !serverShootFlag && !changingWeaponSignal)
             {
                 if (ammoLevel > 0)
                 {
@@ -136,14 +134,14 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !serverShootFlag)
+        if (SBControls.ammo1.IsHeld() && !serverShootFlag)
         {
             changingWeaponSignal = true;
             currentWeapon = 0;
         }
 
         //change ammo type to explosive cannonball
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !serverShootFlag)
+        if (SBControls.ammo2.IsHeld() && !serverShootFlag)
         {
             changingWeaponSignal = true;
             currentWeapon = 1;

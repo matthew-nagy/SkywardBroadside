@@ -44,6 +44,10 @@ public static class SBControls
     public static Control shoot = Control.Make().SetPrimary(KeyCode.Mouse0).SetSecondary(KeyCode.Space);
     public static Control lockOn = Control.Make().SetPrimary(KeyCode.Mouse1);
 
+    public static Control ammo1 = Control.Make().SetPrimary(KeyCode.Alpha1);
+    public static Control ammo2 = Control.Make().SetPrimary(KeyCode.Alpha2);
+    public static Control ammo3 = Control.Make().SetPrimary(KeyCode.Alpha3);
+
     public static Control yAxisUp = Control.Make().SetPrimary(KeyCode.R).SetSecondary(KeyCode.LeftShift);
     public static Control yAxisDown = Control.Make().SetPrimary(KeyCode.F).SetSecondary(KeyCode.LeftControl);
 }
