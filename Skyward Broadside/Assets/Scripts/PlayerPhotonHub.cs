@@ -41,7 +41,9 @@ public class PlayerPhotonHub : MonoBehaviour
     private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
 
     private bool gotScores = false;
-    
+
+    public GameObject healthbarAndName;
+
     public void SetTeam(int team)
     {
         myTeam = team;
@@ -252,5 +254,10 @@ public class PlayerPhotonHub : MonoBehaviour
         GameObject _uiGo = Instantiate(this.PlayerUiPrefab);
         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
 
+    }
+
+    public void SetUI(GameObject UI)
+    {
+        healthbarAndName = UI;
     }
 }
