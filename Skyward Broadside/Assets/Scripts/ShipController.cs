@@ -91,6 +91,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public List<ParticleSystem> pShootDownJet;
 
     GameObject cameraObject;
+
+    private readonly float forceToDamageMultiplier = 0.1f;
+
     public void SetCameraObject(GameObject cam)
     {
         cameraObject = cam;
@@ -258,6 +261,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
 
         }
+        else if (collision.gameObject.tag == "Wall")
+        {
+            Debug.Log("Wall");
+            velocity = -1f * velocity;
+            isDisabled = true;
+            totalDisabledTime = 0.5f;
+            collisionMag = 0f;
+            // no damage when colliding with invisible walls, just there to avoid going out of bounds
+        }
         else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
         {
             print("terrain");
@@ -273,16 +285,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
-        PlayerPhotonHub photonHub = gameObject.GetComponentInParent<PlayerPhotonHub>();
-        if(photonHub == null)
-        {
-            Debug.LogWarning("Player does not have attatched photonHub");
-        }
-        else
-        {
-            photonHub.UpdateHealth(collisionMag);
-        }
-
+        GetComponent<ShipArsenal>().doDamage(collisionMag * forceToDamageMultiplier);
     }
 
     #region Pun Synchronisation

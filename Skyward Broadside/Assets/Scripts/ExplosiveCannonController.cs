@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
+public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public bool weaponEnabled;
     public float shotPower;
@@ -68,7 +68,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             serverShootFlag = false;
             fire();
-            getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
+            getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
             reload();
         }
     }
@@ -79,7 +79,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             clientShootFlag = false;
             fire();
-            getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
+            getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
             reload();
         }
     }
@@ -89,9 +89,9 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (weaponEnabled)
         {
             //attempt to fire the cannon
-            if (SBControls.shoot.IsHeld() && !reloading && !serverShootFlag)
-
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag)
             {
+                //need to check ammo level first
                 serverShootFlag = sendShootToClient = true;
             }
         }
@@ -161,6 +161,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         newProjectile.GetComponent<Rigidbody>().velocity = new Vector3(Vx, Vy, Vz);
         newProjectile.GetComponent<CannonballController>().owner = getShipTransform().gameObject;
     }
+
     public void reload()
     {
         reloading = true;
