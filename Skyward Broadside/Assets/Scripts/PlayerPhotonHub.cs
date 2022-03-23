@@ -189,6 +189,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         {
             if (Vector3.Distance(PlayerShip.transform.position, redSpawn) < 120)
             {
+                Debug.Log("red in red zone");
                 currHealth = Math.Min(currHealth + 0.05f * PlayerShip.GetComponent<ShipArsenal>().maxHealth, PlayerShip.GetComponent<ShipArsenal>().maxHealth);
                 updateScript.UpdateGUIHealth(currHealth);
                 PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo + 3,PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo);
@@ -201,6 +202,7 @@ public class PlayerPhotonHub : PhotonTeamsManager, IPunObservable
         {
             if (Vector3.Distance(PlayerShip.transform.position, blueSpawn) < 120)
             {
+                Debug.Log("blue in blue zone");
                 currHealth = Math.Min(currHealth + 0.05f * PlayerShip.GetComponent<ShipArsenal>().maxHealth, PlayerShip.GetComponent<ShipArsenal>().maxHealth);
                 updateScript.UpdateGUIHealth(currHealth);
                 PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo = Math.Min(PlayerShip.GetComponent<ShipArsenal>().cannonballAmmo + 3, PlayerShip.GetComponent<ShipArsenal>().maxCannonballAmmo);

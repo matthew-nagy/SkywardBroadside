@@ -9,6 +9,7 @@ TagManager:
   - Cannonball
   - Terrain
   - Island
+  - Wall
   layers:
   - Default
   - TransparentFX

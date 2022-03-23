@@ -227,6 +227,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 100;
 
         }
+        else if (collision.gameObject.tag == "Wall")
+        {
+            Debug.Log("Wall");
+            velocity = -1f * velocity;
+            isDisabled = true;
+            totalDisabledTime = 0.5f;
+            collisionMag = 0f;
+            // no damage when colliding with invisible walls, just there to avoid going out of bounds
+        }
         else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
         {
             print("terrain");

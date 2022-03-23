@@ -68,10 +68,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {
                         PhotonNetwork.LocalPlayer.JoinTeam("Red");
+                        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
                     }
                     else
                     {
                         PhotonNetwork.LocalPlayer.SwitchTeam("Red");
+                        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
                     }
                     Debug.Log("Joined");
                 }
@@ -83,10 +85,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {
                         PhotonNetwork.LocalPlayer.JoinTeam("Blue");
+                        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
                     }
                     else
                     {
                         PhotonNetwork.LocalPlayer.SwitchTeam("Blue");
+                        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
                     }
                     //Debug.Log("Joined");
                 }
