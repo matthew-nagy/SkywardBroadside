@@ -40,5 +40,6 @@ public class BreakablePhotonInterface : MonoBehaviour
         {
             child.RegisterOwner(owner);
         }
+        owner.TriggerFinalSetup();
     }
 }

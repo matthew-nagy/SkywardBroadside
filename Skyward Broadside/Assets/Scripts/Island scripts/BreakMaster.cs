@@ -65,11 +65,29 @@ public struct SyncEvent
     }
 }
 
+
+struct EventQueue
+{
+    public List<BreakEvent> breakEvents;
+    public List<SyncEvent> syncEvents;
+
+    static public EventQueue Make()
+    {
+        EventQueue newQueue = new EventQueue();
+        newQueue.breakEvents = new List<BreakEvent>();
+        newQueue.syncEvents = new List<SyncEvent>();
+        return newQueue;
+    }
+}
+
 public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
 {
     List<Breakable> children;
-    List<BreakEvent> breakEvents;
-    List<SyncEvent> syncEvents;
+    EventQueue events;
+    
+    //Before being properly setup, events given by the photon master are held here
+    //the ? is there so microsoft java will let me null it
+    EventQueue? preInstaniateEventHolder = null;
     bool init = false;
 
 
@@ -84,6 +102,24 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
         return children.Count - 1;
     }
 
+    //Called by BreakablePhotonInterface once its done
+    public void TriggerFinalSetup()
+    {
+        if(preInstaniateEventHolder.HasValue)
+        {
+            foreach(BreakEvent b in preInstaniateEventHolder.Value.breakEvents)
+            {
+                HandleBreakEvent(b);
+            }
+            foreach(SyncEvent s in preInstaniateEventHolder.Value.syncEvents)
+            {
+                HandleSyncEvent(s);
+            }
+
+            preInstaniateEventHolder = null;
+        }
+    }
+
     public bool IsPhotonMaster()
     {
         return photonView.IsMine;
@@ -91,11 +127,11 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
 
     public void RegisterSyncEvent(SyncEvent e)
     {
-        syncEvents.Add(e);
+        events.syncEvents.Add(e);
     }
     public void RegisterBreakEvent(BreakEvent e)
     {
-        breakEvents.Add(e);
+        events.breakEvents.Add(e);
     }
 
     // Start is called before the first frame update
@@ -105,8 +141,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
         Debug.Log("Break master created");
         children = new List<Breakable>();
 
-        breakEvents = new List<BreakEvent>();
-        syncEvents = new List<SyncEvent>();
+        events = EventQueue.Make();
 
         init = true;
     }
@@ -138,38 +173,79 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     #region Pun Synchronisation
+
+    void SendEventsDownStream(PhotonStream stream)
+    {
+        stream.SendNext(events.breakEvents.Count);
+        foreach (BreakEvent be in events.breakEvents)
+        {
+            be.PhotonSend(stream);
+        }
+        events.breakEvents.Clear();
+
+        stream.SendNext(events.syncEvents.Count);
+        foreach (SyncEvent se in events.syncEvents)
+        {
+            se.PhotonSend(stream);
+        }
+        events.syncEvents.Clear();
+    }
+
+    void ReactToEventsFromStream(PhotonStream stream)
+    {
+        int recievingBreakEvents = (int)stream.ReceiveNext();
+        for (int i = 0; i < recievingBreakEvents; i++)
+        {
+            BreakEvent be = BreakEvent.PhotonRecieve(stream);
+            HandleBreakEvent(be);
+        }
+
+        int recirecievingSyncEvent = (int)stream.ReceiveNext();
+        for (int i = 0; i < recirecievingSyncEvent; i++)
+        {
+            SyncEvent se = SyncEvent.PhotonRecieve(stream);
+            HandleSyncEvent(se);
+        }
+    }
+
+    void SendEventsToPreInstantiate(PhotonStream stream)
+    {
+        if(preInstaniateEventHolder == null)
+        {
+            preInstaniateEventHolder = EventQueue.Make();
+        }
+
+        int recievingBreakEvents = (int)stream.ReceiveNext();
+        for (int i = 0; i < recievingBreakEvents; i++)
+        {
+            preInstaniateEventHolder.Value.breakEvents.Add(BreakEvent.PhotonRecieve(stream));
+        }
+
+        int recirecievingSyncEvent = (int)stream.ReceiveNext();
+        for (int i = 0; i < recirecievingSyncEvent; i++)
+        {
+            preInstaniateEventHolder.Value.syncEvents.Add(SyncEvent.PhotonRecieve(stream));
+        }
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(breakEvents.Count);
-            foreach(BreakEvent be in breakEvents)
-            {
-                be.PhotonSend(stream);
-            }
-            breakEvents.Clear();
-
-            stream.SendNext(syncEvents.Count);
-            foreach(SyncEvent se in syncEvents)
-            {
-                se.PhotonSend(stream);
-            }
-            syncEvents.Clear();
+            SendEventsDownStream(stream);
         }
         else
         {
-            int recievingBreakEvents = (int)stream.ReceiveNext();
-            for(int i = 0; i < recievingBreakEvents; i++)
+            //Photon will instantiate this object *and* send all streams to it in one go
+            //It may do this before this clients BreakablePhotonInterface has properly instantiated it
+            //Therefore do a check here, and either play these events back, or send to a BreakEventBuffer
+            if(children != null)
             {
-                BreakEvent be = BreakEvent.PhotonRecieve(stream);
-                HandleBreakEvent(be);
+                ReactToEventsFromStream(stream);
             }
-
-            int recirecievingSyncEvent = (int)stream.ReceiveNext();
-            for (int i = 0; i < recirecievingSyncEvent; i++)
+            else
             {
-                SyncEvent se = SyncEvent.PhotonRecieve(stream);
-                HandleSyncEvent(se);
+                SendEventsToPreInstantiate(stream);
             }
         }
 
