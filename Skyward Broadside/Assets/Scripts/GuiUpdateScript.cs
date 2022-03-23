@@ -45,9 +45,26 @@ public class GuiUpdateScript : MonoBehaviour
         explosiveAmmo.text = ammo.ToString(); 
     }
 
-    public void UpdateWeapon(string weaponName)
+    public void UpdateWeapon(int weaponId)
     {
-        weapon.text = weaponName;
+        switch (weaponId)
+        {
+            case 0:
+                weapon.text = "Cannonball";
+                break;
+
+            case 1:
+                weapon.text = "Explosive cannonball";
+                break;
+
+            case 2:
+                weapon.text = "Gatling gun";
+                break;
+
+            default:
+                Debug.LogError("Invalid weapon Id");
+                break;
+        }
     }
 
     public void UpdateGUIScores(int myTeam, int otherTeam)
