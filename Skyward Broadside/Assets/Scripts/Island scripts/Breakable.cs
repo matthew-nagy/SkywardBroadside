@@ -15,15 +15,15 @@ public class Breakable : MonoBehaviour
     //Used to prevent Sync hell at the end of the game
     bool applicationQuit;
 
-    static public float maxSecondsPerSyncEvent = 0.8f;
-    private float secondsToNextSync;
+    static public float maxSecondsPerSyncEvent = 0.1f;
+    private float secondsToNextSync = 0.01f;
     float secondsSinceSync = 0.0f;
+    float syncTimeMultiplier = 1.1f;
 
 
     void Start()
     {
         breakPhotonInterface.children.Add(this);
-        secondsToNextSync = 0.03F;
     }
 
     private void OnApplicationQuit()
@@ -52,7 +52,7 @@ public class Breakable : MonoBehaviour
             {
                 secondsSinceSync = 0;
                 SendSyncCommand(false);
-                secondsToNextSync *= 1.5f;
+                secondsToNextSync *= syncTimeMultiplier;
                 if(secondsToNextSync > maxSecondsPerSyncEvent)
                 {
                     secondsToNextSync = maxSecondsPerSyncEvent;

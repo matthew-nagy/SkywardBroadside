@@ -44,6 +44,8 @@ public class PlayerPhotonHub : MonoBehaviour
 
     public GameObject healthbarAndName;
 
+    Transform ship;
+
     public void SetTeam(int team)
     {
         myTeam = team;
@@ -52,7 +54,7 @@ public class PlayerPhotonHub : MonoBehaviour
         {
             Debug.LogError("Material was null");
         }
-        Transform ship = transform.Find("Ship");
+        ship = transform.Find("Ship");
         ship.gameObject.GetComponent<ShipController>().teamColour = teamColours[team];
         ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
     }
@@ -125,7 +127,7 @@ public class PlayerPhotonHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.Find("Ship").GetComponent<PhotonView>().IsMine)
+        if (ship.GetComponent<PhotonView>().IsMine)
         {
             if (gameStartTime == DateTime.MinValue)
             {
