@@ -135,7 +135,6 @@ public class PlayerPhotonHub : MonoBehaviour
             {
                 UpdateTimer();
             }
-
             if (!gotScores)
             {
                 FetchScores();
