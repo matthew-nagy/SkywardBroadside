@@ -73,18 +73,18 @@ public class WeaponsController : MonoBehaviour
 
     void getInput()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (SBControls.ammo1.IsHeld())
         {
             enableWeapon(equippedWeapons[0]);
             switchedWeapon = true;
             
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (SBControls.ammo2.IsHeld())
         {
             enableWeapon(equippedWeapons[1]);
             switchedWeapon = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (SBControls.ammo3.IsHeld())
         {
             enableWeapon(equippedWeapons[2]);
             switchedWeapon = true;
