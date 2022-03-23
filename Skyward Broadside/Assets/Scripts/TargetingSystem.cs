@@ -71,7 +71,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 
     void getInput()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (SBControls.lockOn.IsHeld())
         {
             if (!lockedOn && targetAquired)
             {

@@ -21,8 +21,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     bool localLockOn;
     Vector3 freeFireTargetPos;
 
-    KeyCode secondaryFireKey = KeyCode.Space;
-
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
