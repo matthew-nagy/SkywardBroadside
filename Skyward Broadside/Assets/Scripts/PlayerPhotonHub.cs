@@ -253,4 +253,9 @@ public class PlayerPhotonHub : MonoBehaviour
         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
 
     }
+
+    public void SetUI(GameObject UI)
+    {
+        healthbarAndName = UI;
+    }
 }
