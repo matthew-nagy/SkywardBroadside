@@ -89,7 +89,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (weaponEnabled)
         {
             //attempt to fire the cannon
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag)
+            if (SBControls.shoot.IsHeld() && !reloading && !serverShootFlag)
+
             {
                 serverShootFlag = sendShootToClient = true;
             }
