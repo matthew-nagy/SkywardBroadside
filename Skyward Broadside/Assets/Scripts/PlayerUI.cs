@@ -52,8 +52,7 @@ public class PlayerUI : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void CheckExistance()
     {
         // Destroy itself if the target is null, It's a fail safe when Photon is destroying Instances of a Player over the network
         if (target == null)
@@ -61,6 +60,13 @@ public class PlayerUI : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        CheckExistance();
+
         // Reflect the Player Health
         if (playerHealthSlider != null)
         {
@@ -70,8 +76,9 @@ public class PlayerUI : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CheckExistance();
+
         // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
-        
         targetPosition = playerRb.position;
         targetPosition.y += heightAbovePlayer;
         transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
