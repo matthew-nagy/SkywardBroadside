@@ -10,6 +10,7 @@ TagManager:
   - Terrain
   - Island
   - Wall
+  - ResupplyBase
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Island
   - Projectile
   - Player
-  - 
-  - 
+  - EnemyProjectile
+  - ResupplyBase
   - 
   - 
   - 

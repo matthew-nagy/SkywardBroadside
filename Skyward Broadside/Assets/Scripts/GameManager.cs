@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     // red and blue player spawns to distinguish between teams
     public GameObject redSpawn;
     public GameObject blueSpawn;
+
+    //The player photon hub for the person playing this instance
+    public PlayerPhotonHub serverPlayerPhotonHub;
+
     
     #region Photon Callbacks
 
@@ -49,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     void Start()
     {
         Instance = this;
-        
+        Blackboard.gameManager = this;
 
         if (playerPrefab == null)
         {
@@ -63,8 +67,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 if (TeamButton.joinTeam == "Red")
                 {
                     Vector3 spawnPoint = redSpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
-                    PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0).GetComponent<PlayerPhotonHub>().SetTeam(1);
-                    Debug.Log(spawnPoint);
+                    GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0);
+                    newPlayer.GetComponent<PlayerPhotonHub>().SetTeam(1);
+                    newPlayer.transform.Find("Ship").GetComponent<PlayerController>().myTeam = 0;
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {
                         PhotonNetwork.LocalPlayer.JoinTeam("Red");
@@ -80,7 +85,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 else if (TeamButton.joinTeam == "Blue")
                 {
                     Vector3 spawnPoint = blueSpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
-                    PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0).GetComponent<PlayerPhotonHub>().SetTeam(0);
+                    GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0);
+                    newPlayer.GetComponent<PlayerPhotonHub>().SetTeam(0);
+                    newPlayer.transform.Find("Ship").GetComponent<PlayerController>().myTeam = 1;
                     Debug.Log(spawnPoint);
                     if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
                     {
@@ -105,7 +112,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            setRoomStartTime();
+            setRoomStartTimeAndInitialScores();
         }
     }
 
@@ -124,12 +131,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("GameWorld");
     }
 
-    void setRoomStartTime()
+    void setRoomStartTimeAndInitialScores()
     {
         DateTime currentTime = System.DateTime.Now;
        
         Hashtable properties = new Hashtable();
         properties.Add("startTime", currentTime.ToString());
+        int[] scores = {0, 0};
+        properties.Add("scores", scores);
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
     }
 

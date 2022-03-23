@@ -1,72 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
+using Photon.Pun;
 
 public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 {
-    public bool cannonActive;
-    public bool masterCannon;
-    public bool invertControls;
-
-    public float rotationSensitivity;
-    public float power;
+    public bool weaponEnabled;
+    public float shotPower;
     public float reloadTime;
-
-    public GameObject ammoType;
+    public GameObject projectile;
     public Transform shotOrigin;
 
-    KeyCode secondaryFireKey = KeyCode.Space;
-
     bool reloading;
-    float ammoLevel;
-
-    bool changingWeaponSignal;
-    bool changedWeapon;
-    public int currentWeapon;
-
     bool serverShootFlag;
     bool sendShootToClient;
     bool clientShootFlag;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        switchWeapon(0);
-        getAmmoLevel();
+    int currentTargetId;
+    public bool lockedOn;
+    bool localLockOn;
+    Vector3 freeFireTargetPos;
 
-        serverShootFlag = sendShootToClient = clientShootFlag = changingWeaponSignal = changedWeapon = false;
-    }
+    KeyCode secondaryFireKey = KeyCode.Space;
 
     void Awake()
     {
-        // #Important
-        // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
-        if (photonView.IsMine)
-        {
-            //Do something?
-        }
-        // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void ServerUpdate()
+    // Start is called before the first frame update
+    void Start()
     {
-        getInput();
-        if (serverShootFlag)
-        {
-            serverShootFlag = false;
-            fire();
-        }
-    }
-    void ClientUpdate()
-    {
-        if (clientShootFlag)
-        {
-            clientShootFlag = false;
-            fire();
-        }
+        serverShootFlag = sendShootToClient = clientShootFlag = false;
     }
 
     // Update is called once per frame
@@ -75,161 +41,135 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (photonView.IsMine)
         {
             ServerUpdate();
+            localLockOn = lockedOn;
         }
         else
         {
+            lockedOn = localLockOn;
             ClientUpdate();
         }
-
-        if (changingWeaponSignal)
-        {
-            weaponSelect();
-            changedWeapon = true;
-        }
-
-        //updateLineRenderer();
-
-        removeUsedInput();
-
-        getAmmoLevel();
     }
 
-    void removeUsedInput()
+    void ServerUpdate()
     {
-        if (changedWeapon)
+        getInput();
+
+        //set current target Id if we are lockedOn
+        if (lockedOn)
         {
-            changingWeaponSignal = false;
+            currentTargetId = getShipTransform().GetComponent<TargetingSystem>().currentTargetId;
+        } //or free fire
+        else
+        {
+            freeFireTargetPos = getShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
+        }
+
+        if (serverShootFlag)
+        {
+            serverShootFlag = false;
+            fire();
+            getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
+            reload();
         }
     }
 
-    //inspired by https://www.youtube.com/watch?v=RnEO3MRPr5Y&ab_channel=AdamKonig
+    void ClientUpdate()
+    {
+        if (clientShootFlag)
+        {
+            clientShootFlag = false;
+            fire();
+            getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
+            reload();
+        }
+    }
+
     void getInput()
     {
-        if (cannonActive)
+        if (weaponEnabled)
         {
             //attempt to fire the cannon
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag && !changingWeaponSignal)
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag)
             {
-                if (ammoLevel > 0)
-                {
-                    serverShootFlag = sendShootToClient = true;
-                }
+                serverShootFlag = sendShootToClient = true;
             }
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !serverShootFlag)
-        {
-            changingWeaponSignal = true;
-            currentWeapon = 0;
-        }
-
-        //change ammo type to explosive cannonball
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !serverShootFlag)
-        {
-            changingWeaponSignal = true;
-            currentWeapon = 1;
         }
     }
-
     Transform getShipTransform()
     {
         return transform.root.GetChild(0);
     }
 
+    void SendShakeEvent()
+    {
+        if (photonView.IsMine)
+        {
+            ShipController myController = gameObject.GetComponentInParent<ShipController>();
+            myController.InformOfFire();
+        }
+    }
+
     //fire the cannon
     void fire()
     {
-        GameObject newCannonBall = Instantiate(ammoType, shotOrigin.position, shotOrigin.rotation);        
+        SendShakeEvent();
+
+        GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
+
+        if (!photonView.IsMine)
+        {
+            newProjectile.layer = 10;
+        }
+
         GameObject ship = getShipTransform().gameObject;
 
-        GameObject target = transform.root.Find("Ship").GetComponent<TargetingSystem>().currentTarget;
-        float xDiff = target.transform.position.x - ship.transform.position.x;
-        float yDiff = target.transform.position.y - ship.transform.position.y;
-        float zDiff = target.transform.position.z - ship.transform.position.z;
+        GameObject target;
+        Vector3 targetPos;
+        float targetXVels = 0;
+        float targetYVels = 0;
+        float targetZVels = 0;
+        //if we are lockedOn get target obj, velocity, and pos
+        if (lockedOn)
+        {
+            target = PhotonView.Find(currentTargetId).gameObject;
+            targetPos = PhotonView.Find(currentTargetId).transform.position;
+            targetXVels = target.GetComponent<Rigidbody>().velocity.x;
+            targetYVels = target.GetComponent<Rigidbody>().velocity.y;
+            targetZVels = target.GetComponent<Rigidbody>().velocity.z;
+        } //if we are free firing, just get target pos
+        else
+        {
+            targetPos = freeFireTargetPos;
+        }
+
+        float xDiff = targetPos.x - ship.transform.position.x;
+        float yDiff = targetPos.y - ship.transform.position.y;
+        float zDiff = targetPos.z - ship.transform.position.z;
 
         float distToTarget = Mathf.Sqrt(xDiff * xDiff + zDiff * zDiff);
-        float time = distToTarget / power;
+        float time = distToTarget / shotPower;
 
         float Vy = (-0.5f * time * Physics.gravity.y) + yDiff / time;
         float Vx = xDiff / time;
         float Vz = zDiff / time;
 
-        float targetXVels = target.GetComponent<Rigidbody>().velocity.x;
-        float targetYVels = target.GetComponent<Rigidbody>().velocity.y;
-        float targetZVels = target.GetComponent<Rigidbody>().velocity.z;
-
         Vx = Vx + targetXVels;
         Vy = Vy + targetYVels;
         Vz = Vz + targetZVels;
 
-        newCannonBall.GetComponent<Rigidbody>().velocity = new Vector3(Vx, Vy, Vz);
-        newCannonBall.GetComponent<CannonballController>().owner = getShipTransform().gameObject;
-
-        weaponStatusReloading();
-
-        updateArsenal(currentWeapon);
-
-        Invoke("weaponStatusReady", 2);        
+        newProjectile.GetComponent<Rigidbody>().velocity = new Vector3(Vx, Vy, Vz);
+        newProjectile.GetComponent<CannonballController>().owner = getShipTransform().gameObject;
     }
-
-    //get ammo level for current ammo type
-    void getAmmoLevel()
+    public void reload()
     {
-        if (ammoType.name == "Cannonball")
-        {
-            ammoLevel = getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo;
-        }
-        if (ammoType.name == "ExplosiveCannonball")
-        {
-            ammoLevel = getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo;
-        }
+        reloading = true;
+        Invoke("weaponStatusReady", reloadTime);
     }
 
-    //choose weapon type
-    void weaponSelect()
-    {
-        switchWeapon(currentWeapon);
-    }
-
-    //switch to given weapon and reload
-    void switchWeapon(int weaponId)
-    {
-        //check not trying to switch to same ammo that is currently selected
-        if (ammoType != getShipTransform().GetComponent<ShipArsenal>().equippedWeapons[weaponId])
-        {
-            GetComponentInParent<PlayerPhotonHub>().UpdateWeapon(weaponId);
-            ammoType = getShipTransform().GetComponent<ShipArsenal>().equippedWeapons[weaponId];
-            getAmmoLevel();
-            if (ammoLevel > 0)
-            {
-                weaponStatusReloading();
-                Invoke("weaponStatusReady", 2);
-            }
-        }
-    }
-
-    //reload finished
     void weaponStatusReady()
     {
         reloading = false;
     }
-
-    void weaponStatusReloading()
-    {
-        reloading = true;
-        getAmmoLevel();
-    }
-
-    //update ships ammo levels
-    void updateArsenal(int weaponId)
-    {
-        getShipTransform().GetComponent<ShipArsenal>().reduceAmmo(weaponId);
-        getAmmoLevel();
-        GetComponentInParent<PlayerPhotonHub>().UpdateAmmo(ammoType.name, ammoLevel);
-    }
-
-    #region IPunStuff
 
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -240,7 +180,11 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
             stream.SendNext(transform.rotation);
         }
+        stream.SendNext(currentTargetId);
+        stream.SendNext(freeFireTargetPos);
+        stream.SendNext(localLockOn);
     }
+
     void ClientPhotonStream(PhotonStream stream, PhotonMessageInfo info)
     {
         clientShootFlag = (bool)stream.ReceiveNext();
@@ -248,30 +192,20 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             transform.rotation = (Quaternion)stream.ReceiveNext();
         }
+        currentTargetId = (int)stream.ReceiveNext();
+        freeFireTargetPos = (Vector3)stream.ReceiveNext();
+        localLockOn = (bool)stream.ReceiveNext();
     }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
             ServerPhotonStream(stream, info);
-
-            stream.SendNext(changedWeapon);
-            if (changedWeapon)
-            {
-                changedWeapon = false;
-            }
-
-            stream.SendNext(currentWeapon);
         }
         else
         {
             ClientPhotonStream(stream, info);
-
-            changingWeaponSignal = (bool)stream.ReceiveNext();
-            currentWeapon = (int)stream.ReceiveNext();
         }
     }
-
-    #endregion
 }
-

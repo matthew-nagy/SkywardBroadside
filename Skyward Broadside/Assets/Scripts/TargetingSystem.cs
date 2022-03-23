@@ -5,12 +5,14 @@ using Photon.Pun;
 
 public class TargetingSystem : MonoBehaviourPunCallbacks
 {
-    public GameObject currentTarget;
+    GameObject currentTarget;
+    public int currentTargetId;
+    public Vector3 freeFireTargetPos;
     bool targetAquired;
-    bool targetOutlined;
     public bool lockedOn;
     public LayerMask layerMask;
-
+    public float maxTargetDistance; //for free fire only atm
+    public bool targetDestroyed;
     public Cinemachine.CinemachineFreeLook myCam;
 
     private void Start()
@@ -18,16 +20,36 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             gameObject.layer = 2;
+            transform.Find("Weapons").gameObject.layer = 2;
+            transform.Find("Weapons").Find("GatlingGun").gameObject.layer = 2;
+            transform.Find("Body").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon1").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon2").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon3").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon4").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon5").gameObject.layer = 2;
+            transform.Find("Body").Find("CannonBay").Find("Cannon6").gameObject.layer = 2;
+            transform.Find("Body").Find("BalloonLeft").gameObject.layer = 2;
+            transform.Find("Body").Find("BalloonRight").gameObject.layer = 2;
+            transform.Find("Body").Find("Propeller").gameObject.layer = 2;
+            transform.Find("Body").Find("Propeller").Find("Blade2").gameObject.layer = 2;
+            transform.Find("Body").Find("Propeller").Find("Blade1").gameObject.layer = 2;
         }
     }
 
     private void Update()
-    { 
+    {
         if (photonView.IsMine)
         {
+            if (currentTarget == null)
+            {
+                targetAquired = lockedOn = false;
+            }
+
             getInput();
 
-            if (targetOutlined)
+            if (targetAquired)
             {
                 checkVisible(currentTarget);
                 if (!lockedOn)
@@ -40,6 +62,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
                 GameObject closestEnemy = findClosestEnemyInView();
                 if (targetAquired)
                 {
+                    currentTargetId = closestEnemy.gameObject.GetComponent<PhotonView>().ViewID;
                     highlightTarget(closestEnemy);
                 }
             }
@@ -66,16 +89,15 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         lockedOn = true;
         GetComponent<CameraController>().setLookAtTarget(currentTarget);
         GetComponent<CameraController>().disableFreeCam();
-        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.green;
+        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
     }
 
-    void unLockToTarget()
+    public void unLockToTarget()
     {
         lockedOn = false;
         GetComponent<CameraController>().setLookAtTarget(transform.gameObject);
-        GetComponent<CameraController>().setFollowTarget(transform.gameObject);
         GetComponent<CameraController>().enableFreeCam();
-        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
+        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
     }
 
     void checkVisible(GameObject currentTarget)
@@ -85,8 +107,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             if (hit.collider.gameObject != currentTarget)
             {
-                targetOutlined = false;
                 targetAquired = false;
+                currentTargetId = 0;
                 currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
                 unLockToTarget();
             }
@@ -98,8 +120,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         GameObject closestEnemy = findClosestEnemyInView();
         if (currentTarget != closestEnemy)
         {
-            targetOutlined = false;
             targetAquired = false;
+            currentTargetId = 0;
             currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
         }
     }
@@ -128,15 +150,34 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
                         }
                     }
                 }
-            } 
+            }
         }
         return closestEnemy;
     }
 
     void highlightTarget(GameObject closestEnemy)
     {
-        targetOutlined = true;
         currentTarget = closestEnemy;
-        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 10;
+        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 5;
+    }
+
+    //cast a ray from the camera forwards to find a object to shoot at. If no object hit by ray, fire a default distance in that direction
+    public void aquireFreeFireTarget()
+    {
+        if (photonView.IsMine)
+        {
+            Transform camTransform = myCam.gameObject.transform;
+            RaycastHit hit;
+            if (Physics.Raycast(ray: camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)), hitInfo: out hit, layerMask: layerMask, maxDistance: maxTargetDistance))
+            {
+                freeFireTargetPos = hit.point;
+            }
+            else
+            {
+                Vector3 fireDir = (camTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f))).direction;
+                freeFireTargetPos = transform.position + (fireDir * 20);
+            }
+        }
+
     }
 }

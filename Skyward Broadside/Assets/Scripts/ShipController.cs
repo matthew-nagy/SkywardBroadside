@@ -3,12 +3,38 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
+
+[System.Serializable]
 struct RequestedControls
 {
     public bool forwards;
     public bool backwards;
     public bool turnRight;
     public bool turnLeft;
+    public bool up;
+    public bool down;
+
+    public void PhotonSerialize(PhotonStream stream)
+    {
+        stream.SendNext(forwards);
+        stream.SendNext(backwards);
+        stream.SendNext(turnRight);
+        stream.SendNext(turnLeft);
+        stream.SendNext(up);
+        stream.SendNext(down);
+    }
+
+    static public RequestedControls PhotonDeserialize(PhotonStream stream)
+    {
+        RequestedControls controls = new RequestedControls();
+        controls.forwards = (bool)stream.ReceiveNext();
+        controls.backwards = (bool)stream.ReceiveNext();
+        controls.turnRight = (bool)stream.ReceiveNext();
+        controls.turnLeft = (bool)stream.ReceiveNext();
+        controls.up = (bool)stream.ReceiveNext();
+        controls.down = (bool)stream.ReceiveNext();
+        return controls;
+    }
 }
 
 public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
@@ -47,10 +73,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     Vector3 turnDirection;
     float acceleration = 1f;
     float deceleration = 1f;
-    float verticalAcceleration = 1f;
-    float verticalDeceleration = 1f;
+    float verticalAcceleration = 0.3f;
+    float verticalDeceleration = 0.3f;
     float verticalSpeed;
-    float maxVerticalSpeed = 5f;
+    float maxVerticalSpeed = 1.5f;
     bool isDisabled;
     float timerDisabled;
     float totalDisabledTime;
@@ -64,6 +90,23 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public List<ParticleSystem> pShootUpJet;
     public List<ParticleSystem> pShootDownJet;
 
+    GameObject cameraObject;
+
+    private readonly float forceToDamageMultiplier = 0.1f;
+
+    public void SetCameraObject(GameObject cam)
+    {
+        cameraObject = cam;
+    }
+
+    public void InformOfFire()
+    {
+        if (photonView.IsMine)
+        {
+            cameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +116,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         velocityBeforeCollision = new Vector3(0, 0, 0);
         turnDirection = new Vector3(0, 0, 0);
         verticalSpeed = 0;
+        playerInput = new RequestedControls();
     }
 
     void Awake()
@@ -118,6 +162,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 timerDisabled = 0f;
             }
         }
+
+        verticalSpeed = velocity.y;
     }
 
     void GetPlayerInput()
@@ -144,6 +190,18 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             playerInput.turnLeft = true;
         }
+
+
+        if (Input.GetKey(KeyCode.R)  || Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log("Everything is bad");
+            playerInput.up = true;
+        }
+        else if (Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.LeftControl))
+        {
+            playerInput.down = true;
+        }
+        
     }
 
     private void FixedUpdate()
@@ -154,15 +212,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         rigidBody.MoveRotation(rigidBody.rotation * deltaRotation);
 
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
-
-        //if (Input.GetKey(KeyCode.R))
-        //{
-        //    rigidBody.MovePosition(rigidBody.position + Vector3.up * verticalSpeed * Time.fixedDeltaTime);
-        //}
-        //else if (Input.GetKey(KeyCode.F))
-        //{
-        //    rigidBody.MovePosition(rigidBody.position + Vector3.down * verticalSpeed * Time.fixedDeltaTime);
-        //}
 
         velocityBeforeCollision = velocity;
 
@@ -175,6 +224,11 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
 
         float collisionMag = collision.impulse.magnitude;
+        print(collision.gameObject.name);
+        if (photonView.IsMine)
+        {
+            cameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
+        }
         //Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
         if (!photonView.IsMine)
         {
@@ -191,6 +245,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 moveSpeed = finalVelocity.magnitude;
 
                 velocity = finalVelocity;
+
+                //Scale collision magnitude so don't insta die on getting hit by cannonball
+
+                collisionMag = collisionMag * 0.4f;
             }
             else
             {
@@ -200,7 +258,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         else if (collision.gameObject.tag == "Ship")
         {
             //print("Collision");
-            print(collision.gameObject.name);
 
             Vector3 initialVelocity = velocityBeforeCollision;
             float massA = rigidBody.mass;
@@ -224,7 +281,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             isDisabled = true;
             totalDisabledTime = 1f;
             // the 10 is needed because otherwise you insta-kill each other upon contact
-            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 100;
+            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
 
         }
         else if (collision.gameObject.tag == "Wall")
@@ -247,21 +304,11 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 totalDisabledTime = 0.5f;
             }
 
-            //0.5 multiplier to keep damage in check
-            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude * 0.5f;
+            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude;
         }
 
         // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
-        PlayerPhotonHub photonHub = gameObject.GetComponentInParent<PlayerPhotonHub>();
-        if(photonHub == null)
-        {
-            Debug.LogWarning("Player does not have attatched photonHub");
-        }
-        else
-        {
-            photonHub.UpdateHealth(collisionMag);
-        }
-
+        GetComponent<ShipArsenal>().doDamage(collisionMag * forceToDamageMultiplier);
     }
 
     #region Pun Synchronisation
@@ -276,6 +323,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(teamColour.r);
             stream.SendNext(teamColour.g);
             stream.SendNext(teamColour.b);
+            playerInput.PhotonSerialize(stream);
         }
         else
         {
@@ -291,6 +339,21 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 transform.Find("Body").gameObject.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
                 colourSet = true;
             }
+
+            RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
+            if(newInput.forwards != playerInput.forwards)
+            {
+                SetParticles(pDriveSystem, newInput.forwards);
+            }
+            if(newInput.turnLeft != playerInput.turnLeft)
+            {
+                SetParticles(pAntiClockwiseJets, newInput.turnLeft);
+            }
+            if(newInput.turnRight != playerInput.turnRight)
+            {
+                SetParticles(pClockwiseJets, newInput.turnRight);
+            }
+            playerInput = newInput;
         }
 
     }
@@ -349,25 +412,12 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         SetParticles(pClockwiseJets, playerInput.turnLeft);
 
-        Vector3 angularAgainst = -1 * turnDirection * angularFriction;
-        turnDirection += (turningForce + angularAgainst) / angularMass;
-
-        Vector3 dragForce = -1 * bodyDragCoefficient * velocity * velocity.magnitude;
-
-
-
-        Vector3 propellerDrag = -1 * propelerDragCoefficient * velocity;
-
-        Vector3 longuitudinalForce = drivingForce + breakingForce + dragForce + propellerDrag;
-        Vector3 acceleration = longuitudinalForce / mass;
-        Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
-        velocity += acceleration;
-
-        if (Input.GetKey(KeyCode.R))
+        if (playerInput.up)
         {
             verticalSpeed += verticalAcceleration;
+            Debug.Log("Shit me sideways");
         }
-        else if (Input.GetKey(KeyCode.F))
+        else if (playerInput.down)
         {
             verticalSpeed -= verticalAcceleration;
         }
@@ -384,8 +434,24 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
             }
         }
+        SetParticles(pShootUpJet, playerInput.up);
+        SetParticles(pShootDownJet, playerInput.up);
 
+        Vector3 angularAgainst = -1 * turnDirection * angularFriction;
+        turnDirection += (turningForce + angularAgainst) / angularMass;
+
+        Vector3 dragForce = -1 * bodyDragCoefficient * velocity * velocity.magnitude;
+
+
+
+        Vector3 propellerDrag = -1 * propelerDragCoefficient * velocity;
+
+        Vector3 longuitudinalForce = drivingForce + breakingForce + dragForce + propellerDrag;
+        Vector3 acceleration = longuitudinalForce / mass;
+        Vector3 preVel = new Vector3(velocity.x, velocity.y, velocity.z);
+        velocity += acceleration;
         velocity.y = verticalSpeed;
+
     }
 
 

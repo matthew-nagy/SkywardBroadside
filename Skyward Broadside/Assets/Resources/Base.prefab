@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1524130972947718100}
-  m_Layer: 0
+  - component: {fileID: 664785537118389992}
+  - component: {fileID: 5906757971277278699}
+  m_Layer: 11
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: ResupplyBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +34,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &664785537118389992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4478712961748768632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866878394e2e40746806169896a73589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadRadius: 60
+  teamMaterials:
+  - material: {fileID: 2100000, guid: f10128d790506c64dbe94649edee76ac, type: 2}
+    teamName: Red
+  - material: {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
+    teamName: Blue
+  myTeam: Red
+  myTeamNo: 0
+  meshCircleResolution: 30
+  materialSettingObjects:
+  - {fileID: 6420333536735963149}
+  friendlyReloadMaterial: {fileID: 2100000, guid: 69a27b25712c84f4fa3a92b3efa82f4c, type: 2}
+--- !u!135 &5906757971277278699
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4478712961748768632}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 8
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6405160430651889781
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +83,7 @@ GameObject:
   - component: {fileID: 1656173216544066}
   - component: {fileID: 135725480616112060}
   - component: {fileID: 3183871505187908257}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +178,7 @@ GameObject:
   - component: {fileID: 3446639374979683703}
   - component: {fileID: 9194653977842160701}
   - component: {fileID: 6725092693894365340}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Balloon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
