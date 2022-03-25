@@ -127,12 +127,7 @@ public class PlayerPhotonHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(ship.GetComponent<PhotonView>() == null)
-        {
-            Debug.LogWarning("Lack of a photon view");
-            return;
-        }
-        if (ship.GetComponent<PhotonView>().IsMine)
+        if (transform.Find("Ship").GetComponent<PhotonView>().IsMine)
         {
             if (gameStartTime == DateTime.MinValue)
             {
