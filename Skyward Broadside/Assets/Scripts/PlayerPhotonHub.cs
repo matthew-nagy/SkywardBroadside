@@ -32,8 +32,7 @@ public class PlayerPhotonHub : MonoBehaviour
     public GuiUpdateScript updateScript;
 
     public List<Material> teamMaterials;
-    public List<Color> teamColours;
-    public int myTeam = -1;
+    public TeamData.Team myTeam;
 
     private int deaths;
 
@@ -46,17 +45,18 @@ public class PlayerPhotonHub : MonoBehaviour
 
     Transform ship;
 
-    public void SetTeam(int team)
+    public void SetTeam(TeamData.Team team)
     {
         myTeam = team;
-        Material givenMaterial = teamMaterials[team];
+        Material givenMaterial = teamMaterials[(int)team];
         if(givenMaterial == null)
         {
             Debug.LogError("Material was null");
         }
         ship = transform.Find("Ship");
-        ship.gameObject.GetComponent<ShipController>().teamColour = teamColours[team];
         ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
+
+        Debug.LogWarning("Player Team Set in Photon Hub");
     }
 
     private void Awake()
@@ -127,7 +127,7 @@ public class PlayerPhotonHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ship.GetComponent<PhotonView>().IsMine)
+        if (transform.Find("Ship").GetComponent<PhotonView>().IsMine)
         {
             if (gameStartTime == DateTime.MinValue)
             {
@@ -146,14 +146,7 @@ public class PlayerPhotonHub : MonoBehaviour
 
     public void UpdateScores(int[] scores)
     {
-        if (myTeam == 1)
-        {
-            updateScript.UpdateGUIScores(scores[0], scores[1]);
-        }
-        else
-        {
-            updateScript.UpdateGUIScores(scores[1], scores[0]);
-        }
+        updateScript.UpdateGUIScores(scores[1 - (int)myTeam], scores[(int)myTeam]);
     }
 
     public void FetchScores()
@@ -202,10 +195,8 @@ public class PlayerPhotonHub : MonoBehaviour
         properties.Add("deaths", ++deaths);
         PhotonNetwork.SetPlayerCustomProperties(properties);
 
-        int content = myTeam;
-
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(1, myTeam, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent(1, (int)myTeam, raiseEventOptions, SendOptions.SendReliable);
     }
 
     private void OnEnable()

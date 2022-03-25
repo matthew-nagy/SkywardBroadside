@@ -10,11 +10,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 {
     private GuiUpdateScript updateScript;
 
-    public int myTeam;
-
-    // spawn positions
-    private Vector3 redSpawn = new Vector3(300f, 5f, -400f);
-    private Vector3 blueSpawn = new Vector3(-160f, 5f, -80f);
+    public TeamData.Team myTeam;
 
     private readonly float regenSecondsPerReloads = 1f;
 
@@ -99,14 +95,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
             GetComponent<ShipArsenal>().respawn();
 
-            if (myTeam == 0)
-            {
-                transform.position = redSpawn + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
-            }
-            else if (myTeam == 1)
-            {
-                transform.position = blueSpawn + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
-            }
+            Vector3 spawnPosition = GameManager.Instance.GetSpawnFromTeam(myTeam).transform.position;
+            transform.position = spawnPosition + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
+
             spawnTime = DateTime.Now;
         }
     }
@@ -128,11 +119,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(myTeam);
+            stream.SendNext((int)myTeam);
         }
         else
         {
-            myTeam = (int)stream.ReceiveNext();
+            myTeam = (TeamData.Team)stream.ReceiveNext();
         }
     }
 }

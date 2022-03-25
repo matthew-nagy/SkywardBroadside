@@ -109,7 +109,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("PUN Basics Tutorials/Launcher: OnConnectedToMaster() was called by PUN");
 
         // We don't want to do anything if we are not attempting to join a room.
         // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
@@ -132,19 +131,12 @@ public class Launcher : MonoBehaviourPunCallbacks
         controlPanel.SetActive(true);
 
         isConnecting = false;
-        
-        Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
-        
-        // #Critical: We only load if we are the first player, else we rely on PhotonNetwork.AutomaticallySyncScene to sync our instance scene
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            Debug.Log("We load the GameWorld");
-            
             // Load the world
             PhotonNetwork.LoadLevel("GameWorld");
         }
