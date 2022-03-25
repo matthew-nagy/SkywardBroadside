@@ -28,6 +28,6 @@ public class TeamButton : MonoBehaviour
         {
             joinTeam = TeamData.Team.Purple;
         }
-        TeamData.TeamToColour(joinTeam);
+        GetComponent<Image>().color = TeamData.TeamToColour(joinTeam);
     }
 }

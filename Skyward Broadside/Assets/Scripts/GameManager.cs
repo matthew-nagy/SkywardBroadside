@@ -99,18 +99,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         Vector3 spawnPoint = mySpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
         GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0);
         newPlayer.GetComponent<PlayerPhotonHub>().SetTeam(team);
-        newPlayer.transform.Find("Ship").GetComponent<PlayerController>().myTeam = 0;
+        newPlayer.transform.Find("Ship").GetComponent<PlayerController>().myTeam = team;
 
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
         {
             PhotonNetwork.LocalPlayer.JoinTeam(TeamData.TeamToString(team));
+            Debug.Log("Joined team " + PhotonNetwork.LocalPlayer.GetPhotonTeam());
         }
         else
         {
             PhotonNetwork.LocalPlayer.SwitchTeam(TeamData.TeamToString(team));
         }
-
-        Debug.Log("Joined team " + PhotonNetwork.LocalPlayer.GetPhotonTeam());
     }
 
     private void Update()

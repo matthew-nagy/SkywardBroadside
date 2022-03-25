@@ -55,6 +55,8 @@ public class PlayerPhotonHub : MonoBehaviour
         }
         ship = transform.Find("Ship");
         ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
+
+        Debug.LogWarning("Player Team Set in Photon Hub");
     }
 
     private void Awake()
@@ -125,6 +127,11 @@ public class PlayerPhotonHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(ship.GetComponent<PhotonView>() == null)
+        {
+            Debug.LogWarning("Lack of a photon view");
+            return;
+        }
         if (ship.GetComponent<PhotonView>().IsMine)
         {
             if (gameStartTime == DateTime.MinValue)

@@ -47,11 +47,8 @@ MonoBehaviour:
   PlayerUiPrefab: {fileID: 8586582362795000431, guid: 6a06ebfc5274f204e9752462f9e4cb40, type: 3}
   updateScript: {fileID: 0}
   teamMaterials:
-  - {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
   - {fileID: 2100000, guid: f10128d790506c64dbe94649edee76ac, type: 2}
-  teamColours:
-  - {r: 0, g: 0, b: 1, a: 0}
-  - {r: 1, g: 0, b: 0, a: 0}
+  - {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
   myTeam: -1
   healthbarAndName: {fileID: 0}
 --- !u!1001 &7770159725660443265
@@ -61,6 +58,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9096857088395882344}
     m_Modifications:
+    - target: {fileID: 3501897410673752950, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: ObservedComponentsFoldoutOpen
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471704, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_Name
       value: Ship

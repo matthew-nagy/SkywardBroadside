@@ -29,12 +29,7 @@ public class ReloadRegister : MonoBehaviour
 
     private void Start()
     {
-        reloadRadius = GetComponent<SphereCollider>().radius;
-        Invoke(nameof(Setup), 1f);
-    }
 
-    void Setup()
-    {
         string myTeamName = TeamData.TeamToString(myTeam);
         foreach (TeamToMat ttm in teamMaterials)
         {
@@ -47,7 +42,15 @@ public class ReloadRegister : MonoBehaviour
                 break;
             }
         }
+        reloadRadius = GetComponent<SphereCollider>().radius;
+        //Invoke(nameof(Setup), 1f);
+    }
 
+    //Doesnt work right now
+    void Setup()
+    {
+
+        string myTeamName = TeamData.TeamToString(myTeam);
         if (myTeamName == PhotonNetwork.LocalPlayer.GetPhotonTeam().Name)
         {
             CreateDisplayMesh();

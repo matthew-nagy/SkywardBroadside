@@ -118,7 +118,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         verticalSpeed = 0;
         playerInput = new RequestedControls();
 
-        teamColour = TeamData.TeamToColour(GetComponent<PlayerPhotonHub>().myTeam);
+        teamColour = TeamData.TeamToColour(GetComponentInParent<PlayerPhotonHub>().myTeam);
     }
 
     void Awake()
