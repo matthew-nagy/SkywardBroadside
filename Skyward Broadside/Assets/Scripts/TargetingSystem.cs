@@ -59,7 +59,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             }
             else
             {
-                GameObject closestEnemy = findClosestEnemyInView();
+                GameObject closestEnemy = FindClosestEnemyInView();
                 if (targetAquired)
                 {
                     currentTargetId = closestEnemy.gameObject.GetComponent<PhotonView>().ViewID;
@@ -120,7 +120,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 
     void checkStillClosest(GameObject currentTarget)
     {
-        GameObject closestEnemy = findClosestEnemyInView();
+        GameObject closestEnemy = FindClosestEnemyInView();
         if (currentTarget != closestEnemy)
         {
             targetAquired = false;
@@ -129,7 +129,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         }
     }
 
-    GameObject findClosestEnemyInView()
+    GameObject FindClosestEnemyInView()
     {
         float shortestDist = float.PositiveInfinity;
         GameObject closestEnemy = null;

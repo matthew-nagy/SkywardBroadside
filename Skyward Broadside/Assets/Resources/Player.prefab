@@ -58,10 +58,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9096857088395882344}
     m_Modifications:
-    - target: {fileID: 3110479174326054747, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
-      propertyPath: maxTargetDistance
-      value: 400
-      objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471704, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_Name
       value: Ship
@@ -109,18 +105,6 @@ PrefabInstance:
     - target: {fileID: 5904769780344471705, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6151942759068910397, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
-      propertyPath: range
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 6151942759068910397, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
-      propertyPath: myLayerMask.m_Bits
-      value: 2625
-      objectReference: {fileID: 0}
-    - target: {fileID: 6151942759068910397, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
-      propertyPath: otherLayerMask.m_Bits
-      value: 2117
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c778be60368e1b044893483baf4bf3ae, type: 3}

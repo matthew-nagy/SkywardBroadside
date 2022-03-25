@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6538473379129699821}
   - component: {fileID: 5151696107110722967}
   - component: {fileID: 8728980755338549549}
+  - component: {fileID: 5308482437410043832}
   m_Layer: 9
   m_Name: Cannon5
   m_TagString: Untagged
@@ -135,6 +136,24 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 6007681473232422226}
   lockedOn: 0
+--- !u!114 &5308482437410043832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448227682427637359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  shotPower: 100
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
+  shotOrigin: {fileID: 6007681473232422226}
+  lockedOn: 0
 --- !u!1 &764234668587890407
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +168,7 @@ GameObject:
   - component: {fileID: 2270930601042193790}
   - component: {fileID: 2744860487748048708}
   - component: {fileID: 5964500361226504954}
+  - component: {fileID: 4020988627855185411}
   m_Layer: 9
   m_Name: Cannon4
   m_TagString: Untagged
@@ -270,6 +290,24 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 2220225434652216828}
   lockedOn: 0
+--- !u!114 &4020988627855185411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764234668587890407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  shotPower: 100
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
+  shotOrigin: {fileID: 2220225434652216828}
+  lockedOn: 0
 --- !u!1 &789255558999481594
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +322,7 @@ GameObject:
   - component: {fileID: 618112094636157293}
   - component: {fileID: 7728106693520202950}
   - component: {fileID: 6674626876740342834}
+  - component: {fileID: 5087509654199152}
   m_Layer: 9
   m_Name: Cannon3
   m_TagString: Untagged
@@ -405,6 +444,24 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
   shotOrigin: {fileID: 6604459262782208156}
   lockedOn: 0
+--- !u!114 &5087509654199152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789255558999481594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  shotPower: 100
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
+  shotOrigin: {fileID: 6604459262782208156}
+  lockedOn: 0
 --- !u!1 &1997724285872539645
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +476,7 @@ GameObject:
   - component: {fileID: 3951992391628373889}
   - component: {fileID: 1173904337959220880}
   - component: {fileID: 6251764889633879219}
+  - component: {fileID: 7419267649191975885}
   m_Layer: 9
   m_Name: Cannon6
   m_TagString: Untagged
@@ -538,6 +596,24 @@ MonoBehaviour:
   shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
+  shotOrigin: {fileID: 168959825662133675}
+  lockedOn: 0
+--- !u!114 &7419267649191975885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997724285872539645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  shotPower: 100
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 168959825662133675}
   lockedOn: 0
 --- !u!1 &3150799274874383382
@@ -839,6 +915,7 @@ GameObject:
   - component: {fileID: 8657714504811999249}
   - component: {fileID: 8742184167560547195}
   - component: {fileID: 6600810828527236404}
+  - component: {fileID: 699397321995087287}
   m_Layer: 9
   m_Name: Cannon1
   m_TagString: Untagged
@@ -958,6 +1035,24 @@ MonoBehaviour:
   shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
+  shotOrigin: {fileID: 5069262259036917024}
+  lockedOn: 0
+--- !u!114 &699397321995087287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4644661021023321349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  shotPower: 100
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 5069262259036917024}
   lockedOn: 0
 --- !u!1 &4751557237352216734
@@ -5988,6 +6083,7 @@ MonoBehaviour:
   bodyDragCoefficient: 0.0002
   reversingForceProportion: 0.15
   breakToReverseThreashold: 8
+  velocity: {x: 0, y: 0, z: 0}
   velocityBeforeCollision: {x: 0, y: 0, z: 0}
   pDriveSystem:
   - {fileID: 3145501763677243538}
@@ -6021,12 +6117,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d198e1644bb3f614d89df3f4e0bc72af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxCannonballAmmo: 60
-  maxExplosiveCannonballAmmo: 9
-  cannonballAmmo: 0
-  explosiveCannonballAmmo: 0
   health: 0
+  maxHealth: 100
+  cannonballAmmo: 0
+  maxCannonballAmmo: 60
+  explosiveCannonballAmmo: 0
+  maxExplosiveCannonballAmmo: 9
+  shockwaveAmmo: 0
+  maxShockwaveAmmo: 900
 --- !u!114 &2067313920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6092,16 +6190,22 @@ MonoBehaviour:
   - {fileID: 6151942759068910397}
   - {fileID: 8742184167560547195}
   - {fileID: 6600810828527236404}
+  - {fileID: 699397321995087287}
   - {fileID: 7694551955800727932}
   - {fileID: 7803696677569022096}
+  - {fileID: 5758892041200738633}
   - {fileID: 7728106693520202950}
   - {fileID: 6674626876740342834}
+  - {fileID: 5087509654199152}
   - {fileID: 2744860487748048708}
   - {fileID: 5964500361226504954}
+  - {fileID: 4020988627855185411}
   - {fileID: 5151696107110722967}
   - {fileID: 8728980755338549549}
+  - {fileID: 5308482437410043832}
   - {fileID: 1173904337959220880}
   - {fileID: 6251764889633879219}
+  - {fileID: 7419267649191975885}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -6152,7 +6256,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 579
-  maxTargetDistance: 1000
+  maxTargetDistance: 400
   targetDestroyed: 0
   myCam: {fileID: 0}
 --- !u!114 &3563038887837870392
@@ -6352,10 +6456,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletTracer: {fileID: 328621789431213768, guid: 854c52ec6e3c3ef49a019e525883b888, type: 3}
   shotOrigin: {fileID: 2100430722660353725}
-  layerMask:
+  myLayerMask:
     serializedVersion: 2
-    m_Bits: 595
-  range: 200
+    m_Bits: 2625
+  otherLayerMask:
+    serializedVersion: 2
+    m_Bits: 2117
+  range: 1000
   weaponEnabled: 0
 --- !u!1 &7972539550574814279
 GameObject:
@@ -6401,6 +6508,7 @@ GameObject:
   - component: {fileID: 3983528496557573633}
   - component: {fileID: 7694551955800727932}
   - component: {fileID: 7803696677569022096}
+  - component: {fileID: 5758892041200738633}
   m_Layer: 9
   m_Name: Cannon2
   m_TagString: Untagged
@@ -6520,6 +6628,24 @@ MonoBehaviour:
   shotPower: 100
   reloadTime: 2
   projectile: {fileID: 3799885530754182095, guid: 37adcfd93a626a6439ffade19043b455, type: 3}
+  shotOrigin: {fileID: 7373199804155845590}
+  lockedOn: 0
+--- !u!114 &5758892041200738633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7977531083847440028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  shotPower: 100
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 7373199804155845590}
   lockedOn: 0
 --- !u!1 &8248026052378480356

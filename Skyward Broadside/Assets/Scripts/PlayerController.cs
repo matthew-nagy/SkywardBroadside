@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         {
             transform.root.GetComponent<PlayerPhotonHub>().AddDeath();
 
-            GetComponent<ShipArsenal>().respawn();
+            GetComponent<ShipArsenal>().Respawn();
 
             Vector3 spawnPosition = GameManager.Instance.GetSpawnFromTeam(myTeam).transform.position;
             transform.position = spawnPosition + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (resupply)
         {
-            GetComponent<ShipArsenal>().resupply();
+            GetComponent<ShipArsenal>().Resupply();
         }
     }
 

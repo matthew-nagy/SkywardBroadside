@@ -138,7 +138,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         Blackboard.breakMasters.Add(this);
-        Debug.Log("Break master created");
+        //Debug.Log("Break master created");
         children = new List<Breakable>();
 
         events = EventQueue.Make();

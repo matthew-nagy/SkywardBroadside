@@ -65,7 +65,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     float moveSpeed = 5f;
     //Speed to move
-    Vector3 velocity;
+    public Vector3 velocity;
     //Matched to velocity on fixed update, then used in collision calculations
     public Vector3 velocityBeforeCollision;
     //Direction the ship is currently turning, in degrees.

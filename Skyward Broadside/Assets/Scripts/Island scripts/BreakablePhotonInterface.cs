@@ -27,7 +27,7 @@ public class BreakablePhotonInterface : MonoBehaviour
         {
             if (bm.IsInLocatioOf(transform))
             {
-                Debug.Log("Break master located");
+                //Debug.Log("Break master located");
                 RegisterChildren(bm);
                 Destroy(this);
             }

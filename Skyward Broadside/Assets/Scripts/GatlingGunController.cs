@@ -129,7 +129,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (hit.collider.gameObject.name == "Ship")
             {
-                hit.collider.gameObject.GetComponent<ShipArsenal>().hitMe("gatling");
+                hit.collider.gameObject.GetComponent<ShipArsenal>().HitMe("gatling");
             }
 
             TrailRenderer tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.identity);
