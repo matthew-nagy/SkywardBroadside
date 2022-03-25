@@ -131,22 +131,29 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         float shortestDist = float.PositiveInfinity;
         GameObject closestEnemy = null;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
+
+        TeamData.Team myTeam = GetComponent<PlayerController>().myTeam;
+
         foreach (GameObject player in players)
         {
-            Vector3 screenPoint = myCam.gameObject.GetComponent<Camera>().WorldToViewportPoint(player.transform.position);
-            if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
+            if (player.GetComponent<PlayerController>().myTeam != myTeam)
             {
-                RaycastHit hit;
-                if (Physics.Linecast(transform.position, player.transform.position, out hit))
+
+                Vector3 screenPoint = myCam.gameObject.GetComponent<Camera>().WorldToViewportPoint(player.transform.position);
+                if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
                 {
-                    if (hit.collider.gameObject == player)
+                    RaycastHit hit;
+                    if (Physics.Linecast(transform.position, player.transform.position, out hit))
                     {
-                        float dist = (player.transform.position - transform.position).magnitude;
-                        if (dist < shortestDist)
+                        if (hit.collider.gameObject == player)
                         {
-                            shortestDist = dist;
-                            closestEnemy = player;
-                            targetAquired = true;
+                            float dist = (player.transform.position - transform.position).magnitude;
+                            if (dist < shortestDist)
+                            {
+                                shortestDist = dist;
+                                closestEnemy = player;
+                                targetAquired = true;
+                            }
                         }
                     }
                 }
