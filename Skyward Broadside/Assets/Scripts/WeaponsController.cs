@@ -105,21 +105,28 @@ public class WeaponsController : MonoBehaviour
         {
             foreach (GameObject cannon in cannons)
             {
-                if (switchedWeapon)
+                if (cannon != null)
                 {
-                    cannon.GetComponent<BasicCannonController>().reload();
-                }
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<BasicCannonController>().reload();
+                    }
 
-                if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
-                {
-                    cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
-                    cannon.GetComponent<BasicCannonController>().lockedOn = true;
-                    noOfEnabledCannons++;
+                    if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                    {
+                        cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
+                        cannon.GetComponent<BasicCannonController>().lockedOn = true;
+                        noOfEnabledCannons++;
+                    }
+                    else
+                    {
+                        cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
+                        cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                    }
                 }
                 else
                 {
-                    cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
-                    cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                    Debug.LogWarning("Could not find cannon object");
                 }
             }
         }
@@ -128,21 +135,28 @@ public class WeaponsController : MonoBehaviour
             GetComponent<TargetingSystem>().aquireFreeFireTarget();
             foreach (GameObject cannon in cannons)
             {
-                if (switchedWeapon)
+                if (cannon != null)
                 {
-                    cannon.GetComponent<BasicCannonController>().reload();
-                }
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<BasicCannonController>().reload();
+                    }
 
-                if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
-                {
-                    cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
-                    cannon.GetComponent<BasicCannonController>().lockedOn = false;
-                    noOfEnabledCannons++;
+                    if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                    {
+                        cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
+                        cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                        noOfEnabledCannons++;
+                    }
+                    else
+                    {
+                        cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
+                        cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                    }
                 }
                 else
                 {
-                    cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
-                    cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                    Debug.LogWarning("Could not find cannon object");
                 }
             }
         }
@@ -152,8 +166,15 @@ public class WeaponsController : MonoBehaviour
     {
         foreach (GameObject cannon in cannons)
         {
-            cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
-            cannon.GetComponent<BasicCannonController>().lockedOn = false;
+            if (cannon != null)
+            {
+                cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
+                cannon.GetComponent<BasicCannonController>().lockedOn = false;
+            }
+            else
+            {
+                Debug.LogWarning("Could not find cannon object");
+            }
         }
     }
 
@@ -166,21 +187,28 @@ public class WeaponsController : MonoBehaviour
         {
             foreach (GameObject cannon in cannons)
             {
-                if (switchedWeapon)
+                if (cannon != null)
                 {
-                    cannon.GetComponent<ExplosiveCannonController>().reload();
-                }
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().reload();
+                    }
 
-                if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
-                {
-                    cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
-                    cannon.GetComponent<ExplosiveCannonController>().lockedOn = true;
-                    noOfEnabledCannons++;
+                    if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
+                        cannon.GetComponent<ExplosiveCannonController>().lockedOn = true;
+                        noOfEnabledCannons++;
+                    }
+                    else
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
+                        cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                    }
                 }
                 else
                 {
-                    cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
-                    cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                    Debug.LogWarning("Could not find cannon object");
                 }
             }
         }
@@ -189,21 +217,28 @@ public class WeaponsController : MonoBehaviour
             GetComponent<TargetingSystem>().aquireFreeFireTarget();
             foreach (GameObject cannon in cannons)
             {
-                if (switchedWeapon)
+                if (cannon != null)
                 {
-                    cannon.GetComponent<ExplosiveCannonController>().reload();
-                }
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().reload();
+                    }
 
-                if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
-                {
-                    cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
-                    cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
-                    noOfEnabledCannons++;
+                    if (checkLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
+                        cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                        noOfEnabledCannons++;
+                    }
+                    else
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
+                        cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                    }
                 }
                 else
                 {
-                    cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
-                    cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                    Debug.LogWarning("Could not find cannon object");
                 }
             }
         }
@@ -213,42 +248,71 @@ public class WeaponsController : MonoBehaviour
     {
         foreach (GameObject cannon in cannons)
         {
-            cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
-            cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+            if (cannon != null)
+            {
+                cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
+                cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+            }
+            else
+            {
+                Debug.LogWarning("Could not find cannon object");
+            }
         }
     }
 
     void enableGatlingGun()
     {
-        gatlingGun.GetComponent<GatlingGunController>().weaponEnabled = true;
+        if (gatlingGun != null)
+        {
+            gatlingGun.GetComponent<GatlingGunController>().weaponEnabled = true;
+        }
+        else
+        {
+            Debug.LogWarning("Could not find gatling gun object");
+        }
     }
 
     void disableGatlingGun()
     {
-        gatlingGun.GetComponent<GatlingGunController>().weaponEnabled = false;
+        if (gatlingGun != null)
+        {
+            gatlingGun.GetComponent<GatlingGunController>().weaponEnabled = false;
+        }
+        else
+        {
+            Debug.LogWarning("Could not find gatling gun object");
+        }
     }
 
     bool checkLineOfSight(GameObject cannon)
     {
-        GameObject target;
-        Vector3 targetPos;
-        Vector3 vecToTarget;
-        if (lockedOn)
+        if (cannon != null)
         {
-            target = PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId).gameObject;
-            vecToTarget = target.transform.position - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
+            GameObject target;
+            Vector3 targetPos;
+            Vector3 vecToTarget;
+            if (lockedOn)
+            {
+                target = PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId).gameObject;
+                vecToTarget = target.transform.position - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
+            }
+            else
+            {
+                targetPos = GetComponent<TargetingSystem>().freeFireTargetPos;
+                vecToTarget = targetPos - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
+            }
+
+            float angle = Vector3.Angle(cannon.GetComponent<BasicCannonController>().shotOrigin.forward, vecToTarget);
+            if (angle > cannonThresholdAngle)
+            {
+                return false;
+            }
+            return true;
         }
         else
         {
-            targetPos = GetComponent<TargetingSystem>().freeFireTargetPos;
-            vecToTarget = targetPos - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
-        }
-
-        float angle = Vector3.Angle(cannon.GetComponent<BasicCannonController>().shotOrigin.forward, vecToTarget);
-        if (angle > cannonThresholdAngle)
-        {
+            Debug.LogWarning("Could not find cannon object");
             return false;
         }
-        return true;
     }
 }

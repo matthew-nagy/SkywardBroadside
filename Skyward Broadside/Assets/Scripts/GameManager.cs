@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject playerPrefab;
 
     // red and blue player spawns to distinguish between teams
-    public GameObject redSpawn;
-    public GameObject blueSpawn;
+    public GameObject yellowSpawn;
+    public GameObject purpleSpawn;
 
     //The player photon hub for the person playing this instance
     public PlayerPhotonHub serverPlayerPhotonHub;
@@ -45,9 +45,21 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
     }
-    
+
+    public GameObject GetSpawnFromTeam(TeamData.Team team)
+    {
+        if (team == TeamData.Team.Purple)
+        {
+            return purpleSpawn;
+        }
+        else
+        {
+            return yellowSpawn;
+        }
+    }
+
     #endregion
-    
+
     #region Private Methods
 
     void Start()
@@ -64,45 +76,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (PlayerManager.LocalPlayerInstance == null)
             {
                 Debug.LogFormat("We are instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
-                if (TeamButton.joinTeam == "Red")
-                {
-                    Vector3 spawnPoint = redSpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
-                    GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0);
-                    newPlayer.GetComponent<PlayerPhotonHub>().SetTeam(1);
-                    newPlayer.transform.Find("Ship").GetComponent<PlayerController>().myTeam = 0;
-                    if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
-                    {
-                        PhotonNetwork.LocalPlayer.JoinTeam("Red");
-                        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
-                    }
-                    else
-                    {
-                        PhotonNetwork.LocalPlayer.SwitchTeam("Red");
-                        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
-                    }
-                    Debug.Log("Joined");
-                }
-                else if (TeamButton.joinTeam == "Blue")
-                {
-                    Vector3 spawnPoint = blueSpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
-                    GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0);
-                    newPlayer.GetComponent<PlayerPhotonHub>().SetTeam(0);
-                    newPlayer.transform.Find("Ship").GetComponent<PlayerController>().myTeam = 1;
-                    Debug.Log(spawnPoint);
-                    if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
-                    {
-                        PhotonNetwork.LocalPlayer.JoinTeam("Blue");
-                        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
-                    }
-                    else
-                    {
-                        PhotonNetwork.LocalPlayer.SwitchTeam("Blue");
-                        Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
-                    }
-                    //Debug.Log("Joined");
-                }
-                
-                //Debug.Log(PhotonNetwork.LocalPlayer.GetPhotonTeam());
+
+
+                JointGameOnTeam(TeamButton.joinTeam);
             }
             else
             {
@@ -113,6 +89,26 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             setRoomStartTimeAndInitialScores();
+        }
+    }
+
+    void JointGameOnTeam(TeamData.Team team)
+    {
+        GameObject mySpawn = GetSpawnFromTeam(team);
+
+        Vector3 spawnPoint = mySpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
+        GameObject newPlayer = PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPoint, Quaternion.identity, 0);
+        newPlayer.GetComponent<PlayerPhotonHub>().SetTeam(team);
+        newPlayer.transform.Find("Ship").GetComponent<PlayerController>().myTeam = team;
+
+        if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
+        {
+            PhotonNetwork.LocalPlayer.JoinTeam(TeamData.TeamToString(team));
+            Debug.Log("Joined team " + PhotonNetwork.LocalPlayer.GetPhotonTeam());
+        }
+        else
+        {
+            PhotonNetwork.LocalPlayer.SwitchTeam(TeamData.TeamToString(team));
         }
     }
 

@@ -11,7 +11,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     bool targetAquired;
     public bool lockedOn;
     public LayerMask layerMask;
-    public float maxTargetDistance; //for free fire only atm
+    public float maxTargetDistance;
     public bool targetDestroyed;
     public Cinemachine.CinemachineFreeLook myCam;
 
@@ -71,7 +71,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 
     void getInput()
     {
-        if (SBControls.lockOn.IsHeld())
+        if (SBControls.lockOn.IsDown())
         {
             if (!lockedOn && targetAquired)
             {
@@ -102,15 +102,18 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 
     void checkVisible(GameObject currentTarget)
     {
-        RaycastHit hit;
-        if (Physics.Linecast(transform.position, currentTarget.transform.position, out hit, layerMask))
+        if ((currentTarget.transform.position - transform.position).magnitude <= maxTargetDistance)
         {
-            if (hit.collider.gameObject != currentTarget)
+            RaycastHit hit;
+            if (Physics.Linecast(transform.position, currentTarget.transform.position, out hit, layerMask))
             {
-                targetAquired = false;
-                currentTargetId = 0;
-                currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
-                unLockToTarget();
+                if (hit.collider.gameObject != currentTarget)
+                {
+                    targetAquired = false;
+                    currentTargetId = 0;
+                    currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
+                    unLockToTarget();
+                }
             }
         }
     }
@@ -131,22 +134,31 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         float shortestDist = float.PositiveInfinity;
         GameObject closestEnemy = null;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
+
+        TeamData.Team myTeam = GetComponent<PlayerController>().myTeam;
+
         foreach (GameObject player in players)
         {
-            Vector3 screenPoint = myCam.gameObject.GetComponent<Camera>().WorldToViewportPoint(player.transform.position);
-            if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
+            if ((player.transform.position - transform.position).magnitude <= maxTargetDistance)
             {
-                RaycastHit hit;
-                if (Physics.Linecast(transform.position, player.transform.position, out hit))
+                if (player.GetComponent<PlayerController>().myTeam != myTeam)
                 {
-                    if (hit.collider.gameObject == player)
+                    Vector3 screenPoint = myCam.gameObject.GetComponent<Camera>().WorldToViewportPoint(player.transform.position);
+                    if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
                     {
-                        float dist = (player.transform.position - transform.position).magnitude;
-                        if (dist < shortestDist)
+                        RaycastHit hit;
+                        if (Physics.Linecast(start: transform.position, end: player.transform.position, hitInfo: out hit, layerMask: layerMask))
                         {
-                            shortestDist = dist;
-                            closestEnemy = player;
-                            targetAquired = true;
+                            if (hit.collider.gameObject == player)
+                            {
+                                float dist = (player.transform.position - transform.position).magnitude;
+                                if (dist < shortestDist)
+                                {
+                                    shortestDist = dist;
+                                    closestEnemy = player;
+                                    targetAquired = true;
+                                }
+                            }
                         }
                     }
                 }
