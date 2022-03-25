@@ -3205,7 +3205,7 @@ GameObject:
   - component: {fileID: 857083049}
   - component: {fileID: 857083048}
   - component: {fileID: 857083047}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InvisWallZ-
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3895,7 +3895,7 @@ GameObject:
   - component: {fileID: 1159199156}
   - component: {fileID: 1159199155}
   - component: {fileID: 1159199154}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InvisWallY-
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4168,7 +4168,7 @@ GameObject:
   - component: {fileID: 1222561794}
   - component: {fileID: 1222561793}
   - component: {fileID: 1222561792}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InvisWallZ+
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4281,7 +4281,7 @@ GameObject:
   - component: {fileID: 1243279697}
   - component: {fileID: 1243279696}
   - component: {fileID: 1243279695}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InvisWallX-
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5064,7 +5064,7 @@ GameObject:
   - component: {fileID: 1459453478}
   - component: {fileID: 1459453477}
   - component: {fileID: 1459453476}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InvisWallY+
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5468,7 +5468,7 @@ GameObject:
   - component: {fileID: 1613331102}
   - component: {fileID: 1613331101}
   - component: {fileID: 1613331105}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InvisWallX+
   m_TagString: Wall
   m_Icon: {fileID: 0}

@@ -127,26 +127,33 @@ public class PlayerPhotonHub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.Find("Ship").GetComponent<PhotonView>().IsMine)
+        if (transform.Find("Ship") != null)
         {
-            if (gameStartTime == DateTime.MinValue)
+            if (transform.Find("Ship").GetComponent<PhotonView>().IsMine)
             {
-                UpdateTimerFromMaster();
+                if (gameStartTime == DateTime.MinValue)
+                {
+                    UpdateTimerFromMaster();
+                }
+                else
+                {
+                    UpdateTimer();
+                }
+                if (!gotScores)
+                {
+                    FetchScores();
+                }
             }
-            else
-            {
-                UpdateTimer();
-            }
-            if (!gotScores)
-            {
-                FetchScores();
-            }
+        }
+        else
+        {
+            Debug.LogError("Ship transform not found");
         }
     }
 
     public void UpdateScores(int[] scores)
     {
-        updateScript.UpdateGUIScores(scores[1 - (int)myTeam], scores[(int)myTeam]);
+        //updateScript.UpdateGUIScores(scores[1 - (int)myTeam], scores[(int)myTeam]);
     }
 
     public void FetchScores()

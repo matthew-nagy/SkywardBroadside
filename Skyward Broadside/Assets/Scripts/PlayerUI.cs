@@ -45,21 +45,21 @@ public class PlayerUI : MonoBehaviour
         //When scenes are going to be loaded and unloaded, so is our Prefab, and the Canvas will be different every time
         //Not actually recommended to do this bc it's slow apparently 
         //Supposedly there's a better way but they don't say what it is...
-        this.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
+        transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
 
-        _canvasGroup = this.GetComponent<CanvasGroup>();
+        _canvasGroup = GetComponent<CanvasGroup>();
         camera = Camera.main;
-
     }
 
-    void CheckExistance()
+    bool CheckExistance()
     {
         // Destroy itself if the target is null, It's a fail safe when Photon is destroying Instances of a Player over the network
         if (target == null)
         {
-            Destroy(this.gameObject);
-            return;
+            Destroy(gameObject);
+            return false;
         }
+        return true;
     }
 
     // Update is called once per frame
@@ -76,13 +76,18 @@ public class PlayerUI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckExistance();
-
-        // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
-        targetPosition = playerRb.position;
-        targetPosition.y += heightAbovePlayer;
-        transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
-
+        if (CheckExistance() && playerRb != null)
+        {
+            // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
+            targetPosition = playerRb.position;
+            targetPosition.y += heightAbovePlayer;
+            transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
+        }
+        else
+        {
+            Debug.LogWarning("Could not find playerRb");
+            Destroy(gameObject);
+        }
     }
     #endregion
 
