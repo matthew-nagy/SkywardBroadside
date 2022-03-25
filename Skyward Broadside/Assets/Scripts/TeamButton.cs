@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class TeamButton : MonoBehaviour
 {
-    public static string joinTeam;
+    public static TeamData.Team joinTeam;
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Image>().color = Color.red;
-        joinTeam = "Red";
+        joinTeam = TeamData.Team.Purple;
+        GetComponent<Image>().color = TeamData.TeamToColour(joinTeam);
     }
 
     // Update is called once per frame
@@ -20,15 +20,14 @@ public class TeamButton : MonoBehaviour
     }
     public void Clicked()
     {
-        if (joinTeam == "Red")
+        if (joinTeam == TeamData.Team.Purple)
         {
-            joinTeam = "Blue";
-            GetComponent<Image>().color = Color.blue;
+            joinTeam = TeamData.Team.Yellow;
         }
-        else if (joinTeam == "Blue")
+        else if (joinTeam == TeamData.Team.Yellow)
         {
-            joinTeam = "Red";
-            GetComponent<Image>().color = Color.red;
+            joinTeam = TeamData.Team.Purple;
         }
+        TeamData.TeamToColour(joinTeam);
     }
 }

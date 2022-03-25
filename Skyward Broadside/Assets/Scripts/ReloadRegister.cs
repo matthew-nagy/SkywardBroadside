@@ -14,8 +14,7 @@ public class ReloadRegister : MonoBehaviour
     }
 
     public List<TeamToMat> teamMaterials;
-    public string myTeam;
-    public int myTeamNo;
+    public TeamData.Team myTeam;
 
     public int meshCircleResolution = 30;
 
@@ -36,22 +35,10 @@ public class ReloadRegister : MonoBehaviour
 
     void Setup()
     {
-        if (myTeam == "Red")
-        {
-            myTeamNo = 0;
-        }
-        else if (myTeam == "Blue")
-        {
-            myTeamNo = 1;
-        }
-        else
-        {
-            Debug.LogError("Invalid team name");
-        }
-
+        string myTeamName = TeamData.TeamToString(myTeam);
         foreach (TeamToMat ttm in teamMaterials)
         {
-            if (myTeam == ttm.teamName)
+            if (myTeamName == ttm.teamName)
             {
                 foreach (GameObject go in materialSettingObjects)
                 {
@@ -61,7 +48,7 @@ public class ReloadRegister : MonoBehaviour
             }
         }
 
-        if (myTeam == PhotonNetwork.LocalPlayer.GetPhotonTeam().Name)
+        if (myTeamName == PhotonNetwork.LocalPlayer.GetPhotonTeam().Name)
         {
             CreateDisplayMesh();
         }
@@ -69,7 +56,7 @@ public class ReloadRegister : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ship" && other.gameObject.GetComponent<PlayerController>().myTeam == myTeamNo)
+        if (other.tag == "Ship" && other.gameObject.GetComponent<PlayerController>().myTeam == myTeam)
         {
             other.gameObject.GetComponent<PlayerController>().resupply = true;
         }
@@ -77,7 +64,7 @@ public class ReloadRegister : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Ship" && other.gameObject.GetComponent<PlayerController>().myTeam == myTeamNo)
+        if (other.tag == "Ship" && other.gameObject.GetComponent<PlayerController>().myTeam == myTeam)
         {
             other.gameObject.GetComponent<PlayerController>().resupply = false;
         }
