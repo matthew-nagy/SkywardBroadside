@@ -6,7 +6,6 @@ public class Shockwave : MonoBehaviour
 {
     public float shockwavePower;
     float activationRadius;
-    bool detonated;
 
     public LayerMask myLayerMask;
     public LayerMask otherLayerMask;
@@ -17,35 +16,13 @@ public class Shockwave : MonoBehaviour
         activationRadius = GetComponent<SphereCollider>().radius;
     }
 
-    private void Update()
-    {
-        GetInput();
-    }
-
-    void GetInput()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Detonate();
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Detonate(); 
     }
 
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (!detonated && Physics.OverlapSphere(transform.position, activationRadius, shockwavableObjects).Length > 0)
-        {
-            detonate();
-        }
-    }*/
-
     void Detonate()
     {
-        detonated = true;
         Collider[] collidersInRange = Physics.OverlapSphere(transform.position, activationRadius, shockwavableObjects);
         foreach (Collider collider in collidersInRange)
         {
@@ -76,11 +53,11 @@ public class Shockwave : MonoBehaviour
         {
             if (!breakable.broken)
             {
-                breakable.GamePlayBreakCommand(shockwavePower, collider.ClosestPoint(transform.position), activationRadius);
+                breakable.GamePlayBreakCommand(shockwavePower * 0.5f, collider.ClosestPoint(transform.position), activationRadius);
             }
             else
             {
-                breakable.GamePlayApplyForce(shockwavePower, collider.ClosestPoint(transform.position), activationRadius);
+                breakable.GamePlayApplyForce(shockwavePower * 0.5f, collider.ClosestPoint(transform.position), activationRadius);
             }
         }
     }
