@@ -12,20 +12,34 @@ public class Breakable : MonoBehaviour
     int indexInOwner;
     BreakMaster owner;
 
-    static public float secondsPerSyncEvent = 1.5f;
+    //Used to prevent Sync hell at the end of the game
+    bool applicationQuit;
+
+    static public float maxSecondsPerSyncEvent = 0.8f;
+    private float secondsToNextSync;
     float secondsSinceSync = 0.0f;
 
 
     void Start()
     {
         breakPhotonInterface.children.Add(this);
+        secondsToNextSync = 0.03F;
+    }
+
+    private void OnApplicationQuit()
+    {
+        applicationQuit = true;
     }
 
     private void OnDestroy()
     {
         if (isMasterPhoton)
         {
-            SendSyncCommand(true);
+            //At the end of the game for example
+            if (applicationQuit != true)
+            {
+                SendSyncCommand(true);
+            }
         }
     }
 
@@ -34,10 +48,15 @@ public class Breakable : MonoBehaviour
         if(myRigidBody != null && isMasterPhoton)
         {
             secondsSinceSync += Time.deltaTime;
-            if(secondsSinceSync >= secondsPerSyncEvent)
+            if(secondsSinceSync >= secondsToNextSync)
             {
                 secondsSinceSync = 0;
                 SendSyncCommand(false);
+                secondsToNextSync *= 1.5f;
+                if(secondsToNextSync > maxSecondsPerSyncEvent)
+                {
+                    secondsToNextSync = maxSecondsPerSyncEvent;
+                }
             }
         }
     }
@@ -73,6 +92,7 @@ public class Breakable : MonoBehaviour
                 else
                 {
                     applyForce(impactForce, collision.GetContact(0).point, 2);
+                    SendSyncCommand(false);
                 }
             }
         }
@@ -89,6 +109,7 @@ public class Breakable : MonoBehaviour
                 else
                 {
                     applyForce(impactForce, collision.GetContact(0).point, 2);
+                    SendSyncCommand(false);
                 }
             }
         }
@@ -104,6 +125,7 @@ public class Breakable : MonoBehaviour
         if (isMasterPhoton)
         {
             Break(force, contactPoint, forceRadius);
+            SendBreakCommand(force, contactPoint, forceRadius);
         }
     }
 
@@ -154,6 +176,7 @@ public class Breakable : MonoBehaviour
         if (isMasterPhoton)
         {
             applyForce(force, contactPoint, forceRadius);
+            SendSyncCommand(false);
         }
     }
     void applyForce(float force, Vector3 contactPoint, float forceRadius)

@@ -35,7 +35,7 @@ public class TradjectoryMapper : MonoBehaviourPunCallbacks
         lineRenderer.positionCount = noOfPoints;
         List<Vector3> points = new List<Vector3>();
         Vector3 startPos = basicCannonController.shotOrigin.position;
-        Vector3 velocity = basicCannonController.shotOrigin.forward * basicCannonController.power;
+        Vector3 velocity = basicCannonController.shotOrigin.forward * basicCannonController.shotPower;
         for (float t = 0; t < noOfPoints; t += pointInterval)
         {
             Vector3 newPoint = startPos + (t * velocity);
