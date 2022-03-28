@@ -10,12 +10,16 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     Transform shotOrigin;
     [SerializeField]
-    LayerMask layerMask;
+    LayerMask myLayerMask;
+    [SerializeField]
+    LayerMask otherLayerMask;
     [SerializeField]
     float range;
 
+    LayerMask layerMask;
+
     public bool weaponEnabled;
-    
+
     bool reloading;
     bool serverShootingFlag;
     bool sendShootingToClient;
@@ -30,13 +34,26 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         serverShootingFlag = sendShootingToClient = clientShootingFlag = false;
+        SetLayerMask();
+    }
+
+    void SetLayerMask()
+    {
+        if (photonView.IsMine)
+        {
+            layerMask = myLayerMask;
+        }
+        else
+        {
+            layerMask = otherLayerMask;
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +72,6 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     void ServerUpdate()
     {
         getInput();
-
 
         if (serverShootingFlag)
         {
@@ -109,7 +125,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
 
         RaycastHit hit;
         Vector3 dir = (targetPos - shotOrigin.transform.position).normalized;
-        if (Physics.Raycast(shotOrigin.transform.position, dir, out hit, float.MaxValue, layerMask))
+        if (Physics.Raycast(shotOrigin.transform.position, dir, out hit, range, layerMask))
         {
             if (hit.collider.gameObject.name == "Ship")
             {
@@ -149,7 +165,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     public void reload()
     {
         reloading = true;
-        Invoke("weaponStatusReady", 2);
+        Invoke(nameof(weaponStatusReady), 2);
     }
 
     void weaponStatusReady()

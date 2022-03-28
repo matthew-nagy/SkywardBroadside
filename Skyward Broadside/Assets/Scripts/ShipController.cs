@@ -81,7 +81,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     float timerDisabled;
     float totalDisabledTime;
 
-    public Color teamColour;
+    Color teamColour;
     bool colourSet = false;
 
     public List<ParticleSystem> pDriveSystem;
@@ -117,6 +117,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         turnDirection = new Vector3(0, 0, 0);
         verticalSpeed = 0;
         playerInput = new RequestedControls();
+
+        teamColour = TeamData.TeamToColour(GetComponentInParent<PlayerPhotonHub>().myTeam);
     }
 
     void Awake()

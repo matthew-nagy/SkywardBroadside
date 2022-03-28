@@ -54,13 +54,20 @@ public class CameraController : MonoBehaviourPunCallbacks
         {
             if (freeCamDisabled)
             {
-                GameObject target = PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId).gameObject;
-                Vector3 targetPos = target.transform.position;
-                Vector3 v = gameObject.transform.position - targetPos;
-                Vector3 vnorm = (gameObject.transform.position - targetPos).normalized;
-                v += (vnorm * 18f);
-                v.y += 3f;
-                lockOnCameraObj.transform.position = Vector3.Lerp(lockOnCameraObj.transform.position, targetPos + v, 0.2f);
+                if (PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId) != null) {
+                    GameObject target = PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId).gameObject;
+                    Vector3 targetPos = target.transform.position;
+                    Vector3 v = gameObject.transform.position - targetPos;
+                    Vector3 vnorm = (gameObject.transform.position - targetPos).normalized;
+                    v += (vnorm * 18f);
+                    v.y += 3f;
+                    lockOnCameraObj.transform.position = Vector3.Lerp(lockOnCameraObj.transform.position, targetPos + v, 0.2f);
+                }
+                else
+                {
+                    enableFreeCam();
+                    Debug.LogWarning("Target photonView not found. Maybe they left the game?");
+                }
             }
         }
     }

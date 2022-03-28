@@ -13,6 +13,11 @@ public struct Control
         return Input.GetKey(primaryKey) || Input.GetKey(secondaryKey);
     }
 
+    public bool IsDown()
+    {
+        return Input.GetKeyDown(primaryKey) || Input.GetKeyDown(secondaryKey);
+    }
+
     public static Control Make()
     {
         Control myControl = new Control();
