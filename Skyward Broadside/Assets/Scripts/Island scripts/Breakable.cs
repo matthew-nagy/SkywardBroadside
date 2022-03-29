@@ -128,14 +128,26 @@ public class Breakable : MonoBehaviour
             SendBreakCommand(force, contactPoint, forceRadius);
         }
     }
+    public void GamePlayBreakCommand()
+    {
+        if (isMasterPhoton)
+        {
+            Break();
+            SendBreakCommand(0f, transform.position, 1f);
+        }
+    }
 
-    void Break(float force, Vector3 contactPoint, float forceRadius)
+    void Break()
     {
         broken = true;
         gameObject.AddComponent<Rigidbody>();
         myRigidBody = GetComponent<Rigidbody>();
         myRigidBody.mass = 5;
         myRigidBody.useGravity = true;
+    }
+    void Break(float force, Vector3 contactPoint, float forceRadius)
+    {
+        Break();
 
         applyForce(force, contactPoint, forceRadius);
     }
