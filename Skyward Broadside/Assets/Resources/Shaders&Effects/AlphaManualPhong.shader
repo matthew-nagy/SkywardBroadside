@@ -5,12 +5,14 @@ Shader "Unlit/ManualPhong"
         _MainTex ("Texture", 2D) = "white" {}
         _Colour("Colour", Color) = (1, 1, 1, 1)
         _AmbientLevel("Ambient light level", Range(0,1)) = 0.3
+        _ShaderAlpha("Script alpha", Range(0,1)) = 1.0
     }
     SubShader
     {
             Blend SrcAlpha OneMinusSrcAlpha
-            Tags {"RenderType" = "Opaque" "LightMode" = "ForwardBase" }
+            Tags {"RenderType" = "Transparent" "LightMode" = "ForwardBase" }
             LOD 100
+            Cull[_Cull]
             ZWrite On
 
         Pass
