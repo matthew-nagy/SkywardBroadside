@@ -5,6 +5,8 @@ using Photon.Pun;
 
 public class HealthbarController : MonoBehaviourPun
 {
+    public LayerMask layerMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +26,23 @@ public class HealthbarController : MonoBehaviourPun
                 {
                     RaycastHit hit;
 
-                    if (Physics.Linecast(transform.position, player.transform.position, out hit))
+                    if (Physics.Linecast(start: transform.position, end: player.transform.position, hitInfo: out hit, layerMask: layerMask))
                     {
                         if (hit.collider.gameObject == player)
                         {
                             playerUIScript.SetCanvasAlpha(1f);
+
+                            TeamData.Team myTeam = GetComponent<PlayerController>().myTeam;
+                            TeamData.Team theirTeam = player.transform.GetComponent<PlayerController>().myTeam;
+
+                            if (myTeam == theirTeam)
+                            {
+                                playerUIScript.SetFriendlyHealthbar();
+                            }
+                            else
+                            {
+                                playerUIScript.SetEnemyHealthbar();
+                            }
                         }
                         else
                         {
