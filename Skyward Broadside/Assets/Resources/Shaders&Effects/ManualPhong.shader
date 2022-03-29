@@ -11,6 +11,7 @@ Shader "Unlit/ManualPhong"
             Blend SrcAlpha OneMinusSrcAlpha
             Tags {"RenderType" = "Opaque" "LightMode" = "ForwardBase" }
             LOD 100
+            Cull[_Cull]
             ZWrite On
 
         Pass

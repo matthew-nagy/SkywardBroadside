@@ -10,7 +10,7 @@ Shader "Unlit/ManualPhong"
     SubShader
     {
             Blend SrcAlpha OneMinusSrcAlpha
-            Tags {"RenderType" = "Transparent" "LightMode" = "ForwardBase" }
+            Tags {"Queue = Transparent" "RenderType" = "Transparent" "LightMode" = "ForwardBase" }
             LOD 100
             Cull[_Cull]
             ZWrite On
