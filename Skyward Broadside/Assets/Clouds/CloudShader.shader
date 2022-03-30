@@ -14,7 +14,8 @@ Shader "Unlit/CloudShader"
     }
         SubShader
         {
-            Tags {"Queue"="Geometry" "IgnoreProjector"="True" "RenderType"="Opaque"}
+            Blend SrcAlpha OneMinusSrcAlpha
+            Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
             LOD 100
 
             Pass
@@ -68,7 +69,10 @@ Shader "Unlit/CloudShader"
 
                 float4 colourPos = float4((v.colour.rgb + offset) * _Scale * _DimensionRatios, v.vertex.w);
 
-                float4 view_pos = float4(UnityObjectToViewPos(colourPos), 1.0);
+                float4 world_pos = mul(UNITY_MATRIX_M, colourPos);
+                //float4 world_pos = mul(UNITY_MATRIX_M, v.vertex);
+
+                float4 view_pos = mul(UNITY_MATRIX_V, world_pos);
 
                 float bubbleScale = _BubbleSize * noise;
                 view_pos += float4(v.uv * bubbleScale, 0.0, 0.0);
