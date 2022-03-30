@@ -11,6 +11,7 @@ public class Breakable : MonoBehaviour
     bool isMasterPhoton;
     int indexInOwner;
     BreakMaster owner;
+    public Vector3Int cascadeCoordinate;
 
     //Used to prevent Sync hell at the end of the game
     bool applicationQuit;
@@ -122,7 +123,7 @@ public class Breakable : MonoBehaviour
 
     public void GamePlayBreakCommand(float force, Vector3 contactPoint, float forceRadius)
     {
-        if (isMasterPhoton)
+        if (isMasterPhoton && !broken)
         {
             Break(force, contactPoint, forceRadius);
             SendBreakCommand(force, contactPoint, forceRadius);
@@ -145,8 +146,6 @@ public class Breakable : MonoBehaviour
         myRigidBody = GetComponent<Rigidbody>();
         myRigidBody.mass = 5;
         myRigidBody.useGravity = true;
-
-        Debug.Log("break " + this);
     }
     void Break(float force, Vector3 contactPoint, float forceRadius)
     {

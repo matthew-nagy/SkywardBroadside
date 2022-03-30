@@ -50,9 +50,10 @@ class CascadeCell
         return containedBreakables.Count;
     }
 
-    public void InformOfBreak()
+    public void InformOfBreak(Breakable b)
     {
         brokenBreakables += 1;
+        containedBreakables.Remove(b);
     }
     public bool ShouldShatter()
     {
@@ -78,6 +79,27 @@ class CascadeCell
             {
                 b.GamePlayBreakCommand();
             }
+        }
+    }
+
+    public void _Shatter(bool removeNeighbours)
+    {
+        if (removeNeighbours)
+        {
+            for (int i = 0; i < nextNeighbourIndex; i++)
+            {
+                neighbours[i].RemoveNeighbour(this);
+            }
+        }
+        Debug.Log("Removed neighbours");
+        foreach (Breakable b in containedBreakables)
+        {
+            Debug.Log("Start " + containedBreakables.Count);
+            if (b != null)//Could have been deleted
+            {
+                b.GamePlayBreakCommand();
+            }
+            Debug.Log("End " + containedBreakables.Count);
         }
     }
    
@@ -152,6 +174,10 @@ public class CascadeSystem : MonoBehaviour
 
     CascadeCell[,,] grid;
 
+    List<CascadeCell> shatterBuffer = new List<CascadeCell>();
+
+    bool init = false;
+    bool updateLock = false;
 
 
     Vector3Int GetIndexFromPosition(Vector3 position)
@@ -184,6 +210,8 @@ public class CascadeSystem : MonoBehaviour
     // Only called by the BreakMaster if this is the master photon client
     public void Init(List<Breakable> allBreakables)
     {
+        init = true;
+
         SortGuards();       //make sure the top guard has the lower of all values, the bottom has the heighest
         InitGrid();
         Instantiate(Resources.Load("DebugSphere"), topGuard.position, Quaternion.identity);
@@ -199,6 +227,7 @@ public class CascadeSystem : MonoBehaviour
         {
             Vector3Int index = GetIndexFromPosition(b.transform.localPosition);
             grid[index.z, index.y, index.x].AddBreakable(b);
+            b.cascadeCoordinate = index;
         }
         foreach (GameObject bp in buoyancyPoints)
         {
@@ -308,34 +337,78 @@ public class CascadeSystem : MonoBehaviour
 
     public void InformOfBreak(Breakable b)
     {
-        Vector3Int index = GetIndexFromPosition(b.transform.localPosition);
+        if (updateLock)
+        {
+            return;     //This was a break caused by the cascade system, no need to register it
+        }
+        Vector3Int index = b.cascadeCoordinate;
         CascadeCell cell = grid[index.z, index.y, index.x];
-        cell.InformOfBreak();
-
+        cell.InformOfBreak(b);
         if (cell.ShouldShatter())
         {
-            StartCoroutine(cell.Shatter(true));
+            shatterBuffer.Add(cell);
+        }
+    }
 
-            HashSet<CascadeCell> safeCells = new HashSet<CascadeCell>(buoyanceyCells);  //All buoyant cells are certainly safe
-            HashSet<CascadeCell> brokenCells = new HashSet<CascadeCell>();  //Empty, none are broken yet
+    void Update()
+    {
+        if(shatterBuffer.Count == 0)
+        {
+            return;
+        }
+        updateLock = true;
 
-            for(int i = 0; i < cell.GetNeighbourNumber(); i++)
+        Debug.Log("Shattering " + shatterBuffer.Count + " cells");
+
+        List<CascadeCell> neighbours = new List<CascadeCell>();
+        foreach(CascadeCell shatter in shatterBuffer)
+        {
+            Debug.Log("Start size " + shatterBuffer.Count);
+            shatter._Shatter(true);  //Remove from neighbours
+            Debug.Log("End size " + shatterBuffer.Count);
+        }
+        shatterBuffer.Clear();
+        updateLock = false;
+        return;
+        foreach(CascadeCell shattered in shatterBuffer)
+        {
+            CascadeCell[] nArray = shattered.Neighbours();  //Now they are all removed, get the real neighbours
+            for (int i = 0; i < shattered.GetNeighbourNumber(); i++)
             {
-                CascadeSearchResult result = BreakSearch(safeCells, brokenCells, cell);
-                if (result.breakCells)
-                {
-                    brokenCells.UnionWith(result.searchedCells);
-                }
-                else
-                {
-                    safeCells.UnionWith(result.searchedCells);
-                }
+                neighbours.Add(nArray[i]);
             }
+        }
 
-            foreach(CascadeCell bCell in brokenCells)   //A cell can only be broken when the search was exhaustive, so they are all certainly broken
+        if(neighbours.Count > 0)
+        {
+            CheckCascade(neighbours);
+        }
+
+        shatterBuffer.Clear();
+    }
+
+    void CheckCascade(List<CascadeCell> neighbours)
+    {
+        HashSet<CascadeCell> safeCells = new HashSet<CascadeCell>(buoyanceyCells);  //All buoyant cells are certainly safe
+        HashSet<CascadeCell> brokenCells = new HashSet<CascadeCell>();  //Empty, none are broken yet
+
+        foreach(CascadeCell neighbour in neighbours)
+        {
+            CascadeSearchResult result = BreakSearch(safeCells, brokenCells, neighbour);
+            if (result.breakCells)
             {
-                StartCoroutine(bCell.Shatter(false));
+                brokenCells.UnionWith(result.searchedCells);
             }
+            else
+            {
+                safeCells.UnionWith(result.searchedCells);
+            }
+        }
+
+        foreach(CascadeCell bCell in brokenCells)   //A cell can only be broken when the search was exhaustive, so they are all certainly broken
+        {
+            //StartCoroutine(bCell.Shatter(false));
+            bCell._Shatter(false);
         }
 
     }
@@ -361,21 +434,24 @@ public class CascadeSystem : MonoBehaviour
             return new CascadeSearchResult(openSet, true);
         }
 
+        Debug.LogWarning("Pre loop");
 
         bool searching = true;
         CascadeCell currentCell;
         while (openSet.Count > 0 && searching)
         {
-            currentCell = openList[openListIndex];
+            Debug.LogWarning("In loop");
+            currentCell = openList[openListIndex-1];
             openListIndex++;
             openSet.Remove(currentCell);
             closedSet.Add(currentCell);
 
             CascadeCell[] neighbours = currentCell.Neighbours();
             int neighbourNum = currentCell.GetNeighbourNumber();
-
+            Debug.LogWarning("Entering neighbour loop");
             for(int i = 0; i < neighbourNum; i++)
             {
+                Debug.LogWarning("in neibour loop");
                 CascadeCell cell = neighbours[i];
                 if(!openSet.Contains(cell) && !closedSet.Contains(cell))    //Ignore this cell if we have looked at it, or will look at it later
                 {
@@ -396,13 +472,12 @@ public class CascadeSystem : MonoBehaviour
                         openSet.Add(cell);
                     }
                 }
+                Debug.LogWarning("after neighbour loop");
             }
+            Debug.LogWarning("Post loop");
         }
 
-        Debug.LogError("OK, clearly we have exhausted the search somewhat. The number of traveled nodes is " + closedSet.Count + ". Broken flag: " + broken + ". the set itself is " + closedSet);
 
-        Debug.LogError("No seriously");
-        Debug.LogError("Guys there is some fguckng issuye here");
 
         return new CascadeSearchResult(closedSet, broken);
     }
