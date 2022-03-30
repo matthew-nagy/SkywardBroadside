@@ -16,6 +16,20 @@ class CascadeCell
 
     bool buoyancyPoint;
 
+    public void DebugColour()
+    {
+        Color dCol = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        foreach (Breakable b in containedBreakables)
+        {
+            Renderer r = b.GetComponent<Renderer>();
+            r.material.color = dCol;
+        }
+        if(containedBreakables.Count > 0)
+        {
+            Debug.Log("Contains breakable");
+        }
+    }
+
     public void Init()
     {
         containedBreakables = new List<Breakable>();
@@ -140,7 +154,7 @@ public class CascadeSystem : MonoBehaviour
 
     Vector3Int GetIndexFromPosition(Vector3 position)
     {
-        Vector3 normalizedPosition = position - topGuard.position;
+        Vector3 normalizedPosition = position - topGuard.localPosition;
         Vector3Int index = new Vector3Int(
             (int)(normalizedPosition.x / cellDimensions.x),
             (int)(normalizedPosition.y / cellDimensions.y),
@@ -150,33 +164,49 @@ public class CascadeSystem : MonoBehaviour
     }
 
 
+    bool IndexInvalid(Vector3Int index)
+    {
+        if(index.x < 0 || index.y < 0 || index.z < 0)
+        {
+            //Debug.LogError("Index has values less than 0");
+            return true;
+        }
+        else if(index.x >= cellResolution.x || index.y >= cellResolution.y || index.z >= cellResolution.z)
+        {
+            //Debug.LogError("Index greater than cell resolution");
+            return true;
+        }
+        return false;
+    }
 
     // Only called by the BreakMaster if this is the master photon client
-    void Init()
+    public void Init(List<Breakable> allBreakables)
     {
         SortGuards();       //make sure the top guard has the lower of all values, the bottom has the heighest
         InitGrid();
-        Breakable[] allBreakables = GetComponentsInChildren<Breakable>();
+        Instantiate(Resources.Load("DebugSphere"), topGuard.position, Quaternion.identity);
+        Instantiate(Resources.Load("DebugSphere"), bottomGuard.position, Quaternion.identity);
 
-        Vector3 dimensions = bottomGuard.position - topGuard.position;
+        Vector3 dimensions = bottomGuard.localPosition - topGuard.localPosition;
         cellDimensions = new Vector3(dimensions.x / (float)cellResolution.x, dimensions.y / (float)cellResolution.y, dimensions.z / (float)cellResolution.z);
 
         buoyanceyCells = new HashSet<CascadeCell>();
 
-        foreach(Breakable b in allBreakables)
-        {
-            Vector3Int index = GetIndexFromPosition(b.transform.position);
 
+        foreach (Breakable b in allBreakables)
+        {
+            Vector3Int index = GetIndexFromPosition(b.transform.localPosition);
             grid[index.z, index.y, index.x].AddBreakable(b);
         }
-
-        foreach(GameObject bp in buoyancyPoints)
+        foreach (GameObject bp in buoyancyPoints)
         {
-            Vector3Int index = GetIndexFromPosition(bp.transform.position);
+            Vector3Int index = GetIndexFromPosition(bp.transform.localPosition);
             CascadeCell cell = grid[index.z, index.y, index.x];
             buoyanceyCells.Add(cell);
             cell.MakeBuoyant();
         }
+
+        
 
         AddCellNeighbours();
     }
@@ -185,8 +215,8 @@ public class CascadeSystem : MonoBehaviour
 
     void SortGuards()
     {
-        Vector3 lesser = topGuard.position;
-        Vector3 greater = bottomGuard.position;
+        Vector3 lesser = topGuard.localPosition;
+        Vector3 greater = bottomGuard.localPosition;
         float temp;
         if (lesser.x > greater.x)
         {
@@ -207,8 +237,8 @@ public class CascadeSystem : MonoBehaviour
             greater.z = temp;
         }
 
-        topGuard.position = lesser;
-        bottomGuard.position = greater;
+        topGuard.localPosition = lesser;
+        bottomGuard.localPosition = greater;
     }
 
     void InitGrid()
@@ -220,7 +250,8 @@ public class CascadeSystem : MonoBehaviour
             {
                 for (int x = 0; x < cellResolution.x; x++)
                 {
-                    grid[z, y, z].Init();
+                    grid[z, y, x] = new CascadeCell();
+                    grid[z, y, x].Init();
                 }
             }
         }
@@ -235,6 +266,7 @@ public class CascadeSystem : MonoBehaviour
                 for (int x = 0; x < cellResolution.x; x++)
                 {
                     AddCellNeighbours(x, y, z);
+                    grid[z, y, x].DebugColour();
                 }
             }
         }

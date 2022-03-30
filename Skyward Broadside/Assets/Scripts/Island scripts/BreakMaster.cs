@@ -90,6 +90,8 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     EventQueue? preInstaniateEventHolder = null;
     bool init = false;
 
+    CascadeSystem cascader;
+
 
     public bool IsInLocatioOf(Transform t)
     {
@@ -103,8 +105,22 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     //Called by BreakablePhotonInterface once its done
-    public void TriggerFinalSetup()
+    public void TriggerFinalSetup(CascadeSystem attatchedCascade)
     {
+        if (attatchedCascade != null)
+        {
+            if (IsPhotonMaster())
+            {
+                cascader = attatchedCascade;
+                cascader.Init(children);
+            }
+            else
+            {
+                //Won't be needed
+                Destroy(cascader);
+            }
+        }
+
         if(preInstaniateEventHolder.HasValue)
         {
             foreach(BreakEvent b in preInstaniateEventHolder.Value.breakEvents)

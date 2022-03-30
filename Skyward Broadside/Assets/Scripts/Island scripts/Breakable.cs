@@ -139,6 +139,7 @@ public class Breakable : MonoBehaviour
 
     void Break()
     {
+        transform.localScale = transform.localScale * 0.8f;
         broken = true;
         gameObject.AddComponent<Rigidbody>();
         myRigidBody = GetComponent<Rigidbody>();

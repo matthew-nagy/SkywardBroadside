@@ -40,6 +40,7 @@ public class BreakablePhotonInterface : MonoBehaviour
         {
             child.RegisterOwner(owner);
         }
-        owner.TriggerFinalSetup();
+        CascadeSystem attatchedSystem = GetComponent<CascadeSystem>();
+        owner.TriggerFinalSetup(attatchedSystem);
     }
 }
