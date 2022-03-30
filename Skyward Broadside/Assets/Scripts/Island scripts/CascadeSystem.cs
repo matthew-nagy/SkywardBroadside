@@ -24,10 +24,6 @@ class CascadeCell
             Renderer r = b.GetComponent<Renderer>();
             r.material.color = dCol;
         }
-        if(containedBreakables.Count > 0)
-        {
-            Debug.Log("Contains breakable");
-        }
     }
 
     public void Init()
@@ -128,10 +124,16 @@ class CascadeCell
     }
 }
 
-struct CascadeSearchInfo
+class CascadeSearchResult
 {
-    HashSet<Vector3Int> safeIndices;
-    HashSet<Vector3Int> brokenIndices;
+    public HashSet<CascadeCell> searchedCells { get; }
+    public bool breakCells { get; }
+
+    public CascadeSearchResult(HashSet<CascadeCell> cells, bool shouldBreak)
+    {
+        searchedCells = cells;
+        breakCells = shouldBreak;
+    }
 }
 
 public class CascadeSystem : MonoBehaviour
@@ -306,7 +308,7 @@ public class CascadeSystem : MonoBehaviour
 
     public void InformOfBreak(Breakable b)
     {
-        Vector3Int index = GetIndexFromPosition(b.transform.position);
+        Vector3Int index = GetIndexFromPosition(b.transform.localPosition);
         CascadeCell cell = grid[index.z, index.y, index.x];
         cell.InformOfBreak();
 
@@ -319,14 +321,14 @@ public class CascadeSystem : MonoBehaviour
 
             for(int i = 0; i < cell.GetNeighbourNumber(); i++)
             {
-                System.Tuple<HashSet<CascadeCell>, bool> result = BreakSearch(safeCells, brokenCells, cell);
-                if (result.Item2)
+                CascadeSearchResult result = BreakSearch(safeCells, brokenCells, cell);
+                if (result.breakCells)
                 {
-                    brokenCells.UnionWith(result.Item1);
+                    brokenCells.UnionWith(result.searchedCells);
                 }
                 else
                 {
-                    safeCells.UnionWith(result.Item1);
+                    safeCells.UnionWith(result.searchedCells);
                 }
             }
 
@@ -339,7 +341,7 @@ public class CascadeSystem : MonoBehaviour
     }
 
 
-    System.Tuple<HashSet<CascadeCell>, bool> BreakSearch(HashSet<CascadeCell> safeCells, HashSet<CascadeCell> brokenCells, CascadeCell startCell)
+    CascadeSearchResult BreakSearch(HashSet<CascadeCell> safeCells, HashSet<CascadeCell> brokenCells, CascadeCell startCell)
     {
         HashSet<CascadeCell> closedSet = new HashSet<CascadeCell>();
         HashSet<CascadeCell> openSet = new HashSet<CascadeCell>();
@@ -352,11 +354,11 @@ public class CascadeSystem : MonoBehaviour
         openListIndex += 1;
         if (safeCells.Contains(startCell))   //Finish now, because we know we are safe
         {
-            return System.Tuple.Create(openSet, false);
+            return new CascadeSearchResult(openSet, false);
         }
         else if (brokenCells.Contains(startCell))    //Finish now because we know we are not safe
         {
-            return System.Tuple.Create(openSet, true);
+            return new CascadeSearchResult(openSet, true);
         }
 
 
@@ -397,7 +399,11 @@ public class CascadeSystem : MonoBehaviour
             }
         }
 
+        Debug.LogError("OK, clearly we have exhausted the search somewhat. The number of traveled nodes is " + closedSet.Count + ". Broken flag: " + broken + ". the set itself is " + closedSet);
 
-        return System.Tuple.Create<HashSet<CascadeCell>, bool>(closedSet, broken);
+        Debug.LogError("No seriously");
+        Debug.LogError("Guys there is some fguckng issuye here");
+
+        return new CascadeSearchResult(closedSet, broken);
     }
 }

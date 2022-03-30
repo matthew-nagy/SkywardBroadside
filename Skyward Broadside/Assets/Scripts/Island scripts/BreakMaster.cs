@@ -148,6 +148,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     public void RegisterBreakEvent(BreakEvent e)
     {
         events.breakEvents.Add(e);
+        cascader.InformOfBreak(children[e.indexInOwner]);
     }
 
     // Start is called before the first frame update
