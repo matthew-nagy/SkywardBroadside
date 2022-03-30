@@ -367,9 +367,7 @@ public class CascadeSystem : MonoBehaviour
             shatter._Shatter(true);  //Remove from neighbours
             Debug.Log("End size " + shatterBuffer.Count);
         }
-        shatterBuffer.Clear();
-        updateLock = false;
-        return;
+
         foreach(CascadeCell shattered in shatterBuffer)
         {
             CascadeCell[] nArray = shattered.Neighbours();  //Now they are all removed, get the real neighbours
@@ -379,7 +377,11 @@ public class CascadeSystem : MonoBehaviour
             }
         }
 
-        if(neighbours.Count > 0)
+        shatterBuffer.Clear();
+        updateLock = false;
+        return;
+
+        if (neighbours.Count > 0)
         {
             CheckCascade(neighbours);
         }
