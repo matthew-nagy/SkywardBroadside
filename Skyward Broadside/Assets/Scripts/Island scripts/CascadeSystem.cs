@@ -18,7 +18,7 @@ class CascadeCell
 
     public void DebugColour()
     {
-        Color dCol = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        Color dCol = new Color(0f, 0f, 1f);
         foreach (Breakable b in containedBreakables)
         {
             Renderer r = b.GetComponent<Renderer>();
@@ -91,15 +91,12 @@ class CascadeCell
                 neighbours[i].RemoveNeighbour(this);
             }
         }
-        Debug.Log("Removed neighbours");
         foreach (Breakable b in containedBreakables)
         {
-            Debug.Log("Start " + containedBreakables.Count);
             if (b != null)//Could have been deleted
             {
                 b.GamePlayBreakCommand();
             }
-            Debug.Log("End " + containedBreakables.Count);
         }
     }
    
@@ -214,8 +211,8 @@ public class CascadeSystem : MonoBehaviour
 
         SortGuards();       //make sure the top guard has the lower of all values, the bottom has the heighest
         InitGrid();
-        Instantiate(Resources.Load("DebugSphere"), topGuard.position, Quaternion.identity);
-        Instantiate(Resources.Load("DebugSphere"), bottomGuard.position, Quaternion.identity);
+        //Instantiate(Resources.Load("DebugSphere"), topGuard.position, Quaternion.identity);
+        //Instantiate(Resources.Load("DebugSphere"), bottomGuard.position, Quaternion.identity);
 
         Vector3 dimensions = bottomGuard.localPosition - topGuard.localPosition;
         cellDimensions = new Vector3(dimensions.x / (float)cellResolution.x, dimensions.y / (float)cellResolution.y, dimensions.z / (float)cellResolution.z);
@@ -235,6 +232,7 @@ public class CascadeSystem : MonoBehaviour
             CascadeCell cell = grid[index.z, index.y, index.x];
             buoyanceyCells.Add(cell);
             cell.MakeBuoyant();
+            cell.DebugColour();
         }
 
         
@@ -297,7 +295,6 @@ public class CascadeSystem : MonoBehaviour
                 for (int x = 0; x < cellResolution.x; x++)
                 {
                     AddCellNeighbours(x, y, z);
-                    grid[z, y, x].DebugColour();
                 }
             }
         }
@@ -358,14 +355,11 @@ public class CascadeSystem : MonoBehaviour
         }
         updateLock = true;
 
-        Debug.Log("Shattering " + shatterBuffer.Count + " cells");
 
         List<CascadeCell> neighbours = new List<CascadeCell>();
         foreach(CascadeCell shatter in shatterBuffer)
         {
-            Debug.Log("Start size " + shatterBuffer.Count);
             shatter._Shatter(true);  //Remove from neighbours
-            Debug.Log("End size " + shatterBuffer.Count);
         }
 
         foreach(CascadeCell shattered in shatterBuffer)
@@ -377,9 +371,6 @@ public class CascadeSystem : MonoBehaviour
             }
         }
 
-        shatterBuffer.Clear();
-        updateLock = false;
-        return;
 
         if (neighbours.Count > 0)
         {
@@ -387,6 +378,7 @@ public class CascadeSystem : MonoBehaviour
         }
 
         shatterBuffer.Clear();
+        updateLock = false;
     }
 
     void CheckCascade(List<CascadeCell> neighbours)
@@ -436,13 +428,11 @@ public class CascadeSystem : MonoBehaviour
             return new CascadeSearchResult(openSet, true);
         }
 
-        Debug.LogWarning("Pre loop");
 
         bool searching = true;
         CascadeCell currentCell;
         while (openSet.Count > 0 && searching)
         {
-            Debug.LogWarning("In loop");
             currentCell = openList[openListIndex-1];
             openListIndex++;
             openSet.Remove(currentCell);
@@ -450,10 +440,8 @@ public class CascadeSystem : MonoBehaviour
 
             CascadeCell[] neighbours = currentCell.Neighbours();
             int neighbourNum = currentCell.GetNeighbourNumber();
-            Debug.LogWarning("Entering neighbour loop");
             for(int i = 0; i < neighbourNum; i++)
             {
-                Debug.LogWarning("in neibour loop");
                 CascadeCell cell = neighbours[i];
                 if(!openSet.Contains(cell) && !closedSet.Contains(cell))    //Ignore this cell if we have looked at it, or will look at it later
                 {
@@ -474,13 +462,13 @@ public class CascadeSystem : MonoBehaviour
                         openSet.Add(cell);
                     }
                 }
-                Debug.LogWarning("after neighbour loop");
             }
-            Debug.LogWarning("Post loop");
         }
 
-
-
+        if(openSet.Count == 0 && searching)
+        {
+            broken = true;
+        }
         return new CascadeSearchResult(closedSet, broken);
     }
 }

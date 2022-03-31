@@ -131,7 +131,7 @@ public class Breakable : MonoBehaviour
     }
     public void GamePlayBreakCommand()
     {
-        if (isMasterPhoton)
+        if (isMasterPhoton && !broken)
         {
             Break();
             SendBreakCommand(0f, transform.position, 1f);
