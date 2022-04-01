@@ -13,6 +13,9 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]
     private Text playerNameText;
 
+    [Tooltip("Image of skull, shown on enemy players")]
+    [SerializeField]
+    private RawImage skullImage;
 
     [Tooltip("UI Slider to display Player's Health")]
     [SerializeField]
@@ -141,6 +144,18 @@ public class PlayerUI : MonoBehaviour
     public void SetCanvasAlpha(float alpha)
     {
         this._canvasGroup.alpha = alpha;
+    }
+
+    public void SetEnemyHealthbar()
+    {
+        skullImage.gameObject.SetActive(true);
+        playerNameText.color = Color.red;
+    }
+
+    public void SetFriendlyHealthbar()
+    {
+        skullImage.gameObject.SetActive(false);
+        playerNameText.color = Color.black;
     }
     #endregion
 }
