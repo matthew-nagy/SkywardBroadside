@@ -394,7 +394,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (playerInput.up)
         {
             verticalSpeed += verticalAcceleration;
-            Debug.Log("Shit me sideways");
         }
         else if (playerInput.down)
         {
