@@ -90,8 +90,60 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     EventQueue? preInstaniateEventHolder = null;
     bool init = false;
 
+    GameObject primeRenderer;
+
     CascadeSystem cascader;
 
+    void SetupPrimeRenderer()
+    {
+        primeRenderer = new GameObject();
+        List<Vector3> vertices = new List<Vector3>();
+        List<Vector3> normals = new List<Vector3>();
+        List<int> tris = new List<int>();
+        foreach(Breakable b in children)
+        {
+            b.GetComponent<Renderer>().enabled = false;
+            Mesh bMesh = b.GetComponent<MeshFilter>().sharedMesh;
+            int additionIndex = vertices.Count;
+            foreach(Vector3 vert in bMesh.vertices)
+            {
+                vertices.Add(b.transform.TransformPoint(vert));
+            }
+            foreach(Vector3 norm in bMesh.normals)
+            {
+                normals.Add(b.transform.rotation * norm);
+            }
+            foreach (int i in bMesh.triangles)
+            {
+                tris.Add(i + additionIndex);
+            }
+        }
+
+        Vector3[] finalVertices = new Vector3[vertices.Count];
+        Vector3[] finalNormals = new Vector3[normals.Count];
+        int[] finalTris = new int[tris.Count];
+
+        vertices.CopyTo(finalVertices);
+        normals.CopyTo(finalNormals);
+        tris.CopyTo(finalTris);
+
+        Mesh myMesh = new Mesh();
+        myMesh.vertices = finalVertices;
+        myMesh.triangles = finalTris;
+        myMesh.normals = finalNormals;
+
+
+        MeshRenderer mr = primeRenderer.AddComponent<MeshRenderer>();
+        MeshFilter mf = primeRenderer.AddComponent<MeshFilter>();
+
+        mf.sharedMesh = myMesh;
+        mr.material = children[0].GetComponent<Renderer>().material;
+        mr.enabled = true;
+
+        //primeRenderer.transform.position = transform.position;
+        //primeRenderer.transform.localScale = transform.localScale;
+        //primeRenderer.transform.rotation = transform.rotation;
+    }
 
     public bool IsInLocatioOf(Transform t)
     {
@@ -134,6 +186,8 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
 
             preInstaniateEventHolder = null;
         }
+
+        //SetupPrimeRenderer();
     }
 
     public bool IsPhotonMaster()
