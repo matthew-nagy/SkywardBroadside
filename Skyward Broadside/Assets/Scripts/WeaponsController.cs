@@ -47,31 +47,43 @@ public class WeaponsController : MonoBehaviour
         switch (currentWeaponId)
         {
             case 0:
-                disableExplosiveCannons();
-                disableGatlingGun();
+                DisableExplosiveCannons();
+                DisableGatlingGun();
                 DisableShockwaveCannons();
-                enableCannons();
+                DisableHomingCannons();
+                EnableCannons();
                 break;
 
             case 1:
-                disableCannons();
-                disableGatlingGun();
+                DisableCannons();
+                DisableGatlingGun();
                 DisableShockwaveCannons();
-                enableExplosiveCannons();
+                DisableHomingCannons();
+                EnableExplosiveCannons();
                 break;
 
             case 2:
-                disableCannons();
-                disableExplosiveCannons();
+                DisableCannons();
+                DisableExplosiveCannons();
                 DisableShockwaveCannons();
-                enableGatlingGun();
+                DisableHomingCannons();
+                EnableGatlingGun();
                 break;
 
             case 3:
-                disableCannons();
-                disableExplosiveCannons();
-                disableGatlingGun();
+                DisableCannons();
+                DisableExplosiveCannons();
+                DisableGatlingGun();
+                DisableHomingCannons();
                 EnableShockwaveCannons();
+                break;
+
+            case 4:
+                DisableCannons();
+                DisableExplosiveCannons();
+                DisableGatlingGun();
+                DisableShockwaveCannons();
+                EnableHomingCannons();
                 break;
 
             default:
@@ -105,7 +117,7 @@ public class WeaponsController : MonoBehaviour
         currentWeaponId = weaponId;
     }
 
-    void enableCannons()
+    void EnableCannons()
     {
         int ammoCount = GetComponent<ShipArsenal>().cannonballAmmo;
         int noOfEnabledCannons = 0;
@@ -171,7 +183,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
-    void disableCannons()
+    void DisableCannons()
     {
         foreach (GameObject cannon in cannons)
         {
@@ -187,7 +199,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
-    void enableExplosiveCannons()
+    void EnableExplosiveCannons()
     {
         int ammoCount = GetComponent<ShipArsenal>().explosiveCannonballAmmo;
         int noOfEnabledCannons = 0;
@@ -253,7 +265,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
-    void disableExplosiveCannons()
+    void DisableExplosiveCannons()
     {
         foreach (GameObject cannon in cannons)
         {
@@ -269,7 +281,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
-    void enableGatlingGun()
+    void EnableGatlingGun()
     {
         if (gatlingGun != null)
         {
@@ -281,7 +293,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
-    void disableGatlingGun()
+    void DisableGatlingGun()
     {
         if (gatlingGun != null)
         {
@@ -367,6 +379,52 @@ public class WeaponsController : MonoBehaviour
             {
                 cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
                 cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+            }
+            else
+            {
+                Debug.LogWarning("Could not find cannon object");
+            }
+        }
+    }
+
+    void EnableHomingCannons()
+    {
+        int ammoCount = GetComponent<ShipArsenal>().homingAmmo;
+        int noOfEnabledCannons = 0;
+
+        foreach (GameObject cannon in cannons)
+        {
+            if (cannon != null)
+            {
+                if (switchedWeapon)
+                {
+                    cannon.GetComponent<HomingCannonController>().Reload();
+                }
+
+                if (noOfEnabledCannons < ammoCount)
+                {
+                    cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
+                    noOfEnabledCannons++;
+                }
+                else
+                {
+                    cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Could not find cannon object");
+            }
+        }
+    }
+
+    void DisableHomingCannons()
+    {
+        foreach (GameObject cannon in cannons)
+        {
+            if (cannon != null)
+            {
+                cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
             }
             else
             {

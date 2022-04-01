@@ -16,13 +16,16 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
 
     public int shockwaveAmmo;
     public int maxShockwaveAmmo;
-    
+
+    public int homingAmmo;
+    public int maxHomingAmmo;
+
 
     //Dictionary containing all weapons by Id and whether they are equipped on the ship or not
     //in future some script on the ship controller would equip certain weapons depending on the ship type?
     //for now we just equip all the weapons on start
-    // 0 = regular cannon, 1 = explosive cannons, 2 = gatling gun, 3 = shockwave cannons
-    public Dictionary<int, bool> weapons = new Dictionary<int, bool> { { 0, false }, { 1, false }, { 2, false }, { 3, false } };
+    // 0 = regular cannon, 1 = explosive cannons, 2 = gatling gun, 3 = shockwave cannons, 4 = homing projectiles
+    public Dictionary<int, bool> weapons = new Dictionary<int, bool> { { 0, false }, { 1, false }, { 2, false }, { 3, false }, { 4, false } };
 
     private readonly float regenFactorOfMaxHealth = 0.05f;
     private readonly int regenOfCannonballsPerReloadPeriod = 3;
@@ -30,18 +33,15 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
 
     private void Start()
     {
-        enableWeapon(0);
-        enableWeapon(3);
-        enableWeapon(2);
+        EnableWeapon(0);
+        EnableWeapon(3);
+        EnableWeapon(4);
         GetComponent<WeaponsController>().equipWeapons();
 
-        cannonballAmmo = maxCannonballAmmo;
-        explosiveCannonballAmmo = maxExplosiveCannonballAmmo;
-        shockwaveAmmo = maxShockwaveAmmo;
-        health = maxHealth;
+        Respawn();
     }
 
-    void enableWeapon(int weaponId)
+    void EnableWeapon(int weaponId)
     {
         weapons[weaponId] = true;
     }
@@ -81,6 +81,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         cannonballAmmo = maxCannonballAmmo;
         explosiveCannonballAmmo = maxExplosiveCannonballAmmo;
         shockwaveAmmo = maxShockwaveAmmo;
+        homingAmmo = maxHomingAmmo;
         health = maxHealth;
     }
 

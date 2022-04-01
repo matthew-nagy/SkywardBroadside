@@ -65,6 +65,10 @@ public class GuiUpdateScript : MonoBehaviour
                 weapon.text = "Shockwave cannons";
                 break;
 
+            case 4:
+                weapon.text = "Homing projectiles";
+                break;
+
             default:
                 Debug.LogError("Invalid weapon Id");
                 break;

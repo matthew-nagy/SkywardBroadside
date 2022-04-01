@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4841946483893879387}
   - component: {fileID: 5391284503562159644}
+  - component: {fileID: 382993220287499238}
   m_Layer: 0
   m_Name: LockOnCam
   m_TagString: Untagged
@@ -67,6 +68,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 8241648110254754812}
+--- !u!114 &382993220287499238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4664997638776018354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aabdcaec49743c419bde1b98747f7f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventMap: []
+  cinemachineFreeCamera: {fileID: 0}
+  cinemachineVirtualCamera: {fileID: 5391284503562159644}
+  freeCam: 0
 --- !u!1 &5071122862865341805
 GameObject:
   m_ObjectHideFlags: 0

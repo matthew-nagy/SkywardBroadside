@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5151696107110722967}
   - component: {fileID: 8728980755338549549}
   - component: {fileID: 5308482437410043832}
+  - component: {fileID: 4430608411839252180}
   m_Layer: 9
   m_Name: Cannon5
   m_TagString: Untagged
@@ -154,6 +155,22 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 6007681473232422226}
   lockedOn: 0
+--- !u!114 &4430608411839252180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448227682427637359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 5819b92b21ca78841bd912b836a62a9d, type: 3}
+  shotOrigin: {fileID: 6007681473232422226}
 --- !u!1 &764234668587890407
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +186,7 @@ GameObject:
   - component: {fileID: 2744860487748048708}
   - component: {fileID: 5964500361226504954}
   - component: {fileID: 4020988627855185411}
+  - component: {fileID: 5605404940560157739}
   m_Layer: 9
   m_Name: Cannon4
   m_TagString: Untagged
@@ -308,6 +326,22 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 2220225434652216828}
   lockedOn: 0
+--- !u!114 &5605404940560157739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764234668587890407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 5819b92b21ca78841bd912b836a62a9d, type: 3}
+  shotOrigin: {fileID: 2220225434652216828}
 --- !u!1 &789255558999481594
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,6 +357,7 @@ GameObject:
   - component: {fileID: 7728106693520202950}
   - component: {fileID: 6674626876740342834}
   - component: {fileID: 5087509654199152}
+  - component: {fileID: 6423432036866713954}
   m_Layer: 9
   m_Name: Cannon3
   m_TagString: Untagged
@@ -462,6 +497,22 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 6604459262782208156}
   lockedOn: 0
+--- !u!114 &6423432036866713954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789255558999481594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 5819b92b21ca78841bd912b836a62a9d, type: 3}
+  shotOrigin: {fileID: 6604459262782208156}
 --- !u!1 &1997724285872539645
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +528,7 @@ GameObject:
   - component: {fileID: 1173904337959220880}
   - component: {fileID: 6251764889633879219}
   - component: {fileID: 7419267649191975885}
+  - component: {fileID: 5831338790269268505}
   m_Layer: 9
   m_Name: Cannon6
   m_TagString: Untagged
@@ -616,6 +668,22 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 168959825662133675}
   lockedOn: 0
+--- !u!114 &5831338790269268505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997724285872539645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 5819b92b21ca78841bd912b836a62a9d, type: 3}
+  shotOrigin: {fileID: 168959825662133675}
 --- !u!1 &3150799274874383382
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,6 +984,7 @@ GameObject:
   - component: {fileID: 8742184167560547195}
   - component: {fileID: 6600810828527236404}
   - component: {fileID: 699397321995087287}
+  - component: {fileID: 1842428596454904674}
   m_Layer: 9
   m_Name: Cannon1
   m_TagString: Untagged
@@ -1055,6 +1124,22 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 5069262259036917024}
   lockedOn: 0
+--- !u!114 &1842428596454904674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4644661021023321349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 5819b92b21ca78841bd912b836a62a9d, type: 3}
+  shotOrigin: {fileID: 5069262259036917024}
 --- !u!1 &4751557237352216734
 GameObject:
   m_ObjectHideFlags: 0
@@ -6028,6 +6113,7 @@ Transform:
   - {fileID: 8591187859432578710}
   - {fileID: 939311637176866348}
   - {fileID: 5405459639658026757}
+  - {fileID: 3395321811667793074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6091,6 +6177,8 @@ MonoBehaviour:
   pAntiClockwiseJets: []
   pShootUpJet: []
   pShootDownJet: []
+  freeCameraObject: {fileID: 0}
+  lockOnCameraObject: {fileID: 0}
 --- !u!114 &3677656253428083502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6125,6 +6213,8 @@ MonoBehaviour:
   maxExplosiveCannonballAmmo: 9
   shockwaveAmmo: 0
   maxShockwaveAmmo: 900
+  homingAmmo: 0
+  maxHomingAmmo: 900
 --- !u!114 &2067313920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6139,6 +6229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipCam: {fileID: 7167950620029611010, guid: 1f12a0732c013bc40b99005a4ea3be40, type: 3}
   lockOnCam: {fileID: 4664997638776018354, guid: b0e49f037ca7f5d47b29bdb723860b77, type: 3}
+  minimapCam: {fileID: 8667911045798311358, guid: d2304ca0eeeccf347861ad189f2ae662, type: 3}
   toonProfile: {fileID: 11400000, guid: e1411cb9cfaccce43908e2c288f45174, type: 2}
   cameraObj: {fileID: 0}
 --- !u!114 &2067313921
@@ -6191,21 +6282,27 @@ MonoBehaviour:
   - {fileID: 8742184167560547195}
   - {fileID: 6600810828527236404}
   - {fileID: 699397321995087287}
+  - {fileID: 1842428596454904674}
   - {fileID: 7694551955800727932}
   - {fileID: 7803696677569022096}
   - {fileID: 5758892041200738633}
+  - {fileID: 5603466093748828720}
   - {fileID: 7728106693520202950}
   - {fileID: 6674626876740342834}
   - {fileID: 5087509654199152}
+  - {fileID: 6423432036866713954}
   - {fileID: 2744860487748048708}
   - {fileID: 5964500361226504954}
   - {fileID: 4020988627855185411}
+  - {fileID: 5605404940560157739}
   - {fileID: 5151696107110722967}
   - {fileID: 8728980755338549549}
   - {fileID: 5308482437410043832}
+  - {fileID: 4430608411839252180}
   - {fileID: 1173904337959220880}
   - {fileID: 6251764889633879219}
   - {fileID: 7419267649191975885}
+  - {fileID: 5831338790269268505}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -6464,6 +6561,103 @@ MonoBehaviour:
     m_Bits: 2117
   range: 1000
   weaponEnabled: 0
+--- !u!1 &7866312335314047881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3395321811667793074}
+  - component: {fileID: 2134099527719135470}
+  - component: {fileID: 42711272951398154}
+  m_Layer: 13
+  m_Name: MinimapIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3395321811667793074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7866312335314047881}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5904769780344471705}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!212 &2134099527719135470
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7866312335314047881}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.2, y: 0.2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &42711272951398154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7866312335314047881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2edd17c2ea938d549bd9b70c8f4e57c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  purpleIcon: {fileID: 21300000, guid: 652a7f254fb3ecd45be2c25407c4adc3, type: 3}
+  yellowIcon: {fileID: 21300000, guid: d9fca492ab7a53546a2b9454e07a8886, type: 3}
 --- !u!1 &7972539550574814279
 GameObject:
   m_ObjectHideFlags: 0
@@ -6509,6 +6703,7 @@ GameObject:
   - component: {fileID: 7694551955800727932}
   - component: {fileID: 7803696677569022096}
   - component: {fileID: 5758892041200738633}
+  - component: {fileID: 5603466093748828720}
   m_Layer: 9
   m_Name: Cannon2
   m_TagString: Untagged
@@ -6648,6 +6843,22 @@ MonoBehaviour:
   projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
   shotOrigin: {fileID: 7373199804155845590}
   lockedOn: 0
+--- !u!114 &5603466093748828720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7977531083847440028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponEnabled: 0
+  reloadTime: 2
+  projectile: {fileID: 3799885530754182095, guid: 5819b92b21ca78841bd912b836a62a9d, type: 3}
+  shotOrigin: {fileID: 7373199804155845590}
 --- !u!1 &8248026052378480356
 GameObject:
   m_ObjectHideFlags: 0

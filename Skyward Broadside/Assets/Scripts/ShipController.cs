@@ -90,20 +90,17 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public List<ParticleSystem> pShootUpJet;
     public List<ParticleSystem> pShootDownJet;
 
-    GameObject cameraObject;
+    public GameObject freeCameraObject;
+    public GameObject lockOnCameraObject;
 
     private readonly float forceToDamageMultiplier = 0.1f;
-
-    public void SetCameraObject(GameObject cam)
-    {
-        cameraObject = cam;
-    }
 
     public void InformOfFire()
     {
         if (photonView.IsMine)
         {
-            cameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
+            freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
+            lockOnCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
         }
     }
 
@@ -206,7 +203,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         print(collision.gameObject.name);
         if (photonView.IsMine)
         {
-            cameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
+            freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
+            freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
         }
         //Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
         if (!photonView.IsMine)
