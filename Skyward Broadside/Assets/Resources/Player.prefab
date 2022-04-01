@@ -58,6 +58,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9096857088395882344}
     m_Modifications:
+    - target: {fileID: 3110479174326054747, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: maxTargetDistance
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4481376908699460963, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 579
+      objectReference: {fileID: 0}
     - target: {fileID: 5904769780344471704, guid: c778be60368e1b044893483baf4bf3ae, type: 3}
       propertyPath: m_Name
       value: Ship

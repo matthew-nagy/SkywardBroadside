@@ -73,10 +73,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     Vector3 turnDirection;
     float acceleration = 1f;
     float deceleration = 1f;
-    float verticalAcceleration = 0.3f;
-    float verticalDeceleration = 0.3f;
+    float verticalAcceleration = 4f;
+    float verticalDeceleration = 4f;
     float verticalSpeed;
-    float maxVerticalSpeed = 1.5f;
+    float maxVerticalSpeed = 8f;
     bool isDisabled;
     float timerDisabled;
     float totalDisabledTime;
@@ -391,23 +391,33 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (playerInput.up)
         {
-            verticalSpeed += verticalAcceleration;
+            if (verticalSpeed <= maxVerticalSpeed)
+            {
+                verticalSpeed += verticalAcceleration * Time.deltaTime;
+
+            }
             Debug.Log("Shit me sideways");
+
         }
         else if (playerInput.down)
         {
-            verticalSpeed -= verticalAcceleration;
+            if (verticalSpeed >= -maxVerticalSpeed)
+            {
+                verticalSpeed -= verticalAcceleration * Time.deltaTime;
+
+            }
+
         }
         else
         {
             if (verticalSpeed < 0f)
             {
-                verticalSpeed += verticalDeceleration;
+                verticalSpeed += verticalDeceleration * Time.deltaTime;
                 Mathf.Clamp(verticalSpeed, -maxVerticalSpeed, 0f);
             }
             else if (verticalSpeed > 0f)
             {
-                verticalSpeed -= verticalDeceleration;
+                verticalSpeed -= verticalDeceleration * Time.deltaTime;
                 Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
             }
         }
