@@ -9,13 +9,16 @@ public class CameraController : MonoBehaviourPunCallbacks
 {
     public GameObject shipCam;
     public GameObject lockOnCam;
+    public GameObject minimapCam;
     public PostProcessProfile toonProfile;
     GameObject thisCam;
     GameObject thisLockOnCam;
+    GameObject thisMinimapCam;
     //Used in the weapons controller to figure out what cannons to enable
     [Tooltip("DON'T HECCIN TOUCH THIS")]
     public CinemachineFreeLook cameraObj;
     CinemachineVirtualCamera lockOnCameraObj;
+    CinemachineVirtualCamera minimapCameraObj;
 
     bool freeCamDisabled;
 
@@ -32,13 +35,20 @@ public class CameraController : MonoBehaviourPunCallbacks
             cameraObj.m_LookAt = transform;
             cameraObj.Priority = 1;
             gameObject.GetComponent<TargetingSystem>().myCam = cameraObj;
-            gameObject.GetComponent<ShipController>().SetCameraObject(cameraObj.gameObject);
+            gameObject.GetComponent<ShipController>().freeCameraObject = cameraObj.gameObject;
 
             thisLockOnCam = Instantiate(lockOnCam);
             lockOnCameraObj = thisLockOnCam.GetComponent<CinemachineVirtualCamera>();
             lockOnCameraObj.m_Follow = transform;
             lockOnCameraObj.m_LookAt = transform;
             lockOnCameraObj.Priority = 0;
+            gameObject.GetComponent<ShipController>().lockOnCameraObject = lockOnCameraObj.gameObject;
+
+            thisMinimapCam = Instantiate(minimapCam);
+            minimapCameraObj = thisMinimapCam.GetComponent<CinemachineVirtualCamera>();
+            minimapCameraObj.Follow = transform;
+            minimapCameraObj.LookAt = transform;
+            minimapCameraObj.Priority = -1;
         }
     }
 

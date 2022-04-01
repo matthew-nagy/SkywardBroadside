@@ -28,7 +28,9 @@ public class CameraShaker : MonoBehaviour
     public List<EventToShakeMapper> eventMap;
     //Made from the eventMap on startup
     Dictionary<CameraShakeEvent, ShakeProfile> shakeTypes;
-    public CinemachineFreeLook cinemachineCamera;
+    public CinemachineFreeLook cinemachineFreeCamera;
+    public CinemachineVirtualCamera cinemachineVirtualCamera;
+    public bool freeCam;
 
     public void Start()
     {
@@ -41,7 +43,7 @@ public class CameraShaker : MonoBehaviour
 
     public void DoShakeEvent(CameraShakeEvent incommingEvent)
     {
-        //StartCoroutine("Shake", incommingEvent);
+        //StartCoroutine(nameof(Shake), incommingEvent);
     }
 
     public IEnumerator Shake(CameraShakeEvent incommingEvent)
@@ -56,8 +58,21 @@ public class CameraShaker : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            cinemachineCamera.GetRig(i).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = amplitude;
-            cinemachineCamera.GetRig(i).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = frequency;
+            if (freeCam)
+            {
+                Debug.LogError(cinemachineFreeCamera.gameObject.name);
+                cinemachineFreeCamera.GetRig(i).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = amplitude;
+                cinemachineFreeCamera.GetRig(i).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = frequency;
+            }
+            else if (!freeCam)
+            {
+                cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = amplitude;
+                cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = frequency;
+            }
+            else
+            {
+                Debug.LogError("No valid camera to shake");
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -52,7 +52,7 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
 
     void ServerUpdate()
     {
-        getInput();
+        GetInput();
 
         //set current target Id if we are lockedOn
         if (lockedOn)
@@ -67,8 +67,8 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         if (serverShootFlag)
         {
             serverShootFlag = false;
-            fire();
-            getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
+            Fire();
+            getShipTransform().GetComponent<ShipArsenal>().shockwaveAmmo--;
             reload();
         }
     }
@@ -78,20 +78,19 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         if (clientShootFlag)
         {
             clientShootFlag = false;
-            fire();
-            getShipTransform().GetComponent<ShipArsenal>().explosiveCannonballAmmo--;
+            Fire();
+            getShipTransform().GetComponent<ShipArsenal>().shockwaveAmmo--;
             reload();
         }
     }
 
-    void getInput()
+    void GetInput()
     {
         if (weaponEnabled)
         {
             //attempt to fire the cannon
             if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag)
             {
-                //need to check ammo level first
                 serverShootFlag = sendShootToClient = true;
             }
         }
@@ -111,7 +110,7 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
     }
 
     //fire the cannon
-    void fire()
+    void Fire()
     {
         SendShakeEvent();
 
@@ -120,6 +119,11 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         if (!photonView.IsMine)
         {
             newProjectile.layer = 10;
+            newProjectile.GetComponent<Shockwave>().shockwavableObjects = newProjectile.GetComponent<Shockwave>().otherLayerMask;
+        }
+        else
+        {
+            newProjectile.GetComponent<Shockwave>().shockwavableObjects = newProjectile.GetComponent<Shockwave>().myLayerMask;
         }
 
         GameObject ship = getShipTransform().gameObject;
