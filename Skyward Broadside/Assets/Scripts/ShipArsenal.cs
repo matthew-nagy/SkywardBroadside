@@ -5,19 +5,27 @@ using UnityEngine;
 
 public class ShipArsenal : MonoBehaviourPun, IPunObservable
 {
+    public float health;
     public float maxHealth;
-    public int maxCannonballAmmo;
-    public int maxExplosiveCannonballAmmo;
 
     public int cannonballAmmo;
+    public int maxCannonballAmmo;
+
     public int explosiveCannonballAmmo;
-    public float health;
+    public int maxExplosiveCannonballAmmo;
+
+    public int shockwaveAmmo;
+    public int maxShockwaveAmmo;
+
+    public int homingAmmo;
+    public int maxHomingAmmo;
+
 
     //Dictionary containing all weapons by Id and whether they are equipped on the ship or not
     //in future some script on the ship controller would equip certain weapons depending on the ship type?
     //for now we just equip all the weapons on start
-    // 0 = regular cannon, 1 = explosive cannons
-    public Dictionary<int, bool> weapons = new Dictionary<int, bool> { { 0, false }, { 1, false }, { 2, false} };
+    // 0 = regular cannon, 1 = explosive cannons, 2 = gatling gun, 3 = shockwave cannons, 4 = homing projectiles
+    public Dictionary<int, bool> weapons = new Dictionary<int, bool> { { 0, false }, { 1, false }, { 2, false }, { 3, false }, { 4, false } };
 
     private readonly float regenFactorOfMaxHealth = 0.05f;
     private readonly int regenOfCannonballsPerReloadPeriod = 3;
@@ -25,17 +33,15 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
 
     private void Start()
     {
-        enableWeapon(0);
-        enableWeapon(1);
-        enableWeapon(2);
+        EnableWeapon(0);
+        EnableWeapon(3);
+        EnableWeapon(4);
         GetComponent<WeaponsController>().equipWeapons();
 
-        cannonballAmmo = maxCannonballAmmo;
-        explosiveCannonballAmmo = maxExplosiveCannonballAmmo;
-        health = maxHealth;
+        Respawn();
     }
 
-    void enableWeapon(int weaponId)
+    void EnableWeapon(int weaponId)
     {
         weapons[weaponId] = true;
     }
@@ -50,12 +56,12 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void hitMe(string weaponName)
+    public void HitMe(string weaponName)
     {
         switch (weaponName)
         {
             case "gatling":
-                photonView.RPC(nameof(impact1), RpcTarget.All);
+                photonView.RPC(nameof(Impact1), RpcTarget.All);
                 break;
 
             default:
@@ -65,19 +71,21 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     }
 
     [PunRPC]
-    void impact1()
+    void Impact1()
     {
         health -= 1f;
     }
 
-    public void respawn()
+    public void Respawn()
     {
         cannonballAmmo = maxCannonballAmmo;
         explosiveCannonballAmmo = maxExplosiveCannonballAmmo;
+        shockwaveAmmo = maxShockwaveAmmo;
+        homingAmmo = maxHomingAmmo;
         health = maxHealth;
     }
 
-    public void resupply()
+    public void Resupply()
     {
         health = Math.Min(health + regenFactorOfMaxHealth * maxHealth, maxHealth);
         cannonballAmmo = Math.Min(cannonballAmmo + regenOfCannonballsPerReloadPeriod, maxCannonballAmmo);
