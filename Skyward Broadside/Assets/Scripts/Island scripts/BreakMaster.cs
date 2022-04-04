@@ -90,60 +90,162 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     EventQueue? preInstaniateEventHolder = null;
     bool init = false;
 
-    GameObject primeRenderer;
+    static int VertexLimit = 65535;
+
+    List<GameObject> renderers;
 
     CascadeSystem cascader;
 
+
+    GameObject MakeRenderer(List<CombineInstance> combine)
+    {
+        GameObject newRenderer = new GameObject();
+        MeshFilter mf = newRenderer.AddComponent<MeshFilter>();
+        MeshRenderer mr = newRenderer.AddComponent<MeshRenderer>();
+
+        mf.mesh.CombineMeshes(combine.ToArray());
+        mr.material = children[0].GetComponent<Renderer>().material;
+        mr.enabled = true;
+
+        return newRenderer;
+    }
+
     void SetupPrimeRenderer()
     {
-        primeRenderer = new GameObject();
-        List<Vector3> vertices = new List<Vector3>();
-        List<Vector3> normals = new List<Vector3>();
-        List<int> tris = new List<int>();
+        renderers = new List<GameObject>();
+        List<CombineInstance> combines = new List<CombineInstance>();
+        int currentVertNumber = 0;
+
         foreach(Breakable b in children)
         {
             b.GetComponent<Renderer>().enabled = false;
             Mesh bMesh = b.GetComponent<MeshFilter>().sharedMesh;
-            int additionIndex = vertices.Count;
-            foreach(Vector3 vert in bMesh.vertices)
+
+            if((currentVertNumber + bMesh.vertexCount) > VertexLimit)
             {
-                vertices.Add(b.transform.TransformPoint(vert));
+                renderers.Add(MakeRenderer(combines));
+                combines.Clear();
+                currentVertNumber = 0;
             }
-            foreach(Vector3 norm in bMesh.normals)
-            {
-                normals.Add(b.transform.rotation * norm);
-            }
-            foreach (int i in bMesh.triangles)
-            {
-                tris.Add(i + additionIndex);
-            }
+
+            CombineInstance newInstance = new CombineInstance();
+            newInstance.mesh = bMesh;
+            newInstance.transform = b.transform.localToWorldMatrix;
+            combines.Add(newInstance);
+            currentVertNumber += bMesh.vertexCount;
         }
 
+        renderers.Add(MakeRenderer(combines));
+    }
+
+    /*void SetupPrimeRendererPerhaps()
+    {
+        primeRenderer = new GameObject();
+        CombineInstance[] combine = new CombineInstance[children.Count];
+
+        int i = 0;
+        foreach (Breakable b in children)
+        {
+            b.GetComponent<Renderer>().enabled = false;
+            combine[i].mesh = b.GetComponent<MeshFilter>().sharedMesh;
+            combine[i].transform = b.transform.localToWorldMatrix;
+            i += 1;
+        }
+
+        MeshFilter mf = primeRenderer.AddComponent<MeshFilter>();
+        MeshRenderer mr = primeRenderer.AddComponent<MeshRenderer>();
+
+        mf.mesh.CombineMeshes(combine);
+        mr.material = children[0].GetComponent<Renderer>().material;
+        mr.enabled = true;
+
+    }
+
+    GameObject GetRenderer(List<Vector3> vertices, List<Vector3> normals, List<Vector2> uv, List<int> tris)
+    {
+        GameObject renderer = new GameObject();
+
+        //Turn the lists into the arrays needed by a mesh
         Vector3[] finalVertices = new Vector3[vertices.Count];
         Vector3[] finalNormals = new Vector3[normals.Count];
+        Vector2[] finalUV = new Vector2[uv.Count];
         int[] finalTris = new int[tris.Count];
 
         vertices.CopyTo(finalVertices);
         normals.CopyTo(finalNormals);
+        uv.CopyTo(finalUV);
         tris.CopyTo(finalTris);
 
+        //Setup the new mesh
         Mesh myMesh = new Mesh();
         myMesh.vertices = finalVertices;
         myMesh.triangles = finalTris;
+        myMesh.uv = finalUV;
         myMesh.normals = finalNormals;
 
+        //Assign the components needed for rendering
+        MeshRenderer mr = renderer.AddComponent<MeshRenderer>();
+        MeshFilter mf = renderer.AddComponent<MeshFilter>();
 
-        MeshRenderer mr = primeRenderer.AddComponent<MeshRenderer>();
-        MeshFilter mf = primeRenderer.AddComponent<MeshFilter>();
-
+        //Final setup and return
         mf.sharedMesh = myMesh;
         mr.material = children[0].GetComponent<Renderer>().material;
         mr.enabled = true;
 
-        //primeRenderer.transform.position = transform.position;
-        //primeRenderer.transform.localScale = transform.localScale;
-        //primeRenderer.transform.rotation = transform.rotation;
+        Debug.LogWarning("Made a mesh for " + name);
+
+        return renderer;
     }
+
+    void SetupPrimeRenderer()
+    {
+        renderers = new List<GameObject>();
+        List<Vector3> vertices = new List<Vector3>();
+        List<Vector3> normals = new List<Vector3>();
+        List<Vector2> uvs = new List<Vector2>();
+        List<int> tris = new List<int>();
+
+        Debug.LogWarning(name + " has " + children.Count + "children");
+        foreach(Breakable b in children)
+        {
+            b.GetComponent<Renderer>().enabled = false;
+            Mesh bMesh = b.GetComponent<MeshFilter>().sharedMesh;
+            int additionIndex;
+
+            //If we have hit a size limit, create a renderer with what we have so far, and get started on a new mesh
+            if((vertices.Count + bMesh.vertices.Length) > VertexLimit)
+            {
+                renderers.Add(GetRenderer(vertices, normals, uvs, tris));
+                vertices.Clear();
+                normals.Clear();
+                uvs.Clear();
+                tris.Clear();
+                additionIndex = 0;
+            }
+            else
+            {
+                additionIndex = vertices.Count;
+            }
+
+            var transformMat = b.transform.localToWorldMatrix;
+            Quaternion rotation = b.transform.rotation;
+            for(int i = 0; i < bMesh.vertexCount; i++)
+            {
+                vertices.Add(transformMat.MultiplyPoint3x4(bMesh.vertices[i]));
+                normals.Add(rotation * bMesh.normals[i]);
+            }
+            uvs.AddRange(bMesh.uv);
+            for (int i = 0; i < bMesh.triangles.Length; i++)
+            {
+                tris.Add(bMesh.triangles[i] + additionIndex);
+            }
+
+        }
+
+        renderers.Add(GetRenderer(vertices, normals, uvs, tris));
+
+        Debug.LogWarning("Got the mesh for object '" + name + "'");
+    }*/
 
     public bool IsInLocatioOf(Transform t)
     {
@@ -187,7 +289,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
             preInstaniateEventHolder = null;
         }
 
-        //SetupPrimeRenderer();
+        SetupPrimeRenderer();
     }
 
     public bool IsPhotonMaster()
