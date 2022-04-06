@@ -25,6 +25,28 @@ MonoBehaviour:
   depthDrawThreshold:
     overrideState: 1
     value: 0.005
+--- !u!114 &-2739202318475313296
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  shutterAngle:
+    overrideState: 0
+    value: 270
+  sampleCount:
+    overrideState: 0
+    value: 10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,6 +63,7 @@ MonoBehaviour:
   - {fileID: -8277110087678543018}
   - {fileID: 4714096926632127727}
   - {fileID: 2059320823928707328}
+  - {fileID: -2739202318475313296}
 --- !u!114 &2059320823928707328
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -58,15 +81,15 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   gradingMode:
-    overrideState: 0
+    overrideState: 1
     value: 1
   externalLut:
     overrideState: 0
     value: {fileID: 0}
     defaultState: 1
   tonemapper:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 2
   toneCurveToeStrength:
     overrideState: 0
     value: 0
@@ -93,8 +116,8 @@ MonoBehaviour:
     overrideState: 0
     value: 1
   temperature:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 19
   tint:
     overrideState: 0
     value: 0
@@ -105,17 +128,17 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   saturation:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: -4
   brightness:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.2
   contrast:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: -9
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
