@@ -17,6 +17,7 @@ public class ReloadRegister : MonoBehaviour
     public TeamData.Team myTeam;
 
     public int meshCircleResolution = 30;
+    public int meshHeightResolution = 10;
 
     [Tooltip("What game object's materials need to be set with the bases team")]
     public List<GameObject> materialSettingObjects;
@@ -43,16 +44,15 @@ public class ReloadRegister : MonoBehaviour
             }
         }
         reloadRadius = GetComponent<SphereCollider>().radius;
-        //Invoke(nameof(Setup), 1f);
+        Invoke(nameof(Setup), 1f);
     }
 
     //Doesnt work right now
     void Setup()
     {
-
-        string myTeamName = TeamData.TeamToString(myTeam);
-        if (myTeamName == PhotonNetwork.LocalPlayer.GetPhotonTeam().Name)
+        if (Blackboard.playerPhotonHub.myTeam == myTeam || true)
         {
+            Debug.Log("Making the mesh");
             CreateDisplayMesh();
         }
     }
@@ -73,40 +73,37 @@ public class ReloadRegister : MonoBehaviour
         }
     }
 
+    void AddVertCircle(float displacement, List<Vector3> verts, List<Vector3> norms)
+    {
+        Vector3 center = transform.position + new Vector3(0f, displacement, 0f);
+        float r = Mathf.Sqrt((reloadRadius * reloadRadius) - (displacement * displacement));
+        float degreesPerPoint = 360.0f / meshCircleResolution;
+
+        for(int i = 0; i < meshCircleResolution; i++)
+        {
+            verts.Add(center + r * (Quaternion.Euler(0f, degreesPerPoint * i, 0f) * Vector3.forward));
+        }
+    }
+
     void CreateDisplayMesh()
     {
         reloadFieldMesh = new Mesh();
         MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
-        Renderer renderer = gameObject.AddComponent<MeshRenderer>();
+        MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
 
-        Vector3[] vertices = new Vector3[meshCircleResolution * 2];
-        int[] tris = new int[meshCircleResolution * 6];//bc each point connects to the pair to the right, with two tris. So one tri per vert, 3 ints per tri
-        //Create a circle both far above and far below the reload point, with a radius based off the reload radius
-        for(int i = 0; i < meshCircleResolution; i++)
+        List<Vector3> verts = new List<Vector3>();
+        List<Vector3> norms = new List<Vector3>();
+        float heightChunk = reloadRadius / meshHeightResolution;
+        for(int i = meshHeightResolution * -1; i < meshHeightResolution; i += 2)
         {
-            Vector3 offset = Quaternion.Euler(0, 360.0f / (float)meshCircleResolution, 0) * (Vector3.forward * reloadRadius);
-            vertices[i] = transform.position + offset + (Vector3.up * 1000.0f);
-            vertices[meshCircleResolution + i] = transform.position + offset + (Vector3.down * 1000.0f);
+            AddVertCircle(i * heightChunk, verts, norms);
         }
 
-        //Set all circles clockwise
-        for(int i = 0; i < meshCircleResolution - 1; i++)
+        List<int> tris;
+        Debug.Log("Making " + verts.Count + " spheres");
+        for(int i = 0; i < verts.Count; i++)
         {
-            int triBase = i * 6;
-            tris[triBase]       = i;       //Current on the top
-            tris[triBase + 1]   = i + 1;   //Current on top + 1 to the right
-            tris[triBase + 2]   = i + meshCircleResolution + 1; //On bottom, one to the right
-
-            tris[triBase + 3] = i + meshCircleResolution + 1; //On bottom, one to the right
-            tris[triBase + 4] = i + meshCircleResolution; //Current on bottom
-            tris[triBase + 5] = i;  //Current one again
+            Instantiate(Resources.Load("DebugSphere"));
         }
-
-        reloadFieldMesh.vertices = vertices;
-        reloadFieldMesh.triangles = tris;
-
-
-        meshFilter.mesh = reloadFieldMesh;
-        renderer.material = friendlyReloadMaterial;
     }
 }
