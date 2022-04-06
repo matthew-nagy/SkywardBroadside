@@ -23,6 +23,7 @@ public class ReloadRegister : MonoBehaviour
     public List<GameObject> materialSettingObjects;
 
     public Material friendlyReloadMaterial;
+    public Material reloadRadiusMaterial;
 
     Mesh reloadFieldMesh;
 
@@ -43,14 +44,14 @@ public class ReloadRegister : MonoBehaviour
                 break;
             }
         }
-        reloadRadius = GetComponent<SphereCollider>().radius;
+        reloadRadius = GetComponent<SphereCollider>().radius * transform.localScale.x;
         Invoke(nameof(Setup), 1f);
     }
 
     //Doesnt work right now
     void Setup()
     {
-        if (Blackboard.playerPhotonHub.myTeam == myTeam || true)
+        if (Blackboard.playerPhotonHub.myTeam == myTeam)
         {
             Debug.Log("Making the mesh");
             CreateDisplayMesh();
@@ -82,28 +83,62 @@ public class ReloadRegister : MonoBehaviour
         for(int i = 0; i < meshCircleResolution; i++)
         {
             verts.Add(center + r * (Quaternion.Euler(0f, degreesPerPoint * i, 0f) * Vector3.forward));
+            norms.Add((verts[i] - transform.position).normalized);
         }
     }
 
     void CreateDisplayMesh()
     {
-        reloadFieldMesh = new Mesh();
-        MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
-        MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
-
         List<Vector3> verts = new List<Vector3>();
         List<Vector3> norms = new List<Vector3>();
         float heightChunk = reloadRadius / meshHeightResolution;
-        for(int i = meshHeightResolution * -1; i < meshHeightResolution; i += 2)
+        for(int i = meshHeightResolution * -1; i < (meshHeightResolution + 2); i += 2)
         {
             AddVertCircle(i * heightChunk, verts, norms);
         }
 
-        List<int> tris;
+        List<int> tris = new List<int>();
         Debug.Log("Making " + verts.Count + " spheres");
-        for(int i = 0; i < verts.Count; i++)
+        for(int i = 0; i < verts.Count - (meshCircleResolution + 1); i++)
         {
-            Instantiate(Resources.Load("DebugSphere"));
+            tris.Add(i);
+            tris.Add(i + 1);
+            tris.Add(i + meshCircleResolution);
+
+            tris.Add(i + 1);
+            tris.Add(i + meshCircleResolution);
+            tris.Add(i + meshCircleResolution + 1);
+
+            tris.Add(i + meshCircleResolution);
+            tris.Add(i + 1);
+            tris.Add(i);
+
+            tris.Add(i + meshCircleResolution + 1);
+            tris.Add(i + meshCircleResolution);
+            tris.Add(i + 1);
+
+            Instantiate(Resources.Load("DebugSphere"), verts[i], Quaternion.identity);
         }
+
+        Vector3[] v = new Vector3[verts.Count];
+        Vector3[] n = new Vector3[norms.Count];
+        int[] t = new int[tris.Count];
+
+        verts.CopyTo(v);
+        norms.CopyTo(n);
+        tris.CopyTo(t);
+
+        Mesh myMesh = new Mesh();
+        myMesh.vertices = v;
+        myMesh.normals = n;
+        myMesh.triangles = t;
+
+        GameObject shellRenderer = new GameObject();
+        MeshFilter mf = shellRenderer.AddComponent<MeshFilter>();
+        MeshRenderer mr = shellRenderer.AddComponent<MeshRenderer>();
+
+        mf.sharedMesh = myMesh;
+        mr.material = reloadRadiusMaterial;
+        mr.enabled = true;
     }
 }
