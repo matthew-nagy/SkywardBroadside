@@ -146,6 +146,8 @@ public class Breakable : MonoBehaviour
         myRigidBody = GetComponent<Rigidbody>();
         myRigidBody.mass = 5;
         myRigidBody.useGravity = true;
+
+        GetComponent<Renderer>().enabled = true;
     }
     void Break(float force, Vector3 contactPoint, float forceRadius)
     {

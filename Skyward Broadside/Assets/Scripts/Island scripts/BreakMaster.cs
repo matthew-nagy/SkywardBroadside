@@ -90,8 +90,85 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     EventQueue? preInstaniateEventHolder = null;
     bool init = false;
 
+    static int VertexLimit = 65535;
+
+    List<GameObject> renderers;
+    //Each breakable needs to be able to find what game object it is staticly rendered in
+    //and then these game objects must also know what breakables make it up
+    //This way when a breakable is broken off the island, the breakable can find its game object, 
+    //which can then remove said breakable from its composition and rebuild the mesh
+    Dictionary<Breakable, GameObject> breakableToRenderer;
+    Dictionary<GameObject, HashSet<Breakable>> breakablesInvolved;
+
+    //We don't want to rebuild the mesh as soon as a command is recieved; what about explosions
+    //or shockwaves that destroy multiple fragments? Therefore we keep a set of the game objects
+    //to be rebuilt on the next update
+    HashSet<GameObject> rebuildQueueSet;
+
     CascadeSystem cascader;
 
+
+    void HideVertices(Breakable b)
+    {
+        GameObject toRebuild = breakableToRenderer[b];
+        HashSet<Breakable> responsible = breakablesInvolved[toRebuild];
+        responsible.Remove(b);
+        rebuildQueueSet.Add(toRebuild);
+    }
+
+    GameObject MakeRenderer(List<CombineInstance> combine, List<Breakable> breakablesIncluded)
+    {
+        GameObject newRenderer = new GameObject();
+        MeshFilter mf = newRenderer.AddComponent<MeshFilter>();
+        MeshRenderer mr = newRenderer.AddComponent<MeshRenderer>();
+
+        mf.mesh.CombineMeshes(combine.ToArray());
+        mr.material = children[0].GetComponent<Renderer>().material;
+        mr.enabled = true;
+
+        breakablesInvolved.Add(newRenderer, new HashSet<Breakable>());
+        foreach(Breakable b in breakablesIncluded)
+        {
+            breakablesInvolved[newRenderer].Add(b);
+            breakableToRenderer.Add(b, newRenderer);
+        }
+
+        return newRenderer;
+    }
+
+    void SetupPrimeRenderer()
+    {
+        renderers = new List<GameObject>();
+        breakableToRenderer = new Dictionary<Breakable, GameObject>();
+        breakablesInvolved = new Dictionary<GameObject, HashSet<Breakable>>();
+        List<CombineInstance> combines = new List<CombineInstance>();
+        List<Breakable> currentBreakables = new List<Breakable>();
+        rebuildQueueSet = new HashSet<GameObject>();
+        int currentVertNumber = 0;
+
+        foreach(Breakable b in children)
+        {
+            b.GetComponent<Renderer>().enabled = false;
+            Mesh bMesh = b.GetComponent<MeshFilter>().sharedMesh;
+
+            if((currentVertNumber + bMesh.vertexCount) > VertexLimit)
+            {
+                renderers.Add(MakeRenderer(combines, currentBreakables));
+                currentBreakables.Clear();
+                combines.Clear();
+                currentVertNumber = 0;
+            }
+
+            CombineInstance newInstance = new CombineInstance();
+            newInstance.mesh = bMesh;
+            newInstance.transform = b.transform.localToWorldMatrix;
+            combines.Add(newInstance);
+            currentBreakables.Add(b);
+            currentVertNumber += bMesh.vertexCount;
+        }
+
+        renderers.Add(MakeRenderer(combines, currentBreakables));
+    }
 
     public bool IsInLocatioOf(Transform t)
     {
@@ -134,6 +211,8 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
 
             preInstaniateEventHolder = null;
         }
+
+        SetupPrimeRenderer();
     }
 
     public bool IsPhotonMaster()
@@ -149,6 +228,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     {
         events.breakEvents.Add(e);
         cascader.InformOfBreak(children[e.indexInOwner]);
+        HideVertices(children[e.indexInOwner]);
     }
 
     // Start is called before the first frame update
@@ -166,11 +246,30 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        if(rebuildQueueSet.Count > 0)
+        {
+            foreach(GameObject toRebuild in rebuildQueueSet)
+            {
+                HashSet<Breakable> responsible = breakablesInvolved[toRebuild];
+                List<CombineInstance> combine = new List<CombineInstance>();
+                foreach (Breakable br in responsible)
+                {
+                    CombineInstance ci = new CombineInstance();
+                    ci.mesh = br.GetComponent<MeshFilter>().sharedMesh;
+                    ci.transform = br.transform.localToWorldMatrix;
+                    combine.Add(ci);
+                }
+
+                toRebuild.GetComponent<MeshFilter>().mesh.CombineMeshes(combine.ToArray());
+            }
+            rebuildQueueSet.Clear();
+        }
     }
 
     void HandleBreakEvent(BreakEvent e)
     {
         children[e.indexInOwner].PhotonBreakCommand(e.force, e.contactPoint, e.forceRadius);
+        HideVertices(children[e.indexInOwner]);
     }
     void HandleSyncEvent(SyncEvent e)
     {
