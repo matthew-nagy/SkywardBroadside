@@ -287,7 +287,28 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         else if (collision.gameObject.tag == "Wall")
         {
             Debug.Log("Wall");
-            velocity = -1f * velocity;
+            switch (collision.gameObject.name)
+            {
+                case "InvisWallX+":
+                    transform.position -= new Vector3(1, 0, 0);
+                    break;
+                case "InvisWallX-":
+                    transform.position += new Vector3(1, 0, 0);
+                    break;
+                case "InvisWallY+":
+                    transform.position -= new Vector3(0, 1, 0);
+                    break;
+                case "InvisWallY-":
+                    transform.position += new Vector3(0, 1, 0);
+                    break;
+                case "InvisWallZ+":
+                    transform.position -= new Vector3(0, 0, 1);
+                    break;
+                case "InvisWallZ-":
+                    transform.position += new Vector3(0, 0, 1);
+                    break;
+            }
+            velocity = new Vector3(0, 0, 0);
             isDisabled = true;
             totalDisabledTime = 0.5f;
             collisionMag = 0f;
