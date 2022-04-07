@@ -39,6 +39,7 @@ struct RequestedControls
 
 public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 {
+    public GameObject mapCenter;
 
     Rigidbody rigidBody;
 
@@ -116,6 +117,11 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         playerInput = new RequestedControls();
 
         teamColour = TeamData.TeamToColour(GetComponentInParent<PlayerPhotonHub>().myTeam);
+
+        if(mapCenter != null)
+        {
+
+        }
     }
 
     void Awake()
