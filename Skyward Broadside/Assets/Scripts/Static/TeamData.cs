@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class TeamData
 {
-    public enum Team
+    public enum Team : byte
     {
         Purple = 0, Yellow = 1
     }

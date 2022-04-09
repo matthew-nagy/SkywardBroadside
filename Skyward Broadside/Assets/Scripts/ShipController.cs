@@ -221,6 +221,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (collision.gameObject.name.Contains("ball"))
         {   
             GameObject cannonballOwner = collision.gameObject.GetComponent<CannonballController>().owner;
+            gameObject.GetComponent<PlayerController>().lastHit(cannonballOwner.GetComponent<PhotonView>().Owner.NickName);
             if (!GameObject.ReferenceEquals(cannonballOwner, gameObject)) {
                 print("I'm in pain");
                 Vector3 velocityCannonball = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
@@ -240,6 +241,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else if (collision.gameObject.tag == "Ship")
         {
+            gameObject.GetComponent<PlayerController>().lastHit(collision.gameObject.GetComponent<PhotonView>().Owner.NickName);
             //print("Collision");
 
             Vector3 initialVelocity = velocityBeforeCollision;
@@ -300,6 +302,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
         {
             print("terrain");
+            gameObject.GetComponent<PlayerController>().lastHit("Terrain");
 
             if (!collision.gameObject.GetComponent<Breakable>().broken)
             {
