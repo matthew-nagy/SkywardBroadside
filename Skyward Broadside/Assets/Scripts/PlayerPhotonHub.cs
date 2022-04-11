@@ -85,10 +85,6 @@ public class PlayerPhotonHub : MonoBehaviour
     {
         Blackboard.playerPhotonHub = this;
 
-        var properties = new Hashtable();
-        properties.Add("deaths", deaths);
-        PhotonNetwork.SetPlayerCustomProperties(properties);
-
         GameObject userGUI = GameObject.Find("User GUI");
         Debug.Log(userGUI);
         if(userGUI != null)
@@ -96,14 +92,12 @@ public class PlayerPhotonHub : MonoBehaviour
             Debug.Log("Inside the if part with the value " + userGUI);
             updateScript = userGUI.GetComponent<GuiUpdateScript>();
             disabled = false;
-            FetchScores();
         }
         else
         {
             disabled = true;
             Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
-        UpdateTimerFromMaster();
 
         //Instantiate UI (username and health)
         if (PlayerUiPrefab != null)
@@ -123,123 +117,9 @@ public class PlayerPhotonHub : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (transform.Find("Ship") != null)
-        {
-            if (transform.Find("Ship").GetComponent<PhotonView>().IsMine)
-            {
-                if (gameStartTime == DateTime.MinValue)
-                {
-                    UpdateTimerFromMaster();
-                }
-                else
-                {
-                    UpdateTimer();
-                }
-                if (!gotScores)
-                {
-                    FetchScores();
-                }
-            }
-        }
-        else
-        {
-            Debug.LogError("Ship transform not found");
-        }
-    }
-
-    public void UpdateScores(int[] scores)
-    {
-        //updateScript.UpdateGUIScores(scores[1 - (int)myTeam], scores[(int)myTeam]);
-    }
-
-    public void FetchScores()
-    {
-        var properties = PhotonNetwork.CurrentRoom.CustomProperties;
-        if (properties.ContainsKey("score"))
-        {
-            var scores = (int[]) properties["score"];
-            UpdateScores(scores);
-            gotScores = true;
-        }
-    }
-
     public void SetName(string name)
     {
         playerName = name;
-    }
-
-    public void UpdateTimerFromMaster()
-    {
-        var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
-        
-        gameStartTime = roomProperties.ContainsKey("startTime") ? DateTime.Parse((string) roomProperties["startTime"]) : DateTime.MinValue;
-    }
-
-    private void UpdateTimer()
-    {
-        DateTime endTime = gameStartTime.Add(gameLength);
-        TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
-
-        if (timeRemaining < TimeSpan.Zero)
-        {
-            disabled = true;
-            updateScript.gameOverScreen.SetActive(true);
-            timeRemaining = TimeSpan.Zero;
-        }
-
-        updateScript.UpdateTimer(timeRemaining);
-        
-    }
-
-    public void AddDeath()
-    {
-        // update player death count
-        var properties = new Hashtable();
-        properties.Add("deaths", ++deaths);
-        PhotonNetwork.SetPlayerCustomProperties(properties);
-
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(1, (int)myTeam, raiseEventOptions, SendOptions.SendReliable);
-    }
-
-    private void OnEnable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
-    }
-
-    private void OnDisable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
-    }
-
-    private void OnEvent(EventData photonEvent)
-    {
-        byte eventCode = photonEvent.Code;
-        if (eventCode == 1)
-        {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return;
-            }
-
-            int team = (int)photonEvent.CustomData;
-            var properties = PhotonNetwork.CurrentRoom.CustomProperties;
-            int[] scores = properties.ContainsKey("scores") ? (int[])properties["scores"] : new int[] { 0, 0 };
-            scores[team] += 1;
-
-            PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-            PhotonNetwork.RaiseEvent(2, scores, raiseEventOptions, SendOptions.SendReliable);
-        }
-        else if (eventCode == 2)
-        {
-            var scores = (int[])photonEvent.CustomData;
-            UpdateScores(scores);
-        }
     }
 
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode loadingMode)

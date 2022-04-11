@@ -16,6 +16,12 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public DateTime spawnTime;
 
+    public string playerName;
+    private string lastDamagedBy;
+    public int kills { get; set; }
+    public int deaths { get; set; }
+    public int score { get; set; }
+
     public bool resupply;
 
     private void Start()
@@ -32,6 +38,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
             Invoke(nameof(RegenInvoker), 5f);
         }
+
+        playerName = gameObject.GetComponent<PhotonView>().Owner.NickName;
+        photonHub.players.Add(playerName, this);
+        Scoreboard.Instance.OnNewPlayer(this);
     }
 
     private void Update()
@@ -87,11 +97,31 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         }
     }
 
+    public void lastHit(string name)
+    {
+        lastDamagedBy = name;
+    }
+
+    private void broadcastDeath()
+    {
+        Debug.Log("ONE");
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+        string[] names = {lastDamagedBy, playerName};
+        PhotonNetwork.RaiseEvent((byte) photonHub.EventCode.KillEventWithNames, names, raiseEventOptions,
+            SendOptions.SendReliable);
+        Debug.Log("TWO");
+        RaiseEventOptions raiseEventOptions2 = new RaiseEventOptions {Receivers = ReceiverGroup.All};
+        PhotonNetwork.RaiseEvent((byte) photonHub.EventCode.DeathEvent, (byte)myTeam, raiseEventOptions2,
+            SendOptions.SendReliable);
+        Debug.Log("THREE");
+
+    }
+
     void Die()
     {
         if (photonView.IsMine)
         {
-            transform.root.GetComponent<PlayerPhotonHub>().AddDeath();
+            broadcastDeath();
 
             GetComponent<ShipArsenal>().Respawn();
 
@@ -119,11 +149,18 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext((int)myTeam);
+            Debug.Log("WRITINTG");
+            System.Object[] stats = {myTeam, kills, deaths, score};
+            stream.SendNext(stats);
         }
         else
         {
-            myTeam = (TeamData.Team)stream.ReceiveNext();
+            Debug.Log("RECEIVING");
+            System.Object[] stats = (System.Object[]) stream.ReceiveNext();
+            myTeam = (TeamData.Team) stats[0];
+            kills = (int) stats[1];
+            deaths = (int) stats[2];
+            score = (int) stats[3];
         }
     }
 }
