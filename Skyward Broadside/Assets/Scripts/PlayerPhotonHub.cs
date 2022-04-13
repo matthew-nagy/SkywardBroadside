@@ -78,13 +78,11 @@ public class PlayerPhotonHub : MonoBehaviour
         {
             Debug.LogError("Player does not have a universal unique ID");
         }
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
         Blackboard.playerPhotonHub = this;
 
         GameObject userGUI = GameObject.Find("User GUI");
