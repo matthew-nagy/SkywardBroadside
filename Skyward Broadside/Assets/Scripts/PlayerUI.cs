@@ -107,7 +107,7 @@ public class PlayerUI : MonoBehaviour
         //Cache references for efficiency
         target = _target;
 
-        target.SetUI(this.gameObject);
+        target.SetUI(gameObject);
 
         playerRb = _target.GetComponentInChildren<Rigidbody>();
         playerInfo = _target.GetComponentInChildren<PlayerInfoPPH>();

@@ -21,6 +21,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     bool localLockOn;
     Vector3 freeFireTargetPos;
 
+    string shipType;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -31,6 +33,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
+        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
     }
 
     // Update is called once per frame
@@ -65,6 +68,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (serverShootFlag)
         {
             serverShootFlag = false;
+            print("Firing!");
             fire();
             getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
             reload();
@@ -87,8 +91,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (weaponEnabled)
         {
             //attempt to fire the cannon
-            if (SBControls.shoot.IsHeld() && !reloading && !serverShootFlag)
-
+            if (SBControls.shoot.IsDown() && !reloading && !serverShootFlag)
             {
                 serverShootFlag = sendShootToClient = true;
             }
@@ -96,7 +99,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     }
     Transform getShipTransform()
     {
-        return transform.root.GetChild(0);
+        return transform.root.Find("Ship").Find(shipType);
     }
 
     void SendShakeEvent()

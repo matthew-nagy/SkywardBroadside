@@ -11,9 +11,12 @@ public class Shockwave : MonoBehaviour
     public LayerMask otherLayerMask;
     public LayerMask shockwavableObjects;
 
+    string shipType;
+
     private void Start()
     {
         activationRadius = GetComponent<SphereCollider>().radius;
+        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -64,7 +67,7 @@ public class Shockwave : MonoBehaviour
 
     void ShockwaveShip(Collider collider)
     {
-        GameObject ship = collider.transform.root.Find("Ship").gameObject;
+        GameObject ship = collider.gameObject;
         Vector3 dirToApplyForce = (ship.transform.position - transform.position).normalized;
 
         ship.GetComponent<ShipController>().velocity += dirToApplyForce * shockwavePower;

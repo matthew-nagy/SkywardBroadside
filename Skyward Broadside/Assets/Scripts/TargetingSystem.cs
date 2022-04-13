@@ -15,27 +15,15 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     public bool targetDestroyed;
     public Cinemachine.CinemachineFreeLook myCam;
 
+    string shipType;
+
     private void Start()
     {
         if (photonView.IsMine)
         {
-            gameObject.layer = 2;
-            transform.Find("Weapons").gameObject.layer = 2;
-            transform.Find("Weapons").Find("GatlingGun").gameObject.layer = 2;
-            transform.Find("Body").gameObject.layer = 2;
-            transform.Find("Body").Find("CannonBay").gameObject.layer = 2;
-            transform.Find("Body").Find("CannonBay").Find("Cannon1").gameObject.layer = 2;
-            transform.Find("Body").Find("CannonBay").Find("Cannon2").gameObject.layer = 2;
-            transform.Find("Body").Find("CannonBay").Find("Cannon3").gameObject.layer = 2;
-            transform.Find("Body").Find("CannonBay").Find("Cannon4").gameObject.layer = 2;
-            transform.Find("Body").Find("CannonBay").Find("Cannon5").gameObject.layer = 2;
-            transform.Find("Body").Find("CannonBay").Find("Cannon6").gameObject.layer = 2;
-            transform.Find("Body").Find("BalloonLeft").gameObject.layer = 2;
-            transform.Find("Body").Find("BalloonRight").gameObject.layer = 2;
-            transform.Find("Body").Find("Propeller").gameObject.layer = 2;
-            transform.Find("Body").Find("Propeller").Find("Blade2").gameObject.layer = 2;
-            transform.Find("Body").Find("Propeller").Find("Blade1").gameObject.layer = 2;
+            MoveToLayer(transform, 2);
         }
+        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
     }
 
     private void Update()
@@ -81,6 +69,18 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             {
                 unLockToTarget();
             }
+        }
+    }
+
+    void MoveToLayer(Transform root, int layer)
+    {
+        if (root.gameObject.layer != 13)
+        {
+            root.gameObject.layer = layer;
+        }
+        foreach (Transform child in root)
+        {
+            MoveToLayer(child, layer);
         }
     }
 
@@ -141,7 +141,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             if ((player.transform.position - transform.position).magnitude <= maxTargetDistance)
             {
-                if (player.GetComponent<PlayerController>().myTeam != myTeam)
+                if (player.transform.GetComponent<PlayerController>().myTeam != myTeam)
                 {
                     Vector3 screenPoint = myCam.gameObject.GetComponent<Camera>().WorldToViewportPoint(player.transform.position);
                     if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)

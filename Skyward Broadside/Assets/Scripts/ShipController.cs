@@ -350,15 +350,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
             if(newInput.forwards != playerInput.forwards)
             {
-                SetParticles(pDriveSystem, newInput.forwards);
+                //SetParticles(pDriveSystem, newInput.forwards);
             }
             if(newInput.turnLeft != playerInput.turnLeft)
             {
-                SetParticles(pAntiClockwiseJets, newInput.turnLeft);
+                //SetParticles(pAntiClockwiseJets, newInput.turnLeft);
             }
             if(newInput.turnRight != playerInput.turnRight)
             {
-                SetParticles(pClockwiseJets, newInput.turnRight);
+                //SetParticles(pClockwiseJets, newInput.turnRight);
             }
             playerInput = newInput;
         }
@@ -394,7 +394,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             drivingForce = transform.forward * engineDriveForce;
         }
-        SetParticles(pDriveSystem, playerInput.forwards);
+        //SetParticles(pDriveSystem, playerInput.forwards);
 
         if (playerInput.backwards)
         {
@@ -412,12 +412,12 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             turningForce = new Vector3(0, angularAccel, 0);
         }
-        SetParticles(pClockwiseJets, playerInput.turnRight);
+        //SetParticles(pClockwiseJets, playerInput.turnRight);
         if (playerInput.turnLeft)
         {
             turningForce = new Vector3(0, angularAccel * -1.0f, 0);
         }
-        SetParticles(pClockwiseJets, playerInput.turnLeft);
+        //SetParticles(pClockwiseJets, playerInput.turnLeft);
 
         if (playerInput.up)
         {
@@ -451,8 +451,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 Mathf.Clamp(verticalSpeed, 0f, maxVerticalSpeed);
             }
         }
-        SetParticles(pShootUpJet, playerInput.up);
-        SetParticles(pShootDownJet, playerInput.up);
+        //SetParticles(pShootUpJet, playerInput.up);
+        //SetParticles(pShootDownJet, playerInput.up);
 
         Vector3 angularAgainst = -1 * turnDirection * angularFriction;
         turnDirection += (turningForce + angularAgainst) / angularMass;
