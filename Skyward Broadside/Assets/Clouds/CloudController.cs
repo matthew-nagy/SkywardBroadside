@@ -90,17 +90,5 @@ public class CloudController : MonoBehaviour
                 }
             }
         }
-
-        for(int z = 0; z < gridRes.z; z++)
-        {
-            for(int y = 0; y < gridRes.y; y++)
-            {
-                for(int x = 0; x < gridRes.x; x++)
-                {
-                    //Debug.Log(x + "," + y + "," + z + " has " + getBubble(x, y, z).Count + " elements");
-                }
-            }
-        }
-        Debug.Log(cloudWidth + "," + cloudHeight + "," + cloudDepth);
     }
 }
