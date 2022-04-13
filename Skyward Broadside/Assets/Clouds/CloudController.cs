@@ -9,11 +9,30 @@ public class CloudController : MonoBehaviour
     Mesh mesh;
     Vector3Int gridRes;
     Color[] colours;
+    BoxCollider boxCollider;
+
+    List<GameObject> trackingObjects;
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+
+
+
+
+    //Add the collider to the tracking list
+    private void OnCollisionEnter(Collision collision)
+    {
+        trackingObjects.Add(collision.gameObject);
+    }
+
+    //Remove the collider from the tracking list
+    private void OnCollisionExit(Collision collision)
+    {
+        trackingObjects.Remove(collision.gameObject);
     }
 
     List<int> getBubble(int x, int y, int z)
@@ -61,12 +80,23 @@ public class CloudController : MonoBehaviour
         }
     }
 
+    void InitCollisionSystem(int cloudWidth, int cloudHeight, int cloudDepth)
+    {
+        boxCollider = gameObject.AddComponent<BoxCollider>();
+        boxCollider.size = new Vector3(cloudWidth, cloudHeight, cloudDepth);
+        boxCollider.center = boxCollider.size / 2.0f;
+
+        trackingObjects = new List<GameObject>();
+    }
+
     public void Init(Vector3Int inGridDimensions, Mesh theMesh, Color[] inColours, int cloudWidth, int cloudHeight, int cloudDepth)
     {
         gridRes = inGridDimensions;
         InitBubbles();
         mesh = theMesh;
         colours = inColours;
+
+        InitCollisionSystem(cloudWidth, cloudHeight, cloudDepth);
 
         float cellsPerX = (float)cloudWidth / (float)gridRes.x;
         float cellsPerY = (float)cloudHeight / (float)gridRes.y;
