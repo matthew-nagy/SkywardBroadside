@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 7878022000517488456}
   - component: {fileID: 7878022000517488457}
   - component: {fileID: 1162109433314530510}
+  - component: {fileID: 8570748268315782851}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Untagged
@@ -143,6 +144,8 @@ MonoBehaviour:
   cloud_width: 10
   cloud_height: 20
   cloud_depth: 30
+  flowGridDimensions: {x: 10, y: 10, z: 10}
+  controller: {fileID: 8570748268315782851}
   cloud_colour: {r: 1, g: 0.9, b: 0.9, a: 0.7}
   bubble_size: 7
   phaseAdvanceAmount: 0.01
@@ -157,5 +160,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da8fef59d15b59948a33191f23fe6e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8570748268315782851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878022000517488458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea49f88ad2323814184e1086107f00ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
