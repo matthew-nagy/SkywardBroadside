@@ -330,6 +330,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(teamColour.r);
             stream.SendNext(teamColour.g);
             stream.SendNext(teamColour.b);
+            stream.SendNext(transform.position.x);
+            stream.SendNext(transform.position.y);
+            stream.SendNext(transform.position.z);
+            var ea = transform.rotation.eulerAngles;
+            stream.SendNext(ea.x);
+            stream.SendNext(ea.y);
+            stream.SendNext(ea.z);
             playerInput.PhotonSerialize(stream);
         }
         else
@@ -341,7 +348,19 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             float r = (float)stream.ReceiveNext();
             float g = (float)stream.ReceiveNext();
             float b = (float)stream.ReceiveNext();
-            if(!colourSet)
+
+            Vector3 np = Vector3.zero;
+            Vector3 ea = Vector3.zero;
+            np.x = (float)stream.ReceiveNext();
+            np.y = (float)stream.ReceiveNext();
+            np.z = (float)stream.ReceiveNext();
+            ea.x = (float)stream.ReceiveNext();
+            ea.y = (float)stream.ReceiveNext();
+            ea.z = (float)stream.ReceiveNext();
+            transform.position = np;
+            transform.rotation = Quaternion.Euler(ea);
+
+            if (!colourSet)
             {
                 transform.Find("Body").gameObject.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
                 colourSet = true;
