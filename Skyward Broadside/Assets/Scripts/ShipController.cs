@@ -218,11 +218,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
+        bool shouldDealDamage = false;
+
         if (collision.gameObject.name.Contains("ball"))
-        {   
+        {
+            shouldDealDamage = true;
             GameObject cannonballOwner = collision.gameObject.GetComponent<CannonballController>().owner;
             gameObject.GetComponent<PlayerController>().lastHit(cannonballOwner.GetComponent<PhotonView>().Owner.NickName);
-            if (!GameObject.ReferenceEquals(cannonballOwner, gameObject)) {
+            if (!GameObject.ReferenceEquals(cannonballOwner, gameObject))
+            {
                 print("I'm in pain");
                 Vector3 velocityCannonball = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
                 Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityCannonball;
@@ -241,6 +245,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else if (collision.gameObject.tag == "Ship")
         {
+            shouldDealDamage = true;
             gameObject.GetComponent<PlayerController>().lastHit(collision.gameObject.GetComponent<PhotonView>().Owner.NickName);
             //print("Collision");
 
@@ -271,6 +276,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else if (collision.gameObject.tag == "Wall")
         {
+            shouldDealDamage = true;
             Debug.Log("Wall");
             switch (collision.gameObject.name)
             {
@@ -299,23 +305,34 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             collisionMag = 0f;
             // no damage when colliding with invisible walls, just there to avoid going out of bounds
         }
-        else if (collision.gameObject.transform.parent.tag == "Terrain") //If hit terrain
+        else
         {
-            print("terrain");
-            gameObject.GetComponent<PlayerController>().lastHit("Terrain");
-
-            if (!collision.gameObject.GetComponent<Breakable>().broken)
+            Transform colParent = collision.gameObject.transform.parent;
+            if(colParent != null)
             {
-                velocity = -0.5f * velocity;
-                isDisabled = true;
-                totalDisabledTime = 0.5f;
-            }
+                if (colParent.tag == "Terrain") //If hit terrain
+                {
+                    shouldDealDamage = true;
+                    print("terrain");
+                    gameObject.GetComponent<PlayerController>().lastHit("Terrain");
 
-            collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude;
+                    if (!collision.gameObject.GetComponent<Breakable>().broken)
+                    {
+                        velocity = -0.5f * velocity;
+                        isDisabled = true;
+                        totalDisabledTime = 0.5f;
+                    }
+
+                    collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude;
+                }
+            }
         }
 
-        // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
-        GetComponent<ShipArsenal>().doDamage(collisionMag * forceToDamageMultiplier);
+        if (shouldDealDamage)
+        {
+            // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
+            GetComponent<ShipArsenal>().doDamage(collisionMag * forceToDamageMultiplier);
+        }
     }
 
     #region Pun Synchronisation
@@ -330,6 +347,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(teamColour.r);
             stream.SendNext(teamColour.g);
             stream.SendNext(teamColour.b);
+            stream.SendNext(transform.position.x);
+            stream.SendNext(transform.position.y);
+            stream.SendNext(transform.position.z);
+            var ea = transform.rotation.eulerAngles;
+            stream.SendNext(ea.x);
+            stream.SendNext(ea.y);
+            stream.SendNext(ea.z);
             playerInput.PhotonSerialize(stream);
         }
         else
@@ -341,7 +365,19 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             float r = (float)stream.ReceiveNext();
             float g = (float)stream.ReceiveNext();
             float b = (float)stream.ReceiveNext();
-            if(!colourSet)
+
+            Vector3 np = Vector3.zero;
+            Vector3 ea = Vector3.zero;
+            np.x = (float)stream.ReceiveNext();
+            np.y = (float)stream.ReceiveNext();
+            np.z = (float)stream.ReceiveNext();
+            ea.x = (float)stream.ReceiveNext();
+            ea.y = (float)stream.ReceiveNext();
+            ea.z = (float)stream.ReceiveNext();
+            transform.position = np;
+            transform.rotation = Quaternion.Euler(ea);
+
+            if (!colourSet)
             {
                 transform.Find("Body").gameObject.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
                 colourSet = true;
