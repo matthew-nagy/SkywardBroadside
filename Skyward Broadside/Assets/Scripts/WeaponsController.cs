@@ -8,7 +8,7 @@ public class WeaponsController : MonoBehaviour
     [SerializeField]
     List<GameObject> cannons;
     [SerializeField]
-    GameObject gatlingGun;
+    List<GameObject> gatlingGuns;
     [SerializeField]
     float cannonThresholdAngle;
 
@@ -283,26 +283,33 @@ public class WeaponsController : MonoBehaviour
 
     void EnableGatlingGun()
     {
-        if (gatlingGun != null)
+        foreach (GameObject gun in gatlingGuns)
         {
-            gatlingGun.GetComponent<GatlingGunController>().weaponEnabled = true;
+            if (gun != null)
+            {
+                gun.GetComponent<GatlingGunController>().weaponEnabled = true;
+            }
+            else
+            {
+                Debug.LogWarning("Could not find gatling gun object");
+            }
         }
-        else
-        {
-            Debug.LogWarning("Could not find gatling gun object");
-        }
+        
     }
 
     void DisableGatlingGun()
     {
-        if (gatlingGun != null)
+        foreach (GameObject gun in gatlingGuns)
         {
-            gatlingGun.GetComponent<GatlingGunController>().weaponEnabled = false;
-        }
-        else
-        {
-            Debug.LogWarning("Could not find gatling gun object");
-        }
+            if (gun != null)
+            {
+                gun.GetComponent<GatlingGunController>().weaponEnabled = false;
+            }
+            else
+            {
+                Debug.LogWarning("Could not find gatling gun object");
+            }
+        } 
     }
 
     void EnableShockwaveCannons()

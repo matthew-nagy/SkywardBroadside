@@ -8,30 +8,20 @@ public class Explosive : MonoBehaviour
     public float explosionRadius;
     bool detonated;
     public LayerMask explodableObjects;
-
-    private void Update()
-    {
-        getInput();
-    }
-
-    void getInput()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            detonate();
-        }
-    }
+    [SerializeField]
+    ParticleSystem explosion;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (!detonated && Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects).Length > 0)
         {
-            detonate();
+            Detonate();
         }
     }
 
-    void detonate()
+    void Detonate()
     {
+        Instantiate(explosion, transform.position, Quaternion.identity);
         detonated = true;
         Collider[] collidersInRange = Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects);
         foreach (Collider collider in collidersInRange)

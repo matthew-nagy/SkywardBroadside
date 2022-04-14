@@ -21,42 +21,51 @@ public class HealthbarController : MonoBehaviourPun
             GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
             foreach (GameObject player in players)
             {
-                PlayerUI playerUIScript = player.transform.parent.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>();
-                if (playerUIScript.PlayerIsVisible())
+                if (player.transform.parent.GetComponent<PlayerPhotonHub>().healthbarAndName != null)
                 {
-                    RaycastHit hit;
-
-                    if (Physics.Linecast(start: transform.position, end: player.transform.position, hitInfo: out hit, layerMask: layerMask))
+                    PlayerUI playerUIScript = player.transform.parent.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>();
+                    if (playerUIScript != null)
                     {
-                        if (hit.collider.gameObject == player)
+                        if (playerUIScript.PlayerIsVisible())
                         {
-                            playerUIScript.SetCanvasAlpha(1f);
+                            RaycastHit hit;
 
-                            TeamData.Team myTeam = GetComponent<PlayerController>().myTeam;
-                            TeamData.Team theirTeam = player.transform.GetComponent<PlayerController>().myTeam;
+                            if (Physics.Linecast(start: transform.position, end: player.transform.position, hitInfo: out hit, layerMask: layerMask))
+                            {
+                                if (hit.collider.gameObject == player)
+                                {
+                                    playerUIScript.SetCanvasAlpha(1f);
 
-                            if (myTeam == theirTeam)
-                            {
-                                playerUIScript.SetFriendlyHealthbar();
-                            }
-                            else
-                            {
-                                playerUIScript.SetEnemyHealthbar();
+                                    TeamData.Team myTeam = GetComponent<PlayerController>().myTeam;
+                                    TeamData.Team theirTeam = player.transform.GetComponent<PlayerController>().myTeam;
+
+                                    if (myTeam == theirTeam)
+                                    {
+                                        playerUIScript.SetFriendlyHealthbar();
+                                    }
+                                    else
+                                    {
+                                        playerUIScript.SetEnemyHealthbar();
+                                    }
+                                }
+                                else
+                                {
+                                    playerUIScript.SetCanvasAlpha(0f);
+
+                                }
                             }
                         }
                         else
                         {
                             playerUIScript.SetCanvasAlpha(0f);
-
                         }
                     }
                 }
                 else
                 {
-                    playerUIScript.SetCanvasAlpha(0f);
+                    Debug.LogWarning("healthbarAndName is null!");
                 }
-                
-            }
+            }   
         }
         
     }

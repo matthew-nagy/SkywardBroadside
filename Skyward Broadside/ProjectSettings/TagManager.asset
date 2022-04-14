@@ -12,6 +12,7 @@ TagManager:
   - Wall
   - ResupplyBase
   - ShockwaveCannonball
+  - Effects
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - ResupplyBase
   - MapBoundary
   - Minimap
-  - 
+  - Effects
   - 
   - 
   - 

@@ -34,8 +34,8 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     private void Start()
     {
         EnableWeapon(0);
-        EnableWeapon(3);
-        EnableWeapon(4);
+        EnableWeapon(1);
+        EnableWeapon(2);
         GetComponent<WeaponsController>().equipWeapons();
 
         Respawn();
