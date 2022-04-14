@@ -851,7 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b868aec4ced5a6e468cdc735cb004775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTracer: {fileID: 328621789431213768, guid: 854c52ec6e3c3ef49a019e525883b888, type: 3}
+  bulletTracer: {fileID: 8593000739072917744, guid: 3931c17dc373d5747a64a0cda41aae91, type: 3}
   shotOrigin: {fileID: 3731235021567344524}
   myLayerMask:
     serializedVersion: 2
@@ -11183,7 +11183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b868aec4ced5a6e468cdc735cb004775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTracer: {fileID: 328621789431213768, guid: 854c52ec6e3c3ef49a019e525883b888, type: 3}
+  bulletTracer: {fileID: 8593000739072917744, guid: 3931c17dc373d5747a64a0cda41aae91, type: 3}
   shotOrigin: {fileID: 2941861142479758190}
   myLayerMask:
     serializedVersion: 2
@@ -11306,7 +11306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b868aec4ced5a6e468cdc735cb004775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTracer: {fileID: 328621789431213768, guid: 854c52ec6e3c3ef49a019e525883b888, type: 3}
+  bulletTracer: {fileID: 8593000739072917744, guid: 3931c17dc373d5747a64a0cda41aae91, type: 3}
   shotOrigin: {fileID: 5817796903868692087}
   myLayerMask:
     serializedVersion: 2
@@ -13333,6 +13333,7 @@ GameObject:
   - component: {fileID: 8061095028147616259}
   - component: {fileID: 6125202376171458766}
   - component: {fileID: 6490166693505290916}
+  - component: {fileID: 5828437317283408192}
   m_Layer: 9
   m_Name: mediumShip
   m_TagString: Ship
@@ -13449,7 +13450,7 @@ MonoBehaviour:
   cannonballAmmo: 0
   maxCannonballAmmo: 60
   explosiveCannonballAmmo: 0
-  maxExplosiveCannonballAmmo: 9
+  maxExplosiveCannonballAmmo: 50
   shockwaveAmmo: 0
   maxShockwaveAmmo: 900
   homingAmmo: 0
@@ -13557,7 +13558,10 @@ MonoBehaviour:
   - {fileID: 7194637399782134462}
   - {fileID: 7710281625548714029}
   - {fileID: 6800223636628530105}
-  gatlingGun: {fileID: 526559743255710424}
+  gatlingGuns:
+  - {fileID: 526559743255710424}
+  - {fileID: 7138735580416764593}
+  - {fileID: 7031410614954272792}
   cannonThresholdAngle: 45
   currentWeaponId: 0
 --- !u!114 &6125202376171458766
@@ -13723,6 +13727,18 @@ MonoBehaviour:
   pShootDownJet: []
   freeCameraObject: {fileID: 0}
   lockOnCameraObject: {fileID: 0}
+--- !u!114 &5828437317283408192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788669775541589560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c276d3bf4ef3bd24794b68b0d918a34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8864920600753405998
 GameObject:
   m_ObjectHideFlags: 0

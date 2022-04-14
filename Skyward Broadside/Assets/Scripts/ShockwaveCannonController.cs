@@ -119,6 +119,8 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
 
+        newProjectile.GetComponent<Shockwave>().owner = transform.root.Find("Ship").Find(shipType).gameObject;
+
         if (!photonView.IsMine)
         {
             newProjectile.layer = 10;

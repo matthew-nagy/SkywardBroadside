@@ -11,12 +11,14 @@ public class Shockwave : MonoBehaviour
     public LayerMask otherLayerMask;
     public LayerMask shockwavableObjects;
 
-    string shipType;
+    [SerializeField]
+    ParticleSystem implosion;
+
+    public GameObject owner;
 
     private void Start()
     {
         activationRadius = GetComponent<SphereCollider>().radius;
-        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,7 +30,7 @@ public class Shockwave : MonoBehaviour
     {
         Collider[] collidersInRange = Physics.OverlapSphere(transform.position, activationRadius, shockwavableObjects);
         foreach (Collider collider in collidersInRange)
-        {
+        { 
             if (collider.CompareTag("Terrain"))
             {
                 ShockwaveTerrain(collider);
@@ -46,6 +48,9 @@ public class Shockwave : MonoBehaviour
                 ShockwaveProjectile(collider);
             }
         }
+
+        owner.GetComponent<EffectGenerator>().SpawnEffect(transform.position, implosion);
+
         Destroy(gameObject);
     }
 
