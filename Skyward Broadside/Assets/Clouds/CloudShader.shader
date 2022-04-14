@@ -74,7 +74,8 @@ Shader "Unlit/CloudShader"
 
                 float4 view_pos = mul(UNITY_MATRIX_V, world_pos);
 
-                float bubbleScale = _BubbleSize * noise;
+                //If the alpha is set to 0, there is no bubble
+                float bubbleScale = _BubbleSize * noise * v.colour.a;
                 view_pos += float4(v.uv * bubbleScale, 0.0, 0.0);
 
                 float4 clip_pos = mul(UNITY_MATRIX_P, view_pos);

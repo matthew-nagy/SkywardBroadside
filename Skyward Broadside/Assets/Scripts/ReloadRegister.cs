@@ -138,6 +138,8 @@ public class ReloadRegister : MonoBehaviour
 
         mf.sharedMesh = myMesh;
         mr.material = reloadRadiusMaterial;
-        mr.enabled = true;
+        
+        //Just set it to false for now
+        mr.enabled = false;
     }
 }
