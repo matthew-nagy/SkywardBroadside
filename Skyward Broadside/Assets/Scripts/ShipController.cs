@@ -94,7 +94,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject freeCameraObject;
     public GameObject lockOnCameraObject;
 
-    private readonly float forceToDamageMultiplier = 0.1f;
+    private readonly float forceToDamageMultiplier = 0.01f;
 
     public void InformOfFire()
     {
@@ -462,8 +462,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 verticalSpeed += verticalAcceleration * Time.deltaTime;
 
             }
-            Debug.Log("Shit me sideways");
-
         }
         else if (playerInput.down)
         {

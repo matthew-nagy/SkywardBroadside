@@ -111,11 +111,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a11274d15bf0f9439661ecae37fb858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPower: 5000
-  explosionRadius: 10
+  explosionPower: 1000
+  explosionRadius: 5
   explodableObjects:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 631
+  explosion: {fileID: 797522063623356723, guid: 61e61e4ce2bdd73498823f060cef4914, type: 3}
 --- !u!54 &6357757886373269347
 Rigidbody:
   m_ObjectHideFlags: 0

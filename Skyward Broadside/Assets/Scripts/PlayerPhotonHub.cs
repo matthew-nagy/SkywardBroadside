@@ -45,6 +45,9 @@ public class PlayerPhotonHub : MonoBehaviour
 
     Transform ship;
 
+    //later set this to whichever ship the player selects
+    public string shipType = "mediumShip";
+
     public void SetTeam(TeamData.Team team)
     {
         myTeam = team;
@@ -54,7 +57,7 @@ public class PlayerPhotonHub : MonoBehaviour
             Debug.LogError("Material was null");
         }
         ship = transform.Find("Ship");
-        ship.transform.Find("Body").GetComponent<Renderer>().material = givenMaterial;
+        ship.transform.Find(shipType).Find("Body").GetComponent<Renderer>().material = givenMaterial;
 
         Debug.LogWarning("Player Team Set in Photon Hub");
     }
@@ -106,6 +109,7 @@ public class PlayerPhotonHub : MonoBehaviour
             //Send a message to instance we created
             //Requires receiver, will be alerted if no component to respond to it
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            _uiGo.GetComponent<PlayerUI>().SetTarget(this);
         }
         else
         {

@@ -13,7 +13,8 @@ public class MinimapManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int teamNo = (int)transform.root.Find("Ship").GetComponent<PlayerController>().myTeam;
+        string shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+        int teamNo = (int)transform.root.Find("Ship").Find(shipType).GetComponent<PlayerController>().myTeam;
         if (teamNo == 0)
         {
             GetComponent<SpriteRenderer>().sprite = purpleIcon;

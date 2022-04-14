@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             UpdateHealth();
             UpdateAmmo();
             UpdateWeapon();
+            if (updateScript == null)
+            {
+                updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;
+            }
         }
     }
 

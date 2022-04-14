@@ -244,6 +244,8 @@ MonoBehaviour:
   shockwavableObjects:
     serializedVersion: 2
     m_Bits: 0
+  implosion: {fileID: 8868662823091966536, guid: a2144a656fc3e9b498707793d16d91b0, type: 3}
+  doEffect: 1
 --- !u!114 &7997862387246384744
 MonoBehaviour:
   m_ObjectHideFlags: 0

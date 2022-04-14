@@ -14,6 +14,8 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
     bool sendShootToClient;
     bool clientShootFlag;
 
+    string shipType;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -24,6 +26,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
+        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
     }
 
     // Update is called once per frame
@@ -76,7 +79,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
     }
     Transform GetShipTransform()
     {
-        return transform.root.GetChild(0);
+        return transform.root.Find("Ship").Find(shipType);
     }
 
     void SendShakeEvent()

@@ -6,7 +6,7 @@ using Photon.Pun;
 public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField]
-    TrailRenderer bulletTracer;
+    ParticleSystem bulletTracer;
     [SerializeField]
     Transform shotOrigin;
     [SerializeField]
@@ -31,6 +31,8 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
 
     float shotTime;
 
+    string shipType;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -42,6 +44,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     {
         serverShootingFlag = sendShootingToClient = clientShootingFlag = false;
         SetLayerMask();
+        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
     }
 
     void SetLayerMask()
@@ -106,7 +109,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     }
     Transform getShipTransform()
     {
-        return transform.root.GetChild(0);
+        return transform.root.Find("Ship").Find(shipType);
     }
 
     void SendShakeEvent()
@@ -131,35 +134,32 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 hit.collider.gameObject.GetComponent<ShipArsenal>().HitMe("gatling");
             }
+            
 
-            TrailRenderer tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.identity);
 
-            StartCoroutine(SpawnTracer(tracer, hit));
+            ParticleSystem tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.LookRotation(dir));
+
+            StartCoroutine(SpawnTracer(tracer));
 
             shotTime = Time.time;
         }
         else
-        {
-            TrailRenderer tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.identity);
+        {   
             hit.point = shotOrigin.transform.position + (dir * range);
-            StartCoroutine(SpawnTracer(tracer, hit));
+            ParticleSystem tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.LookRotation(dir));
+            StartCoroutine(SpawnTracer(tracer));
         }
     }
 
-    IEnumerator SpawnTracer(TrailRenderer tracer, RaycastHit hit)
+    IEnumerator SpawnTracer(ParticleSystem tracer)
     {
         float time = 0;
-        Vector3 startPos = tracer.transform.position;
-
-        while (time < 1)
+        while (time < 0.5)
         {
-            tracer.transform.position = Vector3.Lerp(startPos, hit.point, time);
-            time += Time.deltaTime / tracer.time;
-
+            time += Time.deltaTime;
             yield return null;
         }
-        tracer.transform.position = hit.point;
-        Destroy(tracer.gameObject, tracer.time);
+        Destroy(tracer, tracer.time);
     }
 
     public void reload()
