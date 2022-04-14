@@ -8,6 +8,9 @@ public class CloudGen3 : MonoBehaviour
     public int cloud_height = 10;
     public int cloud_depth = 10;
 
+    Vector3Int flowGridDimensions = new Vector3Int(3, 3, 3);
+    public CloudController controller;
+
     public Color cloud_colour = new Color(1f, 0.9f, 0.9f, 0.7f);
     private int maxDimension = 10;
     private Vector3 dimensionRatios;
@@ -79,6 +82,12 @@ public class CloudGen3 : MonoBehaviour
         {
             Debug.LogWarning("Cloud is bigger than vertex limit!!!");
         }
+        while(cloud_width * cloud_height * cloud_depth * 4 > 65535)
+        {
+            cloud_width = (int)((float)(cloud_width) * 0.95);
+            cloud_height = (int)((float)(cloud_height) * 0.95);
+            cloud_depth = (int)((float)(cloud_depth) * 0.95);
+        }
 
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.sharedMaterial = myMat;
@@ -132,10 +141,10 @@ public class CloudGen3 : MonoBehaviour
                     uv[uvCount + 2] = new Vector2(0, 1);
                     uv[uvCount + 3] = new Vector2(1, 1);
 
-                    colors[colorCount + 0] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth);
-                    colors[colorCount + 1] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth);
-                    colors[colorCount + 2] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth);
-                    colors[colorCount + 3] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth);
+                    colors[colorCount + 0] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+                    colors[colorCount + 1] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+                    colors[colorCount + 2] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+                    colors[colorCount + 3] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
 
                     vertexCount += 4;
                     triangleCount += 6;
@@ -156,6 +165,7 @@ public class CloudGen3 : MonoBehaviour
         meshFilter.mesh = mesh;
         shaderScale = new Vector3(cloud_width, cloud_height, cloud_depth);
 
+        controller.Init(flowGridDimensions, meshFilter.mesh, colors, cloud_width, cloud_height, cloud_depth);
     }
 
     // Update is called once per frame
