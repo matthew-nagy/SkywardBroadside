@@ -8,7 +8,7 @@ public class CloudGen3 : MonoBehaviour
     public int cloud_height = 10;
     public int cloud_depth = 10;
 
-    Vector3Int flowGridDimensions = new Vector3Int(10, 10, 10);
+    Vector3Int flowGridDimensions = new Vector3Int(3, 3, 3);
     public CloudController controller;
 
     public Color cloud_colour = new Color(1f, 0.9f, 0.9f, 0.7f);
