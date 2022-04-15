@@ -25,8 +25,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject progressLabel;
 
+    private string roomName = "Arena";
+
 #endregion
-    
+
     #region Private Fields
 
     /// <summary>
@@ -138,7 +140,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
             // Load the world
-            PhotonNetwork.LoadLevel("GameWorld");
+            PhotonNetwork.LoadLevel(roomName);
         }
     }
     
