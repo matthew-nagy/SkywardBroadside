@@ -3434,7 +3434,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f10128d790506c64dbe94649edee76ac, type: 2}
   - {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
   myTeam: 255
-  healthbarAndName: {fileID: 0}
+  healthbarAndName: {fileID: 8586582362795000431, guid: 6a06ebfc5274f204e9752462f9e4cb40, type: 3}
   shipType: mediumShip
 --- !u!1 &4110116048203021194
 GameObject:

@@ -143,7 +143,10 @@ public class PlayerUI : MonoBehaviour
 
     public void SetCanvasAlpha(float alpha)
     {
-        this._canvasGroup.alpha = alpha;
+        if (_canvasGroup != null)
+        {
+            this._canvasGroup.alpha = alpha;
+        }
     }
 
     public void SetEnemyHealthbar()
