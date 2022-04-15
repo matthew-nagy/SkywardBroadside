@@ -39,7 +39,6 @@ struct RequestedControls
 
 public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 {
-    public GameObject mapCenter;
 
     Rigidbody rigidBody;
 
@@ -127,10 +126,11 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         teamColour = TeamData.TeamToColour(GetComponentInParent<PlayerPhotonHub>().myTeam);
 
-        if(mapCenter != null)
-        {
 
-        }
+        GameObject mapCenter = GameObject.Find("Center");
+        Vector3 towards = mapCenter.transform.position - transform.position;
+        towards.y = 0;
+        transform.rotation = Quaternion.LookRotation(towards);
     }
 
     void Awake()

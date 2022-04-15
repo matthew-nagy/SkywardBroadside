@@ -12,6 +12,7 @@ public class Rotator : MonoBehaviour
     void Start()
     {
         rotationVector = Vector3.up;
+        rotationSpeed *= 0.5f;
     }
 
     // Update is called once per frame
