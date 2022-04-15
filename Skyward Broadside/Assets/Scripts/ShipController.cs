@@ -466,7 +466,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             turningForce = new Vector3(0, angularAccel * -1.0f, 0);
         }
-        SetParticles(pClockwiseJets, playerInput.turnLeft);
+        SetParticles(pAntiClockwiseJets, playerInput.turnLeft);
 
         if (playerInput.up)
         {
