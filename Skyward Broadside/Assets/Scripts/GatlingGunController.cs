@@ -80,7 +80,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         {
             getShipTransform().GetComponent<TargetingSystem>().aquireFreeFireTarget();
             targetPos = getShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
-            fire();
+            Fire();
         }
     }
 
@@ -88,7 +88,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (clientShootingFlag)
         {
-            fire();
+            Fire();
         }
     }
 
@@ -106,6 +106,10 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
                 serverShootingFlag = sendShootingToClient = false;
             }
         }
+        else
+        {
+            serverShootingFlag = sendShootingToClient = false;
+        }
     }
     Transform getShipTransform()
     {
@@ -122,7 +126,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     //fire the cannon
-    void fire()
+    void Fire()
     {
         SendShakeEvent();
 
@@ -130,12 +134,10 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 dir = (targetPos - shotOrigin.transform.position).normalized;
         if (Physics.Raycast(shotOrigin.transform.position, dir, out hit, range, layerMask))
         {
-            if (hit.collider.gameObject.name == "Ship")
+            if (hit.collider.gameObject.name == shipType)
             {
                 hit.collider.gameObject.GetComponent<ShipArsenal>().HitMe("gatling");
             }
-            
-
 
             ParticleSystem tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.LookRotation(dir));
 
