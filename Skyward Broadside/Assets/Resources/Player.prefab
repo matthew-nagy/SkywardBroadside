@@ -131,7 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 1348183247567878526}
   lockedOn: 0
@@ -503,7 +502,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 4795884198155151529}
   lockedOn: 0
@@ -1521,7 +1519,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 7698864292083358822}
   lockedOn: 0
@@ -2025,7 +2022,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 1342978125282448536}
   lockedOn: 0
@@ -3203,7 +3199,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 3459352620678714274}
   lockedOn: 0
@@ -3810,7 +3805,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 736517497238590628}
   lockedOn: 0
@@ -4092,7 +4086,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 6410927286843025513}
   lockedOn: 0
@@ -4263,7 +4256,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 7053224548101181142}
   lockedOn: 0
@@ -4434,7 +4426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 565050833011089362}
   lockedOn: 0
@@ -4696,7 +4687,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 4588657515491491299}
   lockedOn: 0
@@ -5172,7 +5162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 1963888169225558832}
   lockedOn: 0
@@ -10309,7 +10298,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 2648498387478170523}
   lockedOn: 0
@@ -10591,7 +10579,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 6416726354380312533}
   lockedOn: 0
@@ -10843,7 +10830,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 5210677099843074440}
   lockedOn: 0
@@ -11014,7 +11000,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 731234613061555222}
   lockedOn: 0
@@ -11431,7 +11416,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 3155182156744383946}
   lockedOn: 0
@@ -11683,7 +11667,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 5652055841105733034}
   lockedOn: 0
@@ -11854,7 +11837,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 2831052396355764581}
   lockedOn: 0
@@ -12106,7 +12088,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 3288537176928336514}
   lockedOn: 0
@@ -12277,7 +12258,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 6203232545052150956}
   lockedOn: 0
@@ -12448,7 +12428,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 4779271432227865322}
   lockedOn: 0
@@ -12989,7 +12968,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 1687998776776720698}
   lockedOn: 0
@@ -13241,7 +13219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 2575552765204833955}
   lockedOn: 0
@@ -13563,7 +13540,9 @@ MonoBehaviour:
   - {fileID: 7138735580416764593}
   - {fileID: 7031410614954272792}
   cannonThresholdAngle: 45
+  reloadTime: 2
   currentWeaponId: 0
+  reloading: 0
 --- !u!114 &6125202376171458766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13840,7 +13819,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 6832638471419231647}
   lockedOn: 0
@@ -14173,7 +14151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  reloadTime: 2
   projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
   shotOrigin: {fileID: 7814210013431650070}
   lockedOn: 0

@@ -44,6 +44,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
     void ServerUpdate()
     {
+        reloading = GetShipTransform().GetComponent<WeaponsController>().reloading;
         GetInput();
 
         if (serverShootFlag)
@@ -51,7 +52,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
             serverShootFlag = false;
             Fire();
             GetShipTransform().GetComponent<ShipArsenal>().homingAmmo--;
-            Reload();
+            GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
 
@@ -62,7 +63,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
             clientShootFlag = false;
             Fire();
             GetShipTransform().GetComponent<ShipArsenal>().homingAmmo--;
-            Reload();
+            GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
 
@@ -71,7 +72,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (weaponEnabled)
         {
             //attempt to fire the cannon
-            if (SBControls.shoot.IsHeld() && !reloading && !serverShootFlag)
+            if (SBControls.shoot.IsDown() && !reloading && !serverShootFlag)
             {
                 serverShootFlag = sendShootToClient = true;
             }
@@ -118,17 +119,6 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
             projectile.transform.position = Vector3.Lerp(startPos, endPos, i);
             yield return null;
         }
-    }
-
-    public void Reload()
-    {
-        reloading = true;
-        Invoke(nameof(WeaponStatusReady), reloadTime);
-    }
-
-    void WeaponStatusReady()
-    {
-        reloading = false;
     }
 
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)
