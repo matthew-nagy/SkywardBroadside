@@ -13,6 +13,7 @@ public class WeaponsController : MonoBehaviour
     float cannonThresholdAngle;
     [SerializeField]
     float reloadTime;
+    GameObject reloadCircle;
 
     public int currentWeaponId;
     public bool reloading;
@@ -26,6 +27,7 @@ public class WeaponsController : MonoBehaviour
     {
         //enable weapon 0 on start
         EnableWeapon(0);
+        reloadCircle = GameObject.FindGameObjectWithTag("ReloadIndicator");
     }
 
     //equip any weapons that are marked as true (enabled) by the ship arsenal
@@ -123,7 +125,7 @@ public class WeaponsController : MonoBehaviour
 
     public void Reload()
     {
-        if (!reloading)
+        if (!reloading && GetComponent<PhotonView>().IsMine)
         {
             Invoke(nameof(Reloading), 0.05f);
             Invoke(nameof(Reloaded), reloadTime);
@@ -133,6 +135,7 @@ public class WeaponsController : MonoBehaviour
     void Reloading()
     {
         reloading = true;
+        reloadCircle.GetComponent<ReloadIndicator>().Reload();
     }
 
     void Reloaded()
