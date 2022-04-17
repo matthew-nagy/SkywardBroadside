@@ -45,7 +45,6 @@ public class WeaponsController : MonoBehaviour
 
     private void Update()
     {
-        print(reloading);
         GetInput();
 
         lockedOn = GetComponent<TargetingSystem>().lockedOn;
