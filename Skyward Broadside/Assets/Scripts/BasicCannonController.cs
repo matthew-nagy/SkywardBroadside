@@ -22,6 +22,9 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
     string shipType;
 
+    [SerializeField]
+    ParticleSystem cannonFire;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -110,10 +113,17 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    void CreateParticles()
+    {
+        Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
+    }
+
     //fire the cannon
     void Fire()
     {
         SendShakeEvent();
+
+        CreateParticles();
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
 
