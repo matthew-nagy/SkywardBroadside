@@ -8,7 +8,7 @@ public class TransparentcyController : MonoBehaviour
     [SerializeField]
     List<GameObject> components;
 
-    public float transparencyToSet = 0.4f;
+    public float transparencyToSet = 0.6f;
 
     private void Start()
     {
