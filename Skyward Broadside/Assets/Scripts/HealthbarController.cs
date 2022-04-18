@@ -21,9 +21,9 @@ public class HealthbarController : MonoBehaviourPun
             GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
             foreach (GameObject player in players)
             {
-                if (player.transform.parent.GetComponent<PlayerPhotonHub>().healthbarAndName != null)
+                if (player.transform.root.GetComponent<PlayerPhotonHub>().healthbarAndName != null)
                 {
-                    PlayerUI playerUIScript = player.transform.parent.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>();
+                    PlayerUI playerUIScript = player.transform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>();
                     if (playerUIScript != null)
                     {
                         if (playerUIScript.PlayerIsVisible())
