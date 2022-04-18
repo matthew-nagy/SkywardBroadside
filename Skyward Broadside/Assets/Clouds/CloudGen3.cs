@@ -8,7 +8,7 @@ public class CloudGen3 : MonoBehaviour
     public int cloud_height = 10;
     public int cloud_depth = 10;
 
-    Vector3Int flowGridDimensions = new Vector3Int(3, 3, 3);
+    Vector3Int flowGridDimensions = new Vector3Int(5, 5, 5);
     public CloudController controller;
 
     public Color cloud_colour = new Color(1f, 0.9f, 0.9f, 0.7f);
@@ -33,6 +33,39 @@ public class CloudGen3 : MonoBehaviour
 
     MeshRenderer meshRenderer;
     Mesh mesh;
+
+    void MakeCloudQuad(int x, int y, int z, int vertexCount, int triangleCount, int normalCount, int uvCount, int colorCount, Vector3[] vertices, int[] triangles, Vector3[] normals, Vector2[] uv, Color[] colors)
+    {
+        vertices[vertexCount + 0] = new Vector3(x, y, z);
+        vertices[vertexCount + 1] = new Vector3(x + quad_width, y, z);
+        vertices[vertexCount + 2] = new Vector3(x, y + quad_height, z);
+        vertices[vertexCount + 3] = new Vector3(x + quad_width, y + quad_height, z);
+
+        // lower left triangle
+        triangles[triangleCount + 0] = vertexCount + 0;
+        triangles[triangleCount + 1] = vertexCount + 2;
+        triangles[triangleCount + 2] = vertexCount + 1;
+        // upper right triangle
+        triangles[triangleCount + 3] = vertexCount + 2;
+        triangles[triangleCount + 4] = vertexCount + 3;
+        triangles[triangleCount + 5] = vertexCount + 1;
+
+
+        normals[normalCount + 0] = -Vector3.forward;
+        normals[normalCount + 1] = -Vector3.forward;
+        normals[normalCount + 2] = -Vector3.forward;
+        normals[normalCount + 3] = -Vector3.forward;
+
+        uv[uvCount + 0] = new Vector2(0, 0);
+        uv[uvCount + 1] = new Vector2(1, 0);
+        uv[uvCount + 2] = new Vector2(0, 1);
+        uv[uvCount + 3] = new Vector2(1, 1);
+
+        colors[colorCount + 0] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+        colors[colorCount + 1] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+        colors[colorCount + 2] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+        colors[colorCount + 3] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+    }
 
     void Start()
     {
@@ -116,35 +149,7 @@ public class CloudGen3 : MonoBehaviour
                 for (int z = 0; z < cloud_depth; z++)
                 {
 
-                    vertices[vertexCount + 0] = new Vector3(x, y, z);
-                    vertices[vertexCount + 1] = new Vector3(x + quad_width, y, z);
-                    vertices[vertexCount + 2] = new Vector3(x, y + quad_height, z);
-                    vertices[vertexCount + 3] = new Vector3(x + quad_width, y + quad_height, z);
-
-                    // lower left triangle
-                    triangles[triangleCount + 0] = vertexCount + 0;
-                    triangles[triangleCount + 1] = vertexCount + 2;
-                    triangles[triangleCount + 2] = vertexCount + 1;
-                    // upper right triangle
-                    triangles[triangleCount + 3] = vertexCount + 2;
-                    triangles[triangleCount + 4] = vertexCount + 3;
-                    triangles[triangleCount + 5] = vertexCount + 1;
-
-
-                    normals[normalCount + 0] = -Vector3.forward;
-                    normals[normalCount + 1] = -Vector3.forward;
-                    normals[normalCount + 2] = -Vector3.forward;
-                    normals[normalCount + 3] = -Vector3.forward;
-
-                    uv[uvCount + 0] = new Vector2(0, 0);
-                    uv[uvCount + 1] = new Vector2(1, 0);
-                    uv[uvCount + 2] = new Vector2(0, 1);
-                    uv[uvCount + 3] = new Vector2(1, 1);
-
-                    colors[colorCount + 0] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
-                    colors[colorCount + 1] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
-                    colors[colorCount + 2] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
-                    colors[colorCount + 3] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+                    MakeCloudQuad(x, y, z, vertexCount, triangleCount, normalCount, uvCount, colorCount, vertices, triangles, normals, uv, colors);
 
                     vertexCount += 4;
                     triangleCount += 6;

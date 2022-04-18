@@ -18,6 +18,10 @@ public class FloorCullSystem : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(collision.gameObject);
+        if (collision.gameObject.GetComponent<ShipController>() == null)
+        {
+            Destroy(collision.gameObject);
+        }
+        collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x, 3f, collision.gameObject.transform.position.y);
     }
 }
