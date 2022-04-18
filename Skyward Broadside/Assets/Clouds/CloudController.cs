@@ -111,8 +111,6 @@ public class CloudController : MonoBehaviour
 
 
 
-
-
     //Add the collider to the tracking list
     private void OnCollisionEnter(Collision collision)
     {

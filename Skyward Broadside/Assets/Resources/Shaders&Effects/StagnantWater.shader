@@ -11,10 +11,12 @@ Shader "Unlit/NewUnlitShader"
 
         _FlowSpeed("Water flow", Vector) = (0.1, 0.05, 0.0, 0.0)
         _Scale("Water scale", float) = 1.0
+        _Alpha("Transparency", Range(0,1)) = 1.0
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Blend SrcAlpha OneMinusSrcAlpha
+        Tags {"Queue" = "Transparent" "RenderType" = "Transparent"}
         LOD 100
 
         Pass
@@ -49,6 +51,7 @@ Shader "Unlit/NewUnlitShader"
 
             float4 _FlowSpeed;
             float _Scale;
+            float _Alpha;
 
 
             v2f vert (appdata v)
@@ -77,6 +80,7 @@ Shader "Unlit/NewUnlitShader"
                 samplePosition += float2(1.0, 1.0) * displacementFactor * _DisplacementStrength;
 
                 fixed4 col = tex2D(_WaterTexture, samplePosition);
+                col.a *= _Alpha;
                 return col;
             }
             ENDCG
