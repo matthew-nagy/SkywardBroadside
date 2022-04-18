@@ -12,17 +12,26 @@ public class GUIController : MonoBehaviour
         Right,
         Health
     }
+
+    public enum Ammo
+    {
+        Normal,
+        Explosive,
+        Special,
+        None
+    }
     public struct Dial
     {
-        public Dial(GameObject dialParent, int _minValue, int _maxValue, Position _currentPos)
+        public Dial(GameObject dialParent, int _minValue, int _maxValue, Ammo ammoType)
         {
             parent = dialParent;
             dialHand = dialParent.transform.Find("Hand");
 
+            ammo = ammoType;
+
             minValue = _minValue;
             maxValue = _maxValue;
 
-            currentPos = _currentPos;
         }
         public GameObject parent;
         public Transform dialHand;
@@ -30,12 +39,22 @@ public class GUIController : MonoBehaviour
         public int minValue;
         public int maxValue;
 
-        public Position currentPos { get; set; }
+        public Ammo ammo;
     }
 
     public struct DialPos
     {
+        public DialPos(Dial _dial, Vector3 _position)
+        {
+            dial = _dial;
+            position = _position;
+            targetPos = Vector3.zero;
+        }
 
+        public Dial dial;
+
+        public Vector3 position;
+        public Vector3 targetPos { get; set; }
     }
 
     public GameObject healthDialParent;
@@ -64,8 +83,17 @@ public class GUIController : MonoBehaviour
     private GameObject player;
 
     private readonly int maxHealth = 100;
+    private int maxNormalAmmo;
     private int maxExplosiveAmmo;
     private int maxSpecialAmmo;
+
+    private DialPos topDialPos;
+    private DialPos leftDialPos;
+    private DialPos rightDialPos;
+
+    private Coroutine currentCoroutine = null;
+
+    private bool isMoving = false;
 
     //Score stuff
     public Text myScore;
@@ -74,17 +102,33 @@ public class GUIController : MonoBehaviour
     public Text gameOverYourTeam;
     public Text gameOverOtherTeam;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        healthDial = new Dial(healthDialParent, maxHealth, 0, Position.Health);
-        explosiveAmmoDial = new Dial(explosiveAmmoParent, maxExplosiveAmmo, 0, Position.Left);
+        topPos = new Vector3(-147, 25, 0);
+        leftPos = new Vector3(-204, -96, 0);
+        rightPos = new Vector3(-86, -96, 0);
+
+        healthDial = new Dial(healthDialParent, maxHealth, 0, Ammo.None);
+        normalAmmoDial = new Dial(normalAmmoParent, maxNormalAmmo, 0, Ammo.Normal);
+        explosiveAmmoDial = new Dial(explosiveAmmoParent, maxExplosiveAmmo, 0, Ammo.Explosive);
+        specialAmmoDial = new Dial(specialAmmoParent, maxSpecialAmmo, 0, Ammo.Special);
+
+        topDialPos = new DialPos(normalAmmoDial, topPos);
+        leftDialPos = new DialPos(explosiveAmmoDial, leftPos);
+        rightDialPos = new DialPos(specialAmmoDial, rightPos);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (!isMoving)
+        {
+            currentCoroutine = StartCoroutine(RotateLeft());
+        }
     }
 
     public void UpdateWeapon(int weaponId)
@@ -98,15 +142,91 @@ public class GUIController : MonoBehaviour
 
     void SwitchToNormalAmmo()
     {
-        if (normalAmmoDial.currentPos == Position.Left)
+
+        if (topDialPos.dial.ammo == Ammo.Normal)
         {
-            RotateRight();
+            return;
+        }
+        else if (topDialPos.dial.ammo == Ammo.Explosive)
+        {
+            
+        }
+        else
+        {
+
         }
     }
 
-    void RotateRight()
+    IEnumerator RotateRight()
     {
+        isMoving = true;
+        topDialPos.targetPos = rightDialPos.position;
+        leftDialPos.targetPos = topDialPos.position;
+        rightDialPos.targetPos = leftDialPos.position;
 
+        for (int i = 1; i < 201; i++)
+        {
+            float proportion = (float)i/ 200f;
+            float decreasingSize = Mathf.Lerp(1.0f, 0.75f, proportion);
+            float increasingSize = Mathf.Lerp(0.75f, 1.0f, proportion);
+            topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
+            topDialPos.dial.parent.transform.localScale = new Vector3(decreasingSize, decreasingSize, decreasingSize);
+            leftDialPos.dial.parent.transform.localPosition = LerpDialPos(leftDialPos, proportion);
+            leftDialPos.dial.parent.transform.localScale = new Vector3(increasingSize, increasingSize, increasingSize);
+
+            rightDialPos.dial.parent.transform.localPosition = LerpDialPos(rightDialPos, proportion);
+
+            yield return null;
+        }
+
+        Dial tempTopDial = topDialPos.dial;
+        topDialPos.dial = leftDialPos.dial;
+
+        leftDialPos.dial = rightDialPos.dial;
+
+        rightDialPos.dial = tempTopDial;
+
+        isMoving = false;
+
+    }
+
+    IEnumerator RotateLeft()
+    {
+        isMoving = true;
+
+        topDialPos.targetPos = leftDialPos.position;
+        leftDialPos.targetPos = rightDialPos.position;
+        rightDialPos.targetPos = topDialPos.position;
+
+        for (int i = 1; i < 201; i++)
+        {
+            float proportion = (float)i / 200f;
+            float decreasingSize = Mathf.Lerp(1.0f, 0.75f, proportion);
+            float increasingSize = Mathf.Lerp(0.75f, 1.0f, proportion);
+            topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
+            topDialPos.dial.parent.transform.localScale = new Vector3(decreasingSize, decreasingSize, decreasingSize);
+            leftDialPos.dial.parent.transform.localPosition = LerpDialPos(leftDialPos, proportion);
+
+            rightDialPos.dial.parent.transform.localPosition = LerpDialPos(rightDialPos, proportion);
+            rightDialPos.dial.parent.transform.localScale = new Vector3(increasingSize, increasingSize, increasingSize);
+
+            yield return null;
+        }
+
+        Dial tempTopDial = topDialPos.dial;
+        topDialPos.dial = rightDialPos.dial;
+        rightDialPos.dial = leftDialPos.dial;
+        leftDialPos.dial = tempTopDial;
+
+        isMoving = false;
+    }
+
+    Vector3 LerpDialPos(DialPos dialPos, float proportion)
+    {
+        float x = Mathf.Lerp(dialPos.position.x, dialPos.targetPos.x, proportion);
+        float y = Mathf.Lerp(dialPos.position.y, dialPos.targetPos.y, proportion);
+
+        return new Vector3(x, y, 0);
     }
 
     IEnumerator Move(Dial dial, Vector3 targetPos, float targetSize)
