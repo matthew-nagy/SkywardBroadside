@@ -7,6 +7,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public bool weaponEnabled;
     public float shotPower;
+    public float reloadTime;
     public GameObject projectile;
     public Transform shotOrigin;
 
@@ -21,9 +22,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     Vector3 freeFireTargetPos;
 
     string shipType;
-
-    [SerializeField]
-    ParticleSystem cannonFire;
 
     void Awake()
     {
@@ -55,25 +53,25 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
     void ServerUpdate()
     {
-        reloading = GetShipTransform().GetComponent<WeaponsController>().reloading;
-        GetInput();
+        getInput();
 
         //set current target Id if we are lockedOn
         if (lockedOn)
         {
-            currentTargetId = GetShipTransform().GetComponent<TargetingSystem>().currentTargetId;
+            currentTargetId = getShipTransform().GetComponent<TargetingSystem>().currentTargetId;
         } //or free fire
         else
         {
-            freeFireTargetPos = GetShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
+            freeFireTargetPos = getShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
         }
 
         if (serverShootFlag)
         {
             serverShootFlag = false;
-            Fire();
-            GetShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
-            GetShipTransform().GetComponent<WeaponsController>().Reload();
+            print("Firing!");
+            fire();
+            getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
+            reload();
         }
     }
 
@@ -82,13 +80,13 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (clientShootFlag)
         {
             clientShootFlag = false;
-            Fire();
-            GetShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
-            GetShipTransform().GetComponent<WeaponsController>().Reload();
+            fire();
+            getShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
+            reload();
         }
     }
 
-    void GetInput()
+    void getInput()
     {
         if (weaponEnabled)
         {
@@ -99,7 +97,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
     }
-    Transform GetShipTransform()
+    Transform getShipTransform()
     {
         return transform.root.Find("Ship").Find(shipType);
     }
@@ -113,17 +111,10 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    void CreateParticles()
-    {
-        Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
-    }
-
     //fire the cannon
-    void Fire()
+    void fire()
     {
         SendShakeEvent();
-
-        CreateParticles();
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
 
@@ -132,7 +123,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             newProjectile.layer = 10;
         }
 
-        GameObject ship = GetShipTransform().gameObject;
+        GameObject ship = getShipTransform().gameObject;
 
         GameObject target;
         Vector3 targetPos;
@@ -169,7 +160,17 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         Vz = Vz + targetZVels;
 
         newProjectile.GetComponent<Rigidbody>().velocity = new Vector3(Vx, Vy, Vz);
-        newProjectile.GetComponent<CannonballController>().owner = GetShipTransform().gameObject;
+        newProjectile.GetComponent<CannonballController>().owner = getShipTransform().gameObject;
+    }
+    public void reload()
+    {
+        reloading = true;
+        Invoke("weaponStatusReady", reloadTime);
+    }
+
+    void weaponStatusReady()
+    {
+        reloading = false;
     }
 
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)

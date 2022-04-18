@@ -5,12 +5,21 @@ using UnityEngine;
 public class CannonballController : MonoBehaviour
 {
     public GameObject owner { get; set; }
-    [SerializeField]
-    ParticleSystem impact;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Instantiate(impact, transform.position, Quaternion.identity);
         if (owner != collision.gameObject)
         {
             Destroy(gameObject);

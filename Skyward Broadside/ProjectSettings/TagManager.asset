@@ -13,7 +13,6 @@ TagManager:
   - ResupplyBase
   - ShockwaveCannonball
   - Effects
-  - ReloadIndicator
   layers:
   - Default
   - TransparentFX

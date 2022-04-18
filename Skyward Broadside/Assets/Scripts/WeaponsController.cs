@@ -11,12 +11,8 @@ public class WeaponsController : MonoBehaviour
     List<GameObject> gatlingGuns;
     [SerializeField]
     float cannonThresholdAngle;
-    [SerializeField]
-    float reloadTime;
-    GameObject reloadCircle;
 
     public int currentWeaponId;
-    public bool reloading;
 
     bool lockedOn;
     bool switchedWeapon;
@@ -27,7 +23,6 @@ public class WeaponsController : MonoBehaviour
     {
         //enable weapon 0 on start
         EnableWeapon(0);
-        reloadCircle = GameObject.FindGameObjectWithTag("ReloadIndicator");
     }
 
     //equip any weapons that are marked as true (enabled) by the ship arsenal
@@ -122,26 +117,6 @@ public class WeaponsController : MonoBehaviour
         currentWeaponId = weaponId;
     }
 
-    public void Reload()
-    {
-        if (!reloading && GetComponent<PhotonView>().IsMine)
-        {
-            Invoke(nameof(Reloading), 0.05f);
-            Invoke(nameof(Reloaded), reloadTime);
-        }
-    }
-
-    void Reloading()
-    {
-        reloading = true;
-        reloadCircle.GetComponent<ReloadIndicator>().Reload();
-    }
-
-    void Reloaded()
-    {
-        reloading = false;
-    }
-
     void EnableCannons()
     {
         int ammoCount = GetComponent<ShipArsenal>().cannonballAmmo;
@@ -153,6 +128,11 @@ public class WeaponsController : MonoBehaviour
             {
                 if (cannon != null)
                 {
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<BasicCannonController>().reload();
+                    }
+
                     if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
                     {
                         cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
@@ -178,6 +158,11 @@ public class WeaponsController : MonoBehaviour
             {
                 if (cannon != null)
                 {
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<BasicCannonController>().reload();
+                    }
+
                     if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
                     {
                         cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
@@ -225,6 +210,11 @@ public class WeaponsController : MonoBehaviour
             {
                 if (cannon != null)
                 {
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().reload();
+                    }
+
                     if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
                     {
                         cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
@@ -250,6 +240,11 @@ public class WeaponsController : MonoBehaviour
             {
                 if (cannon != null)
                 {
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().reload();
+                    }
+
                     if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
                     {
                         cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
@@ -328,6 +323,11 @@ public class WeaponsController : MonoBehaviour
             {
                 if (cannon != null)
                 {
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<ShockwaveCannonController>().reload();
+                    }
+
                     if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
                     {
                         cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = true;
@@ -353,6 +353,11 @@ public class WeaponsController : MonoBehaviour
             {
                 if (cannon != null)
                 {
+                    if (switchedWeapon)
+                    {
+                        cannon.GetComponent<ShockwaveCannonController>().reload();
+                    }
+
                     if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
                     {
                         cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = true;
@@ -398,6 +403,11 @@ public class WeaponsController : MonoBehaviour
         {
             if (cannon != null)
             {
+                if (switchedWeapon)
+                {
+                    cannon.GetComponent<HomingCannonController>().Reload();
+                }
+
                 if (noOfEnabledCannons < ammoCount)
                 {
                     cannon.GetComponent<HomingCannonController>().weaponEnabled = true;

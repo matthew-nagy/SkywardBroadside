@@ -15,8 +15,6 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     LayerMask otherLayerMask;
     [SerializeField]
     float range;
-    [SerializeField]
-    ParticleSystem gatlingImpact;
 
     LayerMask layerMask;
 
@@ -82,7 +80,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         {
             getShipTransform().GetComponent<TargetingSystem>().aquireFreeFireTarget();
             targetPos = getShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
-            Fire();
+            fire();
         }
     }
 
@@ -90,7 +88,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (clientShootingFlag)
         {
-            Fire();
+            fire();
         }
     }
 
@@ -108,10 +106,6 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
                 serverShootingFlag = sendShootingToClient = false;
             }
         }
-        else
-        {
-            serverShootingFlag = sendShootingToClient = false;
-        }
     }
     Transform getShipTransform()
     {
@@ -128,7 +122,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     //fire the cannon
-    void Fire()
+    void fire()
     {
         SendShakeEvent();
 
@@ -136,14 +130,16 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 dir = (targetPos - shotOrigin.transform.position).normalized;
         if (Physics.Raycast(shotOrigin.transform.position, dir, out hit, range, layerMask))
         {
-            if (hit.collider.gameObject.name == shipType)
+            if (hit.collider.gameObject.name == "Ship")
             {
                 hit.collider.gameObject.GetComponent<ShipArsenal>().HitMe("gatling");
             }
+            
+
 
             ParticleSystem tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.LookRotation(dir));
 
-            StartCoroutine(SpawnTracer(tracer, hit.point));
+            StartCoroutine(SpawnTracer(tracer));
 
             shotTime = Time.time;
         }
@@ -151,16 +147,15 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         {   
             hit.point = shotOrigin.transform.position + (dir * range);
             ParticleSystem tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.LookRotation(dir));
-            StartCoroutine(SpawnTracer(tracer, hit.point));
+            StartCoroutine(SpawnTracer(tracer));
         }
     }
 
-    IEnumerator SpawnTracer(ParticleSystem tracer, Vector3 hitPoint)
+    IEnumerator SpawnTracer(ParticleSystem tracer)
     {
         float time = 0;
         while (time < 0.5)
         {
-            Instantiate(gatlingImpact, hitPoint, Quaternion.FromToRotation(hitPoint, transform.position));
             time += Time.deltaTime;
             yield return null;
         }
