@@ -13781,7 +13781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e9407cc2bfbaa43b81a5fc9e1112a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapCenter: {fileID: 0}
   angularAccel: 1
   angularMass: 7
   angularFriction: 0.5

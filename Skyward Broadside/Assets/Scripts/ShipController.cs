@@ -39,7 +39,6 @@ struct RequestedControls
 
 public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 {
-    public GameObject mapCenter;
 
     Rigidbody rigidBody;
 
@@ -96,6 +95,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     private readonly float forceToDamageMultiplier = 0.01f;
 
+    private Vector3 lastPosition;
+
+
+    public void ResetLastPosition()
+    {
+        transform.position = lastPosition;
+        rigidBody.position = lastPosition;
+    }
+
     public void InformOfFire()
     {
         if (photonView.IsMine)
@@ -118,10 +126,11 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         teamColour = TeamData.TeamToColour(GetComponentInParent<PlayerPhotonHub>().myTeam);
 
-        if(mapCenter != null)
-        {
 
-        }
+        GameObject mapCenter = GameObject.Find("Center");
+        Vector3 towards = mapCenter.transform.position - transform.position;
+        towards.y = 0;
+        transform.rotation = Quaternion.LookRotation(towards);
     }
 
     void Awake()
@@ -137,6 +146,12 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         // #Critical
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void DisableMovementFor(float seconds)
+    {
+        isDisabled = true;
+        totalDisabledTime = seconds;
     }
 
     // Update is called once per frame
@@ -188,6 +203,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void FixedUpdate()
     {
+        lastPosition = transform.position;
+
         HandleForce();
 
         Quaternion deltaRotation = Quaternion.Euler(turnDirection);
@@ -227,7 +244,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             gameObject.GetComponent<PlayerController>().lastHit(cannonballOwner.GetComponent<PhotonView>().Owner.NickName);
             if (!GameObject.ReferenceEquals(cannonballOwner, gameObject))
             {
-                print("I'm in pain");
                 Vector3 velocityCannonball = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
                 Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityCannonball;
                 moveSpeed = finalVelocity.magnitude;
@@ -268,8 +284,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             velocity = finalVelocity;
 
-            isDisabled = true;
-            totalDisabledTime = 1f;
+            DisableMovementFor(1f);
             // the 10 is needed because otherwise you insta-kill each other upon contact
             collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
 
@@ -299,9 +314,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                     transform.position += new Vector3(0, 0, 1);
                     break;
             }
-            velocity = new Vector3(0, 0, 0);
-            isDisabled = true;
-            totalDisabledTime = 0.5f;
+            velocity = new Vector3(0, 0, 0); 
+            DisableMovementFor(0.5f);
             collisionMag = 0f;
             // no damage when colliding with invisible walls, just there to avoid going out of bounds
         }
@@ -319,8 +333,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                     if (!collision.gameObject.GetComponent<Breakable>().broken)
                     {
                         velocity = -0.5f * velocity;
-                        isDisabled = true;
-                        totalDisabledTime = 0.5f;
+                        DisableMovementFor(0.5f);
                     }
 
                     collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude;
@@ -453,7 +466,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             turningForce = new Vector3(0, angularAccel * -1.0f, 0);
         }
-        SetParticles(pClockwiseJets, playerInput.turnLeft);
+        SetParticles(pAntiClockwiseJets, playerInput.turnLeft);
 
         if (playerInput.up)
         {
