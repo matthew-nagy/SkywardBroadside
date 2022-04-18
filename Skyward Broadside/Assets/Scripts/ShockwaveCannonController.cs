@@ -25,6 +25,9 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
 
     string shipType;
 
+    [SerializeField]
+    ParticleSystem cannonFire;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -55,24 +58,25 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
 
     void ServerUpdate()
     {
+        reloading = GetShipTransform().GetComponent<WeaponsController>().reloading;
         GetInput();
 
         //set current target Id if we are lockedOn
         if (lockedOn)
         {
-            currentTargetId = getShipTransform().GetComponent<TargetingSystem>().currentTargetId;
+            currentTargetId = GetShipTransform().GetComponent<TargetingSystem>().currentTargetId;
         } //or free fire
         else
         {
-            freeFireTargetPos = getShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
+            freeFireTargetPos = GetShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
         }
 
         if (serverShootFlag)
         {
             serverShootFlag = false;
             Fire();
-            getShipTransform().GetComponent<ShipArsenal>().shockwaveAmmo--;
-            reload();
+            GetShipTransform().GetComponent<ShipArsenal>().shockwaveAmmo--;
+            GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
 
@@ -82,8 +86,8 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         {
             clientShootFlag = false;
             Fire();
-            getShipTransform().GetComponent<ShipArsenal>().shockwaveAmmo--;
-            reload();
+            GetShipTransform().GetComponent<ShipArsenal>().shockwaveAmmo--;
+            GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
 
@@ -92,13 +96,13 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         if (weaponEnabled)
         {
             //attempt to fire the cannon
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootFlag)
+            if (SBControls.shoot.IsDown() && !reloading && !serverShootFlag)
             {
                 serverShootFlag = sendShootToClient = true;
             }
         }
     }
-    Transform getShipTransform()
+    Transform GetShipTransform()
     {
         return transform.root.Find("Ship").Find(shipType);
     }
@@ -112,9 +116,15 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         }
     }
 
+    void CreateParticles()
+    {
+        Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
+    }
+
     //fire the cannon
     void Fire()
     {
+        CreateParticles();
         SendShakeEvent();
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
@@ -131,7 +141,7 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
             newProjectile.GetComponent<Shockwave>().shockwavableObjects = newProjectile.GetComponent<Shockwave>().myLayerMask;
         }
 
-        GameObject ship = getShipTransform().gameObject;
+        GameObject ship = GetShipTransform().gameObject;
 
         GameObject target;
         Vector3 targetPos;
@@ -168,18 +178,7 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         Vz = Vz + targetZVels;
 
         newProjectile.GetComponent<Rigidbody>().velocity = new Vector3(Vx, Vy, Vz);
-        newProjectile.GetComponent<CannonballController>().owner = getShipTransform().gameObject;
-    }
-
-    public void reload()
-    {
-        reloading = true;
-        Invoke("weaponStatusReady", reloadTime);
-    }
-
-    void weaponStatusReady()
-    {
-        reloading = false;
+        newProjectile.GetComponent<CannonballController>().owner = GetShipTransform().gameObject;
     }
 
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)

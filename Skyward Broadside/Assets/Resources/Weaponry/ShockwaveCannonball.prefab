@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3799885530754182095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.0055165, y: 4.4141335, z: -31.090416}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -245,7 +245,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   implosion: {fileID: 8868662823091966536, guid: a2144a656fc3e9b498707793d16d91b0, type: 3}
-  doEffect: 1
+  owner: {fileID: 0}
 --- !u!114 &7997862387246384744
 MonoBehaviour:
   m_ObjectHideFlags: 0
