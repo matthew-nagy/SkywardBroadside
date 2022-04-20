@@ -138,8 +138,10 @@ public class ReloadRegister : MonoBehaviour
 
         mf.sharedMesh = myMesh;
         mr.material = reloadRadiusMaterial;
+        Color teamColour = TeamData.TeamToColour(myTeam);
+        //mr.material.SetVector("Colour", new Vector4(teamColour.r, teamColour.g, teamColour.b, 0.6f));
         
         //Just set it to false for now
-        mr.enabled = false;
+        //mr.enabled = false;
     }
 }
