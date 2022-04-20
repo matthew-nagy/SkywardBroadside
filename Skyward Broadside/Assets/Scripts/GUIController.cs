@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,9 +65,9 @@ public class GUIController : MonoBehaviour
     readonly int healthMinZ = 120;
     readonly int healthMaxZ = -115;
 
-    Vector3 topPos;
-    Vector3 leftPos;
-    Vector3 rightPos;
+    Vector3 topPos = new Vector3(-123, 38, 0);
+    Vector3 leftPos = new Vector3(-182, -70, 0);
+    Vector3 rightPos = new Vector3(-69, -70, 0);
 
     private Dial healthDial;
     private Dial normalAmmoDial;
@@ -85,26 +86,32 @@ public class GUIController : MonoBehaviour
     private DialPos rightDialPos;
 
     private bool isMoving = false;
-    private int currentWeaponId;
+    private int currentWeaponId = 0;
     private bool hasGatling = false;
+    private bool isInitialised = false;
 
     //Score stuff
     public Text myScore;
     public Text theirScore;
 
+    public GameObject gameOverScreen;
+
     public Text gameOverYourTeam;
     public Text gameOverOtherTeam;
 
-    
+    public Text timer;
+
+
+    private void Awake()
+    {
+        //topPos = new Vector3(-123, 38, 0);
+        //leftPos = new Vector3(-182, -70, 0);
+        //rightPos = new Vector3(-69, -70, 0);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        currentWeaponId = 0;
-        topPos = new Vector3(-147, 25, 0);
-        leftPos = new Vector3(-204, -96, 0);
-        rightPos = new Vector3(-86, -96, 0);
-
         healthDial = new Dial(healthDialParent, maxHealth, Ammo.None);
 
     }
@@ -112,7 +119,7 @@ public class GUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isMoving)
+        if (!isMoving && isInitialised)
         {
             switch (currentWeaponId)
             {
@@ -158,9 +165,9 @@ public class GUIController : MonoBehaviour
         leftDialPos.targetPos = topDialPos.position;
         rightDialPos.targetPos = leftDialPos.position;
 
-        for (int i = 1; i < 201; i++)
+        for (int i = 1; i < 31; i++)
         {
-            float proportion = (float)i/ 200f;
+            float proportion = (float)i/ 30f;
             float decreasingSize = Mathf.Lerp(1.0f, 0.75f, proportion);
             float increasingSize = Mathf.Lerp(0.75f, 1.0f, proportion);
             topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
@@ -193,9 +200,9 @@ public class GUIController : MonoBehaviour
         leftDialPos.targetPos = rightDialPos.position;
         rightDialPos.targetPos = topDialPos.position;
 
-        for (int i = 1; i < 201; i++)
+        for (int i = 1; i < 31; i++)
         {
-            float proportion = (float)i / 200f;
+            float proportion = (float)i / 30f;
             float decreasingSize = Mathf.Lerp(1.0f, 0.75f, proportion);
             float increasingSize = Mathf.Lerp(0.75f, 1.0f, proportion);
             topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
@@ -225,34 +232,45 @@ public class GUIController : MonoBehaviour
     }
 
 
-    public void UpdateHealth(int value)
+    public void UpdateGUIHealth(float value)
     {
-        Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(healthMinZ, healthMaxZ, value / maxHealth));
+        Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(healthMinZ, healthMaxZ, (float)value / (float)maxHealth));
         healthDial.dialHand.rotation = Quaternion.Euler(newRotation);
+
+        //print("Remaining health: " + value);
     }
 
-    public void UpdateNormalAmmo(int value)
+    public void UpdateGUINormalAmmo(int value)
     {
 
     }
 
-    public void UpdateExplosiveAmmo(int value)
+    public void UpdateGUIExplosiveAmmo(int value)
     {
-        Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(ammoMinZ, ammoMaxZ, value / maxExplosiveAmmo));
-        explosiveAmmoDial.dialHand.rotation = Quaternion.Euler(newRotation);
+        Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(ammoMinZ, ammoMaxZ, (float)value / (float)maxExplosiveAmmo));
+
+        if (explosiveAmmoDial.dialHand != null)
+        {
+            explosiveAmmoDial.dialHand.rotation = Quaternion.Euler(newRotation);
+        }
+
+        //print("Remaining explosive: " + value);
+
     }
 
     public void UpdateSpecialAmmo(int value)
     {
         if (!hasGatling)
         {
-            Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(ammoMinZ, ammoMaxZ, value / maxSpecialAmmo));
+            Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(ammoMinZ, ammoMaxZ, (float)value / (float)maxSpecialAmmo));
             specialAmmoDial.dialHand.rotation = Quaternion.Euler(newRotation);
+
+            //print("Remaining special: " + value);
 
         }
     }
 
-    public void UpdateScores(int myTeam, int otherTeam)
+    public void UpdateGUIScores(int myTeam, int otherTeam)
     {
         myScore.text = myTeam.ToString();
         gameOverYourTeam.text = myTeam.ToString();
@@ -291,6 +309,8 @@ public class GUIController : MonoBehaviour
         topDialPos = new DialPos(normalAmmoDial, topPos);
         leftDialPos = new DialPos(explosiveAmmoDial, leftPos);
         rightDialPos = new DialPos(specialAmmoDial, rightPos);
+
+        isInitialised = true;
     }
 
     private void Initialise()
@@ -336,6 +356,11 @@ public class GUIController : MonoBehaviour
         missileImage.SetActive(true);
 
         hasGatling = false;
+    }
+
+    public void UpdateTimer(TimeSpan timeRemaining)
+    {
+        timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
     }
 }
  

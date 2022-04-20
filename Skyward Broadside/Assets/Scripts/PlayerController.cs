@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviourPun, IPunObservable
 {
-    private GuiUpdateScript updateScript;
+    private GUIController updateScript;
 
     public TeamData.Team myTeam;
 
@@ -30,11 +30,15 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         {
             updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;
 
-            spawnTime = DateTime.Now;
+            if (updateScript != null)
+            {
+                updateScript.SetPlayer(this.gameObject);
+                UpdateHealth();
+                UpdateAmmo();
+                UpdateWeapon();
+            }
 
-            UpdateHealth();
-            UpdateAmmo();
-            UpdateWeapon();
+            spawnTime = DateTime.Now;
 
             Invoke(nameof(RegenInvoker), 5f);
         }
@@ -54,6 +58,17 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             if (updateScript == null)
             {
                 updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;
+
+                if (updateScript != null)
+                {
+                    updateScript.SetPlayer(this.gameObject);
+                    print("setting player");
+                    UpdateHealth();
+                    UpdateAmmo();
+                    UpdateWeapon();
+                }
+
+
             }
         }
     }
@@ -80,7 +95,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         if (updateScript != null)
         {
             ShipArsenal sa = GetComponent<ShipArsenal>();
-            updateScript.UpdateGUIAmmo(sa.cannonballAmmo);
+            updateScript.UpdateGUINormalAmmo(sa.cannonballAmmo);
             updateScript.UpdateGUIExplosiveAmmo(sa.explosiveCannonballAmmo);
         }
         else

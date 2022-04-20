@@ -10,7 +10,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class photonHub : MonoBehaviourPunCallbacks
 {
     
-    public GuiUpdateScript updateScript;
+    public GUIController updateScript;
     public TeamData.Team myTeam;
 
     public static Dictionary<string, PlayerController> players;
@@ -31,7 +31,7 @@ public class photonHub : MonoBehaviourPunCallbacks
             if(userGUI != null)
             {
                 Debug.Log("Inside the if part with the value " + userGUI);
-                updateScript = userGUI.GetComponent<GuiUpdateScript>();
+                updateScript = userGUI.GetComponent<GUIController>();
                 disabled = false;
                 FetchScores();
             }

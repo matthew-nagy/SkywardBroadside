@@ -29,7 +29,7 @@ public class PlayerPhotonHub : MonoBehaviour
     //Allow single player testing
     bool disabled;
 
-    public GuiUpdateScript updateScript;
+    public GUIController updateScript;
 
     public List<Material> teamMaterials;
     public TeamData.Team myTeam;
@@ -81,19 +81,13 @@ public class PlayerPhotonHub : MonoBehaviour
         {
             Debug.LogError("Player does not have a universal unique ID");
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Blackboard.playerPhotonHub = this;
 
         GameObject userGUI = GameObject.Find("User GUI");
         Debug.Log(userGUI);
-        if(userGUI != null)
+        if (userGUI != null)
         {
             Debug.Log("Inside the if part with the value " + userGUI);
-            updateScript = userGUI.GetComponent<GuiUpdateScript>();
+            updateScript = userGUI.GetComponent<GUIController>();
             disabled = false;
         }
         else
@@ -101,6 +95,26 @@ public class PlayerPhotonHub : MonoBehaviour
             disabled = true;
             Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Blackboard.playerPhotonHub = this;
+
+        //GameObject userGUI = GameObject.Find("User GUI");
+        //Debug.Log(userGUI);
+        //if(userGUI != null)
+        //{
+        //    Debug.Log("Inside the if part with the value " + userGUI);
+        //    updateScript = userGUI.GetComponent<GUIController>();
+        //    disabled = false;
+        //}
+        //else
+        //{
+        //    disabled = true;
+        //    Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
+        //}
 
         //Instantiate UI (username and health)
         if (PlayerUiPrefab != null)
