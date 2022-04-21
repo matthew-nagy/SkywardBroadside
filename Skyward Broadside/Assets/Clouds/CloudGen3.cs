@@ -8,9 +8,6 @@ public class CloudGen3 : MonoBehaviour
     public int cloud_height = 10;
     public int cloud_depth = 10;
 
-    Vector3Int flowGridDimensions = new Vector3Int(5, 5, 5);
-    public CloudController controller;
-
     public Color cloud_colour = new Color(1f, 0.9f, 0.9f, 0.7f);
     private int maxDimension = 10;
     private Vector3 dimensionRatios;
@@ -169,8 +166,6 @@ public class CloudGen3 : MonoBehaviour
 
         meshFilter.mesh = mesh;
         shaderScale = new Vector3(cloud_width, cloud_height, cloud_depth);
-
-        controller.Init(flowGridDimensions, meshFilter.mesh, colors, cloud_width, cloud_height, cloud_depth);
     }
 
     // Update is called once per frame

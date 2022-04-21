@@ -57,7 +57,7 @@ MonoBehaviour:
   materialSettingObjects:
   - {fileID: 6420333536735963149}
   friendlyReloadMaterial: {fileID: 2100000, guid: 69a27b25712c84f4fa3a92b3efa82f4c, type: 2}
-  reloadRadiusMaterial: {fileID: 2100000, guid: ed4d9d1294f46d646af6281a765c67f0, type: 2}
+  reloadRadiusMaterial: {fileID: 2100000, guid: 69a27b25712c84f4fa3a92b3efa82f4c, type: 2}
 --- !u!135 &5906757971277278699
 SphereCollider:
   m_ObjectHideFlags: 0
