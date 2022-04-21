@@ -1,16 +1,14 @@
-Shader "Unlit/ManualPhong"
+Shader "Unlit/CellStandard"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Colour("Colour", Color) = (1, 1, 1, 1)
         _AmbientLevel("Ambient light level", Range(0,1)) = 0.3
-        _ShaderAlpha("Script alpha", Range(0,1)) = 1.0
     }
     SubShader
     {
-            Blend SrcAlpha OneMinusSrcAlpha
-            Tags {"Queue"="Transparent" "RenderType" = "Transparent" "LightMode" = "ForwardBase" }
+            Tags {"Queue"="Geometry" "RenderType" = "Geometry" "LightMode" = "ForwardBase" }
             LOD 100
             Cull[_Cull]
             ZWrite On
