@@ -65,9 +65,9 @@ public class GUIController : MonoBehaviour
     readonly int healthMinZ = 120;
     readonly int healthMaxZ = -115;
 
-    Vector3 topPos = new Vector3(-123, 38, 0);
-    Vector3 leftPos = new Vector3(-182, -70, 0);
-    Vector3 rightPos = new Vector3(-69, -70, 0);
+    Vector3 topPos;
+    Vector3 leftPos;
+    Vector3 rightPos;
 
     private Dial healthDial;
     private Dial normalAmmoDial;
@@ -84,6 +84,9 @@ public class GUIController : MonoBehaviour
     private DialPos topDialPos;
     private DialPos leftDialPos;
     private DialPos rightDialPos;
+
+    private float smallDialScale = 0.9f;
+    private float bigDialScale = 1.25f;
 
     private bool isMoving = false;
     private int currentWeaponId = 0;
@@ -104,9 +107,9 @@ public class GUIController : MonoBehaviour
 
     private void Awake()
     {
-        //topPos = new Vector3(-123, 38, 0);
-        //leftPos = new Vector3(-182, -70, 0);
-        //rightPos = new Vector3(-69, -70, 0);
+        topPos = normalAmmoParent.transform.localPosition;
+        leftPos = explosiveAmmoParent.transform.localPosition;
+        rightPos = specialAmmoParent.transform.localPosition;
     }
 
     // Start is called before the first frame update
@@ -168,8 +171,8 @@ public class GUIController : MonoBehaviour
         for (int i = 1; i < 31; i++)
         {
             float proportion = (float)i/ 30f;
-            float decreasingSize = Mathf.Lerp(1.0f, 0.75f, proportion);
-            float increasingSize = Mathf.Lerp(0.75f, 1.0f, proportion);
+            float decreasingSize = Mathf.Lerp(bigDialScale, smallDialScale, proportion);
+            float increasingSize = Mathf.Lerp(smallDialScale, bigDialScale, proportion);
             topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
             topDialPos.dial.parent.transform.localScale = new Vector3(decreasingSize, decreasingSize, decreasingSize);
 
@@ -203,8 +206,8 @@ public class GUIController : MonoBehaviour
         for (int i = 1; i < 31; i++)
         {
             float proportion = (float)i / 30f;
-            float decreasingSize = Mathf.Lerp(1.0f, 0.75f, proportion);
-            float increasingSize = Mathf.Lerp(0.75f, 1.0f, proportion);
+            float decreasingSize = Mathf.Lerp(bigDialScale, smallDialScale, proportion);
+            float increasingSize = Mathf.Lerp(smallDialScale, bigDialScale, proportion);
             topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
             topDialPos.dial.parent.transform.localScale = new Vector3(decreasingSize, decreasingSize, decreasingSize);
             leftDialPos.dial.parent.transform.localPosition = LerpDialPos(leftDialPos, proportion);

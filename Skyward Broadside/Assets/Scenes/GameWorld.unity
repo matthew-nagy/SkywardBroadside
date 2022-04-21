@@ -4463,11 +4463,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7960650162627228265, guid: 46809928c70355372adf8533d15ed725, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -220
+      value: -230
       objectReference: {fileID: 0}
     - target: {fileID: 7960650162627228265, guid: 46809928c70355372adf8533d15ed725, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -162
+      value: -66
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46809928c70355372adf8533d15ed725, type: 3}
@@ -8588,6 +8588,10 @@ PrefabInstance:
     - target: {fileID: 8145420827766625274, guid: 49ce485c2937a8740a77908c2dafd21d, type: 3}
       propertyPath: m_Name
       value: Leave Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145420827766625274, guid: 49ce485c2937a8740a77908c2dafd21d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49ce485c2937a8740a77908c2dafd21d, type: 3}
