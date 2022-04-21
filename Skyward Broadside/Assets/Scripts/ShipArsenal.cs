@@ -31,11 +31,14 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     private readonly int regenOfCannonballsPerReloadPeriod = 3;
     private readonly int regenOfExplosiveCannonballPerReloadPeriod = 1;
 
-    private void Start()
+    private void Awake()
     {
         EnableWeapon(0);
         EnableWeapon(1);
         EnableWeapon(2);
+    }
+    private void Start()
+    {
         GetComponent<WeaponsController>().equipWeapons();
 
         Respawn();
