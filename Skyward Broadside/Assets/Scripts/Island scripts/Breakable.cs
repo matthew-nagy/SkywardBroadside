@@ -25,6 +25,7 @@ public class Breakable : MonoBehaviour
     void Start()
     {
         breakPhotonInterface.children.Add(this);
+        enabled = false;
     }
 
     private void OnApplicationQuit()
@@ -147,6 +148,8 @@ public class Breakable : MonoBehaviour
         myRigidBody.mass = 5;
         myRigidBody.useGravity = true;
 
+
+        enabled = true;
         GetComponent<Renderer>().enabled = true;
     }
     void Break(float force, Vector3 contactPoint, float forceRadius)
