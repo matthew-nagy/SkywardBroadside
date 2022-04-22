@@ -28,6 +28,8 @@ public class WeaponsController : MonoBehaviour
         //enable weapon 0 on start
         EnableWeapon(0);
         reloadCircle = GameObject.FindGameObjectWithTag("ReloadIndicator");
+
+        switchedWeapon = true;
     }
 
     //equip any weapons that are marked as true (enabled) by the ship arsenal
@@ -43,51 +45,46 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    public void DisableAllWeapons()
+    {
+        DisableCannons();
+        DisableExplosiveCannons();
+        DisableGatlingGun();
+        DisableShockwaveCannons();
+        DisableHomingCannons();
+    }
+
     private void Update()
     {
         GetInput();
 
         lockedOn = GetComponent<TargetingSystem>().lockedOn;
 
+        if (switchedWeapon)
+        {
+            DisableAllWeapons();
+            switchedWeapon = false;
+        }
+
         switch (currentWeaponId)
         {
             case 0:
-                DisableExplosiveCannons();
-                DisableGatlingGun();
-                DisableShockwaveCannons();
-                DisableHomingCannons();
                 EnableCannons();
                 break;
 
             case 1:
-                DisableCannons();
-                DisableGatlingGun();
-                DisableShockwaveCannons();
-                DisableHomingCannons();
                 EnableExplosiveCannons();
                 break;
 
             case 2:
-                DisableCannons();
-                DisableExplosiveCannons();
-                DisableShockwaveCannons();
-                DisableHomingCannons();
                 EnableGatlingGun();
                 break;
 
             case 3:
-                DisableCannons();
-                DisableExplosiveCannons();
-                DisableGatlingGun();
-                DisableHomingCannons();
                 EnableShockwaveCannons();
                 break;
 
             case 4:
-                DisableCannons();
-                DisableExplosiveCannons();
-                DisableGatlingGun();
-                DisableShockwaveCannons();
                 EnableHomingCannons();
                 break;
 
@@ -95,7 +92,6 @@ public class WeaponsController : MonoBehaviour
                 Debug.LogError("Invalid weapon Id");
                 break;
         }
-        switchedWeapon = false;
     }
 
     void GetInput()
@@ -452,33 +448,25 @@ public class WeaponsController : MonoBehaviour
 
     bool CheckLineOfSight(GameObject cannon)
     {
-        if (cannon != null)
+        GameObject target;
+        Vector3 targetPos;
+        Vector3 vecToTarget;
+        if (lockedOn)
         {
-            GameObject target;
-            Vector3 targetPos;
-            Vector3 vecToTarget;
-            if (lockedOn)
-            {
-                target = PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId).gameObject;
-                vecToTarget = target.transform.position - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
-            }
-            else
-            {
-                targetPos = GetComponent<TargetingSystem>().freeFireTargetPos;
-                vecToTarget = targetPos - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
-            }
-
-            float angle = Vector3.Angle(cannon.GetComponent<BasicCannonController>().shotOrigin.forward, vecToTarget);
-            if (angle > cannonThresholdAngle)
-            {
-                return false;
-            }
-            return true;
+            target = PhotonView.Find(GetComponent<TargetingSystem>().currentTargetId).gameObject;
+            vecToTarget = target.transform.position - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
         }
         else
         {
-            Debug.LogWarning("Could not find cannon object");
+            targetPos = GetComponent<TargetingSystem>().freeFireTargetPos;
+            vecToTarget = targetPos - cannon.GetComponent<BasicCannonController>().shotOrigin.transform.position;
+        }
+
+        float angle = Vector3.Angle(cannon.GetComponent<BasicCannonController>().shotOrigin.forward, vecToTarget);
+        if (angle > cannonThresholdAngle)
+        {
             return false;
         }
+        return true;
     }
 }
