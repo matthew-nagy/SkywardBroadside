@@ -227,7 +227,10 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     public void RegisterBreakEvent(BreakEvent e)
     {
         events.breakEvents.Add(e);
-        cascader.InformOfBreak(children[e.indexInOwner]);
+        if (cascader != null)
+        {
+            cascader.InformOfBreak(children[e.indexInOwner]);
+        }
         HideVertices(children[e.indexInOwner]);
     }
 
