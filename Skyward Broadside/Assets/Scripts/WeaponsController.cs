@@ -157,12 +157,14 @@ public class WeaponsController : MonoBehaviour
                     {
                         cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
                         cannon.GetComponent<BasicCannonController>().lockedOn = true;
+                        cannon.GetComponent<BasicCannonController>().enabled = true;
                         noOfEnabledCannons++;
                     }
                     else
                     {
                         cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
                         cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                        cannon.GetComponent<BasicCannonController>().enabled = false;
                     }
                 }
                 else
@@ -182,12 +184,14 @@ public class WeaponsController : MonoBehaviour
                     {
                         cannon.GetComponent<BasicCannonController>().weaponEnabled = true;
                         cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                        cannon.GetComponent<BasicCannonController>().enabled = true;
                         noOfEnabledCannons++;
                     }
                     else
                     {
                         cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
                         cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                        cannon.GetComponent<BasicCannonController>().enabled = false;
                     }
                 }
                 else
@@ -206,6 +210,7 @@ public class WeaponsController : MonoBehaviour
             {
                 cannon.GetComponent<BasicCannonController>().weaponEnabled = false;
                 cannon.GetComponent<BasicCannonController>().lockedOn = false;
+                cannon.GetComponent<BasicCannonController>().enabled = false;
             }
             else
             {
@@ -229,12 +234,14 @@ public class WeaponsController : MonoBehaviour
                     {
                         cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
                         cannon.GetComponent<ExplosiveCannonController>().lockedOn = true;
+                        cannon.GetComponent<ExplosiveCannonController>().enabled = true;
                         noOfEnabledCannons++;
                     }
                     else
                     {
                         cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
                         cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                        cannon.GetComponent<ExplosiveCannonController>().enabled = false;
                     }
                 }
                 else
@@ -254,12 +261,14 @@ public class WeaponsController : MonoBehaviour
                     {
                         cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = true;
                         cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                        cannon.GetComponent<ExplosiveCannonController>().enabled = true;
                         noOfEnabledCannons++;
                     }
                     else
                     {
                         cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
                         cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                        cannon.GetComponent<ExplosiveCannonController>().enabled = false;
                     }
                 }
                 else
@@ -278,6 +287,7 @@ public class WeaponsController : MonoBehaviour
             {
                 cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
                 cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                cannon.GetComponent<ExplosiveCannonController>().enabled = false;
             }
             else
             {
@@ -293,6 +303,7 @@ public class WeaponsController : MonoBehaviour
             if (gun != null)
             {
                 gun.GetComponent<GatlingGunController>().weaponEnabled = true;
+                gun.GetComponent<GatlingGunController>().enabled = true;
             }
             else
             {
@@ -309,6 +320,7 @@ public class WeaponsController : MonoBehaviour
             if (gun != null)
             {
                 gun.GetComponent<GatlingGunController>().weaponEnabled = false;
+                gun.GetComponent<GatlingGunController>().enabled = false;
             }
             else
             {
@@ -332,12 +344,14 @@ public class WeaponsController : MonoBehaviour
                     {
                         cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = true;
                         cannon.GetComponent<ShockwaveCannonController>().lockedOn = true;
+                        cannon.GetComponent<ShockwaveCannonController>().enabled = true;
                         noOfEnabledCannons++;
                     }
                     else
                     {
                         cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
                         cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                        cannon.GetComponent<ShockwaveCannonController>().enabled = false;
                     }
                 }
                 else
@@ -357,12 +371,14 @@ public class WeaponsController : MonoBehaviour
                     {
                         cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = true;
                         cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                        cannon.GetComponent<ShockwaveCannonController>().enabled = true;
                         noOfEnabledCannons++;
                     }
                     else
                     {
                         cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
                         cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                        cannon.GetComponent<ShockwaveCannonController>().enabled = false;
                     }
                 }
                 else
@@ -381,6 +397,7 @@ public class WeaponsController : MonoBehaviour
             {
                 cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
                 cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                cannon.GetComponent<ShockwaveCannonController>().enabled = false;
             }
             else
             {
@@ -401,11 +418,13 @@ public class WeaponsController : MonoBehaviour
                 if (noOfEnabledCannons < ammoCount)
                 {
                     cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
+                    cannon.GetComponent<HomingCannonController>().enabled = true;
                     noOfEnabledCannons++;
                 }
                 else
                 {
                     cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
+                    cannon.GetComponent<HomingCannonController>().enabled = false;
                 }
             }
             else
@@ -422,6 +441,7 @@ public class WeaponsController : MonoBehaviour
             if (cannon != null)
             {
                 cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
+                cannon.GetComponent<HomingCannonController>().enabled = false;
             }
             else
             {
