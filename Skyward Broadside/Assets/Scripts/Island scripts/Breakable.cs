@@ -150,7 +150,11 @@ public class Breakable : MonoBehaviour
 
 
         enabled = true;
-        GetComponent<Renderer>().enabled = true;
+        Renderer myRenderer = GetComponent<Renderer>();
+        if(myRenderer != null)
+        {
+            myRenderer.enabled = true;
+        }
     }
     void Break(float force, Vector3 contactPoint, float forceRadius)
     {
