@@ -113,9 +113,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3603178021210561226, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 19.33579
+      objectReference: {fileID: 0}
+    - target: {fileID: -3603178021210561226, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 19.33579
+      objectReference: {fileID: 0}
+    - target: {fileID: -3603178021210561226, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 19.33579
+      objectReference: {fileID: 0}
+    - target: {fileID: -3278615484307183667, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -17.53217
+      objectReference: {fileID: 0}
+    - target: {fileID: -3278615484307183667, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -17.53217
+      objectReference: {fileID: 0}
+    - target: {fileID: -3278615484307183667, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -17.53217
+      objectReference: {fileID: 0}
+    - target: {fileID: -3272106112100924687, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -17.53217
+      objectReference: {fileID: 0}
+    - target: {fileID: -3272106112100924687, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -17.53217
+      objectReference: {fileID: 0}
+    - target: {fileID: -3272106112100924687, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -17.53217
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
       propertyPath: m_Name
       value: tree_2.fbx_Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -17.53217
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -17.53217
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438656852951536746, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -17.53217
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 799c3c3f1471c6b4e958d7081e0267c8, type: 3}
