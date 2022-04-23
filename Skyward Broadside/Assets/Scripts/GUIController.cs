@@ -62,7 +62,7 @@ public class GUIController : MonoBehaviour
     readonly int ammoMinZ = 115;
     readonly int ammoMaxZ = -115;
 
-    readonly int healthMinZ = 120;
+    readonly int healthMinZ = 115;
     readonly int healthMaxZ = -115;
 
     Vector3 topPos;
@@ -92,6 +92,9 @@ public class GUIController : MonoBehaviour
     private int currentWeaponId = 0;
     private bool hasGatling = false;
     private bool isInitialised = false;
+
+    readonly float rotationTime = 0.2f; //in seconds
+    readonly int numSteps = 20;
 
     //Score stuff
     public Text myScore;
@@ -168,9 +171,9 @@ public class GUIController : MonoBehaviour
         leftDialPos.targetPos = topDialPos.position;
         rightDialPos.targetPos = leftDialPos.position;
 
-        for (int i = 1; i < 31; i++)
+        for (int i = 1; i < numSteps + 1; i++)
         {
-            float proportion = (float)i/ 30f;
+            float proportion = (float)i/(float)numSteps;
             float decreasingSize = Mathf.Lerp(bigDialScale, smallDialScale, proportion);
             float increasingSize = Mathf.Lerp(smallDialScale, bigDialScale, proportion);
             topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
@@ -181,7 +184,7 @@ public class GUIController : MonoBehaviour
 
             rightDialPos.dial.parent.transform.localPosition = LerpDialPos(rightDialPos, proportion);
 
-            yield return null;
+            yield return new WaitForSeconds(rotationTime/(float)numSteps);
         }
 
         Dial tempTopDial = topDialPos.dial;
@@ -203,9 +206,9 @@ public class GUIController : MonoBehaviour
         leftDialPos.targetPos = rightDialPos.position;
         rightDialPos.targetPos = topDialPos.position;
 
-        for (int i = 1; i < 31; i++)
+        for (int i = 1; i < numSteps + 1; i++)
         {
-            float proportion = (float)i / 30f;
+            float proportion = (float)i / (float)numSteps;
             float decreasingSize = Mathf.Lerp(bigDialScale, smallDialScale, proportion);
             float increasingSize = Mathf.Lerp(smallDialScale, bigDialScale, proportion);
             topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
@@ -215,7 +218,7 @@ public class GUIController : MonoBehaviour
             rightDialPos.dial.parent.transform.localPosition = LerpDialPos(rightDialPos, proportion);
             rightDialPos.dial.parent.transform.localScale = new Vector3(increasingSize, increasingSize, increasingSize);
 
-            yield return null;
+            yield return new WaitForSeconds(rotationTime / (float)numSteps);
         }
 
         Dial tempTopDial = topDialPos.dial;
