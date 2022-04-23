@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: generic_island_4
+  m_Name: generic_island_2_repaint
   m_Shader: {fileID: 4800000, guid: 07c05c97f5fe034428ac6c8baf2867d7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 21e678b9cf59d6396a7d90f4a1c59d59, type: 3}
+        m_Texture: {fileID: 2800000, guid: c6e7463e871f5ddb7a81bc3eed04561c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -56,19 +56,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AmbientLevel: 0.76
+    - _AmbientLevel: 0.31
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ScriptAlpha: 1
     - _ShaderAlpha: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
