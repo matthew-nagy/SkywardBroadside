@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: generic_island_2
-    second: {fileID: 2100000, guid: b237f7e8d76e1b0219f320f2ff0a1eec, type: 2}
+    second: {fileID: 2100000, guid: 3d302a75a04bbcff4aaa119f342ddab1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
