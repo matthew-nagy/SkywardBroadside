@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 if (updateScript != null)
                 {
                     updateScript.SetPlayer(this.gameObject);
-                    print("setting player");
                     UpdateHealth();
                     UpdateAmmo();
                     UpdateWeapon();

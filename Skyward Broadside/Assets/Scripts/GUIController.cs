@@ -59,11 +59,13 @@ public class GUIController : MonoBehaviour
     public GameObject shockwaveImage;
     public GameObject specialInfinityImage;
 
+    public Material shaderMat;
+
     readonly int ammoMinZ = 115;
     readonly int ammoMaxZ = -115;
 
-    readonly int healthMinZ = 120;
-    readonly int healthMaxZ = -115;
+    readonly int healthMinZ = 115;
+    readonly int healthMaxZ = -120;
 
     Vector3 topPos;
     Vector3 leftPos;
@@ -88,10 +90,21 @@ public class GUIController : MonoBehaviour
     private float smallDialScale = 0.9f;
     private float bigDialScale = 1.25f;
 
+    public GameObject healthShaderObject;
+    public GameObject explosiveShaderObject;
+    public GameObject specialShaderObject;
+
+    private RawImage healthShaderImg;
+    private RawImage explosiveShaderImg;
+    private RawImage specialShaderImg;
+
     private bool isMoving = false;
     private int currentWeaponId = 0;
     private bool hasGatling = false;
     private bool isInitialised = false;
+
+    readonly float rotationTime = 0.2f; //in seconds
+    readonly int numSteps = 10;
 
     //Score stuff
     public Text myScore;
@@ -110,13 +123,19 @@ public class GUIController : MonoBehaviour
         topPos = normalAmmoParent.transform.localPosition;
         leftPos = explosiveAmmoParent.transform.localPosition;
         rightPos = specialAmmoParent.transform.localPosition;
+
+        healthShaderImg = healthShaderObject.GetComponent<RawImage>();
+
+        explosiveShaderImg = explosiveShaderObject.GetComponent<RawImage>();
+        explosiveShaderImg.material = new Material(explosiveShaderImg.material); //instantiate new material otherwise changes would also change any other instances of this material
+
+        specialShaderImg = specialShaderObject.GetComponent<RawImage>();
+        specialShaderImg.material = new Material(specialShaderImg.material);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         healthDial = new Dial(healthDialParent, maxHealth, Ammo.None);
-
     }
 
     // Update is called once per frame
@@ -168,9 +187,9 @@ public class GUIController : MonoBehaviour
         leftDialPos.targetPos = topDialPos.position;
         rightDialPos.targetPos = leftDialPos.position;
 
-        for (int i = 1; i < 31; i++)
+        for (int i = 1; i < numSteps + 1; i++)
         {
-            float proportion = (float)i/ 30f;
+            float proportion = (float)i/(float)numSteps;
             float decreasingSize = Mathf.Lerp(bigDialScale, smallDialScale, proportion);
             float increasingSize = Mathf.Lerp(smallDialScale, bigDialScale, proportion);
             topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
@@ -181,7 +200,7 @@ public class GUIController : MonoBehaviour
 
             rightDialPos.dial.parent.transform.localPosition = LerpDialPos(rightDialPos, proportion);
 
-            yield return null;
+            yield return new WaitForSeconds(rotationTime/(float)numSteps);
         }
 
         Dial tempTopDial = topDialPos.dial;
@@ -203,9 +222,9 @@ public class GUIController : MonoBehaviour
         leftDialPos.targetPos = rightDialPos.position;
         rightDialPos.targetPos = topDialPos.position;
 
-        for (int i = 1; i < 31; i++)
+        for (int i = 1; i < numSteps + 1; i++)
         {
-            float proportion = (float)i / 30f;
+            float proportion = (float)i / (float)numSteps;
             float decreasingSize = Mathf.Lerp(bigDialScale, smallDialScale, proportion);
             float increasingSize = Mathf.Lerp(smallDialScale, bigDialScale, proportion);
             topDialPos.dial.parent.transform.localPosition = LerpDialPos(topDialPos, proportion);
@@ -215,7 +234,7 @@ public class GUIController : MonoBehaviour
             rightDialPos.dial.parent.transform.localPosition = LerpDialPos(rightDialPos, proportion);
             rightDialPos.dial.parent.transform.localScale = new Vector3(increasingSize, increasingSize, increasingSize);
 
-            yield return null;
+            yield return new WaitForSeconds(rotationTime / (float)numSteps);
         }
 
         Dial tempTopDial = topDialPos.dial;
@@ -239,7 +258,7 @@ public class GUIController : MonoBehaviour
     {
         Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(healthMinZ, healthMaxZ, (float)value / (float)maxHealth));
         healthDial.dialHand.rotation = Quaternion.Euler(newRotation);
-
+        healthShaderImg.material.SetFloat("_FullProportion", (float)value / (float)maxHealth);
         //print("Remaining health: " + value);
     }
 
@@ -256,6 +275,7 @@ public class GUIController : MonoBehaviour
         {
             explosiveAmmoDial.dialHand.rotation = Quaternion.Euler(newRotation);
         }
+        explosiveShaderImg.material.SetFloat("_FullProportion", (float)value / (float)maxExplosiveAmmo);
 
         //print("Remaining explosive: " + value);
 
@@ -267,8 +287,7 @@ public class GUIController : MonoBehaviour
         {
             Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(ammoMinZ, ammoMaxZ, (float)value / (float)maxSpecialAmmo));
             specialAmmoDial.dialHand.rotation = Quaternion.Euler(newRotation);
-
-            //print("Remaining special: " + value);
+            specialShaderImg.material.SetFloat("_FullProportion", (float)value / (float)maxSpecialAmmo);
 
         }
     }
@@ -284,6 +303,7 @@ public class GUIController : MonoBehaviour
 
     public void SetPlayer(GameObject _player)
     {
+        print("In SetPlayer");
         player = _player;
         ShipArsenal shipArsenalScript = player.GetComponent<ShipArsenal>();
 
@@ -331,6 +351,7 @@ public class GUIController : MonoBehaviour
         gatlingImage.SetActive(true);
         shockwaveImage.SetActive(false);
         missileImage.SetActive(false);
+        specialShaderObject.SetActive(false);
 
         hasGatling = true;
     }
@@ -344,6 +365,7 @@ public class GUIController : MonoBehaviour
         gatlingImage.SetActive(false);
         shockwaveImage.SetActive(true);
         missileImage.SetActive(false);
+        specialShaderObject.SetActive(true);
 
         hasGatling = false;
     }
@@ -357,6 +379,7 @@ public class GUIController : MonoBehaviour
         gatlingImage.SetActive(false);
         shockwaveImage.SetActive(false);
         missileImage.SetActive(true);
+        specialShaderObject.SetActive(true);
 
         hasGatling = false;
     }
