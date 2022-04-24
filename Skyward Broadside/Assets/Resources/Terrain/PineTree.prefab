@@ -118,6 +118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pine_tree.fbx_Scene
       objectReference: {fileID: 0}
+    - target: {fileID: 5156380648761706199, guid: 58a8515af0cd94146a5232fb617cc6b3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a78c37efc60b084b85c4791944dc192, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58a8515af0cd94146a5232fb617cc6b3, type: 3}
 --- !u!4 &2239474602356032521 stripped
