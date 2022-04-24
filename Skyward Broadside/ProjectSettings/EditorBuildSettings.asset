@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 8d1fb19e5d940724a9c67426b35978b9
+  - enabled: 1
     path: Assets/Scenes/Rooms.unity
     guid: fadae67b127d3482ca3daee0031fd456
   - enabled: 1
@@ -17,4 +20,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Arena.unity
     guid: dfef08c6e05c22d40b4894b98e032814
+  - enabled: 1
+    path: Assets/Scenes/Pregame.unity
+    guid: 3829fa975db8c05439dc48dbeb1a0ba9
+  - enabled: 1
+    path: Assets/Scenes/ChooseTeam.unity
+    guid: cbf8b40f6fe5a9d4e9089a31574e919e
+  - enabled: 1
+    path: Assets/Scenes/Choose Ship.unity
+    guid: 5f112ca7121bcbc46a33bd28fb3e5487
+  - enabled: 1
+    path: Assets/Scenes/Options Menu.unity
+    guid: 912fe1fdfd5a71c4980b003246bd6f81
   m_configObjects: {}
