@@ -25,8 +25,6 @@ public class ReloadRegister : MonoBehaviour
     public Material friendlyReloadMaterial;
     public Material reloadRadiusMaterial;
 
-    Mesh reloadFieldMesh;
-
     private float reloadRadius;
 
     private void Start()
@@ -97,7 +95,7 @@ public class ReloadRegister : MonoBehaviour
         }
 
         List<int> tris = new List<int>();
-        Debug.Log("Making " + verts.Count + " spheres");
+        List<int> trisInterior = new List<int>();
         for(int i = 0; i < verts.Count - (meshCircleResolution + 1); i++)
         {
             tris.Add(i);
@@ -108,40 +106,47 @@ public class ReloadRegister : MonoBehaviour
             tris.Add(i + meshCircleResolution);
             tris.Add(i + meshCircleResolution + 1);
 
-            tris.Add(i + meshCircleResolution);
-            tris.Add(i + 1);
-            tris.Add(i);
+            trisInterior.Add(i + meshCircleResolution);
+            trisInterior.Add(i + 1);
+            trisInterior.Add(i);
 
-            tris.Add(i + meshCircleResolution + 1);
-            tris.Add(i + meshCircleResolution);
-            tris.Add(i + 1);
-
-            Instantiate(Resources.Load("DebugSphere"), verts[i], Quaternion.identity);
+            trisInterior.Add(i + meshCircleResolution + 1);
+            trisInterior.Add(i + meshCircleResolution);
+            trisInterior.Add(i + 1);
         }
 
         Vector3[] v = new Vector3[verts.Count];
         Vector3[] n = new Vector3[norms.Count];
         int[] t = new int[tris.Count];
+        int[] ti = new int[tris.Count];
 
         verts.CopyTo(v);
         norms.CopyTo(n);
         tris.CopyTo(t);
+        trisInterior.CopyTo(ti);
 
         Mesh myMesh = new Mesh();
         myMesh.vertices = v;
         myMesh.normals = n;
         myMesh.triangles = t;
 
+        Mesh myMesh2 = new Mesh();
+        myMesh2.vertices = v;
+        myMesh2.normals = n;
+        myMesh2.triangles = t;
+        
         GameObject shellRenderer = new GameObject();
+        GameObject shellRendererInside = new GameObject();
+
         MeshFilter mf = shellRenderer.AddComponent<MeshFilter>();
         MeshRenderer mr = shellRenderer.AddComponent<MeshRenderer>();
-
         mf.sharedMesh = myMesh;
         mr.material = reloadRadiusMaterial;
-        Color teamColour = TeamData.TeamToColour(myTeam);
-        //mr.material.SetVector("Colour", new Vector4(teamColour.r, teamColour.g, teamColour.b, 0.6f));
-        
-        //Just set it to false for now
-        //mr.enabled = false;
+
+        MeshFilter mf2 = shellRendererInside.AddComponent<MeshFilter>();
+        MeshRenderer mr2 = shellRendererInside.AddComponent<MeshRenderer>();
+        mf2.sharedMesh = myMesh2;
+        mr2.material = reloadRadiusMaterial;
+        mr2.material.renderQueue = mr2.material.renderQueue + 100;
     }
 }

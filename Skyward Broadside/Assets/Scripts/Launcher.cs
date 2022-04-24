@@ -17,7 +17,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private byte maxPlayersPerRoom = 10;
 
-    private string roomName = "Pregame";
+    private string roomName = "Beta";
 
 #endregion
 
