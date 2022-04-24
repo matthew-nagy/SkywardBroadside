@@ -34,6 +34,8 @@ public class CameraController : MonoBehaviourPunCallbacks
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
             cameraObj.Priority = 1;
+            cameraObj.m_XAxis.m_MaxSpeed /= 2.0f;
+            cameraObj.m_YAxis.m_MaxSpeed /= 2.0f;
             gameObject.GetComponent<TargetingSystem>().myCam = cameraObj;
             gameObject.GetComponent<ShipController>().freeCameraObject = cameraObj.gameObject;
 
@@ -80,11 +82,6 @@ public class CameraController : MonoBehaviourPunCallbacks
                 }
             }
         }
-    }
-
-    private void LateUpdate()
-    {
-        
     }
 
     public void disableFreeCam()
