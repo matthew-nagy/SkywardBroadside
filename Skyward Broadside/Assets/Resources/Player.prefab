@@ -33025,6 +33025,7 @@ MonoBehaviour:
   - {fileID: 1189094328473195940}
   freeCameraObject: {fileID: 0}
   lockOnCameraObject: {fileID: 0}
+  balloon: {fileID: 2811356357731335590}
 --- !u!114 &5828437317283408192
 MonoBehaviour:
   m_ObjectHideFlags: 0
