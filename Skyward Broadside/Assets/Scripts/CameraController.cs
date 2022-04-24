@@ -89,7 +89,6 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     public void disableFreeCam()
     {
-        print("Disabled cam");
         freeCamDisabled = true;
         cameraObj.m_XAxis.m_InputAxisName = "";
         cameraObj.m_YAxis.m_InputAxisName = "";
@@ -123,7 +122,6 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     public void enableFreeCam()
     {
-        print("Enabled cam");
         freeCamDisabled = false;
         cameraObj.m_XAxis.m_InputAxisName = "Mouse X";
         cameraObj.m_YAxis.m_InputAxisName = "Mouse Y";
