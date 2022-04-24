@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4439506061551824123}
-  - component: {fileID: 1521830478038304103}
   - component: {fileID: 3030359333789807755}
+  - component: {fileID: 5532238255632660051}
   m_Layer: 0
   m_Name: PineTree
   m_TagString: Untagged
@@ -33,19 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1521830478038304103
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9118445668171822645}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 10, z: 5}
-  m_Center: {x: 0, y: 1.2, z: 0}
 --- !u!114 &3030359333789807755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +49,20 @@ MonoBehaviour:
   breakForce: 0.15
   broken: 0
   cascadeCoordinate: {x: 0, y: 0, z: 0}
+--- !u!136 &5532238255632660051
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9118445668171822645}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.4
+  m_Height: 9
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &1774012758380880866
 PrefabInstance:
   m_ObjectHideFlags: 0
