@@ -28,6 +28,6 @@ public class Connect : MonoBehaviourPunCallbacks
     {
         PlayerPrefs.SetString("roomName", name);
         PhotonNetwork.Disconnect();
-        SceneManager.LoadScene("Launcher");
+        SceneManager.LoadScene("ChooseTeam");
     }
 }

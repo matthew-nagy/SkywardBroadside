@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 Debug.LogFormat("We are instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
 
-                JointGameOnTeam(TeamButton.joinTeam);
+                JointGameOnTeam(PlayerChoices.team);
             }
             else
             {
