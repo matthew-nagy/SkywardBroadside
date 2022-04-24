@@ -76,7 +76,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void Impact1()
     {
-        health -= 1f;
+        health -= 0.2f;
     }
 
     public void Respawn()

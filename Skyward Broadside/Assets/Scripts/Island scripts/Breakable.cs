@@ -98,9 +98,9 @@ public class Breakable : MonoBehaviour
                 }
             }
         }
-        else if (collision.gameObject.tag == "Cannonball")
+        else if (collision.gameObject.CompareTag("Cannonball"))
         {
-            impactForce = collision.impulse.magnitude;
+            impactForce = collision.impulse.magnitude * 3f;
             if (impactForce > breakForce)
             {
                 if (!broken)
@@ -147,6 +147,8 @@ public class Breakable : MonoBehaviour
         myRigidBody = GetComponent<Rigidbody>();
         myRigidBody.mass = 5;
         myRigidBody.useGravity = true;
+
+        gameObject.tag = "Debris";
 
 
         enabled = true;
