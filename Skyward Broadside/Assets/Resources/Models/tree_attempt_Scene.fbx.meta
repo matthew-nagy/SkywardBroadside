@@ -1,14 +1,8 @@
 fileFormatVersion: 2
-guid: a0fabf73a78980f47b0a87c98df4ce22
+guid: 6dc4cda166983ab4facf3ffd12f9efbd
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable:
-  - first:
-      74: -3999578356269874737
-    second: Cube|CubeAction
-  - first:
-      74: 7869579155339608498
-    second: Cube|Shader NodetreeAction
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
