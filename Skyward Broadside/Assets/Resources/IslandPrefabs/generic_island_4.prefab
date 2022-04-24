@@ -98,6 +98,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &5061967498529180360
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -109,7 +110,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4136199302339843210, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &159647853537813443
@@ -210,6 +211,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7005541621512220122
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -221,7 +223,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2048814542044060764, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &181022257606595300
@@ -322,6 +324,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6972950374710309478
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -333,7 +336,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7211184978305651584, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &227864658985650705
@@ -434,6 +437,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2205511347186097547
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -445,7 +449,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6478666354786312205, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &290307419307587348
@@ -546,6 +550,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7970700552091321279
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -557,7 +562,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3594402602404454928, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &325515241105727143
@@ -658,6 +663,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1516371492928975618
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -669,7 +675,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3885301955150580578, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &492928499164394889
@@ -770,6 +776,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2652999192350496475
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -781,7 +788,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6953679995649868076, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &505489167682766637
@@ -882,6 +889,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1655050348454478579
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -893,7 +901,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3650235147593705907, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &523914615656862399
@@ -994,6 +1002,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6396059158387928560
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1005,7 +1014,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4053341807026858995, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &917548761335018609
@@ -1106,6 +1115,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8016192677209816984
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1117,7 +1127,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6803566184331667428, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1051150499718272738
@@ -1218,6 +1228,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &503278379882986354
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1229,7 +1240,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5998149947076805101, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1216528480890551318
@@ -1330,6 +1341,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3750384268223821054
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1341,7 +1353,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8519276233836286631, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1262658118369038270
@@ -1442,6 +1454,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6376924650356688266
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1453,7 +1466,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8491226872822403718, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1353266882833345470
@@ -1554,6 +1567,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1502403920426800722
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1565,7 +1579,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5378760812011038022, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1422530095885356758
@@ -1666,6 +1680,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3657853730213729705
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1677,7 +1692,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7150222784780311827, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1454659695734623536
@@ -1778,6 +1793,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &841422672669009110
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1789,7 +1805,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4017273972720466142, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1488426705157601488
@@ -1890,6 +1906,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2431055105565545609
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1901,7 +1918,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -42135757627535204, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1562333562807375264
@@ -2002,6 +2019,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8450848171374873947
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2013,7 +2031,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8923174985983953095, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1661688333097458189
@@ -2114,6 +2132,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6546341261426948280
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2125,7 +2144,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8610643971896856576, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1689254849079846076
@@ -2226,6 +2245,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &5299315903319444138
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2237,7 +2257,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4485360022771138216, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1705495471881243760
@@ -2338,6 +2358,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4486172848805651510
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2349,7 +2370,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5753309222474099160, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1893764243873974613
@@ -2450,6 +2471,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2071677092385642306
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2461,7 +2483,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6804960151386775564, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1899366634871269904
@@ -2562,6 +2584,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6177489528057465581
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2573,7 +2596,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1556458463352693355, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &1901879037216494186
@@ -2674,6 +2697,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8083708628849181783
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2685,7 +2709,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -473891408687259907, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2226925200466887762
@@ -2786,6 +2810,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7691003900092912751
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2797,7 +2822,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4119130593351455026, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2258795793612682466
@@ -2898,6 +2923,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7661877903934343127
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2909,7 +2935,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3579034122097831409, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2307567280430430802
@@ -3010,6 +3036,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1719566982222241000
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3021,7 +3048,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4835688258877914920, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2326446533396877360
@@ -3122,6 +3149,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6472582530645984540
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3133,7 +3161,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1874630376723461697, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2328806870863970662
@@ -3234,6 +3262,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6595088623004657302
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3245,7 +3274,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3586937303718076346, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2384743220603030507
@@ -3346,6 +3375,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1330724262389674991
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3357,7 +3387,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5929317716499741725, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2553183045517217628
@@ -3458,6 +3488,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3195012260859574505
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3469,7 +3500,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8802933615729254695, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2732193963613882428
@@ -3570,6 +3601,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2684552716028046405
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3581,7 +3613,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -204640669857729796, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &2803948627387686316
@@ -3682,6 +3714,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4340211687382690447
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3693,7 +3726,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7015957638690224237, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3021496577876382395
@@ -3794,6 +3827,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7560843544488332771
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3805,7 +3839,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5173113899069800599, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3044203505592997544
@@ -3906,6 +3940,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4198099893784356736
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3917,7 +3952,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7495702023558393026, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3156672637585588212
@@ -4018,6 +4053,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3436930064813251373
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4029,7 +4065,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8743588835483497026, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3186230830217210476
@@ -4130,6 +4166,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3578638431462674990
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4141,7 +4178,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8011052557653060802, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3253875376142640731
@@ -4242,6 +4279,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7855604126683554336
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4253,7 +4291,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1407798842514440797, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3257090397957380209
@@ -4354,6 +4392,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &227296898744671102
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4365,7 +4404,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8643486432652655153, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3272639255543949772
@@ -4466,6 +4505,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4784142560500029176
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4477,7 +4517,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8950072488012543408, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3313810764986097736
@@ -4578,6 +4618,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2214021737702646969
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4589,7 +4630,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5420779454312572326, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3336024598456463353
@@ -4690,6 +4731,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8226997688170199625
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4701,7 +4743,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2777024994440472894, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3497335370269756950
@@ -4802,6 +4844,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &441684003174303583
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4813,7 +4856,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1679903315897983721, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3595651458676775705
@@ -4914,6 +4957,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3796157192286132498
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4925,7 +4969,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2341009541250651417, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3611034499951705879
@@ -5026,6 +5070,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1818083893936094472
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5037,7 +5082,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6385294910227119016, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3622735286336140756
@@ -5138,6 +5183,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6659027199990589064
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5149,7 +5195,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6584843139446720156, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3750909771839184605
@@ -5250,6 +5296,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &5594352072798501619
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5261,7 +5308,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7560334792994346731, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &3831074952366252028
@@ -5362,6 +5409,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2115604106337454482
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5373,7 +5421,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -92026173182077641, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &4217883639376079916
@@ -5474,6 +5522,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &640338781811835687
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5485,7 +5534,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7345636554287394053, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &4277518551424012367
@@ -5586,6 +5635,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3238372432841366671
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5597,7 +5647,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8953184833231079248, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &4577353068941286297
@@ -5698,6 +5748,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7250592939897919771
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5709,7 +5760,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1205222873552644270, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &4669563330327812816
@@ -5810,6 +5861,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4185876936592687424
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5821,7 +5873,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5255390735042346315, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &4847535358132390713
@@ -5922,6 +5974,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1157572738939690178
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5933,7 +5986,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3098037537329680946, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &4929759408098184661
@@ -6034,6 +6087,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4725221607563494392
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6045,7 +6099,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5291490791052024802, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &4962812347120549392
@@ -6146,6 +6200,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4138543740805793318
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6157,7 +6212,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 413515988967767209, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5117699030065007475
@@ -6258,6 +6313,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7595071884452529192
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6269,7 +6325,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6737883822114816790, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5143110604283495104
@@ -6370,6 +6426,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6943228035715501002
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6381,7 +6438,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -585883507497504769, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5244491871320120341
@@ -6482,6 +6539,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7687784119703315564
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6493,7 +6551,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 981520959227511177, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5317474919657961919
@@ -6594,6 +6652,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8073534840612767705
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6605,7 +6664,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6335829016029350083, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5399369812144008941
@@ -6706,6 +6765,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &5008917405911532931
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6717,7 +6777,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1639829243308242943, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5594651149064822683
@@ -6818,6 +6878,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8953814728904472661
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6829,7 +6890,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3097640392550651265, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5617668795320500482
@@ -6930,6 +6991,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8081365415523586868
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6941,7 +7003,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8718185505425372377, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5803068370219857991
@@ -7042,6 +7104,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4917402312235457690
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7053,7 +7116,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 213201868869487998, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &5969728120722090224
@@ -7154,6 +7217,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1074672819565403983
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7165,7 +7229,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 361344212387308496, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6018604466642516597
@@ -7266,6 +7330,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2386335544058806824
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7277,7 +7342,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5100636571132189774, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6140427496980519685
@@ -7378,6 +7443,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &60833020531987521
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7389,7 +7455,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6544666098796683844, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6207453653730850329
@@ -7490,6 +7556,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1892083651713762541
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7501,7 +7568,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8939692426651708412, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6636070584199150039
@@ -7602,6 +7669,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &5453305384861707786
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7613,7 +7681,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6803817165513273523, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6764403533590701385
@@ -7714,6 +7782,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &836813625010805448
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7725,7 +7794,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7569606821633966151, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6814915422737968152
@@ -7826,6 +7895,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8194881190890593903
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7837,7 +7907,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7179162181054445430, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6818057092932291931
@@ -7938,6 +8008,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6427556543091935014
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7949,7 +8020,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3192309833857264711, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6831968415765244265
@@ -8050,6 +8121,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &5128916249353741049
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8061,7 +8133,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7750982162320128069, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6914794891333247971
@@ -8162,6 +8234,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1827165352700398322
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8173,7 +8246,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7687992389592308021, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &6949601440461826268
@@ -8274,6 +8347,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6529852587712231212
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8285,7 +8359,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7402957111554064028, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7018504812730594634
@@ -8386,6 +8460,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &2186415714497879894
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8397,7 +8472,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3636490780094198395, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7060871823069992331
@@ -8498,6 +8573,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3572275652707622420
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8509,7 +8585,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1719340686106349435, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7106528077530165542
@@ -8610,6 +8686,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &563715628436773720
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8621,7 +8698,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 956734116814951992, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7147543352878624762
@@ -8917,6 +8994,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1078162991517867493
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8928,7 +9006,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5800012077620437811, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7324108492234167363
@@ -9029,6 +9107,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4497750861685143115
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9040,7 +9119,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 50329413598247811, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7357353575851687208
@@ -9141,6 +9220,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &797956516140839218
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9152,7 +9232,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1289065599750984736, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7359547642044068948
@@ -9253,6 +9333,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4621860154054263535
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9264,7 +9345,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1133796363129570556, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7368355507389298336
@@ -9365,6 +9446,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8256156060985416866
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9376,7 +9458,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 806429560662136099, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7389825918760084537
@@ -9477,6 +9559,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7951361746024047680
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9488,7 +9571,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8702413489900575434, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7414679251042191507
@@ -9589,6 +9672,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &9194813079048006715
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9600,7 +9684,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7400816568676795290, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7448390874854792460
@@ -9701,6 +9785,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4261633914936889178
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9712,7 +9797,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -424460747620866712, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7570784392894431349
@@ -9813,6 +9898,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8667677118493514125
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9824,7 +9910,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7937056808773328688, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7726498101558425570
@@ -9925,6 +10011,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3269849466648204064
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9936,7 +10023,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6386303873169331499, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7779189143311724539
@@ -10037,6 +10124,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3348869155215062457
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10048,7 +10136,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8775694707704104074, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &7846462360499802592
@@ -10149,6 +10237,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1243471566771241860
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10160,7 +10249,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6236535068932468774, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8089881570202520618
@@ -10261,6 +10350,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3461071827415839444
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10272,7 +10362,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1832122874159578082, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8121797287318856346
@@ -10373,6 +10463,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8780588305296484268
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10384,7 +10475,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2431676144700081142, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8295623485409721657
@@ -10485,6 +10576,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &288010545173339787
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10496,7 +10588,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -830829675374449971, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8344565153055502596
@@ -10597,6 +10689,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8078587596317151158
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10608,7 +10701,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3762017990280072728, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8361506032709209932
@@ -10709,6 +10802,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6302230738996713496
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10720,7 +10814,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8987496519623174932, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8368129172872247884
@@ -10821,6 +10915,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7161233852083780557
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10832,7 +10927,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -43753119050481895, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8424197680324293682
@@ -10933,6 +11028,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &7716424650994699757
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10944,7 +11040,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7025017873884003854, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8446423703112195586
@@ -11045,6 +11141,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &5706496285437793728
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11056,7 +11153,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6938679438927768446, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8531095846452387847
@@ -11157,6 +11254,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &5572747911458629841
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11168,7 +11266,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8269948532020280468, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8582034858440907597
@@ -11269,6 +11367,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8710963135898409374
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11280,7 +11379,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6168407192112784089, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8688412450604790423
@@ -11381,6 +11480,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &4522714956761172723
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11392,7 +11492,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2614919538580160183, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &8811489788125572844
@@ -11493,6 +11593,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &8386996305107530173
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11504,7 +11605,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6654091139567215266, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &9066665615692491338
@@ -11605,6 +11706,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3280236889429120751
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11616,7 +11718,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2776624893479873645, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &9085952987064717116
@@ -11717,6 +11819,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &6740104895781779763
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11728,7 +11831,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1645749374876099412, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &9103234147635151801
@@ -11829,6 +11932,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &1014772751411516220
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11840,7 +11944,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 136381688458956190, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
 --- !u!1 &9166519964214960565
@@ -11941,6 +12045,7 @@ MonoBehaviour:
   breakPhotonInterface: {fileID: 6961218116114621465}
   breakForce: 10
   broken: 0
+  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!64 &3280839625624668193
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11952,6 +12057,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3249023486637761993, guid: 9134334c04a54fbe49e4b5b72c264c5f, type: 3}
