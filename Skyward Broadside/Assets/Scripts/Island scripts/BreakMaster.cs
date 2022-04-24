@@ -89,27 +89,33 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     //the ? is there so microsoft java will let me null it
     EventQueue? preInstaniateEventHolder = null;
     bool init = false;
+    bool primeRenderMade = false;
 
     static int VertexLimit = 65535;
 
-    List<GameObject> renderers;
+    List<GameObject> renderers = new List<GameObject>();
     //Each breakable needs to be able to find what game object it is staticly rendered in
     //and then these game objects must also know what breakables make it up
     //This way when a breakable is broken off the island, the breakable can find its game object, 
     //which can then remove said breakable from its composition and rebuild the mesh
-    Dictionary<Breakable, GameObject> breakableToRenderer;
-    Dictionary<GameObject, HashSet<Breakable>> breakablesInvolved;
+    Dictionary<Breakable, GameObject> breakableToRenderer = new Dictionary<Breakable, GameObject>();
+    Dictionary<GameObject, HashSet<Breakable>> breakablesInvolved = new Dictionary<GameObject, HashSet<Breakable>>();
 
     //We don't want to rebuild the mesh as soon as a command is recieved; what about explosions
     //or shockwaves that destroy multiple fragments? Therefore we keep a set of the game objects
     //to be rebuilt on the next update
-    HashSet<GameObject> rebuildQueueSet;
+    HashSet<GameObject> rebuildQueueSet = new HashSet<GameObject>();
 
     CascadeSystem cascader;
 
 
     void HideVertices(Breakable b)
     {
+        //If this breakable isn't drawn as part of the island (like a tree), just ignore
+        if(b.GetComponent<Renderer>() == null)
+        {
+            return;
+        }
         GameObject toRebuild = breakableToRenderer[b];
         HashSet<Breakable> responsible = breakablesInvolved[toRebuild];
         responsible.Remove(b);
@@ -119,11 +125,17 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     GameObject MakeRenderer(List<CombineInstance> combine, List<Breakable> breakablesIncluded)
     {
         GameObject newRenderer = new GameObject();
+
+        if(breakablesIncluded.Count == 0)
+        {
+            return newRenderer;
+        }
+
         MeshFilter mf = newRenderer.AddComponent<MeshFilter>();
         MeshRenderer mr = newRenderer.AddComponent<MeshRenderer>();
 
         mf.mesh.CombineMeshes(combine.ToArray());
-        mr.material = children[0].GetComponent<Renderer>().material;
+        mr.material = breakablesIncluded[0].GetComponent<Renderer>().material;
         mr.enabled = true;
 
         breakablesInvolved.Add(newRenderer, new HashSet<Breakable>());
@@ -132,23 +144,23 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
             breakablesInvolved[newRenderer].Add(b);
             breakableToRenderer.Add(b, newRenderer);
         }
-
         return newRenderer;
     }
 
-    void SetupPrimeRenderer()
+    public void SetupPrimeRenderer()
     {
-        renderers = new List<GameObject>();
-        breakableToRenderer = new Dictionary<Breakable, GameObject>();
-        breakablesInvolved = new Dictionary<GameObject, HashSet<Breakable>>();
         List<CombineInstance> combines = new List<CombineInstance>();
         List<Breakable> currentBreakables = new List<Breakable>();
-        rebuildQueueSet = new HashSet<GameObject>();
         int currentVertNumber = 0;
 
         foreach(Breakable b in children)
         {
-            b.GetComponent<Renderer>().enabled = false;
+            Renderer breakRenderer = b.GetComponent<Renderer>();
+            if(breakRenderer == null)
+            {
+                continue;
+            }
+            breakRenderer.enabled = false;
             Mesh bMesh = b.GetComponent<MeshFilter>().sharedMesh;
 
             if((currentVertNumber + bMesh.vertexCount) > VertexLimit)
@@ -211,8 +223,6 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
 
             preInstaniateEventHolder = null;
         }
-
-        SetupPrimeRenderer();
     }
 
     public bool IsPhotonMaster()
@@ -227,7 +237,10 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     public void RegisterBreakEvent(BreakEvent e)
     {
         events.breakEvents.Add(e);
-        cascader.InformOfBreak(children[e.indexInOwner]);
+        if (cascader != null)
+        {
+            cascader.InformOfBreak(children[e.indexInOwner]);
+        }
         HideVertices(children[e.indexInOwner]);
     }
 
@@ -241,6 +254,8 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
         events = EventQueue.Make();
 
         init = true;
+
+        gameObject.AddComponent<BreakRenderMaker>().toMakeRenderer = this;
     }
 
     // Update is called once per frame

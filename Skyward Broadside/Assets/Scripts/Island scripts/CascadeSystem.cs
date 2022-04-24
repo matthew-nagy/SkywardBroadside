@@ -223,6 +223,11 @@ public class CascadeSystem : MonoBehaviour
         foreach (Breakable b in allBreakables)
         {
             Vector3Int index = GetIndexFromPosition(b.transform.localPosition);
+            if(index.x < 0 || index.y < 0 || index.z < 0 || index.x >= cellResolution.x || index.y >= cellResolution.y || index.z >= cellResolution.z)
+            {
+                Destroy(this);
+                return;
+            }
             grid[index.z, index.y, index.x].AddBreakable(b);
             b.cascadeCoordinate = index;
         }

@@ -14,7 +14,6 @@ public class FloorRebound : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogError("Que");
         GameObject obj = other.gameObject;
         ShipController ship = obj.GetComponent<ShipController>();
         if(ship == null)
