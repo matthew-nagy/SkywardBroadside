@@ -15,6 +15,7 @@ TagManager:
   - Effects
   - ReloadIndicator
   - playerStatus
+  - Debris
   layers:
   - Default
   - TransparentFX
