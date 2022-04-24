@@ -93,7 +93,21 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject freeCameraObject;
     public GameObject lockOnCameraObject;
 
-    private readonly float forceToDamageMultiplier = 0.01f;
+    [SerializeField]
+    float globalDamageMultiplier;
+    [SerializeField]
+    float debrisDamageMultiplier;
+    [SerializeField]
+    float terrainDamageMultiplier;
+    [SerializeField]
+    float projectileDamageMultiplier;
+    [SerializeField]
+    float explosionDamageMultiplier;
+    [SerializeField]
+    float shipDamageMultiplier;
+    [SerializeField]
+    float wallDamageMultiplier;
+    float forceToDamageMultiplier;
 
     private Vector3 lastPosition;
 
@@ -218,18 +232,17 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Ignore island collision
+        //Ignore "island" collision (not actually islands)
         if (collision.gameObject.layer == 7)
             return;
 
-        float collisionMag = collision.impulse.magnitude;
-        print(collision.gameObject.name);
+        
         if (photonView.IsMine)
         {
             freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
             freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
         }
-        //Debug.LogFormat("COLLISION with {0}", collision.gameObject.name);
+
         if (!photonView.IsMine)
         {
             return;
@@ -250,20 +263,23 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
                 velocity = finalVelocity;
 
-                //Scale collision magnitude so don't insta die on getting hit by cannonball
+                forceToDamageMultiplier = projectileDamageMultiplier * collision.collider.GetComponent<Rigidbody>().velocity.magnitude;
 
-                collisionMag = collisionMag * 0.4f;
+                //explosive cannonballs do extra damage
+                if (collision.gameObject.CompareTag("ExplosiveCannonball"))
+                {
+                    forceToDamageMultiplier *= explosionDamageMultiplier;
+                }
             }
             else
             {
-                collisionMag = 0f;
+                forceToDamageMultiplier = 0f;
             }
         }
-        else if (collision.gameObject.tag == "Ship")
+        else if (collision.gameObject.CompareTag("Ship"))
         {
             shouldDealDamage = true;
             gameObject.GetComponent<PlayerController>().lastHit(collision.gameObject.GetComponent<PhotonView>().Owner.NickName);
-            //print("Collision");
 
             Vector3 initialVelocity = velocityBeforeCollision;
             float massA = rigidBody.mass;
@@ -272,22 +288,16 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             Vector3 colliderInitialVelocity = collision.transform.GetComponent<ShipController>().velocityBeforeCollision;
             float massB = collision.rigidbody.mass;
             Vector3 centreB = collision.transform.position;
-            print("Collider's velocity: " + colliderInitialVelocity);
-            print("Collider's centre: " + centreB);
-            print("Collider's mass: " + massB);
-
 
             Vector3 finalVelocity = initialVelocity - (2 * massB / (massA + massB)) * (Vector3.Dot(initialVelocity - colliderInitialVelocity, centreA - centreB) / Vector3.SqrMagnitude(centreA - centreB)) * (centreA - centreB);
             finalVelocity = 0.8f * finalVelocity;
-            print("Final velocity: " + finalVelocity);
             moveSpeed = finalVelocity.magnitude;
 
             velocity = finalVelocity;
 
             DisableMovementFor(1f);
             // the 10 is needed because otherwise you insta-kill each other upon contact
-            collisionMag = (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
-
+            forceToDamageMultiplier = shipDamageMultiplier * (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
         }
         else if (collision.gameObject.tag == "Wall")
         {
@@ -316,18 +326,22 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             }
             velocity = new Vector3(0, 0, 0); 
             DisableMovementFor(0.5f);
-            collisionMag = 0f;
-            // no damage when colliding with invisible walls, just there to avoid going out of bounds
+            forceToDamageMultiplier = wallDamageMultiplier;
+        }
+        else if (collision.gameObject.CompareTag("Debris"))
+        {
+            shouldDealDamage = true;
+            gameObject.GetComponent<PlayerController>().lastHit("Debris");
+            forceToDamageMultiplier = debrisDamageMultiplier * collision.collider.GetComponent<Rigidbody>().velocity.magnitude;
         }
         else
         {
             Transform colParent = collision.gameObject.transform.parent;
             if(colParent != null)
             {
-                if (colParent.tag == "Terrain") //If hit terrain
+                if (colParent.CompareTag("Terrain")) //If hit terrain
                 {
                     shouldDealDamage = true;
-                    print("terrain");
                     gameObject.GetComponent<PlayerController>().lastHit("Terrain");
 
                     if (!collision.gameObject.GetComponent<Breakable>().broken)
@@ -336,7 +350,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                         DisableMovementFor(0.5f);
                     }
 
-                    collisionMag = rigidBody.mass * 0.5f * velocityBeforeCollision.magnitude;
+                    forceToDamageMultiplier = terrainDamageMultiplier * velocity.magnitude;
                 }
             }
         }
@@ -344,7 +358,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (shouldDealDamage)
         {
             // Now that the ship has reacted to the collision, we can tell the player that a collision has occured, as this will impact health
-            GetComponent<ShipArsenal>().doDamage(collisionMag * forceToDamageMultiplier);
+            GetComponent<ShipArsenal>().doDamage(globalDamageMultiplier * forceToDamageMultiplier);
         }
     }
 

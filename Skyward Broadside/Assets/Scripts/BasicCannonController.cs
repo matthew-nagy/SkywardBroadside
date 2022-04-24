@@ -72,7 +72,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             serverShootFlag = false;
             Fire();
-            GetShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
             GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
@@ -83,7 +82,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             clientShootFlag = false;
             Fire();
-            GetShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
             GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
