@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class Lobby : MonoBehaviourPunCallbacks
 {
-    public string worldname = "GameWorld";
+    public string worldname = "Beta";
 
     public static Lobby Instance;
 
