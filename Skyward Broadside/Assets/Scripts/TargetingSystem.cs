@@ -94,9 +94,12 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 
     public void unLockToTarget()
     {
-        lockedOn = false;
         GetComponent<CameraController>().setLookAtTarget(transform.gameObject);
-        GetComponent<CameraController>().enableFreeCam();
+        if (lockedOn)
+        {
+            GetComponent<CameraController>().enableFreeCam();
+            lockedOn = false;
+        }
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
     }
 

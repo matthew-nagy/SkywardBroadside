@@ -170,13 +170,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            Debug.Log("WRITINTG");
             System.Object[] stats = {myTeam, kills, deaths, score};
             stream.SendNext(stats);
         }
         else
         {
-            Debug.Log("RECEIVING");
             System.Object[] stats = (System.Object[]) stream.ReceiveNext();
             myTeam = (TeamData.Team) stats[0];
             kills = (int) stats[1];
