@@ -152,6 +152,7 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         if (lockedOn)
         {
             target = PhotonView.Find(currentTargetId).gameObject;
+            newProjectile.GetComponent<CannonballController>().target = target;
             targetPos = PhotonView.Find(currentTargetId).transform.position;
             targetXVels = target.GetComponent<Rigidbody>().velocity.x;
             targetYVels = target.GetComponent<Rigidbody>().velocity.y;

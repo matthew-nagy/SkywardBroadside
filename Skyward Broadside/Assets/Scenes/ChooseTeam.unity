@@ -1025,6 +1025,7 @@ GameObject:
   - component: {fileID: 1400061624}
   - component: {fileID: 1400061623}
   - component: {fileID: 1400061622}
+  - component: {fileID: 1400061626}
   m_Layer: 5
   m_Name: Choose your team canavs
   m_TagString: Untagged
@@ -1106,8 +1107,8 @@ RectTransform:
   m_Children:
   - {fileID: 1549179631}
   - {fileID: 205154375}
-  - {fileID: 1713673867}
   - {fileID: 2140470762}
+  - {fileID: 1713673867}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1116,6 +1117,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1400061626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400061621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d317159a878e8364a9255c6e49014766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1457327179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,7 +1609,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1615550546}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1400061626}
+        m_TargetAssemblyTypeName: ChooseTeam, Assembly-CSharp
+        m_MethodName: OnClick_joinOrder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1615550548
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1640,7 +1665,7 @@ RectTransform:
   - {fileID: 443787681}
   - {fileID: 1615550545}
   m_Father: {fileID: 1400061625}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1661,7 +1686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2010,7 +2035,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2065859570}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1400061626}
+        m_TargetAssemblyTypeName: ChooseTeam, Assembly-CSharp
+        m_MethodName: OnClick_joinSR
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &2065859572
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2054,7 +2091,7 @@ RectTransform:
   - {fileID: 812681122}
   - {fileID: 2065859569}
   m_Father: {fileID: 1400061625}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2075,7 +2112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

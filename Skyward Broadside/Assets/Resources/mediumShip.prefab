@@ -3826,9 +3826,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  gatlingGun: {fileID: 0}
+  gatlingGuns: []
   cannonThresholdAngle: 45
+  reloadTime: 0
   currentWeaponId: 0
+  reloading: 0
 --- !u!114 &7169598466155721883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3893,7 +3895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e9407cc2bfbaa43b81a5fc9e1112a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapCenter: {fileID: 0}
   angularAccel: 1
   angularMass: 7
   angularFriction: 0.5
@@ -3914,6 +3915,13 @@ MonoBehaviour:
   pShootDownJet: []
   freeCameraObject: {fileID: 0}
   lockOnCameraObject: {fileID: 0}
+  globalDamageMultiplier: 0
+  debrisDamageMultiplier: 0
+  terrainDamageMultiplier: 0
+  projectileDamageMultiplier: 0
+  explosionDamageMultiplier: 0
+  shipDamageMultiplier: 0
+  wallDamageMultiplier: 0
 --- !u!64 &8824417987882775392
 MeshCollider:
   m_ObjectHideFlags: 0

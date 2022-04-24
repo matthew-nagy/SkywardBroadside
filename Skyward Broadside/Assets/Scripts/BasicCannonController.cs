@@ -72,7 +72,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             serverShootFlag = false;
             Fire();
-            GetShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
             GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
@@ -83,7 +82,6 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             clientShootFlag = false;
             Fire();
-            GetShipTransform().GetComponent<ShipArsenal>().cannonballAmmo--;
             GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
@@ -143,6 +141,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (lockedOn)
         {
             target = PhotonView.Find(currentTargetId).gameObject;
+            newProjectile.GetComponent<CannonballController>().target = target;
             targetPos = PhotonView.Find(currentTargetId).transform.position;
             targetXVels = target.GetComponent<Rigidbody>().velocity.x;
             targetYVels = target.GetComponent<Rigidbody>().velocity.y;

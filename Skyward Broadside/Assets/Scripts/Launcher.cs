@@ -17,15 +17,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private byte maxPlayersPerRoom = 10;
 
-    [Tooltip("The UI Panel to let the user enter name, connect and play")]
-    [SerializeField]
-    private GameObject controlPanel;
-
-    [Tooltip("The UI Label to inform the user that the connection is in progress")]
-    [SerializeField]
-    private GameObject progressLabel;
-
-    private string roomName = "Beta";
+    private string roomName = "Pregame";
 
 #endregion
 
@@ -64,11 +56,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     /// </summary>
     void Start()
     {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
-
         Random.InitState((int)System.DateTime.Now.Ticks);
         PlayerPrefs.SetFloat("UUID", Random.Range(float.MinValue, float.MaxValue));
+        Connect();
     }
     
     #endregion
@@ -83,13 +73,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void Connect()
     {
-        progressLabel.SetActive(true);
-        controlPanel.SetActive(false);
-        
         // we check if we are connected or not, we join if we are, else we initiate the connection to the server.
         if (PhotonNetwork.IsConnected)
         {
-            // #Critical we need this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed
             PhotonNetwork.GameVersion = gameVersion;
             RoomOptions options = new RoomOptions();
             options.MaxPlayers = maxPlayersPerRoom;
@@ -129,14 +115,12 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
-
         isConnecting = false;
     }
-
+    
     public override void OnJoinedRoom()
     {
+        Debug.Log("Joined Room");
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
             // Load the world

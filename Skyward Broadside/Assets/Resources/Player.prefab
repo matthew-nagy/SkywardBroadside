@@ -33025,6 +33025,13 @@ MonoBehaviour:
   - {fileID: 1189094328473195940}
   freeCameraObject: {fileID: 0}
   lockOnCameraObject: {fileID: 0}
+  globalDamageMultiplier: 1
+  debrisDamageMultiplier: 0.2
+  terrainDamageMultiplier: 0.5
+  projectileDamageMultiplier: 0.03
+  explosionDamageMultiplier: 1.1
+  shipDamageMultiplier: 0.1
+  wallDamageMultiplier: 0
   balloon: {fileID: 2811356357731335590}
 --- !u!114 &5828437317283408192
 MonoBehaviour:

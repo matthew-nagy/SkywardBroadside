@@ -5,8 +5,25 @@ using UnityEngine;
 public class CannonballController : MonoBehaviour
 {
     public GameObject owner { get; set; }
+
     [SerializeField]
     ParticleSystem impact;
+
+    float magnetismMultiplier = 100;
+    public GameObject target;
+
+    private void Update()
+    {
+        if (target != null)
+        {
+            Magnetize();
+        }
+    }
+
+    void Magnetize()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, magnetismMultiplier * Time.deltaTime);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
