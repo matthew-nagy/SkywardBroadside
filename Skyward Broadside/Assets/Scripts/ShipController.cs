@@ -108,6 +108,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     float wallDamageMultiplier;
     float forceToDamageMultiplier;
+    public GameObject balloon;
 
     private Vector3 lastPosition;
 
@@ -175,7 +176,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         playerInput = new RequestedControls();
 
         teamColour = TeamData.TeamToColour(GetComponentInParent<PlayerPhotonHub>().myTeam);
-
+        balloon.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(teamColour.r, teamColour.g, teamColour.b, 0.5f));
 
         GameObject mapCenter = GameObject.Find("Center");
         Vector3 towards = mapCenter.transform.position - transform.position;
@@ -450,7 +451,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             if (!colourSet)
             {
-                transform.Find("Body").gameObject.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
+                balloon.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
                 colourSet = true;
             }
 

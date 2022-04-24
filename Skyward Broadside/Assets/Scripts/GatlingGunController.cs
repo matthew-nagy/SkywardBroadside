@@ -27,6 +27,8 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     bool sendShootingToClient;
     bool clientShootingFlag;
 
+    string shooterName;
+
     Vector3 targetPos;
 
     KeyCode secondaryFireKey = KeyCode.Space;
@@ -47,6 +49,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         serverShootingFlag = sendShootingToClient = clientShootingFlag = false;
         SetLayerMask();
         shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+        shooterName = transform.root.GetComponent<PlayerController>().playerName;
     }
 
     void SetLayerMask()
@@ -139,6 +142,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
             if (hit.collider.gameObject.name == shipType)
             {
                 hit.collider.gameObject.GetComponent<ShipArsenal>().HitMe("gatling");
+                hit.collider.gameObject.GetComponent<PlayerController>().lastHit(shooterName);
             }
 
             ParticleSystem tracer = Instantiate(bulletTracer, shotOrigin.transform.position, Quaternion.LookRotation(dir));

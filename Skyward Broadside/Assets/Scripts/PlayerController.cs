@@ -41,11 +41,13 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             spawnTime = DateTime.Now;
 
             Invoke(nameof(RegenInvoker), 5f);
+            
         }
 
         playerName = gameObject.GetComponent<PhotonView>().Owner.NickName;
         photonHub.players.Add(playerName, this);
         Scoreboard.Instance.OnNewPlayer(this);
+
     }
 
     private void Update()
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             if (updateScript == null)
             {
                 updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;
+                Debug.Log("UPDATE SCRIPT NOT FOUND");
 
                 if (updateScript != null)
                 {

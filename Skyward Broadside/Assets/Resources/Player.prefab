@@ -33032,6 +33032,7 @@ MonoBehaviour:
   explosionDamageMultiplier: 1.1
   shipDamageMultiplier: 0.1
   wallDamageMultiplier: 0
+  balloon: {fileID: 2811356357731335590}
 --- !u!114 &5828437317283408192
 MonoBehaviour:
   m_ObjectHideFlags: 0
