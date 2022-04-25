@@ -17,16 +17,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private byte maxPlayersPerRoom = 10;
 
-    [Tooltip("The UI Panel to let the user enter name, connect and play")]
-    [SerializeField]
-    private GameObject controlPanel;
-
-    [Tooltip("The UI Label to inform the user that the connection is in progress")]
-    [SerializeField]
-    private GameObject progressLabel;
+    private string roomName = "Pregame";
 
 #endregion
-    
+
     #region Private Fields
 
     /// <summary>
@@ -62,8 +56,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     /// </summary>
     void Start()
     {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
+        Random.InitState((int)System.DateTime.Now.Ticks);
+        PlayerPrefs.SetFloat("UUID", Random.Range(float.MinValue, float.MaxValue));
+        Connect();
     }
     
     #endregion
@@ -78,21 +73,21 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void Connect()
     {
-        progressLabel.SetActive(true);
-        controlPanel.SetActive(false);
-        
         // we check if we are connected or not, we join if we are, else we initiate the connection to the server.
         if (PhotonNetwork.IsConnected)
         {
-            // #Critical we need this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed
-            PhotonNetwork.JoinRandomRoom();
+            PhotonNetwork.GameVersion = gameVersion;
+            RoomOptions options = new RoomOptions();
+            options.MaxPlayers = maxPlayersPerRoom;
+            Debug.Log(PlayerPrefs.GetString("roomName"));
+            PhotonNetwork.JoinOrCreateRoom(PlayerPrefs.GetString("roomName"), options, TypedLobby.Default);
         }
         else
         {
             // #Critical, we must first and foremost connect to Photon Online Server.
             // keep track of the will to join a room because when we come back from the game we will get a callback that we are connected, so we need to know what to do then
-            isConnecting = PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = gameVersion;
+            isConnecting = PhotonNetwork.ConnectUsingSettings();
         }
     }
     
@@ -102,7 +97,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("PUN Basics Tutorials/Launcher: OnConnectedToMaster() was called by PUN");
 
         // We don't want to do anything if we are not attempting to join a room.
         // this case where isConnecting is false is typically when you lost or quit the game, when this level is loaded, OnConnectedToMaster will be called, in that case
@@ -111,40 +105,26 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             // #Critical: The first we try to do is to join a potential existing room. If there is, good, else
             // we'll be called back with OnJoinRandomFailed()
-            PhotonNetwork.JoinRandomRoom();
+            RoomOptions options = new RoomOptions();
+            options.MaxPlayers = maxPlayersPerRoom;
+            Debug.Log(PlayerPrefs.GetString("roomName"));
+            PhotonNetwork.JoinOrCreateRoom(PlayerPrefs.GetString("roomName"), options, TypedLobby.Default);
             isConnecting = false;
         }
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        progressLabel.SetActive(false);
-        controlPanel.SetActive(true);
-
         isConnecting = false;
-        
-        Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
     }
-
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        Debug.Log("PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
-        
-        // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
-    }
-
+    
     public override void OnJoinedRoom()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
-        
-        // #Critical: We only load if we are the first player, else we rely on PhotonNetwork.AutomaticallySyncScene to sync our instance scene
+        Debug.Log("Joined Room");
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            Debug.Log("We load the GameWorld");
-            
             // Load the world
-            PhotonNetwork.LoadLevel("GameWorld");
+            PhotonNetwork.LoadLevel(roomName);
         }
     }
     

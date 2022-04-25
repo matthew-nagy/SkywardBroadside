@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878033909877819229}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.21276309, z: -0, w: 0.9771039}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 8, z: 2}
   m_Children: []
   m_Father: {fileID: 7878022000517488456}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 24.569, z: 0}
 --- !u!33 &3656514154092034149
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -143,6 +143,7 @@ MonoBehaviour:
   cloud_width: 10
   cloud_height: 20
   cloud_depth: 30
+  controller: {fileID: 0}
   cloud_colour: {r: 1, g: 0.9, b: 0.9, a: 0.7}
   bubble_size: 7
   phaseAdvanceAmount: 0.01

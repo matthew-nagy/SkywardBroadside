@@ -6,20 +6,28 @@ public class CannonballController : MonoBehaviour
 {
     public GameObject owner { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    ParticleSystem impact;
+
+    float magnetismMultiplier = 100;
+    public GameObject target;
+
+    private void Update()
     {
-        
+        if (target != null)
+        {
+            Magnetize();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void Magnetize()
     {
-        
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, magnetismMultiplier * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Instantiate(impact, transform.position, Quaternion.identity);
         if (owner != collision.gameObject)
         {
             Destroy(gameObject);

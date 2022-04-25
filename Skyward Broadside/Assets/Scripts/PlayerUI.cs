@@ -6,13 +6,16 @@ using Photon.Pun;
 
 
 //Code taken from https://doc.photonengine.com/en-us/pun/current/demos-and-tutorials/pun-basics-tutorial/player-ui-prefab
-public class PlayerUI : MonoBehaviourPun
+public class PlayerUI : MonoBehaviour
 {
     #region Private Fields
     [Tooltip("UI Text to display Player's Name")]
     [SerializeField]
     private Text playerNameText;
 
+    [Tooltip("Image of skull, shown on enemy players")]
+    [SerializeField]
+    private RawImage skullImage;
 
     [Tooltip("UI Slider to display Player's Health")]
     [SerializeField]
@@ -24,15 +27,18 @@ public class PlayerUI : MonoBehaviourPun
 
     Vector3 playerPos;
     float heightAbovePlayer = 0.5f;
-    Transform targetTransform;
     Renderer targetRenderer;
     CanvasGroup _canvasGroup;
     Vector3 targetPosition;
 
     Rigidbody playerRb;
+    PlayerInfoPPH playerInfo;
+    //Vector3 instanceOwnerPos;
 
     //Player the health bar and name is attached to
     private PlayerPhotonHub target;
+
+    private Camera camera;
     #endregion
 
     #region Monobehaviour Callbacks
@@ -42,46 +48,49 @@ public class PlayerUI : MonoBehaviourPun
         //When scenes are going to be loaded and unloaded, so is our Prefab, and the Canvas will be different every time
         //Not actually recommended to do this bc it's slow apparently 
         //Supposedly there's a better way but they don't say what it is...
-        this.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
+        transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
 
-        _canvasGroup = this.GetComponent<CanvasGroup>();
+        _canvasGroup = GetComponent<CanvasGroup>();
+        camera = Camera.main;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    bool CheckExistance()
     {
-        
+        // Destroy itself if the target is null, It's a fail safe when Photon is destroying Instances of a Player over the network
+        if (target == null)
+        {
+            Destroy(gameObject);
+            return false;
+        }
+        return true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Destroy itself if the target is null, It's a fail safe when Photon is destroying Instances of a Player over the network
-        if (target == null)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
+        CheckExistance();
+
         // Reflect the Player Health
         if (playerHealthSlider != null)
         {
-            playerHealthSlider.value = (int)target.currHealth;
+            playerHealthSlider.value = (int)playerInfo.currHealth;
         }
     }
 
     private void FixedUpdate()
     {
-        // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
-        if (targetRenderer != null)
+        if (CheckExistance() && playerRb != null)
         {
-            this._canvasGroup.alpha = targetRenderer.isVisible ? 1f : 0f;
+            // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
+            targetPosition = playerRb.position;
+            targetPosition.y += heightAbovePlayer;
+            transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
         }
-
-
-        targetPosition = playerRb.position;
-        targetPosition.y += heightAbovePlayer;
-        transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
-
+        else
+        {
+            Debug.LogWarning("Could not find playerRb");
+            Destroy(gameObject);
+        }
     }
     #endregion
 
@@ -97,17 +106,59 @@ public class PlayerUI : MonoBehaviourPun
 
         //Cache references for efficiency
         target = _target;
+
+        target.SetUI(gameObject);
+
         playerRb = _target.GetComponentInChildren<Rigidbody>();
+        playerInfo = _target.GetComponentInChildren<PlayerInfoPPH>();
+        var photonView = playerRb.GetComponent<PhotonView>();
         if (playerNameText != null)
         {
-            var photonView = playerRb.GetComponent<PhotonView>();
             playerNameText.text = photonView.Owner.NickName;
         }
 
-        targetTransform = this.target.GetComponent<Transform>();
-        targetRenderer = this.target.GetComponent<Renderer>();
+        //Getting the renderer of one of the child primitive objects
+        //This probs won't work when we add the proper airship model in unless we add a mesh renderer
+        targetRenderer = target.GetComponentInChildren<Renderer>();
+    }
 
-        
+    public bool PlayerIsVisible()
+    {
+        if (playerRb != null)
+        {
+            var photonView = playerRb.GetComponent<PhotonView>();
+            if (photonView.IsMine)
+            {
+                return false;
+            }
+            Vector3 screenPoint = camera.WorldToViewportPoint(playerRb.position);
+
+            if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void SetCanvasAlpha(float alpha)
+    {
+        if (_canvasGroup != null)
+        {
+            this._canvasGroup.alpha = alpha;
+        }
+    }
+
+    public void SetEnemyHealthbar()
+    {
+        skullImage.gameObject.SetActive(true);
+        playerNameText.color = Color.red;
+    }
+
+    public void SetFriendlyHealthbar()
+    {
+        skullImage.gameObject.SetActive(false);
+        playerNameText.color = Color.black;
     }
     #endregion
 }

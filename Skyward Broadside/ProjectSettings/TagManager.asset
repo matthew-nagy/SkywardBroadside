@@ -9,6 +9,13 @@ TagManager:
   - Cannonball
   - Terrain
   - Island
+  - Wall
+  - ResupplyBase
+  - ShockwaveCannonball
+  - Effects
+  - ReloadIndicator
+  - playerStatus
+  - Debris
   layers:
   - Default
   - TransparentFX
@@ -20,11 +27,11 @@ TagManager:
   - Island
   - Projectile
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EnemyProjectile
+  - ResupplyBase
+  - MapBoundary
+  - Minimap
+  - Effects
   - 
   - 
   - 

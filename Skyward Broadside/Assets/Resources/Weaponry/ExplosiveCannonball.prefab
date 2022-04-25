@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3799885530754182095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.0055165, y: 4.4141335, z: -31.090416}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,11 +111,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a11274d15bf0f9439661ecae37fb858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPower: 100000
-  explosionRadius: 10
+  explosionPower: 3000
+  explosionRadius: 5
   explodableObjects:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 631
+  explosion: {fileID: 797522063623356723, guid: 61e61e4ce2bdd73498823f060cef4914, type: 3}
 --- !u!54 &6357757886373269347
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -203,8 +204,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.3679245, g: 0.22387859, b: 0.22387859, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0}
+      key0: {r: 1, g: 0, b: 0, a: 1}
+      key1: {r: 1, g: 0.9035492, b: 0, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -251,3 +252,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b6281221e3013489594d2f2d4b7493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impact: {fileID: 797522063623356723, guid: 4080d0b9ca61e7945ae713c4b3b594db, type: 3}

@@ -14,6 +14,8 @@ public class GuiUpdateScript : MonoBehaviour
     public Text otherScore;
     public Text timer;
     public GameObject gameOverScreen;
+    public Text gameOverYourTeam;
+    public Text gameOverOtherTeam;
 
     private float gameLength = 360f; //6 mins
     private float timeRemaining;
@@ -31,7 +33,7 @@ public class GuiUpdateScript : MonoBehaviour
     {
         // This will at some point have some complicated extra stuff for a more interesting GUI i.e. dial control
         // but this is simple atm
-        health.text = Math.Round(healthVal).ToString();
+        health.text = Math.Ceiling(healthVal).ToString();
     }
 
     public void UpdateGUIAmmo(float ammo)
@@ -43,15 +45,43 @@ public class GuiUpdateScript : MonoBehaviour
         explosiveAmmo.text = ammo.ToString(); 
     }
 
-    public void UpdateWeapon(string weaponName)
+    public void UpdateWeapon(int weaponId)
     {
-        weapon.text = weaponName;
+        switch (weaponId)
+        {
+            case 0:
+                weapon.text = "Cannonball";
+                break;
+
+            case 1:
+                weapon.text = "Explosive cannonball";
+                break;
+
+            case 2:
+                weapon.text = "Gatling gun";
+                break;
+
+            case 3:
+                weapon.text = "Shockwave cannons";
+                break;
+
+            case 4:
+                weapon.text = "Homing projectiles";
+                break;
+
+            default:
+                Debug.LogError("Invalid weapon Id");
+                break;
+        }
     }
 
     public void UpdateGUIScores(int myTeam, int otherTeam)
     {
         myScore.text = myTeam.ToString();
+        gameOverYourTeam.text = myTeam.ToString();
+        
         otherScore.text = otherTeam.ToString();
+        gameOverOtherTeam.text = otherTeam.ToString();
     }
 
     public void UpdateTimer(TimeSpan timeRemaining)

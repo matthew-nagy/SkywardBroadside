@@ -31,6 +31,39 @@ public class CloudGen3 : MonoBehaviour
     MeshRenderer meshRenderer;
     Mesh mesh;
 
+    void MakeCloudQuad(int x, int y, int z, int vertexCount, int triangleCount, int normalCount, int uvCount, int colorCount, Vector3[] vertices, int[] triangles, Vector3[] normals, Vector2[] uv, Color[] colors)
+    {
+        vertices[vertexCount + 0] = new Vector3(x, y, z);
+        vertices[vertexCount + 1] = new Vector3(x + quad_width, y, z);
+        vertices[vertexCount + 2] = new Vector3(x, y + quad_height, z);
+        vertices[vertexCount + 3] = new Vector3(x + quad_width, y + quad_height, z);
+
+        // lower left triangle
+        triangles[triangleCount + 0] = vertexCount + 0;
+        triangles[triangleCount + 1] = vertexCount + 2;
+        triangles[triangleCount + 2] = vertexCount + 1;
+        // upper right triangle
+        triangles[triangleCount + 3] = vertexCount + 2;
+        triangles[triangleCount + 4] = vertexCount + 3;
+        triangles[triangleCount + 5] = vertexCount + 1;
+
+
+        normals[normalCount + 0] = -Vector3.forward;
+        normals[normalCount + 1] = -Vector3.forward;
+        normals[normalCount + 2] = -Vector3.forward;
+        normals[normalCount + 3] = -Vector3.forward;
+
+        uv[uvCount + 0] = new Vector2(0, 0);
+        uv[uvCount + 1] = new Vector2(1, 0);
+        uv[uvCount + 2] = new Vector2(0, 1);
+        uv[uvCount + 3] = new Vector2(1, 1);
+
+        colors[colorCount + 0] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+        colors[colorCount + 1] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+        colors[colorCount + 2] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+        colors[colorCount + 3] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
+    }
+
     void Start()
     {
         Debug.Log("CLOUD IS HERE");
@@ -79,6 +112,12 @@ public class CloudGen3 : MonoBehaviour
         {
             Debug.LogWarning("Cloud is bigger than vertex limit!!!");
         }
+        while(cloud_width * cloud_height * cloud_depth * 4 > 65535)
+        {
+            cloud_width = (int)((float)(cloud_width) * 0.95);
+            cloud_height = (int)((float)(cloud_height) * 0.95);
+            cloud_depth = (int)((float)(cloud_depth) * 0.95);
+        }
 
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.sharedMaterial = myMat;
@@ -107,35 +146,7 @@ public class CloudGen3 : MonoBehaviour
                 for (int z = 0; z < cloud_depth; z++)
                 {
 
-                    vertices[vertexCount + 0] = new Vector3(x, y, z);
-                    vertices[vertexCount + 1] = new Vector3(x + quad_width, y, z);
-                    vertices[vertexCount + 2] = new Vector3(x, y + quad_height, z);
-                    vertices[vertexCount + 3] = new Vector3(x + quad_width, y + quad_height, z);
-
-                    // lower left triangle
-                    triangles[triangleCount + 0] = vertexCount + 0;
-                    triangles[triangleCount + 1] = vertexCount + 2;
-                    triangles[triangleCount + 2] = vertexCount + 1;
-                    // upper right triangle
-                    triangles[triangleCount + 3] = vertexCount + 2;
-                    triangles[triangleCount + 4] = vertexCount + 3;
-                    triangles[triangleCount + 5] = vertexCount + 1;
-
-
-                    normals[normalCount + 0] = -Vector3.forward;
-                    normals[normalCount + 1] = -Vector3.forward;
-                    normals[normalCount + 2] = -Vector3.forward;
-                    normals[normalCount + 3] = -Vector3.forward;
-
-                    uv[uvCount + 0] = new Vector2(0, 0);
-                    uv[uvCount + 1] = new Vector2(1, 0);
-                    uv[uvCount + 2] = new Vector2(0, 1);
-                    uv[uvCount + 3] = new Vector2(1, 1);
-
-                    colors[colorCount + 0] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth);
-                    colors[colorCount + 1] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth);
-                    colors[colorCount + 2] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth);
-                    colors[colorCount + 3] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth);
+                    MakeCloudQuad(x, y, z, vertexCount, triangleCount, normalCount, uvCount, colorCount, vertices, triangles, normals, uv, colors);
 
                     vertexCount += 4;
                     triangleCount += 6;
@@ -155,7 +166,6 @@ public class CloudGen3 : MonoBehaviour
 
         meshFilter.mesh = mesh;
         shaderScale = new Vector3(cloud_width, cloud_height, cloud_depth);
-
     }
 
     // Update is called once per frame
