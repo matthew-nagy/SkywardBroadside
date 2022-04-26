@@ -32709,6 +32709,7 @@ MonoBehaviour:
   myTeam: 0
   playerName: 
   resupply: 0
+  brokenShip: {fileID: 3615311673211330838, guid: 168ea4c16b405b9438e11c3430849693, type: 3}
 --- !u!114 &1523253515593093035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32739,7 +32740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 100
+  maxHealth: 1
   cannonballAmmo: 0
   maxCannonballAmmo: 60
   explosiveCannonballAmmo: 0

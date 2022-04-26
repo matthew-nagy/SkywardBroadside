@@ -40,10 +40,12 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             if (targetAquired)
             {
                 checkVisible(currentTarget);
+                checkAlive();
                 if (!lockedOn)
                 {
                     checkStillClosest(currentTarget);
                 }
+
             }
             else
             {
@@ -117,6 +119,18 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
                     currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
                     unLockToTarget();
                 }
+            }
+        }
+    }
+
+    void checkAlive()
+    {
+        if (!currentTarget.activeInHierarchy)
+        {
+            targetAquired = false;
+            if (lockedOn)
+            {
+                unLockToTarget();
             }
         }
     }
