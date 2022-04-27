@@ -37,6 +37,13 @@ struct RequestedControls
     }
 }
 
+[System.Serializable]
+public struct TeamToColour
+{
+    public TeamData.Team team;
+    public Material material;
+}
+
 public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 {
 
@@ -81,7 +88,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     float timerDisabled;
     float totalDisabledTime;
 
-    Color teamColour;
+    TeamData.Team myTeam;
     bool colourSet = false;
 
     public List<ParticleSystem> pDriveSystem;
@@ -113,6 +120,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     private Vector3 lastPosition;
 
     bool aiToggle;
+
+    public List<TeamToColour> teamsToColours;
+    Dictionary<TeamData.Team, Material> shipMats;
+
     void AI()
     {
         float maxVel = 30f;
@@ -175,8 +186,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         verticalSpeed = 0;
         playerInput = new RequestedControls();
 
-        teamColour = TeamData.TeamToColour(GetComponentInParent<PlayerPhotonHub>().myTeam);
-        balloon.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(teamColour.r, teamColour.g, teamColour.b, 0.5f));
+        shipMats = new Dictionary<TeamData.Team, Material>();
+        foreach(TeamToColour ttc in teamsToColours)
+        {
+            shipMats[ttc.team] = ttc.material;
+        }
+
+        myTeam = GetComponentInParent<PlayerPhotonHub>().myTeam;
+        balloon.GetComponent<Renderer>().material = shipMats[myTeam];
 
         GameObject mapCenter = GameObject.Find("Center");
         Vector3 towards = mapCenter.transform.position - transform.position;
@@ -344,35 +361,35 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             // the 10 is needed because otherwise you insta-kill each other upon contact
             forceToDamageMultiplier = shipDamageMultiplier * (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
         }
-        else if (collision.gameObject.tag == "Wall")
-        {
-            shouldDealDamage = true;
-            Debug.Log("Wall");
-            switch (collision.gameObject.name)
-            {
-                case "InvisWallX+":
-                    transform.position -= new Vector3(1, 0, 0);
-                    break;
-                case "InvisWallX-":
-                    transform.position += new Vector3(1, 0, 0);
-                    break;
-                case "InvisWallY+":
-                    transform.position -= new Vector3(0, 1, 0);
-                    break;
-                case "InvisWallY-":
-                    transform.position += new Vector3(0, 1, 0);
-                    break;
-                case "InvisWallZ+":
-                    transform.position -= new Vector3(0, 0, 1);
-                    break;
-                case "InvisWallZ-":
-                    transform.position += new Vector3(0, 0, 1);
-                    break;
-            }
-            velocity = new Vector3(0, 0, 0); 
-            DisableMovementFor(0.5f);
-            forceToDamageMultiplier = wallDamageMultiplier;
-        }
+        //else if (collision.gameObject.tag == "Wall")
+        //{
+        //    shouldDealDamage = true;
+        //    Debug.Log("Wall");
+        //    switch (collision.gameObject.name)
+        //    {
+        //        case "InvisWallX+":
+        //            transform.position -= new Vector3(1, 0, 0);
+        //            break;
+        //        case "InvisWallX-":
+        //            transform.position += new Vector3(1, 0, 0);
+        //            break;
+        //        case "InvisWallY+":
+        //            transform.position -= new Vector3(0, 1, 0);
+        //            break;
+        //        case "InvisWallY-":
+        //            transform.position += new Vector3(0, 1, 0);
+        //            break;
+        //        case "InvisWallZ+":
+         //           transform.position -= new Vector3(0, 0, 1);
+        //            break;
+        //        case "InvisWallZ-":
+        //            transform.position += new Vector3(0, 0, 1);
+        //            break;
+         //   }
+        //    velocity = new Vector3(0, 0, 0); 
+        //    DisableMovementFor(0.5f);
+        //    forceToDamageMultiplier = wallDamageMultiplier;
+        //}
         else if (collision.gameObject.CompareTag("Debris"))
         {
             shouldDealDamage = true;
@@ -416,9 +433,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(velocity);
             stream.SendNext(isDisabled);
             stream.SendNext(moveSpeed);
-            stream.SendNext(teamColour.r);
-            stream.SendNext(teamColour.g);
-            stream.SendNext(teamColour.b);
+            stream.SendNext((byte)myTeam);
             stream.SendNext(transform.position.x);
             stream.SendNext(transform.position.y);
             stream.SendNext(transform.position.z);
@@ -434,9 +449,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             this.velocity = (Vector3)stream.ReceiveNext();
             this.isDisabled = (bool)stream.ReceiveNext();
             this.moveSpeed = (float)stream.ReceiveNext();
-            float r = (float)stream.ReceiveNext();
-            float g = (float)stream.ReceiveNext();
-            float b = (float)stream.ReceiveNext();
+
+            myTeam = (TeamData.Team)((byte)stream.ReceiveNext());
 
             Vector3 np = Vector3.zero;
             Vector3 ea = Vector3.zero;
@@ -451,8 +465,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             if (!colourSet)
             {
-                balloon.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
-                colourSet = true;
+                balloon.GetComponent<Renderer>().material = shipMats[myTeam];
             }
 
             RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
