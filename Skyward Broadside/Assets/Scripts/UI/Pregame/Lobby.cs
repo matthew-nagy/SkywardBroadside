@@ -34,11 +34,11 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             ReadyUp();
         }
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             ChangeTeam();
         }
