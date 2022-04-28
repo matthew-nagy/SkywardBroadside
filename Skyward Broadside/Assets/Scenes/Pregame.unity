@@ -633,9 +633,6 @@ GameObject:
   - component: {fileID: 687365818}
   - component: {fileID: 687365817}
   - component: {fileID: 687365816}
-  - component: {fileID: 687365820}
-  - component: {fileID: 687365821}
-  - component: {fileID: 687365822}
   m_Layer: 5
   m_Name: Lobby Canvas
   m_TagString: Untagged
@@ -724,46 +721,6 @@ RectTransform:
   m_AnchoredPosition: {x: 361.8, y: 202.5}
   m_SizeDelta: {x: 800, y: 447.76123}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &687365820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687365815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02460ab345add9e4781b8570a9f5f3b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldname: Beta
-  purplePanel: {fileID: 0}
-  yellowPanel: {fileID: 0}
-  lobbyListingPrefab: {fileID: 3735962923914168781, guid: f3b5f7f83777f894a9336401c0961b99, type: 3}
---- !u!114 &687365821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687365815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1511ccae7919cfc46b603b9b337fdc94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &687365822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687365815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e2803172d5e3f44bbe9769b9db277f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &829001593
 GameObject:
   m_ObjectHideFlags: 0
