@@ -17,6 +17,17 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
 
     string shipType;
 
+    [SerializeField]
+    GameObject PromptSystem;
+    [SerializeField]
+    GameObject mpmPrefab;
+    [SerializeField]
+    string lockOnPrompt;
+    [SerializeField]
+    string firePrompt;
+    GameObject mpmObj;
+    MousePromptManager mpm;
+
     private void Start()
     {
         if (photonView.IsMine)
@@ -24,6 +35,10 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             MoveToLayer(transform, 2);
         }
         shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+
+        mpmObj = Instantiate(mpmPrefab);
+        mpmObj.transform.parent = PromptSystem.transform;
+        mpm = mpmObj.GetComponent<MousePromptManager>();
     }
 
     private void Update()
@@ -40,6 +55,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             if (targetAquired)
             {
                 checkVisible(currentTarget);
+                checkAlive();
                 if (!lockedOn)
                 {
                     checkStillClosest(currentTarget);
@@ -52,6 +68,9 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
                 {
                     currentTargetId = closestEnemy.gameObject.GetComponent<PhotonView>().ViewID;
                     highlightTarget(closestEnemy);
+                    mpm.target = currentTarget;
+                    mpm.promptText = lockOnPrompt;
+                    mpm.MakePrompt();
                 }
             }
         }
@@ -90,6 +109,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         GetComponent<CameraController>().setLookAtTarget(currentTarget);
         GetComponent<CameraController>().disableFreeCam();
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.red;
+        mpm.promptText = firePrompt;
+        mpm.UpdatePrompt();
     }
 
     public void unLockToTarget()
@@ -101,6 +122,8 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             lockedOn = false;
         }
         currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
+        mpm.promptText = lockOnPrompt;
+        mpm.UpdatePrompt();
     }
 
     void checkVisible(GameObject currentTarget)
@@ -121,6 +144,18 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         }
     }
 
+    void checkAlive()
+    {
+        if (!currentTarget.activeInHierarchy)
+        {
+            targetAquired = false;
+            if (lockedOn)
+            {
+                unLockToTarget();
+            }
+        }
+    }
+
     void checkStillClosest(GameObject currentTarget)
     {
         GameObject closestEnemy = FindClosestEnemyInView();
@@ -129,6 +164,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             targetAquired = false;
             currentTargetId = 0;
             currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineWidth = 0;
+            mpm.DestroyPrompt();
         }
     }
 

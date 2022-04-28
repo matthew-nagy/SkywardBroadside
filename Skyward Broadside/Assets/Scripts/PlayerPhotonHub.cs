@@ -150,7 +150,6 @@ public class PlayerPhotonHub : MonoBehaviour
         //Instantiate player UI (username and health)
         GameObject _uiGo = Instantiate(this.PlayerUiPrefab);
         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-
     }
 
     public void SetUI(GameObject UI)
