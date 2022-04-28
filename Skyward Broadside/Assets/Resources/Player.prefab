@@ -32786,8 +32786,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d198e1644bb3f614d89df3f4e0bc72af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 1
+  health: 100
+  maxHealth: 100
   cannonballAmmo: 0
   maxCannonballAmmo: 60
   explosiveCannonballAmmo: 0
