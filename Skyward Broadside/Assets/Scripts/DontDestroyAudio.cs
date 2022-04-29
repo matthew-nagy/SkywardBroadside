@@ -4,7 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
 // Object.DontDestroyOnLoad example.
 //
@@ -14,16 +14,38 @@ using UnityEngine;
 
 public class DontDestroyAudio : MonoBehaviour
 {
+
     void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("MenuBGMusic");
-        //Scene scene = SceneManager.GetActiveScene();
 
-        if (objs.Length > 1) // || scene.name == "Launcher"
+        if (objs.Length > 1)
         {
             Destroy(this.gameObject);
         }
 
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("MenuBGMusic");
+
+        if (objs.Length > 0 && scene.name == "Beta")
+        {
+            Debug.LogError("Destroying gameObject");
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.LogError("data is " + objs.Length + " and our lad " + scene.name);
+        }
+        
+    }
+
+    void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoad;
         DontDestroyOnLoad(this.gameObject);
     }
 }
