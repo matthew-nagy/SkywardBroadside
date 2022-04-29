@@ -35,7 +35,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     {
         EnableWeapon(0);
         EnableWeapon(1);
-        EnableWeapon(2);
+        EnableWeapon(4);
     }
     private void Start()
     {
