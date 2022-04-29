@@ -125,6 +125,7 @@ public class GUIController : MonoBehaviour
         rightPos = specialAmmoParent.transform.localPosition;
 
         healthShaderImg = healthShaderObject.GetComponent<RawImage>();
+        healthShaderImg.material = new Material(healthShaderImg.material);
 
         explosiveShaderImg = explosiveShaderObject.GetComponent<RawImage>();
         explosiveShaderImg.material = new Material(explosiveShaderImg.material); //instantiate new material otherwise changes would also change any other instances of this material
