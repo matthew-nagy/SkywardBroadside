@@ -139,6 +139,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
             target = PhotonView.Find(currentTargetId).gameObject;
             newProjectile.GetComponent<Missile>().InitialiseMissile(target.transform);
             newProjectile.GetComponent<Missile>().owner = GetShipTransform().gameObject;
+
         } //if we are free firing, just get target pos
         else
         {

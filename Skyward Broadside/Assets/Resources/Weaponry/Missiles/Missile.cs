@@ -10,7 +10,6 @@ public class Missile : MonoBehaviour
     public float speed = 2;
     public float rotationDampening = 1;
 
-    Vector3 velocity;
     bool lockedOn;
 
     public bool shouldExplode = false;
@@ -19,11 +18,10 @@ public class Missile : MonoBehaviour
 
     public GameObject explosionEffect;
 
-    private bool initialised;
+    private bool initialised = false;
 
     void Start()
     {
-        initialised = false;
         //Do nothing before we have a target
     }
 
@@ -31,18 +29,20 @@ public class Missile : MonoBehaviour
     {
         targetTransform = _targetTransform;
 
-        //Initialise velocity in direction of target
-        Vector3 dist_to_target = targetTransform.position - transform.position;
-        Vector3 dir_to_target = dist_to_target.normalized;
-        velocity = dir_to_target * speed;
-
-        initTime = Time.timeSinceLevelLoad;
+        // //Initialise velocity in direction of target
+        // Vector3 dist_to_target = targetTransform.position - transform.position;
+        // Vector3 dir_to_target = dist_to_target.normalized;
+        // // velocity = dir_to_target * speed;
 
         initialised = true;
+        initTime = Time.timeSinceLevelLoad;
+
     }
 
     void Update()
     {
+        Debug.Log("MISSILE UPDATING TRANSFORM IS: " + targetTransform + " INIT IS " + initialised);
+
         if (!initialised) return; //If not got a target, do nothing
 
         Vector3 dist_to_target = targetTransform.position - transform.position;
@@ -52,8 +52,6 @@ public class Missile : MonoBehaviour
         var rotation = Quaternion.LookRotation(dist_to_target);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDampening);
 
-        //update velocity using current rotation (because of dampening)
-        velocity = transform.rotation.eulerAngles.normalized * speed;
         transform.position += transform.forward * speed * Time.deltaTime;
 
         if (Time.timeSinceLevelLoad - initTime > explodeTimer)
