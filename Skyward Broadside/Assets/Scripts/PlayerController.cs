@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public bool resupply;
 
+    [SerializeField]
+    GameObject brokenShip;
+
     private void Start()
     { 
         if (photonView.IsMine)
@@ -69,8 +72,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                     UpdateAmmo();
                     UpdateWeapon();
                 }
-
-
             }
         }
     }
@@ -125,17 +126,13 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private void broadcastDeath()
     {
-        Debug.Log("ONE");
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
         string[] names = {lastDamagedBy, playerName};
         PhotonNetwork.RaiseEvent((byte) photonHub.EventCode.KillEventWithNames, names, raiseEventOptions,
             SendOptions.SendReliable);
-        Debug.Log("TWO");
         RaiseEventOptions raiseEventOptions2 = new RaiseEventOptions {Receivers = ReceiverGroup.All};
         PhotonNetwork.RaiseEvent((byte) photonHub.EventCode.DeathEvent, (byte)myTeam, raiseEventOptions2,
             SendOptions.SendReliable);
-        Debug.Log("THREE");
-
     }
 
     void Die()
@@ -143,14 +140,39 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine)
         {
             broadcastDeath();
-
-            GetComponent<ShipArsenal>().Respawn();
-
-            Vector3 spawnPosition = GameManager.Instance.GetSpawnFromTeam(myTeam).transform.position;
-            transform.position = spawnPosition + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
-
-            spawnTime = DateTime.Now;
+            photonView.RPC(nameof(DeathAnimation), RpcTarget.All);
+            photonView.RPC(nameof(Respawn), RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    void Respawn()
+    {
+        Invoke(nameof(MoveShipToSpawnPoint), 2.8f);
+        Invoke(nameof(Activate), 3f);
+    }
+
+    void MoveShipToSpawnPoint()
+    {
+        GetComponent<ShipArsenal>().Respawn();
+
+        Vector3 spawnPosition = GameManager.Instance.GetSpawnFromTeam(myTeam).transform.position;
+        transform.position = spawnPosition + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
+
+        spawnTime = DateTime.Now;
+    }
+
+    void Activate()
+    {
+        transform.root.gameObject.SetActive(true);
+    }
+
+    [PunRPC]
+    void DeathAnimation()
+    {
+        GameObject brokenShipObj = Instantiate(brokenShip, transform.position, transform.rotation);
+        brokenShipObj.GetComponent<DeathController>().Expload();
+        transform.root.gameObject.SetActive(false);
     }
 
     public void RegenInvoker()

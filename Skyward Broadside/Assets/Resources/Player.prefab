@@ -7322,6 +7322,52 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3015404643331973945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5660248864861618913}
+  - component: {fileID: 1265200832097111504}
+  m_Layer: 0
+  m_Name: PromptSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5660248864861618913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3015404643331973945}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 968932559064527562}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1265200832097111504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3015404643331973945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2491159fc445994299d2eec9579c4bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponsKeyPromptPrefab: {fileID: 8586582362795000431, guid: 075613311a7aa6241baf6170c17959c0, type: 3}
+  movementKeyPromptPrefab: {fileID: 8586582362795000431, guid: 44368955f1cd9dd49a8431b1c453e1d0, type: 3}
+  movementKeyPromptPrefab2: {fileID: 8586582362795000431, guid: 5d10fe8a4b4de8a47b20372dfbbff3c7, type: 3}
 --- !u!1 &3049162724194710559
 GameObject:
   m_ObjectHideFlags: 0
@@ -17845,6 +17891,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4375482820297440083}
+  - {fileID: 5660248864861618913}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -32709,6 +32756,7 @@ MonoBehaviour:
   myTeam: 0
   playerName: 
   resupply: 0
+  brokenShip: {fileID: 3615311673211330838, guid: 168ea4c16b405b9438e11c3430849693, type: 3}
 --- !u!114 &1523253515593093035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32738,7 +32786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d198e1644bb3f614d89df3f4e0bc72af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 100
   maxHealth: 100
   cannonballAmmo: 0
   maxCannonballAmmo: 60
@@ -32784,6 +32832,10 @@ MonoBehaviour:
   maxTargetDistance: 400
   targetDestroyed: 0
   myCam: {fileID: 0}
+  PromptSystem: {fileID: 3015404643331973945}
+  mpmPrefab: {fileID: 180971722471536576, guid: ba10e9ab814f0b74792d990c8ed744c5, type: 3}
+  lockOnPrompt: Right click to lock on
+  firePrompt: Left click to fire
 --- !u!114 &8106395472204109148
 MonoBehaviour:
   m_ObjectHideFlags: 0

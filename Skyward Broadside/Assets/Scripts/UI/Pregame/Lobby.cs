@@ -34,11 +34,11 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             ReadyUp();
         }
-        if (Input.GetKeyDown(KeyCode.F2))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             ChangeTeam();
         }
@@ -97,7 +97,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         listing.SetFromPlayerStatus(player);
         _listings.Add(player.playerName, listing);
     }
-    
+
     public enum EventCode : byte
     {
         Ready = 10,
@@ -112,7 +112,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     private void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
-        if (eventCode == (byte) EventCode.Ready)
+        if (eventCode == (byte)EventCode.Ready)
         {
             string name = (string)photonEvent.CustomData;
             GameObject[] playerstatuses = GameObject.FindGameObjectsWithTag("playerStatus");
@@ -129,7 +129,7 @@ public class Lobby : MonoBehaviourPunCallbacks
                 }
             }
         }
-        else if (eventCode == (byte) EventCode.SwitchTeam)
+        else if (eventCode == (byte)EventCode.SwitchTeam)
         {
             string name = (string)photonEvent.CustomData;
             GameObject[] playerstatuses = GameObject.FindGameObjectsWithTag("playerStatus");
@@ -151,7 +151,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player player)
     {
-       Destroy(_listings[player.NickName].gameObject);
-       _listings.Remove(player.NickName);
+        Destroy(_listings[player.NickName].gameObject);
+        _listings.Remove(player.NickName);
     }
 }
