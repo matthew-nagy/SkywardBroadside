@@ -8,55 +8,6 @@ Shader "Unlit/CellStandard"
     }
     SubShader
     {
-
-        Pass
-        {
-            Tags {"Queue" = "Geometry" "RenderType" = "Geometry" "LightMode" = "ForwardBase" }
-            LOD 100
-            Cull[_Cull]
-            ZWrite On
-
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #pragma target 3.0      //Get access to screen space pixels
-
-            #include "UnityCG.cginc"
-
-            //Now some stuff to get shadows to work properly
-            #include "Lighting.cginc"
-            #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap novertexlight
-            #include "AutoLight.cginc"
-
-            struct appdata
-            {
-                float4 vertex : POSITION;
-            };
-
-            struct v2f
-            {
-                float4 pos : SV_POSITION;
-            };
-
-            v2f vert(appdata v)
-            {
-                v2f o;
-                float shadowLevel = 10;
-
-                float4 viewPos = mul(UNITY_MATRIX_MV, v.vertex);
-                viewPos.z -= shadowLevel;
-                o.pos = mul(UNITY_MATRIX_P, viewPos);
-                return o;
-            }
-
-            //UNITY_VPOS_TYPE screenPos : VPOS
-            fixed4 frag(v2f i) : SV_Target
-            {
-                return float4(0.0, 0.0, 0.0, 1.0);
-            }
-            ENDCG
-        }
-
         Pass
         {
 
