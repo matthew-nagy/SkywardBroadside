@@ -53,6 +53,6 @@ public static class SBControls
     public static Control ammo2 = Control.Make().SetPrimary(KeyCode.Alpha2);
     public static Control ammo3 = Control.Make().SetPrimary(KeyCode.Alpha3);
 
-    public static Control yAxisUp = Control.Make().SetPrimary(KeyCode.R).SetSecondary(KeyCode.LeftShift);
-    public static Control yAxisDown = Control.Make().SetPrimary(KeyCode.F).SetSecondary(KeyCode.LeftControl);
+    public static Control yAxisUp = Control.Make().SetPrimary(KeyCode.R).SetSecondary(KeyCode.Q);
+    public static Control yAxisDown = Control.Make().SetPrimary(KeyCode.F).SetSecondary(KeyCode.E);
 }
