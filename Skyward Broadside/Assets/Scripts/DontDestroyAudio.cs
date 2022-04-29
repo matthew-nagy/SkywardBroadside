@@ -15,6 +15,7 @@ using UnityEngine.SceneManagement;
 public class DontDestroyAudio : MonoBehaviour
 {
 
+    // This handles making sure there's only one sound source playing the background music
     void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("MenuBGMusic");
@@ -27,22 +28,19 @@ public class DontDestroyAudio : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    // This deletes the menu music when we don't need it anymore
     void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("MenuBGMusic");
 
         if (objs.Length > 0 && scene.name == "Beta")
         {
-            Debug.LogError("Destroying gameObject");
             Destroy(this.gameObject);
-        }
-        else
-        {
-            Debug.LogError("data is " + objs.Length + " and our lad " + scene.name);
         }
         
     }
 
+    // updates current scene so it knows where it is
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoad;
