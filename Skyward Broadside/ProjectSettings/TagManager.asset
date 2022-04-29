@@ -16,6 +16,7 @@ TagManager:
   - ReloadIndicator
   - playerStatus
   - Debris
+  - MenuBGMusic
   layers:
   - Default
   - TransparentFX
