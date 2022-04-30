@@ -138,6 +138,11 @@ public class ReloadRegister : MonoBehaviour
         GameObject shellRenderer = new GameObject();
         GameObject shellRendererInside = new GameObject();
 
+        Color teamColour = TeamData.TeamToColour(myTeam);
+        Vector4 colourAsVector = new Vector4(teamColour.r, teamColour.g, teamColour.b, teamColour.a);
+        Material myMaterial = reloadRadiusMaterial;
+        myMaterial.SetVector("_Colour", colourAsVector);
+
         MeshFilter mf = shellRenderer.AddComponent<MeshFilter>();
         MeshRenderer mr = shellRenderer.AddComponent<MeshRenderer>();
         mf.sharedMesh = myMesh;
