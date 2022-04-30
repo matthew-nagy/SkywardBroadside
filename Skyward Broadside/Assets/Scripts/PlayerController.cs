@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     GameObject brokenShip;
 
     private void Start()
-    { 
+    {
+        transform.root.GetComponent<PlayerPhotonHub>().SetTeam();
         if (photonView.IsMine)
         {
             updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;
@@ -44,7 +45,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             spawnTime = DateTime.Now;
 
             Invoke(nameof(RegenInvoker), 5f);
-            
         }
 
         playerName = gameObject.GetComponent<PhotonView>().Owner.NickName;

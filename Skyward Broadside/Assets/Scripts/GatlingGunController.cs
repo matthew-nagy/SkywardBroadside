@@ -48,7 +48,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     {
         serverShootingFlag = sendShootingToClient = clientShootingFlag = false;
         SetLayerMask();
-        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+        shipType = PlayerChoices.ship;
         shooterName = transform.root.GetComponent<PlayerController>().playerName;
     }
 

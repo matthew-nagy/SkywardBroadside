@@ -35,7 +35,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
-        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+        shipType = PlayerChoices.ship;
     }
 
     // Update is called once per frame
@@ -119,6 +119,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     //fire the cannon
     void Fire()
     {
+        print("Fire");
         SendShakeEvent();
 
         CreateParticles();

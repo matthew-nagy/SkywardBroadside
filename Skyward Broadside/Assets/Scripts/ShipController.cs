@@ -109,6 +109,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     float projectileDamageMultiplier;
     [SerializeField]
+    float missileDamageMultiplier;
+    [SerializeField]
     float explosionDamageMultiplier;
     [SerializeField]
     float shipDamageMultiplier;
@@ -192,7 +194,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             shipMats[ttc.team] = ttc.material;
         }
 
-        myTeam = GetComponentInParent<PlayerPhotonHub>().myTeam;
+        myTeam = GetComponent<PlayerController>().myTeam;
         balloon.GetComponent<Renderer>().material = shipMats[myTeam];
 
         GameObject mapCenter = GameObject.Find("Center");
@@ -332,6 +334,26 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     forceToDamageMultiplier *= explosionDamageMultiplier;
                 }
+            }
+            else
+            {
+                forceToDamageMultiplier = 0f;
+            }
+        }
+        else if (collision.gameObject.CompareTag("Missile"))
+        {
+            shouldDealDamage = true;
+            GameObject owner = collision.gameObject.GetComponent<Missile>().owner;
+            gameObject.GetComponent<PlayerController>().lastHit(owner.GetComponent<PhotonView>().Owner.NickName);
+            if (!GameObject.ReferenceEquals(owner, gameObject))
+            {
+                Vector3 velocityMissile = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
+                Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityMissile;
+                moveSpeed = finalVelocity.magnitude;
+
+                velocity = finalVelocity;
+
+                forceToDamageMultiplier = missileDamageMultiplier * collision.gameObject.GetComponent<Missile>().damageAmount;
             }
             else
             {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5016332, g: 0.66350996, b: 0.8657223, a: 1}
+  m_IndirectSpecularColor: {r: 0.5018958, g: 0.6635214, b: 0.86558545, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -305,7 +305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d46add8313ee008bf57a22cc6dcecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabPlayer: {fileID: 4023331837556910226, guid: 74cf077652eb32e48916ac4914bf4e8c, type: 3}
   yellowSpawn: {fileID: 630601773}
   purpleSpawn: {fileID: 1604238549}
   serverPlayerPhotonHub: {fileID: 0}
@@ -9795,7 +9794,7 @@ GameObject:
   - component: {fileID: 1911780380}
   - component: {fileID: 1911780378}
   - component: {fileID: 1911780379}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11452,6 +11451,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music
       objectReference: {fileID: 0}
+    - target: {fileID: 765754090817694407, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2966748556065489020, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -11495,6 +11498,18 @@ PrefabInstance:
     - target: {fileID: 2966748556065489020, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069541589606083544, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767906304426576749, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395761086886830581, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8600096508624814104, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
       propertyPath: m_LocalPosition.x

@@ -10,13 +10,13 @@ public class Missile : MonoBehaviour
     public float speed = 2;
     public float rotationDampening = 1;
 
+    public float damageAmount;
+
     bool lockedOn;
 
     public bool shouldExplode = false;
     public float explodeTimer = 10; //How many seconds to wait before timing out and exploding
     private float initTime;
-
-    public GameObject explosionEffect;
 
     private bool initialised = false;
 
@@ -56,23 +56,7 @@ public class Missile : MonoBehaviour
 
         if (Time.timeSinceLevelLoad - initTime > explodeTimer)
         {
-            explode();
-        }
-    }
-
-    public void explode()
-    {
-        var explosionObject = (GameObject)Instantiate(explosionEffect);
-        explosionObject.transform.position = transform.position;
-        explosionObject.GetComponent<ParticleSystem>().Play();
-        Object.Destroy(this.gameObject);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (owner != collision.gameObject)
-        {
-            explode();
+            GetComponent<Explosive>().Detonate();
         }
     }
 }

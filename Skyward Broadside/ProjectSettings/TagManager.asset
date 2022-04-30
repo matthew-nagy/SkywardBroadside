@@ -17,6 +17,8 @@ TagManager:
   - playerStatus
   - Debris
   - MenuBGMusic
+  - Ignored
+  - Missile
   layers:
   - Default
   - TransparentFX

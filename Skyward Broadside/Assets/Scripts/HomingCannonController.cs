@@ -35,7 +35,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
-        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+        shipType = PlayerChoices.ship;
     }
 
     // Update is called once per frame
@@ -124,27 +124,28 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         CreateParticles();
 
         GameObject ship = GetShipTransform().gameObject;
+        GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
 
-        GameObject target;
+        if (!photonView.IsMine)
+        {
+            newProjectile.layer = 10;
+        }
+
         //if we are lockedOn get target obj, velocity, and pos
         if (lockedOn)
         {
-            GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
-
-            if (!photonView.IsMine)
-            {
-                newProjectile.layer = 10;
-            }
-
-            target = PhotonView.Find(currentTargetId).gameObject;
+            GameObject target = PhotonView.Find(currentTargetId).gameObject;
             newProjectile.GetComponent<Missile>().InitialiseMissile(target.transform);
-            newProjectile.GetComponent<Missile>().owner = GetShipTransform().gameObject;
 
         } //if we are free firing, just get target pos
         else
         {
-            Debug.Log("Not locked on");
+            GameObject staticTarget = new GameObject();
+            staticTarget.transform.position = freeFireTargetPos;
+            newProjectile.GetComponent<Missile>().InitialiseMissile(staticTarget.transform);
         }
+
+        newProjectile.GetComponent<Missile>().owner = GetShipTransform().gameObject;
     }
 
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)

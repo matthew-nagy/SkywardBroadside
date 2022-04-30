@@ -22,6 +22,8 @@ public class PlayerPhotonHub : MonoBehaviour
     [SerializeField]
     public GameObject PlayerUiPrefab;
 
+    public TeamData.Team myTeam;
+
     public string playerName { get; set; }
     public float playerID { get; set; }
     bool clientRegisteredID = false;
@@ -32,7 +34,6 @@ public class PlayerPhotonHub : MonoBehaviour
     public GUIController updateScript;
 
     public List<Material> teamMaterials;
-    public TeamData.Team myTeam;
 
     private int deaths;
 
@@ -45,19 +46,16 @@ public class PlayerPhotonHub : MonoBehaviour
 
     Transform ship;
 
-    //later set this to whichever ship the player selects
-    public string shipType = "mediumShip";
-
-    public void SetTeam(TeamData.Team team)
+    public void SetTeam()
     {
-        myTeam = team;
-        Material givenMaterial = teamMaterials[(int)team];
+        print("TEAAAMMMMMMMMMM:" + (int)myTeam);
+        Material givenMaterial = teamMaterials[(int)myTeam];
         if(givenMaterial == null)
         {
             Debug.LogError("Material was null");
         }
         ship = transform.Find("Ship");
-        ship.transform.Find(shipType).Find("Body").GetComponent<Renderer>().material = givenMaterial;
+        ship.transform.Find(PlayerChoices.ship).Find("Body").GetComponent<Renderer>().material = givenMaterial;
 
         Debug.LogWarning("Player Team Set in Photon Hub");
     }
@@ -101,7 +99,7 @@ public class PlayerPhotonHub : MonoBehaviour
     void Start()
     {
         Blackboard.playerPhotonHub = this;
-
+        myTeam = transform.Find("Ship").Find(PlayerChoices.ship).GetComponent<PlayerController>().myTeam;
         //GameObject userGUI = GameObject.Find("User GUI");
         //Debug.Log(userGUI);
         //if(userGUI != null)
