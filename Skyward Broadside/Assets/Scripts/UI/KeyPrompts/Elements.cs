@@ -5,4 +5,5 @@ using UnityEngine;
 public class Elements : MonoBehaviour
 {
     public GameObject[] elements;
+    public GameObject[] keyBinds;
 }

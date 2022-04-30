@@ -379,7 +379,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: R
+  m_Text: 
 --- !u!1 &6977548403016594919
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +458,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: F
+  m_Text: 
 --- !u!1 &8586582362795000431
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +529,9 @@ MonoBehaviour:
   - {fileID: 3482491491907610529}
   - {fileID: 6977548403016594919}
   - {fileID: 9121470794453130625}
+  - {fileID: 6622597056965380631}
+  keyBinds:
+  - {fileID: 6977548403016594919}
   - {fileID: 6622597056965380631}
 --- !u!1 &9121470794453130625
 GameObject:
