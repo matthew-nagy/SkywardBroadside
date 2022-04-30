@@ -567,6 +567,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 6923934209641677376}
-  skullImage: {fileID: 0}
+  skullImage: {fileID: 4909493804744274640}
   playerHealthSlider: {fileID: 426828835143010552}
   screenOffset: {x: 0, y: 30, z: 0}

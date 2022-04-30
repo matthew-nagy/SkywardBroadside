@@ -8,13 +8,14 @@ Shader "Unlit/CellStandard"
     }
     SubShader
     {
-            Tags {"Queue"="Geometry" "RenderType" = "Geometry" "LightMode" = "ForwardBase" }
+        Pass
+        {
+
+            Tags {"Queue" = "Geometry" "RenderType" = "Geometry" "LightMode" = "ForwardBase" }
             LOD 100
             Cull[_Cull]
             ZWrite On
 
-        Pass
-        {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -98,7 +99,6 @@ Shader "Unlit/CellStandard"
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col.rgb = lighting * col * _Colour;
                 col.a = _ShaderAlpha;
-
                 return col;
             }
             ENDCG
