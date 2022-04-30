@@ -22,7 +22,9 @@ public class TransparentcyController : MonoBehaviour
     {
         foreach (GameObject component in components)
         {
+            print("Setting t");
             component.GetComponent<Renderer>().material.SetFloat("_ShaderAlpha", transparencyToSet);
+            print(component.GetComponent<Renderer>().material.GetFloat("_ShaderAlpha"));
         }
     }
 }

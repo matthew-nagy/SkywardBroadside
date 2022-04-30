@@ -394,53 +394,23 @@ public class WeaponsController : MonoBehaviour
         int ammoCount = GetComponent<ShipArsenal>().homingAmmo;
         int noOfEnabledCannons = 0;
 
-        if (lockedOn)
+        foreach (GameObject cannon in cannons)
         {
-            foreach (GameObject cannon in cannons)
+            if (cannon != null)
             {
-                if (cannon != null)
+                if (noOfEnabledCannons < ammoCount)
                 {
-                    if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
-                    {
-                        cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
-                        cannon.GetComponent<HomingCannonController>().lockedOn = true;
-                        noOfEnabledCannons++;
-                    }
-                    else
-                    {
-                        cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
-                        cannon.GetComponent<HomingCannonController>().lockedOn = false;
-                    }
+                    cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
+                    noOfEnabledCannons++;
                 }
                 else
                 {
-                    Debug.LogWarning("Could not find cannon object");
+                    cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
                 }
             }
-        }
-        else
-        {
-            GetComponent<TargetingSystem>().aquireFreeFireTarget();
-            foreach (GameObject cannon in cannons)
+            else
             {
-                if (cannon != null)
-                {
-                    if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
-                    {
-                        cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
-                        cannon.GetComponent<HomingCannonController>().lockedOn = false;
-                        noOfEnabledCannons++;
-                    }
-                    else
-                    {
-                        cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
-                        cannon.GetComponent<HomingCannonController>().lockedOn = false;
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("Could not find cannon object");
-                }
+                Debug.LogWarning("Could not find cannon object");
             }
         }
     }
@@ -452,7 +422,6 @@ public class WeaponsController : MonoBehaviour
             if (cannon != null)
             {
                 cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
-                cannon.GetComponent<HomingCannonController>().lockedOn = false;
             }
             else
             {

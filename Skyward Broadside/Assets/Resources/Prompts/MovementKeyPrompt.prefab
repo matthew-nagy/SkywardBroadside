@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: D
 --- !u!1 &1353040992986775629
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +217,7 @@ RectTransform:
   m_Children:
   - {fileID: 3230370247808469476}
   - {fileID: 4860265420073603834}
+  - {fileID: 8214960067617289451}
   m_Father: {fileID: 4861319861020060341}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -516,12 +517,12 @@ RectTransform:
   m_Children:
   - {fileID: 6716990754208469857}
   - {fileID: 7876054770771330344}
-  m_Father: {fileID: 4861319861020060341}
-  m_RootOrder: 5
+  m_Father: {fileID: 1416127548159673422}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -72.399994, y: 14.49999}
+  m_AnchoredPosition: {x: 22.8, y: 24.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6367669411294674113
@@ -677,7 +678,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: W
 --- !u!1 &6977548403016594919
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: S
 --- !u!1 &8045744903690585054
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,7 +836,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: A
 --- !u!1 &8586582362795000431
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,7 +871,6 @@ RectTransform:
   - {fileID: 1416127548159673422}
   - {fileID: 6813609094200265133}
   - {fileID: 8691813123150631341}
-  - {fileID: 8214960067617289451}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -914,11 +914,6 @@ MonoBehaviour:
   - {fileID: 6977548403016594919}
   - {fileID: 2045129651868757336}
   - {fileID: 1276112424363359136}
-  keyBinds:
-  - {fileID: 8045744903690585054}
-  - {fileID: 6977548403016594919}
-  - {fileID: 1276112424363359136}
-  - {fileID: 6622597056965380631}
 --- !u!1 &9121470794453130625
 GameObject:
   m_ObjectHideFlags: 0
