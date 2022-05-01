@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class PromptSystem : MonoBehaviour
 {
@@ -56,22 +57,24 @@ public class PromptSystem : MonoBehaviour
     {
         startTime = Time.time;
 
-        GameObject resupplyPromptManager = Instantiate(promptManagerPrefab);
-        resupplyPromptManager.transform.parent = transform;
-        resupplyPromptManager.GetComponent<PromptManager>().promptText = "Stay within the deflector shield to resupply";
-        resupplyPromptManager.GetComponent<PromptManager>().offset = new Vector3(0f, 30f, 0f);
-
-        GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
-        foreach (GameObject _base in bases) 
+        if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
         {
-            if ((int)_base.GetComponent<ReloadRegister>().myTeam == (int)transform.root.GetComponent<PlayerPhotonHub>().myTeam)
+            GameObject resupplyPromptManager = Instantiate(promptManagerPrefab);
+            resupplyPromptManager.transform.parent = transform;
+            resupplyPromptManager.GetComponent<PromptManager>().promptText = "Stay within the deflector shield to resupply";
+            resupplyPromptManager.GetComponent<PromptManager>().offset = new Vector3(0f, 30f, 0f);
+
+            GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
+            foreach (GameObject _base in bases)
             {
-                resupplyPromptManager.GetComponent<PromptManager>().target = _base;
-                resupplyPromptManager.GetComponent<PromptManager>().MakePrompt();
+                if ((int)_base.GetComponent<ReloadRegister>().myTeam == (int)transform.root.GetComponent<PlayerPhotonHub>().myTeam)
+                {
+                    resupplyPromptManager.GetComponent<PromptManager>().target = _base;
+                    resupplyPromptManager.GetComponent<PromptManager>().MakePrompt();
+                }
             }
         }
-
-
+        
         weaponsKeyPromptObj = Instantiate(weaponsKeyPromptPrefab);
         keyBinds = weaponsKeyPromptObj.GetComponent<Elements>().keyBinds;
         keyBinds[0].GetComponent<Text>().text = kcc.keycodes[SBControls.ammo1.primaryKey];
