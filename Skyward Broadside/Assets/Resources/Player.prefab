@@ -32667,7 +32667,6 @@ GameObject:
   - component: {fileID: 1987460896048356490}
   - component: {fileID: 299869864429796461}
   - component: {fileID: 863282109902471902}
-  - component: {fileID: 8106395472204109148}
   - component: {fileID: 7413720167379544952}
   - component: {fileID: 8061095028147616259}
   - component: {fileID: 6125202376171458766}
@@ -32836,22 +32835,6 @@ MonoBehaviour:
   mpmPrefab: {fileID: 180971722471536576, guid: ba10e9ab814f0b74792d990c8ed744c5, type: 3}
   lockOnPrompt: Right click to lock on
   firePrompt: Left click to fire
---- !u!114 &8106395472204109148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8788669775541589560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &7413720167379544952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32932,7 +32915,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 3541160806639353592}
   - {fileID: 1987460896048356490}
-  - {fileID: 8106395472204109148}
+  - {fileID: 0}
   - {fileID: 7413720167379544952}
   - {fileID: 6490166693505290916}
   - {fileID: 1683286217138389724}
