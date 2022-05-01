@@ -41,8 +41,6 @@ public class Missile : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("MISSILE UPDATING TRANSFORM IS: " + targetTransform + " INIT IS " + initialised);
-
         if (!initialised) return; //If not got a target, do nothing
 
         Vector3 dist_to_target = targetTransform.position - transform.position;
