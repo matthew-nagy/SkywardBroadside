@@ -6,9 +6,11 @@ using Photon.Pun;
 public class WeaponsController : MonoBehaviour
 {
     [SerializeField]
-    List<GameObject> cannons;
+    GameObject[] cannons;
     [SerializeField]
-    List<GameObject> gatlingGuns;
+    GameObject[] missileTurret;
+    [SerializeField]
+    GameObject[] gatlingGuns;
     [SerializeField]
     float cannonThresholdAngle;
     [SerializeField]
@@ -288,86 +290,94 @@ public class WeaponsController : MonoBehaviour
 
     void EnableGatlingGun()
     {
-        foreach (GameObject gun in gatlingGuns)
+        if (PlayerChoices.ship == "mediumShip")
         {
-            if (gun != null)
+            foreach (GameObject gun in gatlingGuns)
             {
-                gun.GetComponent<GatlingGunController>().weaponEnabled = true;
-            }
-            else
-            {
-                Debug.LogWarning("Could not find gatling gun object");
+                if (gun != null)
+                {
+                    gun.GetComponent<GatlingGunController>().weaponEnabled = true;
+                }
+                else
+                {
+                    Debug.LogWarning("Could not find gatling gun object");
+                }
             }
         }
-        
     }
 
     void DisableGatlingGun()
     {
-        foreach (GameObject gun in gatlingGuns)
+        if (PlayerChoices.ship == "mediumShip")
         {
-            if (gun != null)
+            foreach (GameObject gun in gatlingGuns)
             {
-                gun.GetComponent<GatlingGunController>().weaponEnabled = false;
+                if (gun != null)
+                {
+                    gun.GetComponent<GatlingGunController>().weaponEnabled = false;
+                }
+                else
+                {
+                    Debug.LogWarning("Could not find gatling gun object");
+                }
             }
-            else
-            {
-                Debug.LogWarning("Could not find gatling gun object");
-            }
-        } 
+        }
     }
 
     void EnableShockwaveCannons()
     {
-        int ammoCount = GetComponent<ShipArsenal>().shockwaveAmmo;
-        int noOfEnabledCannons = 0;
-
-        if (lockedOn)
+        if (PlayerChoices.ship == "heavyShip")
         {
-            foreach (GameObject cannon in cannons)
+            int ammoCount = GetComponent<ShipArsenal>().shockwaveAmmo;
+            int noOfEnabledCannons = 0;
+
+            if (lockedOn)
             {
-                if (cannon != null)
+                foreach (GameObject cannon in cannons)
                 {
-                    if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                    if (cannon != null)
                     {
-                        cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = true;
-                        cannon.GetComponent<ShockwaveCannonController>().lockedOn = true;
-                        noOfEnabledCannons++;
+                        if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                        {
+                            cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = true;
+                            cannon.GetComponent<ShockwaveCannonController>().lockedOn = true;
+                            noOfEnabledCannons++;
+                        }
+                        else
+                        {
+                            cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
+                            cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                        }
                     }
                     else
                     {
-                        cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
-                        cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                        Debug.LogWarning("Could not find cannon object");
                     }
-                }
-                else
-                {
-                    Debug.LogWarning("Could not find cannon object");
                 }
             }
-        }
-        else
-        {
-            GetComponent<TargetingSystem>().aquireFreeFireTarget();
-            foreach (GameObject cannon in cannons)
+            else
             {
-                if (cannon != null)
+                GetComponent<TargetingSystem>().aquireFreeFireTarget();
+                foreach (GameObject cannon in cannons)
                 {
-                    if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                    if (cannon != null)
                     {
-                        cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = true;
-                        cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
-                        noOfEnabledCannons++;
+                        if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                        {
+                            cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = true;
+                            cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                            noOfEnabledCannons++;
+                        }
+                        else
+                        {
+                            cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
+                            cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                        }
                     }
                     else
                     {
-                        cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
-                        cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                        Debug.LogWarning("Could not find cannon object");
                     }
-                }
-                else
-                {
-                    Debug.LogWarning("Could not find cannon object");
                 }
             }
         }
@@ -375,71 +385,77 @@ public class WeaponsController : MonoBehaviour
 
     void DisableShockwaveCannons()
     {
-        foreach (GameObject cannon in cannons)
+        if (PlayerChoices.ship == "heavyShip")
         {
-            if (cannon != null)
+            foreach (GameObject cannon in cannons)
             {
-                cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
-                cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
-            }
-            else
-            {
-                Debug.LogWarning("Could not find cannon object");
+                if (cannon != null)
+                {
+                    cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
+                    cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                }
+                else
+                {
+                    Debug.LogWarning("Could not find cannon object");
+                }
             }
         }
     }
 
     void EnableHomingCannons()
     {
-        int ammoCount = GetComponent<ShipArsenal>().homingAmmo;
-        int noOfEnabledCannons = 0;
-
-        if (lockedOn)
+        if (PlayerChoices.ship == "lightShip")
         {
-            foreach (GameObject cannon in cannons)
+            int ammoCount = GetComponent<ShipArsenal>().homingAmmo;
+            int noOfEnabledCannons = 0;
+
+            if (lockedOn)
             {
-                if (cannon != null)
+                foreach (GameObject cannon in missileTurret)
                 {
-                    if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                    if (cannon != null)
                     {
-                        cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
-                        cannon.GetComponent<HomingCannonController>().lockedOn = true;
-                        noOfEnabledCannons++;
+                        if (noOfEnabledCannons < ammoCount)
+                        {
+                            cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
+                            cannon.GetComponent<HomingCannonController>().lockedOn = true;
+                            noOfEnabledCannons++;
+                        }
+                        else
+                        {
+                            cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
+                            cannon.GetComponent<HomingCannonController>().lockedOn = false;
+                        }
                     }
                     else
                     {
-                        cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
-                        cannon.GetComponent<HomingCannonController>().lockedOn = false;
+                        Debug.LogWarning("Could not find cannon object");
                     }
-                }
-                else
-                {
-                    Debug.LogWarning("Could not find cannon object");
                 }
             }
-        }
-        else
-        {
-            GetComponent<TargetingSystem>().aquireFreeFireTarget();
-            foreach (GameObject cannon in cannons)
+            else
             {
-                if (cannon != null)
+                GetComponent<TargetingSystem>().aquireFreeFireTarget();
+                foreach (GameObject cannon in missileTurret)
                 {
-                    if (CheckLineOfSight(cannon) && noOfEnabledCannons < ammoCount)
+                    if (cannon != null)
                     {
-                        cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
-                        cannon.GetComponent<HomingCannonController>().lockedOn = false;
-                        noOfEnabledCannons++;
+                        if (noOfEnabledCannons < ammoCount)
+                        {
+                            cannon.GetComponent<HomingCannonController>().weaponEnabled = true;
+                            cannon.GetComponent<HomingCannonController>().lockedOn = false;
+                            noOfEnabledCannons++;
+                        }
+                        else
+                        {
+                            cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
+                            cannon.GetComponent<HomingCannonController>().lockedOn = false;
+                        }
                     }
                     else
                     {
-                        cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
-                        cannon.GetComponent<HomingCannonController>().lockedOn = false;
+                        Debug.LogWarning("Could not find cannon object");
                     }
-                }
-                else
-                {
-                    Debug.LogWarning("Could not find cannon object");
                 }
             }
         }
@@ -447,16 +463,19 @@ public class WeaponsController : MonoBehaviour
 
     void DisableHomingCannons()
     {
-        foreach (GameObject cannon in cannons)
+        if (PlayerChoices.ship == "lightShip")
         {
-            if (cannon != null)
+            foreach (GameObject cannon in missileTurret)
             {
-                cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
-                cannon.GetComponent<HomingCannonController>().lockedOn = false;
-            }
-            else
-            {
-                Debug.LogWarning("Could not find cannon object");
+                if (cannon != null)
+                {
+                    cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
+                    cannon.GetComponent<HomingCannonController>().lockedOn = false;
+                }
+                else
+                {
+                    Debug.LogWarning("Could not find cannon object");
+                }
             }
         }
     }
