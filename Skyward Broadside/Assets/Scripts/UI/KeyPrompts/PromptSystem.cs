@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class PromptSystem : MonoBehaviour
 {
-    float startTime;
+    bool shownPrompts;
 
     [SerializeField]
     GameObject weaponsKeyPromptPrefab;
@@ -55,7 +55,12 @@ public class PromptSystem : MonoBehaviour
 
     void Start()
     {
-        startTime = Time.time;
+        
+    }
+
+    void ShowPrompts()
+    {
+        shownPrompts = true;
 
         if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
         {
@@ -74,7 +79,7 @@ public class PromptSystem : MonoBehaviour
                 }
             }
         }
-        
+
         weaponsKeyPromptObj = Instantiate(weaponsKeyPromptPrefab);
         keyBinds = weaponsKeyPromptObj.GetComponent<Elements>().keyBinds;
         keyBinds[0].GetComponent<Text>().text = kcc.keycodes[SBControls.ammo1.primaryKey];
@@ -112,6 +117,11 @@ public class PromptSystem : MonoBehaviour
 
     private void Update()
     {
+        if (!shownPrompts)
+        {
+            ShowPrompts();
+        }
+
         if (SBControls.forwards.IsDown())
         {
             pressedForward = true;
