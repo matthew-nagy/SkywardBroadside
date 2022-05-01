@@ -19,7 +19,7 @@ public class Explosive : MonoBehaviour
         }
     }
 
-    void Detonate()
+    public void Detonate()
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
         detonated = true;
