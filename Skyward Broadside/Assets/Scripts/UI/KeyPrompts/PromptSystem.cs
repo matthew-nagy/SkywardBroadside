@@ -23,6 +23,11 @@ public class PromptSystem : MonoBehaviour
     GameObject scoreboardKeyPromptPrefab;
     GameObject scoreboardKeyPromptObj;
 
+    [SerializeField]
+    GameObject promptManagerPrefab;
+
+    GameObject resupplyBase;
+
     GameObject[] keyBinds;
 
     KeyCodeConverter kcc;
@@ -50,6 +55,22 @@ public class PromptSystem : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
+
+        GameObject resupplyPromptManager = Instantiate(promptManagerPrefab);
+        resupplyPromptManager.transform.parent = transform;
+        resupplyPromptManager.GetComponent<PromptManager>().promptText = "Stay within the deflector shield to resupply";
+        resupplyPromptManager.GetComponent<PromptManager>().offset = new Vector3(0f, 30f, 0f);
+
+        GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
+        foreach (GameObject _base in bases) 
+        {
+            if ((int)_base.GetComponent<ReloadRegister>().myTeam == (int)transform.root.GetComponent<PlayerPhotonHub>().myTeam)
+            {
+                resupplyPromptManager.GetComponent<PromptManager>().target = _base;
+                resupplyPromptManager.GetComponent<PromptManager>().MakePrompt();
+            }
+        }
+
 
         weaponsKeyPromptObj = Instantiate(weaponsKeyPromptPrefab);
         keyBinds = weaponsKeyPromptObj.GetComponent<Elements>().keyBinds;
