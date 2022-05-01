@@ -7,30 +7,23 @@ public class ChooseShip : MonoBehaviour
 {
     public void OnClick_selectLight()
     {
-        selectShip("lightShip");
-        selectPrefab("lightPlayer");
+        selectShip("light");
     }
 
     public void OnClick_selectMedium()
     {
-        selectShip("mediumShip");
-        selectPrefab("mediumPlayer");
+        selectShip("medium");
     }
 
     public void OnClick_selectHeavy()
     {
-        selectShip("heavyShip");
-        selectPrefab("heavyPlayer");
+        selectShip("heavy");
     }
 
     public void selectShip(string ship)
     {
+        Debug.Log("A SHIP HAS BEEN SELECTED");
         PlayerChoices.ship = ship;
-    }
-
-    public void selectPrefab(string ship)
-    {
-        PlayerChoices.playerPrefab = ship;
         SceneManager.LoadScene("Launcher");
     }
 }

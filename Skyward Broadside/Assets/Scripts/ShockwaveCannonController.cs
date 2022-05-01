@@ -7,6 +7,7 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
 {
     public bool weaponEnabled;
     public float shotPower;
+    public float reloadTime;
     public GameObject projectile;
     public Transform shotOrigin;
 
@@ -37,7 +38,7 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
-        shipType = transform.root.Find("Ship").GetChild(0).transform.name;
+        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
     }
 
     // Update is called once per frame

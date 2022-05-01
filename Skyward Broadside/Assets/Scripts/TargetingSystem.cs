@@ -34,7 +34,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             MoveToLayer(transform, 2);
         }
-        shipType = PlayerChoices.ship;
+        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
 
         mpmObj = Instantiate(mpmPrefab);
         mpmObj.transform.parent = PromptSystem.transform;

@@ -17,8 +17,6 @@ TagManager:
   - playerStatus
   - Debris
   - MenuBGMusic
-  - Ignored
-  - Missile
   layers:
   - Default
   - TransparentFX
@@ -35,7 +33,7 @@ TagManager:
   - MapBoundary
   - Minimap
   - Effects
-  - ResupplyZone
+  - 
   - 
   - 
   - 

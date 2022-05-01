@@ -35,7 +35,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
-        shipType = transform.root.Find("Ship").GetChild(0).transform.name;
+        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
     }
 
     // Update is called once per frame

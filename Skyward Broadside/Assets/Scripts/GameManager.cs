@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance;
 
+    [Tooltip("The prefab to use for representing the player")]
+    public GameObject prefabPlayer;
+
     // red and blue player spawns to distinguish between teams
     public GameObject yellowSpawn;
     public GameObject purpleSpawn;
@@ -65,9 +68,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         Instance = this;
         Blackboard.gameManager = this;
 
-        if (PlayerChoices.ship == null)
+        if (prefabPlayer == null)
         {
-            Debug.LogError("Invalid ship name");
+            Debug.LogError("<Color=Red><a>Missing</a></Color> ship prefab reference. Please set it up in GameObject 'Game Manager'", this);
         }
         else
         {
@@ -93,9 +96,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     void JointGameOnTeam(TeamData.Team team)
     {
         GameObject mySpawn = GetSpawnFromTeam(team);
+
         Vector3 spawnPoint = mySpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
-        GameObject newPlayer = PhotonNetwork.Instantiate(PlayerChoices.playerPrefab, spawnPoint, Quaternion.identity, 0);
-        newPlayer.transform.Find("Ship").Find(PlayerChoices.ship).GetComponent<PlayerController>().myTeam = team;
+        //Debug.Log(playerPrefab.name);
+        GameObject newPlayer = PhotonNetwork.Instantiate(prefabPlayer.name, spawnPoint, Quaternion.identity, 0);
+        newPlayer.GetComponent<PlayerPhotonHub>().SetTeam(team);
+        shipType = newPlayer.GetComponent<PlayerPhotonHub>().shipType;
+        newPlayer.transform.Find("Ship").Find(shipType).GetComponent<PlayerController>().myTeam = team;
 
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
         {

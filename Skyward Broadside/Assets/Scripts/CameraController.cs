@@ -48,9 +48,11 @@ public class CameraController : MonoBehaviourPunCallbacks
             lockOnCameraObj.Priority = 0;
             gameObject.GetComponent<ShipController>().lockOnCameraObject = lockOnCameraObj.gameObject;
 
-            thisMinimapCam = Instantiate(minimapCam, transform.position + new Vector3(0f, 500f, 0f), transform.rotation);
-            thisMinimapCam.transform.Rotate(90f, 0f, 0f);
-            thisMinimapCam.transform.parent = transform;
+            thisMinimapCam = Instantiate(minimapCam);
+            minimapCameraObj = thisMinimapCam.GetComponent<CinemachineVirtualCamera>();
+            minimapCameraObj.Follow = transform;
+            minimapCameraObj.LookAt = transform;
+            minimapCameraObj.Priority = -1;
         }
     }
 
