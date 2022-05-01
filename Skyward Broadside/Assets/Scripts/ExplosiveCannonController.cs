@@ -37,7 +37,7 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
-        shipType = PlayerChoices.ship;
+        shipType = transform.root.Find("Ship").GetChild(0).transform.name;
     }
 
     // Update is called once per frame

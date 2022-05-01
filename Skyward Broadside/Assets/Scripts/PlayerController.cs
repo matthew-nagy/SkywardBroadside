@@ -27,9 +27,12 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     [SerializeField]
     GameObject brokenShip;
 
+    public bool teamSet;
+
     private void Start()
     {
         transform.root.GetComponent<PlayerPhotonHub>().SetTeam();
+        teamSet = true;
         if (photonView.IsMine)
         {
             updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;

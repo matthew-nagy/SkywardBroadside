@@ -117,7 +117,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     float wallDamageMultiplier;
     float forceToDamageMultiplier;
-    public GameObject balloon;
+    public GameObject[] balloons;
 
     private Vector3 lastPosition;
 
@@ -195,7 +195,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         myTeam = GetComponent<PlayerController>().myTeam;
-        balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+        foreach (GameObject balloon in balloons)
+        {
+            balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+        }
 
         GameObject mapCenter = GameObject.Find("Center");
         Vector3 towards = mapCenter.transform.position - transform.position;
@@ -487,7 +490,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             if (!colourSet)
             {
-                balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+                foreach (GameObject balloon in balloons)
+                {
+                    balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+                }
             }
 
             RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);

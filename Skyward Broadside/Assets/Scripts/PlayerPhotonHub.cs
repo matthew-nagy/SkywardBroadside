@@ -48,15 +48,15 @@ public class PlayerPhotonHub : MonoBehaviour
 
     public void SetTeam()
     {
-        print("TEAAAMMMMMMMMMM:" + (int)myTeam);
+        string shipType = transform.root.Find("Ship").GetChild(0).transform.name;
+        myTeam = transform.Find("Ship").Find(shipType).GetComponent<PlayerController>().myTeam;
         Material givenMaterial = teamMaterials[(int)myTeam];
         if(givenMaterial == null)
         {
             Debug.LogError("Material was null");
         }
         ship = transform.Find("Ship");
-        ship.transform.Find(PlayerChoices.ship).Find("Body").GetComponent<Renderer>().material = givenMaterial;
-
+        ship.transform.Find(shipType).Find("Body").GetComponent<Renderer>().material = givenMaterial;
         Debug.LogWarning("Player Team Set in Photon Hub");
     }
 
@@ -99,7 +99,6 @@ public class PlayerPhotonHub : MonoBehaviour
     void Start()
     {
         Blackboard.playerPhotonHub = this;
-        myTeam = transform.Find("Ship").Find(PlayerChoices.ship).GetComponent<PlayerController>().myTeam;
         //GameObject userGUI = GameObject.Find("User GUI");
         //Debug.Log(userGUI);
         //if(userGUI != null)
