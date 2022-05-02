@@ -396,7 +396,7 @@ public class GUIController : MonoBehaviour
 
     public void EnableGameOverMusic()
     {
-        //battleMusic.SetActive(false);
+        battleMusic.SetActive(false);
         if (!gameOverMusic.GetComponent<AudioSource>().isPlaying)
         {
             gameOverMusic.GetComponent<AudioSource>().Play();

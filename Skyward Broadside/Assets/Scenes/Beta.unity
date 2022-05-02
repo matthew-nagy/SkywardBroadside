@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5018958, g: 0.6635214, b: 0.86558545, a: 1}
+  m_IndirectSpecularColor: {r: 0.5016332, g: 0.66350996, b: 0.8657223, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7492,6 +7492,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 730404355}
     m_Modifications:
     - target: {fileID: 718183738033631515, guid: e1321426507a4184aa6c15b3bd183923, type: 3}
+      propertyPath: battleMusic
+      value: 
+      objectReference: {fileID: 8113387183316102615}
+    - target: {fileID: 718183738033631515, guid: e1321426507a4184aa6c15b3bd183923, type: 3}
       propertyPath: gameOverScreen
       value: 
       objectReference: {fileID: 497015057}
@@ -11451,10 +11455,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music
       objectReference: {fileID: 0}
-    - target: {fileID: 765754090817694407, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 2966748556065489020, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -11499,30 +11499,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5069541589606083544, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5767906304426576749, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8395761086886830581, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8600096508624814104, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.365
-      objectReference: {fileID: 0}
-    - target: {fileID: 8600096508624814104, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.331
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
 --- !u!4 &8113387183316102614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2966748556065489020, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+  m_PrefabInstance: {fileID: 8113387183316102613}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8113387183316102615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 765754090817694407, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
   m_PrefabInstance: {fileID: 8113387183316102613}
   m_PrefabAsset: {fileID: 0}
