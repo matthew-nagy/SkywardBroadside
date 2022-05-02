@@ -118,6 +118,10 @@ public class GUIController : MonoBehaviour
     public Text timer;
 
 
+    //Music
+    public GameObject battleMusic;
+    public GameObject gameOverMusic;
+
     private void Awake()
     {
         topPos = normalAmmoParent.transform.localPosition;
@@ -388,6 +392,16 @@ public class GUIController : MonoBehaviour
     public void UpdateTimer(TimeSpan timeRemaining)
     {
         timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
+    }
+
+    public void EnableGameOverMusic()
+    {
+        battleMusic.SetActive(false);
+        if (!gameOverMusic.GetComponent<AudioSource>().isPlaying)
+        {
+            gameOverMusic.GetComponent<AudioSource>().Play();
+        }
+        
     }
 }
  

@@ -41,6 +41,49 @@ public struct Control
 
 public static class SBControls
 {
+    [System.Serializable]
+    public enum ControlCode
+    {
+        Forwards, Backwards, Left, Right, Shoot, LockOn, Ammo1, Ammo2, Ammo3, YAxisUp, YAxisDown, ShootOption2
+    };
+
+    public static void SetControlTo(ControlCode toChange, KeyCode changeTo)
+    {
+        switch (toChange)
+        {
+            case ControlCode.Forwards:
+                forwards.primaryKey = changeTo;
+                break;
+            case ControlCode.Backwards:
+                backwards.primaryKey = changeTo;
+                break;
+            case ControlCode.Left:
+                left.primaryKey = changeTo;
+                break;
+            case ControlCode.Right:
+                right.primaryKey = changeTo;
+                break;
+            case ControlCode.Ammo1:
+                ammo1.primaryKey = changeTo;
+                break;
+            case ControlCode.Ammo2:
+                ammo2.primaryKey = changeTo;
+                break;
+            case ControlCode.Ammo3:
+                ammo3.primaryKey = changeTo;
+                break;
+            case ControlCode.YAxisUp:
+                yAxisUp.primaryKey = changeTo;
+                break;
+            case ControlCode.YAxisDown:
+                yAxisDown.primaryKey = changeTo;
+                break;
+            case ControlCode.ShootOption2:
+                shoot.secondaryKey = changeTo;
+                break;
+        }
+    }
+
     public static Control forwards = Control.Make().SetPrimary(KeyCode.W);
     public static Control backwards = Control.Make().SetPrimary(KeyCode.S);
     public static Control left = Control.Make().SetPrimary(KeyCode.A);
