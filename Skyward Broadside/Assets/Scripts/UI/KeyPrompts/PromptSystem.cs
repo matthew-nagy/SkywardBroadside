@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class PromptSystem : MonoBehaviour
 {
-    bool shownPrompts;
+    float startTime;
 
     [SerializeField]
     GameObject weaponsKeyPromptPrefab;
@@ -55,12 +55,7 @@ public class PromptSystem : MonoBehaviour
 
     void Start()
     {
-        
-    }
-
-    void ShowPrompts()
-    {
-        shownPrompts = true;
+        startTime = Time.time;
 
         if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
         {
@@ -68,12 +63,14 @@ public class PromptSystem : MonoBehaviour
             resupplyPromptManager.transform.parent = transform;
             resupplyPromptManager.GetComponent<PromptManager>().promptText = "Stay within the deflector shield to resupply";
             resupplyPromptManager.GetComponent<PromptManager>().offset = new Vector3(0f, 30f, 0f);
+            resupplyPromptManager.GetComponent<PromptManager>().owner = transform.root.Find("Ship").GetChild(0).gameObject;
 
             GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
             foreach (GameObject _base in bases)
             {
                 if ((int)_base.GetComponent<ReloadRegister>().myTeam == (int)transform.root.GetComponent<PlayerPhotonHub>().myTeam)
                 {
+                    Debug.LogWarning("Assigned target");
                     resupplyPromptManager.GetComponent<PromptManager>().target = _base;
                     resupplyPromptManager.GetComponent<PromptManager>().MakePrompt();
                 }
@@ -117,11 +114,6 @@ public class PromptSystem : MonoBehaviour
 
     private void Update()
     {
-        if (!shownPrompts)
-        {
-            ShowPrompts();
-        }
-
         if (SBControls.forwards.IsDown())
         {
             pressedForward = true;
@@ -158,7 +150,7 @@ public class PromptSystem : MonoBehaviour
         {
             pressedAmmo3 = true;
         }
-        
+
         if (pressedForward && pressedBackward && pressedLeft && pressedRight && !WASDTipHidden)
         {
             HideWASDTip();

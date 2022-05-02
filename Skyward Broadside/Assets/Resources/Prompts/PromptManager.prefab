@@ -45,4 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptPrefab: {fileID: 8586582362795000431, guid: ad3dc8db7d1f3bc4995a4205139f0d5c, type: 3}
   promptText: 
+  owner: {fileID: 0}
   target: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2115

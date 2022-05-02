@@ -12,6 +12,7 @@ public class Prompt : MonoBehaviour
 
     public Vector3 offset;
 
+    public GameObject owner;
     public GameObject target;
 
     private void Awake()
