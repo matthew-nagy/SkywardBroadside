@@ -18091,7 +18091,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3171929138103063737}
-  - component: {fileID: 1853222468247315831}
+  - component: {fileID: 2291102805235492640}
   m_Layer: 7
   m_Name: Camera collider (2)
   m_TagString: Untagged
@@ -18107,14 +18107,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3273457557456483023}
   m_LocalRotation: {x: 0.5425473, y: 0.44207, z: -0.44971275, w: 0.55495507}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 74.44379, y: 37.221905, z: 37.221905}
   m_Children: []
   m_Father: {fileID: 3099801441904248432}
   m_RootOrder: 409
   m_LocalEulerAnglesHint: {x: 88.819, y: 7.464, z: -70.727}
---- !u!136 &1853222468247315831
-CapsuleCollider:
+--- !u!65 &2291102805235492640
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -18123,10 +18123,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.28
-  m_Height: 0
-  m_Direction: 2
-  m_Center: {x: 0, y: 5.400125e-13, z: -0.000003814699}
+  serializedVersion: 2
+  m_Size: {x: 0.42, y: 0.98, z: 0.36}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3334717168428735352
 GameObject:
   m_ObjectHideFlags: 0
