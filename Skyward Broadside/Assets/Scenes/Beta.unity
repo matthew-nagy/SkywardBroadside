@@ -305,7 +305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d46add8313ee008bf57a22cc6dcecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabPlayer: {fileID: 4023331837556910226, guid: 74cf077652eb32e48916ac4914bf4e8c, type: 3}
   yellowSpawn: {fileID: 630601773}
   purpleSpawn: {fileID: 1604238549}
   serverPlayerPhotonHub: {fileID: 0}
@@ -7493,6 +7492,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 730404355}
     m_Modifications:
     - target: {fileID: 718183738033631515, guid: e1321426507a4184aa6c15b3bd183923, type: 3}
+      propertyPath: battleMusic
+      value: 
+      objectReference: {fileID: 8113387183316102615}
+    - target: {fileID: 718183738033631515, guid: e1321426507a4184aa6c15b3bd183923, type: 3}
       propertyPath: gameOverScreen
       value: 
       objectReference: {fileID: 497015057}
@@ -9795,7 +9798,7 @@ GameObject:
   - component: {fileID: 1911780380}
   - component: {fileID: 1911780378}
   - component: {fileID: 1911780379}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11496,18 +11499,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8600096508624814104, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.365
-      objectReference: {fileID: 0}
-    - target: {fileID: 8600096508624814104, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.331
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
 --- !u!4 &8113387183316102614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2966748556065489020, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+  m_PrefabInstance: {fileID: 8113387183316102613}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8113387183316102615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 765754090817694407, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
   m_PrefabInstance: {fileID: 8113387183316102613}
   m_PrefabAsset: {fileID: 0}

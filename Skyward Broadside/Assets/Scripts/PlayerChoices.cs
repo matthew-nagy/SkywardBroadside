@@ -6,4 +6,5 @@ public class PlayerChoices : MonoBehaviour
 {
     public static TeamData.Team team;
     public static string ship;
+    public static string playerPrefab;
 }

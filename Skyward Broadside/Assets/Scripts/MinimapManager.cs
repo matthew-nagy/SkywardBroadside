@@ -10,22 +10,27 @@ public class MinimapManager : MonoBehaviour
     [SerializeField]
     Sprite yellowIcon;
 
-    // Start is called before the first frame update
-    void Start()
+    bool teamSet;
+
+    private void Update()
     {
-        string shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
-        int teamNo = (int)transform.root.Find("Ship").Find(shipType).GetComponent<PlayerController>().myTeam;
-        if (teamNo == 0)
+        string shipType = transform.root.Find("Ship").GetChild(0).transform.name;
+        if (!teamSet && transform.root.Find("Ship").Find(shipType).GetComponent<PlayerController>().teamSet)
         {
-            GetComponent<SpriteRenderer>().sprite = purpleIcon;
-        }
-        else if (teamNo == 1)
-        {
-            GetComponent<SpriteRenderer>().sprite = yellowIcon;
-        }
-        else
-        {
-            Debug.LogError("Invalid team name");
+            int teamNo = (int)transform.root.Find("Ship").Find(shipType).GetComponent<PlayerController>().myTeam;
+            if (teamNo == 0)
+            {
+                GetComponent<SpriteRenderer>().sprite = purpleIcon;
+            }
+            else if (teamNo == 1)
+            {
+                GetComponent<SpriteRenderer>().sprite = yellowIcon;
+            }
+            else
+            {
+                Debug.LogError("Invalid team name");
+            }
+            teamSet = true;
         }
     }
 }

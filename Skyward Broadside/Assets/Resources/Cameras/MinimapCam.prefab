@@ -104,7 +104,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8741342761650604543}
   - component: {fileID: 7254592560608043145}
-  - component: {fileID: 3792745657529109243}
   m_Layer: 0
   m_Name: MinimapCam
   m_TagString: Untagged
@@ -154,11 +153,11 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 40
+  orthographic size: 500
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8256
+    m_Bits: 8257
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 0fa146022868126489bc059e18e7dada, type: 2}
   m_TargetDisplay: 0
@@ -170,38 +169,3 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &3792745657529109243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8667911045798311358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ExcludedPropertiesInInspector:
-  - m_Script
-  m_LockStageInInspector: 
-  m_StreamingVersion: 20170927
-  m_Priority: 10
-  m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
-  m_Lens:
-    FieldOfView: 60
-    OrthographicSize: 5
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
-    Dutch: 0
-    LensShift: {x: 0, y: 0}
-  m_Transitions:
-    m_BlendHint: 0
-    m_InheritPosition: 0
-    m_OnCameraLive:
-      m_PersistentCalls:
-        m_Calls: []
-  m_LegacyBlendHint: 0
-  m_ComponentOwner: {fileID: 8949099115662270740}

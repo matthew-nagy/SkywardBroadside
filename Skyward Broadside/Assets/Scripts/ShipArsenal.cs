@@ -33,9 +33,28 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
-        EnableWeapon(0);
-        EnableWeapon(1);
-        EnableWeapon(2);
+        if (PlayerChoices.ship == "lightShip")
+        {
+            EnableWeapon(0);
+            EnableWeapon(1);
+            EnableWeapon(4);
+        }
+        else if (PlayerChoices.ship == "mediumShip")
+        {
+            EnableWeapon(0);
+            EnableWeapon(1);
+            EnableWeapon(2);
+        }
+        else if (PlayerChoices.ship == "heavyShip")
+        {
+            EnableWeapon(0);
+            EnableWeapon(1);
+            EnableWeapon(3);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid ship type");
+        }
     }
     private void Start()
     {
