@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviourPunCallbacks
     public GameObject lockOnCam;
     public GameObject minimapCam;
     public PostProcessProfile toonProfile;
+    public CameraShaker shaker;
     GameObject thisCam;
     GameObject thisLockOnCam;
     GameObject thisMinimapCam;
@@ -36,8 +37,10 @@ public class CameraController : MonoBehaviourPunCallbacks
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
             cameraObj.Priority = 1;
+
             cameraObj.m_XAxis.m_MaxSpeed *= sensitivity;
             cameraObj.m_YAxis.m_MaxSpeed *= sensitivity;
+
             gameObject.GetComponent<TargetingSystem>().myCam = cameraObj;
             gameObject.GetComponent<ShipController>().freeCameraObject = cameraObj.gameObject;
 
@@ -51,6 +54,10 @@ public class CameraController : MonoBehaviourPunCallbacks
             thisMinimapCam = Instantiate(minimapCam, transform.position + new Vector3(0f, 500f, 0f), transform.rotation);
             thisMinimapCam.transform.Rotate(90f, 0f, 0f);
             thisMinimapCam.transform.parent = transform;
+
+            freeCamDisabled = false;
+            shaker = thisCam.GetComponent<CameraShaker>();
+            shaker.freeCam = !freeCamDisabled;
         }
     }
 
@@ -86,6 +93,7 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     public void disableFreeCam()
     {
+        shaker.freeCam = false;
         freeCamDisabled = true;
         cameraObj.m_XAxis.m_InputAxisName = "";
         cameraObj.m_YAxis.m_InputAxisName = "";
@@ -119,6 +127,7 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     public void enableFreeCam()
     {
+        shaker.freeCam = true;
         freeCamDisabled = false;
         cameraObj.m_XAxis.m_InputAxisName = "Mouse X";
         cameraObj.m_YAxis.m_InputAxisName = "Mouse Y";
