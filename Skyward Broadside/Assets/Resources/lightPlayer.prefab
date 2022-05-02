@@ -1056,10 +1056,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 7154704040921327005}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &6532738232093848178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6212,10 +6213,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 1864621232563803552}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &3874306593363691825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6362,10 +6364,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 3536712240082781453}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &930730843001169391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6785,10 +6788,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 5827919232036583395}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &4435772877981032267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7046,10 +7050,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 1316577178128504988}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &4984369188454621425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7166,10 +7171,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 6107664717346487700}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &1543100028981876699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7240,6 +7246,7 @@ Transform:
   - {fileID: 2096898827630499492}
   - {fileID: 3212162390673355497}
   - {fileID: 6791605202033808398}
+  - {fileID: 6972640414793981902}
   m_Father: {fileID: 5489194975643195319}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7513,10 +7520,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 7122237973105427443}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &8302944652921081993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7946,10 +7954,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 977673911721581724}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &806197576570116913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8066,10 +8075,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 6182720633781744837}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &9350582209367928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9148,10 +9158,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 1306303245420791805}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &8211256561453899132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14446,10 +14457,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 3341877821184446728}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &311025398434535921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15072,10 +15084,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 9111142033788064453}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &5052721932138674112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15306,10 +15319,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 3196800943896274808}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &2850938918280912628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15426,10 +15440,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 5962170718277515004}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &8007144188887226942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15793,10 +15808,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 4864871773022559265}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &3812581998966311899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16044,10 +16060,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 4349584965421244402}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &2713703757805380733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16362,10 +16379,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 8431251777268996441}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &7638945879049432941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16833,10 +16851,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 423456102757887703}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &302065038937103163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17054,10 +17073,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 2472851592886312305}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &4820810364480096642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22162,6 +22182,7 @@ Transform:
   m_Children:
   - {fileID: 3385714215321312066}
   - {fileID: 8315916831323688809}
+  - {fileID: 1082783748020088772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22282,10 +22303,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 1347608490725728060}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &878480489197481670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22402,10 +22424,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 3304860435797754366}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &863139511692322094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22522,10 +22545,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 6072760059833489035}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &6714388827403433145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22989,10 +23013,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 583088232188842341}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &1730474586762407020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23240,10 +23265,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 1707273106583938412}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &4906770499280109094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28477,10 +28503,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponEnabled: 0
   shotPower: 100
-  projectile: {fileID: 8578972288085489722, guid: 8bf60e1c249598546bf0b7b5b8371632, type: 3}
+  projectile: {fileID: 1713803386809249498, guid: 583a7bd805f758444847b47ef326237f, type: 3}
   shotOrigin: {fileID: 7898637110223737261}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 6691113116331501348}
 --- !u!114 &8756051148015754727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33768,3 +33795,132 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1001 &1712388799815991567
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7540142552860643799}
+    m_Modifications:
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.65000033
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.092
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.0400006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7830021190671113513, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_Name
+      value: SoundFxHub
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+--- !u!4 &1082783748020088772 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+  m_PrefabInstance: {fileID: 1712388799815991567}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6657442033857847311
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1786851364899560613}
+    m_Modifications:
+    - target: {fileID: 51905386130474795, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_Name
+      value: CannonShots
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_RootOrder
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.65000033
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.092
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.0400006
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+--- !u!4 &6972640414793981902 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4368552946700009409, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+  m_PrefabInstance: {fileID: 6657442033857847311}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6691113116331501348 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 51905386130474795, guid: d3260f3572e5655479b1bd28131d3d3d, type: 3}
+  m_PrefabInstance: {fileID: 6657442033857847311}
+  m_PrefabAsset: {fileID: 0}

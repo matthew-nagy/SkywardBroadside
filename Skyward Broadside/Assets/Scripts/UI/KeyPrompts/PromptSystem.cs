@@ -63,18 +63,20 @@ public class PromptSystem : MonoBehaviour
             resupplyPromptManager.transform.parent = transform;
             resupplyPromptManager.GetComponent<PromptManager>().promptText = "Stay within the deflector shield to resupply";
             resupplyPromptManager.GetComponent<PromptManager>().offset = new Vector3(0f, 30f, 0f);
+            resupplyPromptManager.GetComponent<PromptManager>().owner = transform.root.Find("Ship").GetChild(0).gameObject;
 
             GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
             foreach (GameObject _base in bases)
             {
                 if ((int)_base.GetComponent<ReloadRegister>().myTeam == (int)transform.root.GetComponent<PlayerPhotonHub>().myTeam)
                 {
+                    Debug.LogWarning("Assigned target");
                     resupplyPromptManager.GetComponent<PromptManager>().target = _base;
                     resupplyPromptManager.GetComponent<PromptManager>().MakePrompt();
                 }
             }
         }
-        
+
         weaponsKeyPromptObj = Instantiate(weaponsKeyPromptPrefab);
         keyBinds = weaponsKeyPromptObj.GetComponent<Elements>().keyBinds;
         keyBinds[0].GetComponent<Text>().text = kcc.keycodes[SBControls.ammo1.primaryKey];
@@ -148,7 +150,7 @@ public class PromptSystem : MonoBehaviour
         {
             pressedAmmo3 = true;
         }
-        
+
         if (pressedForward && pressedBackward && pressedLeft && pressedRight && !WASDTipHidden)
         {
             HideWASDTip();

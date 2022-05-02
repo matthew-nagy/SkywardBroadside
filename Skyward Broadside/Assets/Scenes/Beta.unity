@@ -11622,6 +11622,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1911780377}
     m_Modifications:
+    - target: {fileID: 84199940316208717, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 389729468538398589, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 765754090817694407, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
       propertyPath: m_Name
       value: Music
@@ -11669,6 +11677,30 @@ PrefabInstance:
     - target: {fileID: 2966748556065489020, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069541589606083544, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767906304426576749, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7086542937027625142, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395761086886830581, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600096508624814104, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.365
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600096508624814104, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.331
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e655ec8a75fcc40b83010df3271e63, type: 3}

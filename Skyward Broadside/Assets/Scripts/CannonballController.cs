@@ -12,6 +12,9 @@ public class CannonballController : MonoBehaviour
     float magnetismMultiplier = 100;
     public GameObject target;
 
+    [SerializeField]
+    GameObject explosionDebris;
+
     private void Update()
     {
         if (target != null)
@@ -32,5 +35,10 @@ public class CannonballController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(explosionDebris, transform.position);
     }
 }
