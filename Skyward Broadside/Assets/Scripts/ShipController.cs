@@ -119,46 +119,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Vector3 lastPosition;
 
-    bool aiToggle;
 
     public List<TeamToColour> teamsToColours;
     Dictionary<TeamData.Team, Material> shipMats;
-
-    void AI()
-    {
-        float maxVel = 30f;
-        float minVel = -30f;
-        velocity.x += Random.Range(-3f, 3f);
-        velocity.y += Random.Range(-3f, 3f);
-        velocity.z += Random.Range(-3f, 3f);
-
-        if (velocity.x >= maxVel)
-        {
-            velocity.x = maxVel;
-        }
-        else if (velocity.x <= minVel)
-        {
-            velocity.x = minVel;
-        }
-
-        if (velocity.y >= 8f)
-        {
-            velocity.y = 8f;
-        }
-        else if (velocity.y <= -8f)
-        {
-            velocity.y = -8f;
-        }
-
-        if (velocity.z >= maxVel)
-        {
-            velocity.z = maxVel;
-        }
-        else if (velocity.z <= minVel)
-        {
-            velocity.z = minVel;
-        }
-    }
 
     public void ResetLastPosition()
     {
@@ -171,7 +134,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (photonView.IsMine)
         {
             freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
-            lockOnCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
         }
     }
 
@@ -266,11 +228,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         playerInput.up = SBControls.yAxisUp.IsHeld();
         playerInput.down = SBControls.yAxisDown.IsHeld();
-        
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            aiToggle = !aiToggle;
-        }
     }
 
     private void FixedUpdate()
@@ -285,11 +242,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
 
         velocityBeforeCollision = velocity;
-
-        if (aiToggle)
-        {
-            AI();
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
