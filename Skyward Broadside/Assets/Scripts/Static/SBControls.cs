@@ -44,7 +44,7 @@ public static class SBControls
     [System.Serializable]
     public enum ControlCode
     {
-        Forwards, Backwards, Left, Right, Shoot, LockOn, Ammo1, Ammo2, Ammo3, YAxisUp, YAxisDown
+        Forwards, Backwards, Left, Right, Shoot, LockOn, Ammo1, Ammo2, Ammo3, YAxisUp, YAxisDown, ShootOption2
     };
 
     public static void SetControlTo(ControlCode toChange, KeyCode changeTo)
@@ -77,6 +77,9 @@ public static class SBControls
                 break;
             case ControlCode.YAxisDown:
                 yAxisDown.primaryKey = changeTo;
+                break;
+            case ControlCode.ShootOption2:
+                shoot.secondaryKey = changeTo;
                 break;
         }
     }
