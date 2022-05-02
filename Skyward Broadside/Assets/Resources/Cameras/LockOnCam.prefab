@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4841946483893879387}
   - component: {fileID: 5391284503562159644}
-  - component: {fileID: 382993220287499238}
   m_Layer: 0
   m_Name: LockOnCam
   m_TagString: Untagged
@@ -68,22 +67,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 8241648110254754812}
---- !u!114 &382993220287499238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4664997638776018354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aabdcaec49743c419bde1b98747f7f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventMap: []
-  cinemachineFreeCamera: {fileID: 0}
-  cinemachineVirtualCamera: {fileID: 5391284503562159644}
-  freeCam: 0
 --- !u!1 &5071122862865341805
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +79,7 @@ GameObject:
   - component: {fileID: 62389945581050384}
   - component: {fileID: 6648336420778974303}
   - component: {fileID: 9104103926094752008}
+  - component: {fileID: 816904543965666963}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -178,3 +162,20 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &816904543965666963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5071122862865341805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: b241f91b9ccf8ff489abf204b30d3112, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
