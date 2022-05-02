@@ -144,6 +144,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         {
             broadcastDeath();
             GetComponent<TargetingSystem>().unLockToTarget();
+            GetComponent<ShipController>().velocity = new Vector3(0f, 0f, 0f);
             photonView.RPC(nameof(DeathAnimation), RpcTarget.All);
             photonView.RPC(nameof(Respawn), RpcTarget.All);
         }
