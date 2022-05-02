@@ -139,7 +139,8 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 dir = (targetPos - shotOrigin.transform.position).normalized;
         if (Physics.Raycast(shotOrigin.transform.position, dir, out hit, range, layerMask))
         {
-            if (hit.collider.gameObject.name == shipType)
+            print(hit.collider.gameObject.name);
+            if (hit.collider.gameObject.name.Contains("Ship"))
             {
                 hit.collider.gameObject.GetComponent<ShipArsenal>().HitMe("gatling");
                 hit.collider.gameObject.GetComponent<PlayerController>().lastHit(shooterName);
