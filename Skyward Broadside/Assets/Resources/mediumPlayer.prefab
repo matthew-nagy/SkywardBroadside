@@ -7370,6 +7370,7 @@ MonoBehaviour:
   movementKeyPromptPrefab2: {fileID: 8586582362795000431, guid: 5d10fe8a4b4de8a47b20372dfbbff3c7, type: 3}
   scoreboardKeyPromptPrefab: {fileID: 8586582362795000431, guid: 3cc97a47c8f970b4ab152ed397cab520, type: 3}
   promptManagerPrefab: {fileID: 180971722471536576, guid: 11440fd7fc7e132418f3c39c3ff386d3, type: 3}
+  startPromptManagerPrefab: {fileID: 1747748757457262718, guid: fdb61f4f55d2e8f4cafda743af39a36e, type: 3}
 --- !u!1 &3049162724194710559
 GameObject:
   m_ObjectHideFlags: 0

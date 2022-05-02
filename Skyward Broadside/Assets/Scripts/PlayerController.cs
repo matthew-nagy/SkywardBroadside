@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine)
         {
             broadcastDeath();
+            GetComponent<TargetingSystem>().unLockToTarget();
             photonView.RPC(nameof(DeathAnimation), RpcTarget.All);
             photonView.RPC(nameof(Respawn), RpcTarget.All);
         }

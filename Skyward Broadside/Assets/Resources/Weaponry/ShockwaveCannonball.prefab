@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac8378473fefed4d9f713a3cc7f43d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shockwavePower: 15
+  shockwavePower: 10
   myLayerMask:
     serializedVersion: 2
     m_Bits: 1600
