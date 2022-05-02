@@ -32777,6 +32777,7 @@ MonoBehaviour:
   lockOnCam: {fileID: 4664997638776018354, guid: b0e49f037ca7f5d47b29bdb723860b77, type: 3}
   minimapCam: {fileID: 8667911045798311358, guid: d2304ca0eeeccf347861ad189f2ae662, type: 3}
   toonProfile: {fileID: 11400000, guid: e1411cb9cfaccce43908e2c288f45174, type: 2}
+  shaker: {fileID: 0}
   cameraObj: {fileID: 0}
 --- !u!114 &1987460896048356490
 MonoBehaviour:

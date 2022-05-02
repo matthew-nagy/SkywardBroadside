@@ -101,6 +101,7 @@ void Update()
         {
             disabled = true;
             updateScript.gameOverScreen.SetActive(true);
+            updateScript.EnableGameOverMusic();
             timeRemaining = TimeSpan.Zero;
         }
 

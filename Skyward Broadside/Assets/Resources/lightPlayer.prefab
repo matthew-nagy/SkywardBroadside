@@ -8333,6 +8333,7 @@ MonoBehaviour:
   lockOnCam: {fileID: 4664997638776018354, guid: b0e49f037ca7f5d47b29bdb723860b77, type: 3}
   minimapCam: {fileID: 8667911045798311358, guid: d2304ca0eeeccf347861ad189f2ae662, type: 3}
   toonProfile: {fileID: 11400000, guid: e1411cb9cfaccce43908e2c288f45174, type: 2}
+  shaker: {fileID: 0}
   cameraObj: {fileID: 0}
 --- !u!114 &1142073349868549264
 MonoBehaviour:
@@ -17120,13 +17121,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7269366534551889900}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.75, y: -5.1, z: -7.04}
+  m_LocalRotation: {x: -0.72763085, y: 0.007219479, z: -0.03518287, w: -0.6850281}
+  m_LocalPosition: {x: -1.7499999, y: -5.100001, z: -7.04}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 8578591953770584223}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -274.13, y: 145.001, z: 148.439}
 --- !u!198 &1654347963770918144
 ParticleSystem:
   m_ObjectHideFlags: 0
