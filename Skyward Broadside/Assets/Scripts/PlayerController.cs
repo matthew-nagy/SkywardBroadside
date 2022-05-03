@@ -103,11 +103,31 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             ShipArsenal sa = GetComponent<ShipArsenal>();
             updateScript.UpdateGUINormalAmmo(sa.cannonballAmmo);
             updateScript.UpdateGUIExplosiveAmmo(sa.explosiveCannonballAmmo);
+            UpdateSpecialAmmo(sa);
+
         }
         else
         {
             Debug.LogWarning("Cannot update ammo: photon hubs update script is null");
         }
+    }
+
+    void UpdateSpecialAmmo(ShipArsenal shipArsenal) 
+    {
+        int ammoValue = 0;
+        if (shipArsenal.weapons[2])
+        {
+            ammoValue = 100; //could be anything because gatling
+        }
+        else if (shipArsenal.weapons[3])
+        {
+            ammoValue = shipArsenal.shockwaveAmmo;
+        }
+        else
+        {
+            ammoValue = shipArsenal.homingAmmo;
+        }
+        updateScript.UpdateGUISpecialAmmo(ammoValue);
     }
 
     void UpdateWeapon()

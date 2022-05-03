@@ -72,6 +72,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             serverShootFlag = false;
             Fire();
+            GetShipTransform().GetComponent<ShipArsenal>().homingAmmo--;
             GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
@@ -82,6 +83,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             clientShootFlag = false;
             Fire();
+            GetShipTransform().GetComponent<ShipArsenal>().homingAmmo--;
             GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
