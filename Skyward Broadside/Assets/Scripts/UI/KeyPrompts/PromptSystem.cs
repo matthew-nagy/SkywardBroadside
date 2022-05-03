@@ -62,7 +62,6 @@ public class PromptSystem : MonoBehaviour
         {
             if (!tipsShown)
             {
-                print("Making tips ---------------------");
                 startTime = Time.time;
                 if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
                 {
