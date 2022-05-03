@@ -54,6 +54,7 @@ public class Arena : MonoBehaviour
         ShipController ship = exiting.GetComponentInChildren<ShipController>();
         if (ship == null)
         {
+            Destroy(other.gameObject);
             return; //Only care about ships
         }
 

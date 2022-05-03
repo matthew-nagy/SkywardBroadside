@@ -166,6 +166,23 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 towards = mapCenter.transform.position - transform.position;
         towards.y = 0;
         transform.rotation = Quaternion.LookRotation(towards);
+
+        if (photonView.IsMine)
+        {
+            Invoke(nameof(BallonSetup), 2.0f);
+        }
+    }
+
+    void BallonSetup()
+    {
+        foreach (GameObject go in Blackboard.yellowReloadObjects)
+        {
+            go.GetComponent<ReloadRegister>().Setup();
+        }
+        foreach (GameObject go in Blackboard.purpleReloadObjects)
+        {
+            go.GetComponent<ReloadRegister>().Setup();
+        }
     }
 
     void Awake()
