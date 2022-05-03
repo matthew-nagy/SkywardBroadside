@@ -123,11 +123,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
 
     void SendShakeEvent()
     {
-        if (photonView.IsMine)
-        {
-            ShipController myController = gameObject.GetComponentInParent<ShipController>();
-            myController.InformOfFire();
-        }
+        //Tee hee no shake for gatling controller
     }
 
     //fire the cannon
