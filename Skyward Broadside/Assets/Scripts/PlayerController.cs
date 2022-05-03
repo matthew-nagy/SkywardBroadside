@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     void Respawn()
     {
         Invoke(nameof(MoveShipToSpawnPoint), 2.8f);
-        Invoke(nameof(EnableHealthbar), 2.8f);
+        Invoke(nameof(EnableHealthbar), 3f);
         Invoke(nameof(Activate), 3f);
     }
 
