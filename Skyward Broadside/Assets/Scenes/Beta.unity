@@ -2758,7 +2758,7 @@ RectTransform:
   - {fileID: 2013443341}
   - {fileID: 1337066412}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3676,7 +3676,7 @@ GameObject:
   - component: {fileID: 730404352}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4224,7 +4224,7 @@ Transform:
   - {fileID: 672439821}
   - {fileID: 730404355}
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &816649805
 GameObject:
@@ -4764,7 +4764,7 @@ Transform:
   - {fileID: 1564146328}
   - {fileID: 1037341170}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931485600
 GameObject:
@@ -9971,7 +9971,7 @@ GameObject:
   - component: {fileID: 1911780379}
   m_Layer: 12
   m_Name: Center
-  m_TagString: Untagged
+  m_TagString: MapCenter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

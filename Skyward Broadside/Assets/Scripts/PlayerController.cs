@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviourPun, IPunObservable
 {
-    private GUIController updateScript;
+    public GUIController updateScript;
 
     public TeamData.Team myTeam;
 

@@ -38,7 +38,6 @@ public class PlayerUI : MonoBehaviour
     //Player the health bar and name is attached to
     private PlayerPhotonHub target;
 
-    private Camera camera;
     #endregion
 
     #region Monobehaviour Callbacks
@@ -51,7 +50,6 @@ public class PlayerUI : MonoBehaviour
         transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
 
         _canvasGroup = GetComponent<CanvasGroup>();
-        camera = Camera.main;
     }
 
     bool CheckExistance()
@@ -131,7 +129,7 @@ public class PlayerUI : MonoBehaviour
             {
                 return false;
             }
-            Vector3 screenPoint = camera.WorldToViewportPoint(playerRb.position);
+            Vector3 screenPoint = Camera.main.WorldToViewportPoint(playerRb.position);
 
             if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
             {
