@@ -79,14 +79,6 @@ public class PlayerUI : MonoBehaviour
             playerHealthSlider.value = (int)playerInfo.currHealth;
         }
         
-        //if (playerInfo.currHealth < 0 || photonView.IsMine)
-        //{
-        //    SetCanvasAlpha(0f);
-        //}
-        //else
-        //{
-        //    SetCanvasAlpha(1f);
-        //}
     }
 
     private void FixedUpdate()
@@ -175,14 +167,19 @@ public class PlayerUI : MonoBehaviour
 
     public void SetDead()
     {
-        SetCanvasAlpha(0f);
+        this.gameObject.SetActive(false);
         isDead = true;
     }
 
     public void SetAlive()
     {
-        SetCanvasAlpha(1f);
+        targetPosition = playerRb.position;
+        targetPosition.y += heightAbovePlayer;
+        transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
+        playerHealthSlider.value = (int)playerInfo.currHealth;
+        this.gameObject.SetActive(true);
         isDead = false;
+        
     }
     #endregion
 }

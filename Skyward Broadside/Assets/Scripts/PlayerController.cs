@@ -86,6 +86,12 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             float health = GetComponent<ShipArsenal>().health;
             if (health < 0f)
             {
+                PlayerPhotonHub PPH = transform.root.GetComponent<PlayerPhotonHub>();
+                PlayerUI UIScript = PPH.healthbarAndName.GetComponent<PlayerUI>();
+                if (UIScript != null)
+                {
+                    UIScript.SetDead();
+                }
                 Die();
             }
             updateScript.UpdateGUIHealth(health);
@@ -160,12 +166,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     void Die()
     {
-        PlayerPhotonHub PPH = transform.root.GetComponent<PlayerPhotonHub>();
-        PlayerUI UIScript = PPH.healthbarAndName.GetComponent<PlayerUI>();
-        if (UIScript != null)
-        {
-            UIScript.SetDead();
-        }
+        
         if (photonView.IsMine)
         {
             broadcastDeath();
@@ -178,8 +179,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     void Respawn()
     {
         Invoke(nameof(MoveShipToSpawnPoint), 2.8f);
-        Invoke(nameof(EnableHealthbar), 3f);
         Invoke(nameof(Activate), 3f);
+
     }
 
     void EnableHealthbar()
@@ -205,6 +206,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     void Activate()
     {
         transform.root.gameObject.SetActive(true);
+        EnableHealthbar();
     }
 
     [PunRPC]
