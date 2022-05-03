@@ -160,6 +160,12 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     void Die()
     {
+        PlayerPhotonHub PPH = transform.root.GetComponent<PlayerPhotonHub>();
+        PlayerUI UIScript = PPH.healthbarAndName.GetComponent<PlayerUI>();
+        if (UIScript != null)
+        {
+            UIScript.SetDead();
+        }
         if (photonView.IsMine)
         {
             broadcastDeath();
@@ -172,7 +178,18 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     void Respawn()
     {
         Invoke(nameof(MoveShipToSpawnPoint), 2.8f);
+        Invoke(nameof(EnableHealthbar), 2.8f);
         Invoke(nameof(Activate), 3f);
+    }
+
+    void EnableHealthbar()
+    {
+        PlayerPhotonHub PPH = transform.root.GetComponent<PlayerPhotonHub>();
+        PlayerUI UIScript = PPH.healthbarAndName.GetComponent<PlayerUI>();
+        if (UIScript != null)
+        {
+            UIScript.SetAlive();
+        }
     }
 
     void MoveShipToSpawnPoint()
