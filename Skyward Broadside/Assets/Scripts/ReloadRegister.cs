@@ -41,18 +41,23 @@ public class ReloadRegister : MonoBehaviour
                 break;
             }
         }
+
+        if (myTeam == TeamData.Team.Purple)
+        {
+            Blackboard.purpleReloadObjects.Add(gameObject);
+        }
+        else if (myTeam == TeamData.Team.Yellow)
+        {
+            Blackboard.yellowReloadObjects.Add(gameObject);
+        }
         reloadRadius = GetComponent<SphereCollider>().radius * transform.localScale.x;
-        Invoke(nameof(Setup), 1f);
+        //Invoke(nameof(Setup), 1f);
     }
 
     //Doesnt work right now
-    void Setup()
+    public void Setup()
     {
-        if (Blackboard.playerPhotonHub.myTeam == myTeam)
-        {
-            Debug.Log("Making the mesh");
-            CreateDisplayMesh();
-        }
+        CreateDisplayMesh();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -146,12 +151,12 @@ public class ReloadRegister : MonoBehaviour
         MeshFilter mf = shellRenderer.AddComponent<MeshFilter>();
         MeshRenderer mr = shellRenderer.AddComponent<MeshRenderer>();
         mf.sharedMesh = myMesh;
-        mr.material = reloadRadiusMaterial;
+        mr.material = myMaterial;
 
         MeshFilter mf2 = shellRendererInside.AddComponent<MeshFilter>();
         MeshRenderer mr2 = shellRendererInside.AddComponent<MeshRenderer>();
         mf2.sharedMesh = myMesh2;
-        mr2.material = reloadRadiusMaterial;
+        mr2.material = myMaterial;
         mr2.material.renderQueue = mr2.material.renderQueue + 100;
     }
 }
