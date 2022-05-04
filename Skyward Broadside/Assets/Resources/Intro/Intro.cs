@@ -42,7 +42,7 @@ public class Intro : MonoBehaviour
 
     private void Start()
     {
-        /*if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
+        if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
         {
             transitions = new List<GameObject[]>();
             canvas = GameObject.FindGameObjectWithTag("Canvas");
@@ -72,8 +72,7 @@ public class Intro : MonoBehaviour
                 path1 = yellowFlyThru;
             }
             StartIntro();
-        }*/
-        introDone = true; //temporary
+        }
     }
 
     public void StartIntro()
