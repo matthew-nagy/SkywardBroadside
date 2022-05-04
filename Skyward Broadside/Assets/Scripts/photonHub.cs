@@ -107,7 +107,6 @@ void Update()
         }
 
         updateScript.UpdateTimer(timeRemaining);
-        
     }
 
     private void gameOver()

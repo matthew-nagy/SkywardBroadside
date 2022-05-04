@@ -25,18 +25,24 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     bool freeCamDisabled;
 
+    [SerializeField]
+    GameObject IntroManager;
+
     private void Start()
     {
         if (photonView.IsMine)
         {
             thisCam = Instantiate(shipCam);
+            thisCam.name = "ShipCam";
             Blackboard.shipCamera = thisCam;
             cameraObj = thisCam.GetComponent<CinemachineFreeLook>();
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
-            cameraObj.Priority = 1;
+            cameraObj.Priority = 0;
+
+            IntroManager.GetComponent<Intro>().brain = thisCam.GetComponent<CinemachineBrain>();
 
             cameraObj.m_XAxis.m_MaxSpeed *= sensitivity;
             cameraObj.m_YAxis.m_MaxSpeed *= sensitivity;

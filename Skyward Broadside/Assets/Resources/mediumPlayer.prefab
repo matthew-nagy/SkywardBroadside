@@ -43,8 +43,6 @@ GameObject:
   - component: {fileID: 6959801438967673365}
   - component: {fileID: 8277856460020980976}
   - component: {fileID: 21184505918464553}
-  - component: {fileID: 5630451301369245176}
-  - component: {fileID: 5320840519081384651}
   - component: {fileID: 7222942851905283016}
   m_Layer: 9
   m_Name: PortCTop2
@@ -154,42 +152,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 1348183247567878526}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &5630451301369245176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70592039962215752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 1348183247567878526}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &5320840519081384651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70592039962215752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 1348183247567878526}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &7222942851905283016
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -418,8 +381,6 @@ GameObject:
   - component: {fileID: 8211928660009978452}
   - component: {fileID: 4018976071148511937}
   - component: {fileID: 5066387945528058856}
-  - component: {fileID: 4759558891820953794}
-  - component: {fileID: 7782110538795249417}
   - component: {fileID: 8332600205267295374}
   m_Layer: 9
   m_Name: BackCTop3
@@ -529,42 +490,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 4795884198155151529}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &4759558891820953794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421187376750073940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 4795884198155151529}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &7782110538795249417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421187376750073940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 4795884198155151529}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &8332600205267295374
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6248,8 +6174,6 @@ GameObject:
   - component: {fileID: 3414930470555292416}
   - component: {fileID: 2401636953307451117}
   - component: {fileID: 1653071317781281471}
-  - component: {fileID: 8298584339906322915}
-  - component: {fileID: 5449820786089890712}
   - component: {fileID: 3586014301845019955}
   m_Layer: 9
   m_Name: PortCBot3
@@ -6359,42 +6283,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 7698864292083358822}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &8298584339906322915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764421469520916798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 7698864292083358822}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &5449820786089890712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764421469520916798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 7698864292083358822}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &3586014301845019955
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6755,8 +6644,6 @@ GameObject:
   - component: {fileID: 5862175407016927341}
   - component: {fileID: 2252664430742573169}
   - component: {fileID: 1930168761348811660}
-  - component: {fileID: 825939457446485880}
-  - component: {fileID: 3699905192816599607}
   - component: {fileID: 3799823137688307454}
   m_Layer: 9
   m_Name: PortCTop4
@@ -6866,42 +6753,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 1342978125282448536}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &825939457446485880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031731681803607684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 1342978125282448536}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &3699905192816599607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031731681803607684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 1342978125282448536}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &3799823137688307454
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7365,11 +7217,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2491159fc445994299d2eec9579c4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  introManager: {fileID: 8787983164882965064}
   weaponsKeyPromptPrefab: {fileID: 8586582362795000431, guid: 075613311a7aa6241baf6170c17959c0, type: 3}
   movementKeyPromptPrefab: {fileID: 8586582362795000431, guid: 44368955f1cd9dd49a8431b1c453e1d0, type: 3}
   movementKeyPromptPrefab2: {fileID: 8586582362795000431, guid: 5d10fe8a4b4de8a47b20372dfbbff3c7, type: 3}
   scoreboardKeyPromptPrefab: {fileID: 8586582362795000431, guid: 3cc97a47c8f970b4ab152ed397cab520, type: 3}
   promptManagerPrefab: {fileID: 180971722471536576, guid: 11440fd7fc7e132418f3c39c3ff386d3, type: 3}
+  startPromptManagerPrefab: {fileID: 1747748757457262718, guid: fdb61f4f55d2e8f4cafda743af39a36e, type: 3}
 --- !u!1 &3049162724194710559
 GameObject:
   m_ObjectHideFlags: 0
@@ -12789,8 +12643,6 @@ GameObject:
   - component: {fileID: 8513371677180047893}
   - component: {fileID: 1098792281765006135}
   - component: {fileID: 4567131209133460497}
-  - component: {fileID: 9053096918959056430}
-  - component: {fileID: 2135410923059454010}
   - component: {fileID: 7319855410650200283}
   m_Layer: 9
   m_Name: FrontCTop1
@@ -12900,42 +12752,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 3459352620678714274}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &9053096918959056430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3682714256776463238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 3459352620678714274}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &2135410923059454010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3682714256776463238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 3459352620678714274}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &7319855410650200283
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17896,6 +17713,7 @@ Transform:
   - {fileID: 4375482820297440083}
   - {fileID: 5660248864861618913}
   - {fileID: 647199686216019073}
+  - {fileID: 8210871799242236327}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18204,8 +18022,6 @@ GameObject:
   - component: {fileID: 1982761869891276294}
   - component: {fileID: 547723429346994055}
   - component: {fileID: 7836146319470609517}
-  - component: {fileID: 3075646187748321}
-  - component: {fileID: 2493377846651062930}
   - component: {fileID: 3614231546438748323}
   m_Layer: 9
   m_Name: StarboardCTop1
@@ -18315,42 +18131,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 736517497238590628}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &3075646187748321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4290700442224698380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 736517497238590628}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &2493377846651062930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4290700442224698380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 736517497238590628}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &3614231546438748323
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18489,8 +18270,6 @@ GameObject:
   - component: {fileID: 7233330151143588361}
   - component: {fileID: 2553307575792635335}
   - component: {fileID: 5674329839929826381}
-  - component: {fileID: 3018037585599123215}
-  - component: {fileID: 587005575950617659}
   - component: {fileID: 3902687731006186723}
   m_Layer: 9
   m_Name: BackCTop2
@@ -18600,42 +18379,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 6410927286843025513}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &3018037585599123215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4381529796913689235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 6410927286843025513}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &587005575950617659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4381529796913689235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 6410927286843025513}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &3902687731006186723
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18663,8 +18407,6 @@ GameObject:
   - component: {fileID: 3583933096173227179}
   - component: {fileID: 538941279610724079}
   - component: {fileID: 8350451638423836200}
-  - component: {fileID: 593727754621366913}
-  - component: {fileID: 4216563582749543714}
   - component: {fileID: 8368809283767896956}
   m_Layer: 9
   m_Name: StarboardCBot3
@@ -18774,42 +18516,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 7053224548101181142}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &593727754621366913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4438957380452819423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 7053224548101181142}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &4216563582749543714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4438957380452819423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 7053224548101181142}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &8368809283767896956
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18837,8 +18544,6 @@ GameObject:
   - component: {fileID: 5243411241005174442}
   - component: {fileID: 350400427699652997}
   - component: {fileID: 1810570325824823925}
-  - component: {fileID: 2955109158244579755}
-  - component: {fileID: 7453955172810092701}
   - component: {fileID: 1081009702591916713}
   m_Layer: 9
   m_Name: StarboardCBot4
@@ -18948,42 +18653,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 565050833011089362}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &2955109158244579755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4542054772588776091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 565050833011089362}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &7453955172810092701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4542054772588776091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 565050833011089362}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &1081009702591916713
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19102,8 +18772,6 @@ GameObject:
   - component: {fileID: 947515610906476905}
   - component: {fileID: 6316586107653047076}
   - component: {fileID: 3900024719381129640}
-  - component: {fileID: 3354660546151108120}
-  - component: {fileID: 7255504871613591770}
   - component: {fileID: 6841266047147573701}
   m_Layer: 9
   m_Name: FrontCTop2
@@ -19213,42 +18881,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 4588657515491491299}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &3354660546151108120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5412449139948025684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 4588657515491491299}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &7255504871613591770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5412449139948025684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 4588657515491491299}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &6841266047147573701
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19581,8 +19214,6 @@ GameObject:
   - component: {fileID: 4945719693013231195}
   - component: {fileID: 2252537024684832688}
   - component: {fileID: 2442893603586062415}
-  - component: {fileID: 1047348332589084900}
-  - component: {fileID: 7077277238639198623}
   - component: {fileID: 2182011702787765066}
   m_Layer: 9
   m_Name: PortCTop3
@@ -19692,42 +19323,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 1963888169225558832}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &1047348332589084900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6024892027090063546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 1963888169225558832}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &7077277238639198623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6024892027090063546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 1963888169225558832}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &2182011702787765066
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24721,8 +24317,6 @@ GameObject:
   - component: {fileID: 4489970948578247783}
   - component: {fileID: 665015527459421912}
   - component: {fileID: 3548375265481760685}
-  - component: {fileID: 4446495144011219430}
-  - component: {fileID: 4409123882277294787}
   - component: {fileID: 7294623994722458051}
   m_Layer: 9
   m_Name: FrontCTop3
@@ -24832,42 +24426,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 2648498387478170523}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &4446495144011219430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6549316560148972574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 2648498387478170523}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &4409123882277294787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6549316560148972574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 2648498387478170523}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &7294623994722458051
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25103,8 +24662,6 @@ GameObject:
   - component: {fileID: 635223053720323462}
   - component: {fileID: 4837707607691065025}
   - component: {fileID: 7530038299763673367}
-  - component: {fileID: 6556589005890722790}
-  - component: {fileID: 2224383973032146173}
   - component: {fileID: 5628595469820738629}
   m_Layer: 9
   m_Name: StarboardCBot2
@@ -25214,42 +24771,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 6416726354380312533}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &6556589005890722790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6716410811136246197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 6416726354380312533}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &2224383973032146173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6716410811136246197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 6416726354380312533}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &5628595469820738629
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25358,8 +24880,6 @@ GameObject:
   - component: {fileID: 3476794611160507088}
   - component: {fileID: 9020397128710888888}
   - component: {fileID: 1891330529615460792}
-  - component: {fileID: 345445630398457844}
-  - component: {fileID: 430944685787636326}
   - component: {fileID: 5943756698096357047}
   m_Layer: 9
   m_Name: StarboardCTop5
@@ -25469,42 +24989,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 5210677099843074440}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &345445630398457844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6800223636628530105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 5210677099843074440}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &430944685787636326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6800223636628530105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 5210677099843074440}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &5943756698096357047
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25532,8 +25017,6 @@ GameObject:
   - component: {fileID: 7165347481616923915}
   - component: {fileID: 5797470013619296038}
   - component: {fileID: 1152899156544425832}
-  - component: {fileID: 5029726608866241851}
-  - component: {fileID: 5980571918456690289}
   - component: {fileID: 8058296795841871934}
   m_Layer: 9
   m_Name: PortCBot4
@@ -25643,42 +25126,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 731234613061555222}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &5029726608866241851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6976046284285065102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 731234613061555222}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &5980571918456690289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6976046284285065102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 731234613061555222}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &8058296795841871934
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25954,8 +25402,6 @@ GameObject:
   - component: {fileID: 4558655795085417132}
   - component: {fileID: 7090344747835657566}
   - component: {fileID: 6347284529483276743}
-  - component: {fileID: 2688932837035379666}
-  - component: {fileID: 4959310783936935061}
   - component: {fileID: 609247835748716816}
   m_Layer: 9
   m_Name: StarboardCTop3
@@ -26065,42 +25511,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 3155182156744383946}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &2688932837035379666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7194637399782134462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 3155182156744383946}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &4959310783936935061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7194637399782134462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 3155182156744383946}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &609247835748716816
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26209,8 +25620,6 @@ GameObject:
   - component: {fileID: 8891289029586248380}
   - component: {fileID: 2686153229606016606}
   - component: {fileID: 900824344909953013}
-  - component: {fileID: 813985151366850127}
-  - component: {fileID: 2679650988898061020}
   - component: {fileID: 3832188574017780856}
   m_Layer: 9
   m_Name: PortCTop5
@@ -26320,42 +25729,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 5652055841105733034}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &813985151366850127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7573419712438122511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 5652055841105733034}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &2679650988898061020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7573419712438122511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 5652055841105733034}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &3832188574017780856
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26383,8 +25757,6 @@ GameObject:
   - component: {fileID: 7239237553766488290}
   - component: {fileID: 2567275838341258515}
   - component: {fileID: 919654095459138534}
-  - component: {fileID: 5019306859143978029}
-  - component: {fileID: 4567996775627939628}
   - component: {fileID: 5679427055722115841}
   m_Layer: 9
   m_Name: StarboardCTop2
@@ -26494,42 +25866,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 2831052396355764581}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &5019306859143978029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7630719513861776929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 2831052396355764581}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &4567996775627939628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7630719513861776929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 2831052396355764581}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &5679427055722115841
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26638,8 +25975,6 @@ GameObject:
   - component: {fileID: 1043658384293880361}
   - component: {fileID: 6223450983607294784}
   - component: {fileID: 184379618971988193}
-  - component: {fileID: 7467349473200662359}
-  - component: {fileID: 6747756306441215617}
   - component: {fileID: 8676309611881349800}
   m_Layer: 9
   m_Name: StarboardCTop4
@@ -26749,42 +26084,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 3288537176928336514}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &7467349473200662359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7710281625548714029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 3288537176928336514}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &6747756306441215617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7710281625548714029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 3288537176928336514}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &8676309611881349800
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26812,8 +26112,6 @@ GameObject:
   - component: {fileID: 1041995508275188127}
   - component: {fileID: 8398522740608563961}
   - component: {fileID: 2140733319571096950}
-  - component: {fileID: 3155580963691840744}
-  - component: {fileID: 5366383497277102567}
   - component: {fileID: 2270353558632217301}
   m_Layer: 9
   m_Name: BackCTop1
@@ -26923,42 +26221,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 6203232545052150956}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &3155580963691840744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7733519594509276484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 6203232545052150956}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &5366383497277102567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7733519594509276484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 6203232545052150956}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &2270353558632217301
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26986,8 +26249,6 @@ GameObject:
   - component: {fileID: 2567598847905291288}
   - component: {fileID: 8965023279079441990}
   - component: {fileID: 5988271291359844377}
-  - component: {fileID: 1567858799188514109}
-  - component: {fileID: 4940300306195340060}
   - component: {fileID: 3541881899822565146}
   m_Layer: 9
   m_Name: FrontCTop4
@@ -27097,42 +26358,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 4779271432227865322}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &1567858799188514109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7744496240181198007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 4779271432227865322}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &4940300306195340060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7744496240181198007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 4779271432227865322}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &3541881899822565146
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -27433,8 +26659,6 @@ GameObject:
   - component: {fileID: 3080474836727820352}
   - component: {fileID: 8684541675558942776}
   - component: {fileID: 5553290133808851901}
-  - component: {fileID: 679518246159849763}
-  - component: {fileID: 8650128372983394531}
   - component: {fileID: 7458111448094766245}
   m_Layer: 9
   m_Name: PortCBot2
@@ -27544,42 +26768,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 1687998776776720698}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &679518246159849763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8312162236146974212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 1687998776776720698}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &8650128372983394531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8312162236146974212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 1687998776776720698}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &7458111448094766245
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32492,8 +31681,6 @@ GameObject:
   - component: {fileID: 8842046647778421008}
   - component: {fileID: 5398745632639609328}
   - component: {fileID: 3141983537201128660}
-  - component: {fileID: 7443488840212890665}
-  - component: {fileID: 5906412784754678588}
   - component: {fileID: 2524700322218882104}
   m_Layer: 9
   m_Name: StarboardCBot1
@@ -32603,42 +31790,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 2575552765204833955}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &7443488840212890665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8750912396068874338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 2575552765204833955}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &5906412784754678588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8750912396068874338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 2575552765204833955}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &2524700322218882104
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32670,7 +31822,6 @@ GameObject:
   - component: {fileID: 1987460896048356490}
   - component: {fileID: 299869864429796461}
   - component: {fileID: 863282109902471902}
-  - component: {fileID: 8106395472204109148}
   - component: {fileID: 7413720167379544952}
   - component: {fileID: 8061095028147616259}
   - component: {fileID: 6125202376171458766}
@@ -32756,6 +31907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53fb7c0c0eb3aa88db0e09da28d8a461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateScript: {fileID: 0}
   myTeam: 0
   playerName: 
   resupply: 0
@@ -32779,6 +31931,7 @@ MonoBehaviour:
   toonProfile: {fileID: 11400000, guid: e1411cb9cfaccce43908e2c288f45174, type: 2}
   shaker: {fileID: 0}
   cameraObj: {fileID: 0}
+  IntroManager: {fileID: 8787983164882965064}
 --- !u!114 &1987460896048356490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32841,22 +31994,6 @@ MonoBehaviour:
   mpmPrefab: {fileID: 180971722471536576, guid: ba10e9ab814f0b74792d990c8ed744c5, type: 3}
   lockOnPrompt: Right click to lock on
   firePrompt: Left click to fire
---- !u!114 &8106395472204109148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8788669775541589560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &7413720167379544952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32938,7 +32075,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 3541160806639353592}
   - {fileID: 1987460896048356490}
-  - {fileID: 8106395472204109148}
+  - {fileID: 0}
   - {fileID: 7413720167379544952}
   - {fileID: 6490166693505290916}
   - {fileID: 1683286217138389724}
@@ -32946,104 +32083,104 @@ MonoBehaviour:
   - {fileID: 4861610934896906522}
   - {fileID: 8398522740608563961}
   - {fileID: 2140733319571096950}
-  - {fileID: 3155580963691840744}
-  - {fileID: 5366383497277102567}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2553307575792635335}
   - {fileID: 5674329839929826381}
-  - {fileID: 3018037585599123215}
-  - {fileID: 587005575950617659}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 4018976071148511937}
   - {fileID: 5066387945528058856}
-  - {fileID: 4759558891820953794}
-  - {fileID: 7782110538795249417}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 1098792281765006135}
   - {fileID: 4567131209133460497}
-  - {fileID: 9053096918959056430}
-  - {fileID: 2135410923059454010}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 6316586107653047076}
   - {fileID: 3900024719381129640}
-  - {fileID: 3354660546151108120}
-  - {fileID: 7255504871613591770}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 665015527459421912}
   - {fileID: 3548375265481760685}
-  - {fileID: 4446495144011219430}
-  - {fileID: 4409123882277294787}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 8965023279079441990}
   - {fileID: 5988271291359844377}
-  - {fileID: 1567858799188514109}
-  - {fileID: 4940300306195340060}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 4222751074148493273}
   - {fileID: 3896375611366248684}
-  - {fileID: 8477937637129396782}
-  - {fileID: 6230139885847586453}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 8684541675558942776}
   - {fileID: 5553290133808851901}
-  - {fileID: 679518246159849763}
-  - {fileID: 8650128372983394531}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2401636953307451117}
   - {fileID: 1653071317781281471}
-  - {fileID: 8298584339906322915}
-  - {fileID: 5449820786089890712}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 5797470013619296038}
   - {fileID: 1152899156544425832}
-  - {fileID: 5029726608866241851}
-  - {fileID: 5980571918456690289}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 82635870669591224}
   - {fileID: 4671142563321155820}
-  - {fileID: 3222348110990091973}
-  - {fileID: 542213325223662521}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 8277856460020980976}
   - {fileID: 21184505918464553}
-  - {fileID: 5630451301369245176}
-  - {fileID: 5320840519081384651}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2252537024684832688}
   - {fileID: 2442893603586062415}
-  - {fileID: 1047348332589084900}
-  - {fileID: 7077277238639198623}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2252664430742573169}
   - {fileID: 1930168761348811660}
-  - {fileID: 825939457446485880}
-  - {fileID: 3699905192816599607}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2686153229606016606}
   - {fileID: 900824344909953013}
-  - {fileID: 813985151366850127}
-  - {fileID: 2679650988898061020}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 5398745632639609328}
   - {fileID: 3141983537201128660}
-  - {fileID: 7443488840212890665}
-  - {fileID: 5906412784754678588}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 4837707607691065025}
   - {fileID: 7530038299763673367}
-  - {fileID: 6556589005890722790}
-  - {fileID: 2224383973032146173}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 538941279610724079}
   - {fileID: 8350451638423836200}
-  - {fileID: 593727754621366913}
-  - {fileID: 4216563582749543714}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 350400427699652997}
   - {fileID: 1810570325824823925}
-  - {fileID: 2955109158244579755}
-  - {fileID: 7453955172810092701}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 547723429346994055}
   - {fileID: 7836146319470609517}
-  - {fileID: 3075646187748321}
-  - {fileID: 2493377846651062930}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2567275838341258515}
   - {fileID: 919654095459138534}
-  - {fileID: 5019306859143978029}
-  - {fileID: 4567996775627939628}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 7090344747835657566}
   - {fileID: 6347284529483276743}
-  - {fileID: 2688932837035379666}
-  - {fileID: 4959310783936935061}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 6223450983607294784}
   - {fileID: 184379618971988193}
-  - {fileID: 7467349473200662359}
-  - {fileID: 6747756306441215617}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 9020397128710888888}
   - {fileID: 1891330529615460792}
-  - {fileID: 345445630398457844}
-  - {fileID: 430944685787636326}
+  - {fileID: 0}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -33184,8 +32321,6 @@ GameObject:
   - component: {fileID: 1011003664499853957}
   - component: {fileID: 4222751074148493273}
   - component: {fileID: 3896375611366248684}
-  - component: {fileID: 8477937637129396782}
-  - component: {fileID: 6230139885847586453}
   - component: {fileID: 4855602648276680271}
   m_Layer: 9
   m_Name: PortCBot1
@@ -33295,42 +32430,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 6832638471419231647}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &8477937637129396782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8864920600753405998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 6832638471419231647}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &6230139885847586453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8864920600753405998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 6832638471419231647}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &4855602648276680271
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33520,8 +32620,6 @@ GameObject:
   - component: {fileID: 7949297181278597003}
   - component: {fileID: 82635870669591224}
   - component: {fileID: 4671142563321155820}
-  - component: {fileID: 3222348110990091973}
-  - component: {fileID: 542213325223662521}
   - component: {fileID: 3147943997724522208}
   m_Layer: 9
   m_Name: PortCTop1
@@ -33631,42 +32729,7 @@ MonoBehaviour:
   shotOrigin: {fileID: 7814210013431650070}
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &3222348110990091973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123942416767976995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 821102ced360f8d489e77f013120f558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 100
-  projectile: {fileID: 3799885530754182095, guid: 91fee3842c8e6b344a265357422f542d, type: 3}
-  shotOrigin: {fileID: 7814210013431650070}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
---- !u!114 &542213325223662521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9123942416767976995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8995bca638b5214cb3eed697b2729a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponEnabled: 0
-  shotPower: 0
-  projectile: {fileID: 2649213127583389405, guid: 26ec17eea3ca01998bba4d6ab2f2573b, type: 3}
-  shotOrigin: {fileID: 7814210013431650070}
-  lockedOn: 0
-  cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
+  cannonsShots: {fileID: 5874136407869104773}
 --- !u!136 &3147943997724522208
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33742,6 +32805,73 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
   m_PrefabInstance: {fileID: 1170410547221889610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1709858011782199573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 968932559064527562}
+    m_Modifications:
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.65000033
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.092
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.0400006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7948733417197431645, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+      propertyPath: m_Name
+      value: IntroManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+--- !u!1 &8787983164882965064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7948733417197431645, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+  m_PrefabInstance: {fileID: 1709858011782199573}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8210871799242236327 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7370214081841141938, guid: 221ea9b69673c2a40a1ca62999e6e096, type: 3}
+  m_PrefabInstance: {fileID: 1709858011782199573}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5853967430254503342
 PrefabInstance:

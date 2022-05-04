@@ -25,6 +25,11 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     ParticleSystem cannonFire;
 
+    [SerializeField]
+    GameObject missileShot;
+    [SerializeField]
+    GameObject soundFxHub;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -72,6 +77,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             serverShootFlag = false;
             Fire();
+            GetShipTransform().GetComponent<ShipArsenal>().homingAmmo--;
             GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
@@ -82,6 +88,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             clientShootFlag = false;
             Fire();
+            GetShipTransform().GetComponent<ShipArsenal>().homingAmmo--;
             GetShipTransform().GetComponent<WeaponsController>().Reload();
         }
     }
@@ -116,6 +123,11 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
     }
 
+    void DoSoundEffect()
+    {
+        transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(missileShot, transform.position);
+    }
+
     //fire the cannon
     void Fire()
     {
@@ -125,6 +137,8 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
         GameObject ship = GetShipTransform().gameObject;
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
+
+        DoSoundEffect();
 
         if (!photonView.IsMine)
         {
@@ -144,7 +158,7 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
             staticTarget.transform.position = freeFireTargetPos;
             newProjectile.GetComponent<Missile>().InitialiseMissile(staticTarget.transform);
         }
-
+        newProjectile.GetComponent<Explosive>().owner = GetShipTransform().gameObject;
         newProjectile.GetComponent<Missile>().owner = GetShipTransform().gameObject;
     }
 
