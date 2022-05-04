@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7538100400770788948}
   - {fileID: 2381219482740811692}
@@ -70,6 +71,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.0007142857, y: 0.01, z: 0.0007142857}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2966748556065489020}
   m_RootOrder: 2
@@ -671,6 +673,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6559147239698089268, guid: 6b6e1698b9e644b45b06e3599d0b4f47, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f4576fe03f5a8a1d5bb055efe8fcf5e4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b6e1698b9e644b45b06e3599d0b4f47, type: 3}
 --- !u!4 &8600096508624814104 stripped
