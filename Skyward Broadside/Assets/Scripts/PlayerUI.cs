@@ -8,6 +8,8 @@ using Photon.Pun;
 //Code taken from https://doc.photonengine.com/en-us/pun/current/demos-and-tutorials/pun-basics-tutorial/player-ui-prefab
 public class PlayerUI : MonoBehaviour
 {
+    public bool isDead = false;
+
     #region Private Fields
     [Tooltip("UI Text to display Player's Name")]
     [SerializeField]
@@ -33,6 +35,7 @@ public class PlayerUI : MonoBehaviour
 
     Rigidbody playerRb;
     PlayerInfoPPH playerInfo;
+    PhotonView photonView;
     //Vector3 instanceOwnerPos;
 
     //Player the health bar and name is attached to
@@ -89,6 +92,7 @@ public class PlayerUI : MonoBehaviour
                 playerHealthSlider.value = (int)playerInfo.currHealth;
             }
         }
+        
     }
 
     private void FixedUpdate()
@@ -125,7 +129,7 @@ public class PlayerUI : MonoBehaviour
 
         playerRb = _target.GetComponentInChildren<Rigidbody>();
         playerInfo = _target.GetComponentInChildren<PlayerInfoPPH>();
-        var photonView = playerRb.GetComponent<PhotonView>();
+        photonView = playerRb.GetComponent<PhotonView>();
         if (playerNameText != null)
         {
             playerNameText.text = photonView.Owner.NickName;
@@ -173,6 +177,23 @@ public class PlayerUI : MonoBehaviour
     {
         skullImage.gameObject.SetActive(false);
         playerNameText.color = Color.black;
+    }
+
+    public void SetDead()
+    {
+        this.gameObject.SetActive(false);
+        isDead = true;
+    }
+
+    public void SetAlive()
+    {
+        targetPosition = playerRb.position;
+        targetPosition.y += heightAbovePlayer;
+        transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
+        playerHealthSlider.value = (int)playerInfo.currHealth;
+        this.gameObject.SetActive(true);
+        isDead = false;
+        
     }
     #endregion
 }
