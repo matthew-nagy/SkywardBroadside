@@ -11,7 +11,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
    public void OnClick_CreateRoom()
    {
-        if (roomName.text != "" && PhotonNetwork.NickName != "")
+        if (roomName.text != "")
         {
             Connect.LaunchWithRoom(roomName.text);
         }

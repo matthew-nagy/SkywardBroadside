@@ -17,6 +17,6 @@ public class MainMenu : MonoBehaviour
 
     public void play()
     {
-        SceneManager.LoadScene("rooms");
+        SceneManager.LoadScene("PlayerName");
     }
 }

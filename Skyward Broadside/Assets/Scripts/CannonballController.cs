@@ -14,6 +14,12 @@ public class CannonballController : MonoBehaviour
 
     [SerializeField]
     GameObject explosionDebris;
+    [SerializeField]
+    GameObject explosionMetal;
+    [SerializeField]
+    GameObject explosionAir;
+
+    GameObject effect;
 
     private void Update()
     {
@@ -33,12 +39,37 @@ public class CannonballController : MonoBehaviour
         Instantiate(impact, transform.position, Quaternion.identity);
         if (owner != collision.gameObject)
         {
+            if (collision.collider.transform.root.GetChild(0).GetChild(0).CompareTag("Ship"))
+            {
+                if (explosionMetal != null)
+                {
+                    effect = explosionMetal;
+                }
+            }
+            else if (collision.collider.gameObject.CompareTag("Terrain"))
+            {
+                if (explosionDebris != null)
+                {
+                    effect = explosionDebris;
+                }
+            }
+            else
+            {
+                if (explosionAir != null)
+                {
+                    effect = explosionAir;
+                }
+            }
+
             Destroy(gameObject);
         }
     }
 
     private void OnDestroy()
     {
-        owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(explosionDebris, transform.position);
+        if (effect != null)
+        {
+            owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+        }
     }
 }

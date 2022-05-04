@@ -19,6 +19,7 @@ public class photonHub : MonoBehaviourPunCallbacks
     private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
     
     private bool gotScores = false;
+    private bool isGameOver = false;
 
     private bool disabled;
 
@@ -97,16 +98,22 @@ void Update()
         DateTime endTime = gameStartTime.Add(gameLength);
         TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
 
-        if (timeRemaining < TimeSpan.Zero)
+        if (timeRemaining < TimeSpan.Zero && !isGameOver)
         {
             disabled = true;
-            updateScript.gameOverScreen.SetActive(true);
-            updateScript.EnableGameOverMusic();
+            gameOver();
+            isGameOver = true;
             timeRemaining = TimeSpan.Zero;
         }
 
         updateScript.UpdateTimer(timeRemaining);
-        
+    }
+
+    private void gameOver()
+    {
+        updateScript.gameOverScreen.SetActive(true);
+        updateScript.gameOverScreen.GetComponent<gameOverScreen>().CopyScoreboard();
+        updateScript.EnableGameOverMusic();
     }
 
     private void OnEnable()
