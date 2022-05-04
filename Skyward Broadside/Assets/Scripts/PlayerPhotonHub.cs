@@ -116,6 +116,7 @@ public class PlayerPhotonHub : MonoBehaviour
         //Instantiate UI (username and health)
         if (PlayerUiPrefab != null)
         {
+            print(transform.root.gameObject.name + PlayerUiPrefab.name);
             GameObject _uiGo = Instantiate(PlayerUiPrefab);
             //Send a message to instance we created
             //Requires receiver, will be alerted if no component to respond to it

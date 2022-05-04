@@ -25,7 +25,7 @@ public class PromptManager : MonoBehaviour
 
     public void MakePrompt()
     {
-        promptObj = Instantiate(promptPrefab);
+        promptObj = Instantiate(promptPrefab, transform.position + new Vector3(0f, 10000f, 0f), Quaternion.identity);
         promptObj.GetComponent<Prompt>().promptText.text = promptText;
         promptObj.GetComponent<Prompt>().offset = offset;
         promptObj.GetComponent<Prompt>().target = target;

@@ -9,23 +9,29 @@ public class PromptSystem : MonoBehaviour
     float startTime;
 
     [SerializeField]
+    GameObject introManager;
+
+    [SerializeField]
     GameObject weaponsKeyPromptPrefab;
-    GameObject weaponsKeyPromptObj;
+    GameObject weaponsPM;
 
     [SerializeField]
     GameObject movementKeyPromptPrefab;
-    GameObject movementKeyPromptObj;
+    GameObject movementPM;
 
     [SerializeField]
     GameObject movementKeyPromptPrefab2;
-    GameObject movementKeyPromptObj2;
+    GameObject movementPM2;
 
     [SerializeField]
     GameObject scoreboardKeyPromptPrefab;
-    GameObject scoreboardKeyPromptObj;
+    GameObject scoreboardPM;
 
     [SerializeField]
     GameObject promptManagerPrefab;
+
+    [SerializeField]
+    GameObject startPromptManagerPrefab;
 
     GameObject resupplyBase;
 
@@ -33,15 +39,12 @@ public class PromptSystem : MonoBehaviour
 
     KeyCodeConverter kcc;
 
-    bool pressedForward;
-    bool pressedBackward;
-    bool pressedLeft;
-    bool pressedRight;
-    bool pressedUp;
-    bool pressedDown;
-    bool pressedAmmo1;
-    bool pressedAmmo2;
-    bool pressedAmmo3;
+    bool tipsShown;
+
+    bool pressedWASD;
+    bool pressedRF;
+    bool pressedAmmo;
+    bool pressedTab;
 
     bool weaponsTipHidden;
     bool WASDTipHidden;
@@ -53,149 +56,185 @@ public class PromptSystem : MonoBehaviour
         kcc = gameObject.AddComponent<KeyCodeConverter>();
     }
 
-    void Start()
-    {
-        startTime = Time.time;
-
-        if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
-        {
-            GameObject resupplyPromptManager = Instantiate(promptManagerPrefab);
-            resupplyPromptManager.transform.parent = transform;
-            resupplyPromptManager.GetComponent<PromptManager>().promptText = "Stay within the deflector shield to resupply";
-            resupplyPromptManager.GetComponent<PromptManager>().offset = new Vector3(0f, 30f, 0f);
-            resupplyPromptManager.GetComponent<PromptManager>().owner = transform.root.Find("Ship").GetChild(0).gameObject;
-
-            GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
-            foreach (GameObject _base in bases)
-            {
-                if ((int)_base.GetComponent<ReloadRegister>().myTeam == (int)transform.root.GetComponent<PlayerPhotonHub>().myTeam)
-                {
-                    Debug.LogWarning("Assigned target");
-                    resupplyPromptManager.GetComponent<PromptManager>().target = _base;
-                    resupplyPromptManager.GetComponent<PromptManager>().MakePrompt();
-                }
-            }
-        }
-
-        weaponsKeyPromptObj = Instantiate(weaponsKeyPromptPrefab);
-        keyBinds = weaponsKeyPromptObj.GetComponent<Elements>().keyBinds;
-        keyBinds[0].GetComponent<Text>().text = kcc.keycodes[SBControls.ammo1.primaryKey];
-        keyBinds[1].GetComponent<Text>().text = kcc.keycodes[SBControls.ammo2.primaryKey];
-        keyBinds[2].GetComponent<Text>().text = kcc.keycodes[SBControls.ammo3.primaryKey];
-        weaponsKeyPromptObj.transform.parent = transform;
-        weaponsKeyPromptObj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-300f, -75f, 0f);
-        weaponsKeyPromptObj.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
-
-        movementKeyPromptObj = Instantiate(movementKeyPromptPrefab);
-        keyBinds = movementKeyPromptObj.GetComponent<Elements>().keyBinds;
-        keyBinds[0].GetComponent<Text>().text = kcc.keycodes[SBControls.left.primaryKey];
-        keyBinds[1].GetComponent<Text>().text = kcc.keycodes[SBControls.backwards.primaryKey];
-        keyBinds[2].GetComponent<Text>().text = kcc.keycodes[SBControls.right.primaryKey];
-        keyBinds[3].GetComponent<Text>().text = kcc.keycodes[SBControls.forwards.primaryKey];
-        movementKeyPromptObj.transform.parent = transform;
-        movementKeyPromptObj.GetComponent<RectTransform>().anchoredPosition = new Vector3(22f, -90f, 0f);
-        movementKeyPromptObj.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
-
-        movementKeyPromptObj2 = Instantiate(movementKeyPromptPrefab2);
-        keyBinds = movementKeyPromptObj2.GetComponent<Elements>().keyBinds;
-        keyBinds[0].GetComponent<Text>().text = kcc.keycodes[SBControls.yAxisDown.primaryKey];
-        keyBinds[1].GetComponent<Text>().text = kcc.keycodes[SBControls.yAxisUp.primaryKey];
-        movementKeyPromptObj2.transform.parent = transform;
-        movementKeyPromptObj2.GetComponent<RectTransform>().anchoredPosition = new Vector3(120f, 0f, 0f);
-        movementKeyPromptObj2.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
-
-        scoreboardKeyPromptObj = Instantiate(scoreboardKeyPromptPrefab);
-        keyBinds = scoreboardKeyPromptObj.GetComponent<Elements>().keyBinds;
-        keyBinds[0].GetComponent<Text>().text = kcc.keycodes[SBControls.viewScoreboard.primaryKey];
-        scoreboardKeyPromptObj.transform.parent = transform;
-        scoreboardKeyPromptObj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-300f, 100f, 0f);
-        scoreboardKeyPromptObj.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
-    }
-
     private void Update()
     {
-        if (SBControls.forwards.IsDown())
+        if (introManager.GetComponent<Intro>().introDone)
         {
-            pressedForward = true;
-        }
-        if (SBControls.backwards.IsDown())
-        {
-            pressedBackward = true;
-        }
-        if (SBControls.left.IsDown())
-        {
-            pressedLeft = true;
-        }
-        if (SBControls.right.IsDown())
-        {
-            pressedRight = true;
-        }
-        if (SBControls.yAxisUp.IsDown())
-        {
-            pressedUp = true;
-        }
-        if (SBControls.yAxisDown.IsDown())
-        {
-            pressedDown = true;
-        }
-        if (SBControls.ammo1.IsDown())
-        {
-            pressedAmmo1 = true;
-        }
-        if (SBControls.ammo2.IsDown())
-        {
-            pressedAmmo2 = true;
-        }
-        if (SBControls.ammo3.IsDown())
-        {
-            pressedAmmo3 = true;
-        }
+            if (!tipsShown)
+            {
+                startTime = Time.time;
+                if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
+                {
+                    GameObject resupplyPromptManager = Instantiate(promptManagerPrefab);
+                    resupplyPromptManager.transform.parent = transform;
+                    resupplyPromptManager.GetComponent<PromptManager>().promptText = "Stay within the deflector shield to resupply";
+                    resupplyPromptManager.GetComponent<PromptManager>().offset = new Vector3(0f, 30f, 0f);
+                    resupplyPromptManager.GetComponent<PromptManager>().owner = transform.root.Find("Ship").GetChild(0).gameObject;
 
-        if (pressedForward && pressedBackward && pressedLeft && pressedRight && !WASDTipHidden)
-        {
-            HideWASDTip();
-            WASDTipHidden = true;
-        }
+                    GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
+                    foreach (GameObject _base in bases)
+                    {
+                        if ((int)_base.GetComponent<ReloadRegister>().myTeam == (int)transform.root.GetComponent<PlayerPhotonHub>().myTeam)
+                        {
+                            resupplyPromptManager.GetComponent<PromptManager>().target = _base;
+                            resupplyPromptManager.GetComponent<PromptManager>().MakePrompt();
+                        }
+                    }
+                }
 
-        if (pressedUp && pressedDown && !RFTipHidden)
-        {
-            HideRFTip();
-            RFTipHidden = true;
-        }
+                weaponsPM = Instantiate(startPromptManagerPrefab);
+                weaponsPM.transform.parent = transform;
+                StartPromptManager weaponsSPM = weaponsPM.GetComponent<StartPromptManager>();
+                weaponsSPM.promptPrefab = weaponsKeyPromptPrefab;
+                weaponsSPM.keyCodes = new KeyCode[] { SBControls.ammo1.primaryKey, SBControls.ammo2.primaryKey, SBControls.ammo3.primaryKey };
+                weaponsSPM.anchoredPos = new Vector3(-300f, -75f, 0f);
+                weaponsSPM.MakePrompt();
 
-        if (pressedAmmo1 && pressedAmmo2 && pressedAmmo3 && !weaponsTipHidden)
-        {
-            HideWeaponsTip();
-            weaponsTipHidden = true;
-        }
+                movementPM = Instantiate(startPromptManagerPrefab);
+                movementPM.transform.parent = transform;
+                StartPromptManager movementSPM = movementPM.GetComponent<StartPromptManager>();
+                movementSPM.promptPrefab = movementKeyPromptPrefab;
+                movementSPM.keyCodes = new KeyCode[] { SBControls.left.primaryKey, SBControls.backwards.primaryKey, SBControls.right.primaryKey, SBControls.forwards.primaryKey };
+                movementSPM.anchoredPos = new Vector3(22f, -90f, 0f);
+                movementSPM.MakePrompt();
 
-        if (SBControls.viewScoreboard.IsDown() && !scoreboardTipHidden)
-        {
-            HideScoreboardTip();
-            scoreboardTipHidden = true;
+
+                movementPM2 = Instantiate(startPromptManagerPrefab);
+                movementPM2.transform.parent = transform;
+                StartPromptManager movementSPM2 = movementPM2.GetComponent<StartPromptManager>();
+                movementSPM2.promptPrefab = movementKeyPromptPrefab2;
+                movementSPM2.keyCodes = new KeyCode[] { SBControls.yAxisDown.primaryKey, SBControls.yAxisUp.primaryKey };
+                movementSPM2.anchoredPos = new Vector3(120f, 0f, 0f);
+                movementSPM2.MakePrompt();
+
+                scoreboardPM = Instantiate(startPromptManagerPrefab);
+                scoreboardPM.transform.parent = transform;
+                StartPromptManager scoreboardSPM = scoreboardPM.GetComponent<StartPromptManager>();
+                scoreboardSPM.promptPrefab = scoreboardKeyPromptPrefab;
+                scoreboardSPM.keyCodes = new KeyCode[] { SBControls.viewScoreboard.primaryKey };
+                scoreboardSPM.anchoredPos = new Vector3(-300f, 100f, 0f);
+                scoreboardSPM.MakePrompt();
+
+                tipsShown = true;
+            }
+
+            //hide wasd tips if one of the wasd bound keys is pressed
+            if (!WASDTipHidden)
+            {
+                if (SBControls.forwards.IsDown())
+                {
+                    pressedWASD = true;
+                }
+                if (SBControls.backwards.IsDown())
+                {
+                    pressedWASD = true;
+                }
+                if (SBControls.left.IsDown())
+                {
+                    pressedWASD = true;
+                }
+                if (SBControls.right.IsDown())
+                {
+                    pressedWASD = true;
+                }
+            }
+
+            //hide rf tips if one of the rf bound keys is pressed
+            if (!RFTipHidden)
+            {
+                if (SBControls.yAxisUp.IsDown())
+                {
+                    pressedRF = true;
+                }
+                if (SBControls.yAxisDown.IsDown())
+                {
+                    pressedRF = true;
+                }
+            }
+
+
+            //hide ammo tips if one of the ammo bound keys is pressed
+            if (!weaponsTipHidden)
+            {
+                if (SBControls.ammo1.IsDown())
+                {
+                    pressedAmmo = true;
+                }
+                if (SBControls.ammo2.IsDown())
+                {
+                    pressedAmmo = true;
+                }
+                if (SBControls.ammo3.IsDown())
+                {
+                    pressedAmmo = true;
+                }
+            }
+
+            if (!scoreboardTipHidden)
+            {
+                if (SBControls.viewScoreboard.IsDown())
+                {
+                    pressedTab = true;
+                }
+            }
+
+            //hide all start tips after a time
+            if (Time.time - startTime >= 30f)
+            {
+                pressedWASD = true;
+                pressedRF = true;
+                pressedAmmo = true;
+                pressedTab = true;
+            }
+
+            //hide tips if told to
+            if (pressedWASD && !WASDTipHidden)
+            {
+                HideWASDTip();
+                WASDTipHidden = true;
+            }
+
+            if (pressedRF && !RFTipHidden)
+            {
+                HideRFTip();
+                RFTipHidden = true;
+            }
+
+            if (pressedAmmo && !weaponsTipHidden)
+            {
+                HideWeaponsTip();
+                weaponsTipHidden = true;
+            }
+
+            if (pressedTab && !scoreboardTipHidden)
+            {
+                HideScoreboardTip();
+                scoreboardTipHidden = true;
+            }
         }
     }
 
     void HideWeaponsTip()
     {
-        StartCoroutine(FadeOut(weaponsKeyPromptObj, weaponsKeyPromptObj.GetComponent<Elements>().elements));
+        StartCoroutine(FadeOut(weaponsPM.GetComponent<StartPromptManager>().promptObj, weaponsPM.GetComponent<StartPromptManager>().promptObj.GetComponent<Elements>().elements));
     }
 
     void HideWASDTip()
     {
-        StartCoroutine(FadeOut(movementKeyPromptObj, movementKeyPromptObj.GetComponent<Elements>().elements));
+        StartCoroutine(FadeOut(movementPM.GetComponent<StartPromptManager>().promptObj, movementPM.GetComponent<StartPromptManager>().promptObj.GetComponent<Elements>().elements));
     }
 
     void HideRFTip()
     {
-        StartCoroutine(FadeOut(movementKeyPromptObj2, movementKeyPromptObj2.GetComponent<Elements>().elements));
+        StartCoroutine(FadeOut(movementPM2.GetComponent<StartPromptManager>().promptObj, movementPM2.GetComponent<StartPromptManager>().promptObj.GetComponent<Elements>().elements));
     }
 
     void HideScoreboardTip()
     {
-        StartCoroutine(FadeOut(scoreboardKeyPromptObj, scoreboardKeyPromptObj.GetComponent<Elements>().elements));
+        StartCoroutine(FadeOut(scoreboardPM.GetComponent<StartPromptManager>().promptObj, scoreboardPM.GetComponent<StartPromptManager>().promptObj.GetComponent<Elements>().elements));
     }
 
+    //gradually reduce alpha value of tip to fade it out
     IEnumerator FadeOut(GameObject obj, GameObject[] elements)
     {
         Color color;
