@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Explosive : MonoBehaviour
 {
-    public GameObject owner;
-
     public float explosionPower;
     public float explosionRadius;
     bool detonated;
@@ -13,37 +11,10 @@ public class Explosive : MonoBehaviour
     [SerializeField]
     ParticleSystem explosion;
 
-    GameObject effect;
-
-    [SerializeField]
-    GameObject explosionDebris;
-    [SerializeField]
-    GameObject explosionMetal;
-    [SerializeField]
-    GameObject explosionAir;
-
     private void OnCollisionEnter(Collision collision)
     {
         if (!detonated && Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects).Length > 0)
         {
-            if (collision.collider.transform.root.GetChild(0).GetChild(0).CompareTag("Ship"))
-            {
-                if (explosionMetal != null)
-                {
-                    effect = explosionMetal;
-                }
-            }
-            else if (collision.collider.gameObject.CompareTag("Terrain"))
-            {
-                if (explosionDebris != null)
-                {
-                    effect = explosionDebris;
-                }
-            }
-            else
-            {
-                effect = explosionAir;
-            }
             Detonate();
         }
     }
@@ -69,18 +40,5 @@ public class Explosive : MonoBehaviour
             }
         }
         Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        if (effect != null)
-        {
-            owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
-        }
-        else
-        {
-            effect = explosionAir;
-            owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
-        }
     }
 }

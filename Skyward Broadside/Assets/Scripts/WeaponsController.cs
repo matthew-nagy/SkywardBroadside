@@ -290,7 +290,7 @@ public class WeaponsController : MonoBehaviour
 
     void EnableGatlingGun()
     {
-        if (transform.root.GetChild(0).GetChild(0).name == "mediumShip")
+        if (PlayerChoices.ship == "mediumShip")
         {
             foreach (GameObject gun in gatlingGuns)
             {
@@ -308,7 +308,7 @@ public class WeaponsController : MonoBehaviour
 
     void DisableGatlingGun()
     {
-        if (transform.root.GetChild(0).GetChild(0).name == "mediumShip")
+        if (PlayerChoices.ship == "mediumShip")
         {
             foreach (GameObject gun in gatlingGuns)
             {
@@ -326,7 +326,7 @@ public class WeaponsController : MonoBehaviour
 
     void EnableShockwaveCannons()
     {
-        if (transform.root.GetChild(0).GetChild(0).name == "heavyShip")
+        if (PlayerChoices.ship == "heavyShip")
         {
             int ammoCount = GetComponent<ShipArsenal>().shockwaveAmmo;
             int noOfEnabledCannons = 0;
@@ -385,7 +385,7 @@ public class WeaponsController : MonoBehaviour
 
     void DisableShockwaveCannons()
     {
-        if (transform.root.GetChild(0).GetChild(0).name == "heavyShip")
+        if (PlayerChoices.ship == "heavyShip")
         {
             foreach (GameObject cannon in cannons)
             {
@@ -404,7 +404,7 @@ public class WeaponsController : MonoBehaviour
 
     void EnableHomingCannons()
     {
-        if (transform.root.GetChild(0).GetChild(0).name == "lightShip")
+        if (PlayerChoices.ship == "lightShip")
         {
             int ammoCount = GetComponent<ShipArsenal>().homingAmmo;
             int noOfEnabledCannons = 0;
@@ -463,7 +463,7 @@ public class WeaponsController : MonoBehaviour
 
     void DisableHomingCannons()
     {
-        if (transform.root.GetChild(0).GetChild(0).name == "lightShip")
+        if (PlayerChoices.ship == "lightShip")
         {
             foreach (GameObject cannon in missileTurret)
             {

@@ -19,8 +19,6 @@ TagManager:
   - MenuBGMusic
   - Ignored
   - Missile
-  - Canvas
-  - MapCenter
   layers:
   - Default
   - TransparentFX

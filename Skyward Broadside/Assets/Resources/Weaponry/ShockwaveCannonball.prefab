@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac8378473fefed4d9f713a3cc7f43d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shockwavePower: 10
+  shockwavePower: 15
   myLayerMask:
     serializedVersion: 2
     m_Bits: 1600
@@ -261,5 +261,3 @@ MonoBehaviour:
   impact: {fileID: 0}
   target: {fileID: 0}
   explosionDebris: {fileID: 718342346669069729, guid: 297a67c5fbe1afa4db16c5b087098b76, type: 3}
-  explosionMetal: {fileID: 718342346669069729, guid: bff78bfde3bcf224aadbe0d2574ed461, type: 3}
-  explosionAir: {fileID: 718342346669069729, guid: 1ef6542570162e840bda68c25fe9bcb3, type: 3}
