@@ -17,6 +17,9 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     [SerializeField] private LobbyListing lobbyListingPrefab;
 
+    [SerializeField] private GameObject guardReadyText;
+    [SerializeField] private GameObject srReadyText;
+
     GameObject localStatus;
 
     private bool switching = false;
@@ -30,6 +33,10 @@ public class Lobby : MonoBehaviourPunCallbacks
         _listings = new Dictionary<string, LobbyListing>();
 
         localStatus = PlayerStatus.CreateLocal();
+
+        //Ensure button has the correct text
+        SetReadyUpText(PlayerChoices.team);
+
     }
 
     public void Update()
@@ -61,6 +68,20 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     }
 
+    private void SetReadyUpText(TeamData.Team team)
+    {
+        if (team == TeamData.Team.Purple)
+        {
+            guardReadyText.SetActive(false);
+            srReadyText.SetActive(true);
+        }
+        else
+        {
+            guardReadyText.SetActive(true);
+            srReadyText.SetActive(false);
+        }
+    }
+
     public void ReadyUp()
     {
         Debug.Log("Readying Up");
@@ -78,6 +99,8 @@ public class Lobby : MonoBehaviourPunCallbacks
         Debug.Log("Changing Team");
         TeamData.Team newTeam = PlayerChoices.team == TeamData.Team.Purple ? TeamData.Team.Yellow : TeamData.Team.Purple;
         PlayerChoices.team = newTeam;
+
+        SetReadyUpText(newTeam);
 
         RaiseEventOptions reo = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         string name = localStatus.GetComponent<PlayerStatus>().playerName;
