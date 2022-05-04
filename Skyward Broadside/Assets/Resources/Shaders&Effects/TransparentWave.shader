@@ -49,6 +49,7 @@ Shader "Unlit/TransparentWave"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.worldY = v.vertex.y;
+                o.worldY.x = mul(unity_ObjectToWorld, v.vertex).x;
                 return o;
             }
 
@@ -58,7 +59,7 @@ Shader "Unlit/TransparentWave"
                 fixed4 col = _Colour;
                 float time = _Time.y * _ScrollSpeed;
 
-                float a = sin(i.worldY*_RepeatFactor + time);
+                float a = sin(i.worldY.y*_RepeatFactor + time);
                 if (a < 0) {
                     a *= -1.0;
                 }
@@ -72,6 +73,9 @@ Shader "Unlit/TransparentWave"
 
                 col.a = a;
 
+                if (i.worldY.x < 300 && a == 1.0) {
+                    return float4(1.0, 0.902, 0.341, 1.0);
+                }
                 return col;
             }
             ENDCG
