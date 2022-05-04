@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.Locked;
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
-            cameraObj.Priority = 0;
+            cameraObj.Priority = 1;                                                                         //CHANGE THIS TO 0 AFTER BUG IS FIXED
 
             IntroManager.GetComponent<Intro>().brain = thisCam.GetComponent<CinemachineBrain>();
 
