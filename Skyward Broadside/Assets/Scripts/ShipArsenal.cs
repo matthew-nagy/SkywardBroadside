@@ -27,9 +27,10 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     // 0 = regular cannon, 1 = explosive cannons, 2 = gatling gun, 3 = shockwave cannons, 4 = homing projectiles
     public Dictionary<int, bool> weapons = new Dictionary<int, bool> { { 0, false }, { 1, false }, { 2, false }, { 3, false }, { 4, false } };
 
-    private readonly float regenFactorOfMaxHealth = 0.05f;
+    private readonly float regenFactorOfMaxHealth = 0.2f;
     private readonly int regenOfCannonballsPerReloadPeriod = 3;
-    private readonly int regenOfExplosiveCannonballPerReloadPeriod = 1;
+    private readonly int regenOfExplosiveCannonballPerReloadPeriod = 6;
+    private readonly int regenOfSpecialAmmoPerReloadPeriod = 3;
 
     private void Awake()
     {
@@ -112,6 +113,9 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         health = Math.Min(health + regenFactorOfMaxHealth * maxHealth, maxHealth);
         cannonballAmmo = Math.Min(cannonballAmmo + regenOfCannonballsPerReloadPeriod, maxCannonballAmmo);
         explosiveCannonballAmmo = Math.Min(explosiveCannonballAmmo + regenOfExplosiveCannonballPerReloadPeriod, maxExplosiveCannonballAmmo);
+        shockwaveAmmo = Math.Min(shockwaveAmmo + regenOfSpecialAmmoPerReloadPeriod, maxShockwaveAmmo);
+        homingAmmo = Math.Min(homingAmmo + regenOfSpecialAmmoPerReloadPeriod, maxHomingAmmo);
+
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

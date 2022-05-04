@@ -286,7 +286,7 @@ public class GUIController : MonoBehaviour
 
     }
 
-    public void UpdateSpecialAmmo(int value)
+    public void UpdateGUISpecialAmmo(int value)
     {
         if (!hasGatling)
         {
