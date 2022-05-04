@@ -11,8 +11,8 @@ public class Scoreboard : MonoBehaviourPunCallbacks
 {
     public static Scoreboard Instance;
     [SerializeField] private GameObject container;
-    [SerializeField] private GameObject team1Panel;
-    [SerializeField] private GameObject team2Panel;
+    [SerializeField] public GameObject team1Panel;
+    [SerializeField] public GameObject team2Panel;
 
     [SerializeField] private ScoreboardListing scoreboardListingPrefab;
 
