@@ -49,7 +49,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         serverShootingFlag = sendShootingToClient = clientShootingFlag = false;
         SetLayerMask();
         shipType = transform.root.Find("Ship").GetChild(0).transform.name;
-        shooterName = transform.root.GetComponent<PlayerController>().playerName;
+        shooterName = transform.root.Find("Ship").GetChild(0).GetComponent<PlayerController>().playerName;
     }
 
     void SetLayerMask()
@@ -135,7 +135,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 dir = (targetPos - shotOrigin.transform.position).normalized;
         if (Physics.Raycast(shotOrigin.transform.position, dir, out hit, range, layerMask))
         {
-            if (hit.collider.gameObject.name == shipType)
+            if (hit.collider.gameObject.name.Contains("Ship"))
             {
                 hit.collider.gameObject.GetComponent<ShipArsenal>().HitMe("gatling");
                 hit.collider.gameObject.GetComponent<PlayerController>().lastHit(shooterName);

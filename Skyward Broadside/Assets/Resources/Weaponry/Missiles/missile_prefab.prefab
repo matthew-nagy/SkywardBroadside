@@ -146,12 +146,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a11274d15bf0f9439661ecae37fb858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 0}
   explosionPower: 3000
   explosionRadius: 5
   explodableObjects:
     serializedVersion: 2
     m_Bits: 631
   explosion: {fileID: 797522063623356723, guid: 61e61e4ce2bdd73498823f060cef4914, type: 3}
+  explosionDebris: {fileID: 718342346669069729, guid: 297a67c5fbe1afa4db16c5b087098b76, type: 3}
+  explosionMetal: {fileID: 718342346669069729, guid: bff78bfde3bcf224aadbe0d2574ed461, type: 3}
+  explosionAir: {fileID: 718342346669069729, guid: 1ef6542570162e840bda68c25fe9bcb3, type: 3}
 --- !u!1001 &8464404991798176087
 PrefabInstance:
   m_ObjectHideFlags: 0
