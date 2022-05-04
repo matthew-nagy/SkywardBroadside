@@ -39,18 +39,12 @@ public struct SyncEvent
     //Helps the BreakMaster locate which child its refering to
     public int indexInOwner;
 
-    //Position and velocity of the object at a given point in time
-    public Vector3 position;
-    public Vector3 velocity;
-
     //Should this breakable be deleted
     public bool delete;
 
     public void PhotonSend(PhotonStream stream)
     {
         stream.SendNext(indexInOwner);
-        stream.SendNext(position);
-        stream.SendNext(velocity);
         stream.SendNext(delete);
     }
 
@@ -58,8 +52,6 @@ public struct SyncEvent
     {
         SyncEvent se = new SyncEvent();
         se.indexInOwner = (int)stream.ReceiveNext();
-        se.position = (Vector3)stream.ReceiveNext();
-        se.velocity = (Vector3)stream.ReceiveNext();
         se.delete = (bool)stream.ReceiveNext();
         return se;
     }

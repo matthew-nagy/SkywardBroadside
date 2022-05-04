@@ -14,8 +14,13 @@ public class KillListing : MonoBehaviour
         Destroy(gameObject, TimeBeforeKilled);
     }
 
+    private string Truncate(string str, int maxLength)
+    {
+        return str.Length <= maxLength ? str : str.Substring(0, maxLength);
+    }
+
     public void SetNames(string killer, string killed)
     {
-        uitext.text = killer + " killed " + killed;
+        uitext.text = Truncate(killer, 12) + " killed " + Truncate(killed, 12);
     }
 }
