@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public TeamData.Team myTeam;
 
-    private readonly float regenSecondsPerReloads = 1f;
+    private readonly float regenSecondsPerReloads = 0.5f;
 
     public DateTime spawnTime;
 
