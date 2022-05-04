@@ -25,12 +25,9 @@ public class MousePrompt : MonoBehaviour
 
     private void Update()
     {
-        if (target != null)
-        {
-            transform.position = Camera.main.WorldToScreenPoint(target.transform.position) + offset;
-            imageObj.GetComponent<RectTransform>().anchoredPosition = new Vector3(keyPromptText.text.Length * -3.65f, 0f, 0f);
-            background.GetComponent<RectTransform>().anchoredPosition = new Vector3(keyPromptText.text.Length * -0.54f, 0f, 0f);
-            background.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, keyPromptText.text.Length * 7.77f);
-        }
+        transform.position = Camera.main.WorldToScreenPoint(target.transform.position) + offset;
+        imageObj.GetComponent<RectTransform>().anchoredPosition = new Vector3(keyPromptText.text.Length * -3.65f, 0f, 0f);
+        background.GetComponent<RectTransform>().anchoredPosition = new Vector3(keyPromptText.text.Length * -0.54f, 0f, 0f);
+        background.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, keyPromptText.text.Length * 7.77f);
     }
 }

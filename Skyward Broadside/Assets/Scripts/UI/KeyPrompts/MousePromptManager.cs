@@ -29,9 +29,6 @@ public class MousePromptManager : MonoBehaviour
 
     public void UpdatePrompt()
     {
-        if (mousePromptObj != null)
-        {
-            mousePromptObj.GetComponent<MousePrompt>().keyPromptText.text = promptText;
-        }
+        mousePromptObj.GetComponent<MousePrompt>().keyPromptText.text = promptText;
     }
 }

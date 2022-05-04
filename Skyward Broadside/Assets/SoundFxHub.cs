@@ -8,19 +8,12 @@ public class SoundFxHub : MonoBehaviour
     GameObject Soundfx;
     Vector3 EffectPos;
 
-    List<GameObject> effectObjs = new List<GameObject>();
-
     void FixedUpdate()
     {
         if (doEffect)
         {
-            if (Soundfx != null)
-            {
-                doEffect = false;
-                GameObject effect = Instantiate(Soundfx, EffectPos, Quaternion.identity);
-                effectObjs.Add(effect);
-                Invoke(nameof(DestroyEffectObj), 2f);
-            }
+            doEffect = false;
+            Instantiate(Soundfx, EffectPos, Quaternion.identity);
         }
     }
 
@@ -32,12 +25,5 @@ public class SoundFxHub : MonoBehaviour
             Soundfx = soundFx;
             EffectPos = pos;
         }
-    }
-
-    void DestroyEffectObj()
-    {
-        GameObject effect = effectObjs[0];
-        effectObjs.Remove(effect);
-        Destroy(effect);
     }
 }

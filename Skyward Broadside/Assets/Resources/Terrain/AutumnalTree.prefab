@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2242804027753129562}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 3429869382112574872}
   m_Layer: 0
   m_Name: AutumnalTree
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

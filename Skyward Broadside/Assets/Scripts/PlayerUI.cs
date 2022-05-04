@@ -38,8 +38,7 @@ public class PlayerUI : MonoBehaviour
     //Player the health bar and name is attached to
     private PlayerPhotonHub target;
 
-    bool gotCanvas;
-
+    private Camera camera;
     #endregion
 
     #region Monobehaviour Callbacks
@@ -49,11 +48,10 @@ public class PlayerUI : MonoBehaviour
         //When scenes are going to be loaded and unloaded, so is our Prefab, and the Canvas will be different every time
         //Not actually recommended to do this bc it's slow apparently 
         //Supposedly there's a better way but they don't say what it is...
-    }
+        transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
 
-    void TryGetCanvas()
-    {
-
+        _canvasGroup = GetComponent<CanvasGroup>();
+        camera = Camera.main;
     }
 
     bool CheckExistance()
@@ -70,24 +68,12 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gotCanvas)
-        {
-            if (GameObject.Find("Canvas") != null)
-            {
-                transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
-                _canvasGroup = GetComponent<CanvasGroup>();
-                gotCanvas = true;
-            }
-        }
-        else
-        {
-            CheckExistance();
+        CheckExistance();
 
-            // Reflect the Player Health
-            if (playerHealthSlider != null)
-            {
-                playerHealthSlider.value = (int)playerInfo.currHealth;
-            }
+        // Reflect the Player Health
+        if (playerHealthSlider != null)
+        {
+            playerHealthSlider.value = (int)playerInfo.currHealth;
         }
     }
 
@@ -145,7 +131,7 @@ public class PlayerUI : MonoBehaviour
             {
                 return false;
             }
-            Vector3 screenPoint = Camera.main.WorldToViewportPoint(playerRb.position);
+            Vector3 screenPoint = camera.WorldToViewportPoint(playerRb.position);
 
             if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
             {

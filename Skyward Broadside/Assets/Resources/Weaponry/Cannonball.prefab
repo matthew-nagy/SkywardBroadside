@@ -236,5 +236,6 @@ MonoBehaviour:
   impact: {fileID: 797522063623356723, guid: 4080d0b9ca61e7945ae713c4b3b594db, type: 3}
   target: {fileID: 0}
   explosionDebris: {fileID: 718342346669069729, guid: 297a67c5fbe1afa4db16c5b087098b76, type: 3}
-  explosionMetal: {fileID: 718342346669069729, guid: bff78bfde3bcf224aadbe0d2574ed461, type: 3}
-  explosionAir: {fileID: 718342346669069729, guid: 1ef6542570162e840bda68c25fe9bcb3, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 16384
