@@ -39,11 +39,17 @@ public class CannonballController : MonoBehaviour
         Instantiate(impact, transform.position, Quaternion.identity);
         if (owner != collision.gameObject)
         {
-            if (collision.collider.transform.root.GetChild(0).GetChild(0).CompareTag("Ship"))
+            if (collision.collider.transform.root.childCount > 0)
             {
-                if (explosionMetal != null)
+                if (collision.collider.transform.root.GetChild(0).childCount > 0)
                 {
-                    effect = explosionMetal;
+                    if (collision.collider.transform.root.GetChild(0).GetChild(0).CompareTag("Ship"))
+                    {
+                        if (explosionMetal != null)
+                        {
+                            effect = explosionMetal;
+                        }
+                    }
                 }
             }
             else if (collision.collider.gameObject.CompareTag("Terrain"))
@@ -60,7 +66,6 @@ public class CannonballController : MonoBehaviour
                     effect = explosionAir;
                 }
             }
-
             Destroy(gameObject);
         }
     }

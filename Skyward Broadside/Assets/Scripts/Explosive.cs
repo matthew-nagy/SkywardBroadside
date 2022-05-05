@@ -26,18 +26,24 @@ public class Explosive : MonoBehaviour
     {
         if (!detonated && Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects).Length > 0)
         {
-            if (collision.collider.transform.root.GetChild(0).GetChild(0).CompareTag("Ship"))
-            {
-                if (explosionMetal != null)
-                {
-                    effect = explosionMetal;
-                }
-            }
-            else if (collision.collider.gameObject.CompareTag("Terrain"))
+            if (collision.collider.gameObject.CompareTag("Terrain"))
             {
                 if (explosionDebris != null)
                 {
                     effect = explosionDebris;
+                }
+            }
+            else if (collision.collider.transform.root.childCount > 0)
+            {
+                if (collision.collider.transform.root.GetChild(0).childCount > 0)
+                {
+                    if (collision.collider.transform.root.GetChild(0).GetChild(0).CompareTag("Ship"))
+                    {
+                        if (explosionMetal != null)
+                        {
+                            effect = explosionMetal;
+                        }
+                    }
                 }
             }
             else
@@ -75,12 +81,18 @@ public class Explosive : MonoBehaviour
     {
         if (effect != null)
         {
-            owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+            if (owner != null)
+            {
+                owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+            }
         }
         else
         {
             effect = explosionAir;
-            owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+            if (owner != null)
+            {
+                owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+            }
         }
     }
 }
