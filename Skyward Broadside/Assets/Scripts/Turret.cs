@@ -90,7 +90,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
             clientShootFlag = false;
         }
 
-        if (targetedPlayerName = "") return; // No point finding transform if there is no target
+        if (targetedPlayerName == "") return; // No point finding transform if there is no target
 
         //Otherwise use the targetedPlayerName to find the transform of the targeted player
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
