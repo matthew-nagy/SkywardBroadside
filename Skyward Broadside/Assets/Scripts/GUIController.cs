@@ -125,9 +125,11 @@ public class GUIController : MonoBehaviour
     public GameObject audioObject;
     private GameMusicController musicController;
 
-    public MiscSFXController sfxController;
+    public GameObject sfxObject;
+    private MiscSFXController sfxController;
 
     private bool inLead;
+    private bool wasLowHealth;
 
     private void Awake()
     {
@@ -147,9 +149,9 @@ public class GUIController : MonoBehaviour
         musicController = audioObject.GetComponent<GameMusicController>();
 
         inLead = false;
+        wasLowHealth = false;
 
-        GameObject sfxObject = GameObject.FindGameObjectWithTag("MiscSFX");
-        sfxController = sfxObject.GetComponent<MiscSFXController>();
+        sfxController = sfxObject.GetComponentInChildren<MiscSFXController>();
     }
 
     private void Start()
@@ -280,7 +282,18 @@ public class GUIController : MonoBehaviour
         healthShaderImg.material.SetFloat("_FullProportion", (float)value / (float)maxHealth);
         if (value < 20f && sfxController != null)
         {
-            sfxController.PlayLowHealth();
+            if (!wasLowHealth)
+            {
+                sfxController.PlayLowHealth();
+                wasLowHealth = true;
+            }
+        }
+        else
+        {
+            if (wasLowHealth)
+            {
+                wasLowHealth = false;
+            }
         }
     }
 

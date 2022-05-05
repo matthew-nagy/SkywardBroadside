@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 909468358500008640}
   - component: {fileID: 909468358500008641}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: SFX Audio Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 70
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

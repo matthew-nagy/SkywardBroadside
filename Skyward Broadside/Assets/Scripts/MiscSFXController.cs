@@ -31,7 +31,7 @@ public class MiscSFXController : MonoBehaviour
 
     public void PlayLowHealth()
     {
-        audioSource.PlayOneShot(lowHealth, 0.7f);
+        audioSource.PlayOneShot(lowHealth, 1f);
 
     }
 
