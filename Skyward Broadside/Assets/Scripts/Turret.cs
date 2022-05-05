@@ -89,10 +89,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
             clientShootFlag = false;
         }
 
-        if (targetedPlayerName == "")
-        {
-            return;
-        }
+        if (targetedPlayerName = "") return; // No point finding transform if there is no target
 
         //Otherwise use the targetedPlayerName to find the transform of the targeted player
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
@@ -154,14 +151,11 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
             {
                 didSet = true;
                 targetTransform = player.transform;
+                targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
             }
         }
 
-        if (didSet)
-        {
-            targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
-        }
-        else
+        if (!didSet)
         {
             targetedPlayerName = "";
             targetTransform = null;
@@ -175,7 +169,6 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         explosionObject.GetComponent<ParticleSystem>().Play();
 
         gameObject.SetActive(false);
-        // gameObject.GetComponent<Renderer>().enabled = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }
 }
