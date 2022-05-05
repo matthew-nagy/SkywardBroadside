@@ -11,6 +11,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     public Transform shotOrigin;
     public GameObject turretHead;
     public GameObject explosionEffect;
+    public float range = 50.0;
 
     public float reloadTime = 5;
     private float lastShotTime = 0;
@@ -27,6 +28,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         myBreakable = gameObject.GetComponent<Breakable>();
+        targetedPlayerName = "";
         enabled = false;
         Invoke(nameof(SetActive), 50.0f);
     }
@@ -59,7 +61,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         GetClosestPlayerTransform();
 
         //if no target, do nothing
-        if (targetTransform == null) return;
+        if (targetTransform == null || targetedPlayerName = "") return;
 
         //Otherwise aim
         Vector3 dist_to_target = targetTransform.position - turretHead.gameObject.transform.position;
@@ -68,7 +70,6 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         //Rotate to look at target - dampening controls speed of rotation
         var rotation = Quaternion.LookRotation(dist_to_target);
         turretHead.gameObject.transform.rotation = Quaternion.Slerp(turretHead.gameObject.transform.rotation, rotation, Time.deltaTime);
-
 
         //If reloaded, shoot
         if (Time.time - lastShotTime > reloadTime)
@@ -88,11 +89,17 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
             clientShootFlag = false;
         }
 
+        if (targetedPlayerName = "")
+        {
+            return;
+        }
+
         //Otherwise use the targetedPlayerName to find the transform of the targeted player
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
         foreach (GameObject player in players)
         {
-            string playerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
+            string playerName = player.transform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
+
             if (playerName == targetedPlayerName)
             {
                 targetTransform = player.transform;
@@ -134,16 +141,31 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
         float shortestDistance = float.MaxValue;
+
+        bool didSet = false;
+
         foreach (GameObject player in players)
         {
             float dist = (player.transform.position - turretHead.transform.position).magnitude;
+
+            if (dist < range) continue;
+
             if (dist < shortestDistance)
             {
+                didSet = true;
                 targetTransform = player.transform;
             }
         }
 
-        targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
+        if (didSet)
+        {
+            targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
+        }
+        else
+        {
+            targetedPlayerName = "";
+            targetTransform = null;
+        }
     }
 
     void Die()
@@ -154,6 +176,6 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
         gameObject.SetActive(false);
         gameObject.GetComponent<Renderer>().enabled = false;
-        // gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }
 }
