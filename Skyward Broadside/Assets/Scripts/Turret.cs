@@ -11,7 +11,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     public Transform shotOrigin;
     public GameObject turretHead;
     public GameObject explosionEffect;
-    public float range = 50.0;
+    public float range = 50.0f;
 
     public float reloadTime = 5;
     private float lastShotTime = 0;
@@ -61,7 +61,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         GetClosestPlayerTransform();
 
         //if no target, do nothing
-        if (targetTransform == null || targetedPlayerName = "") return;
+        if (targetTransform == null || targetedPlayerName == "") return;
 
         //Otherwise aim
         Vector3 dist_to_target = targetTransform.position - turretHead.gameObject.transform.position;
@@ -89,7 +89,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
             clientShootFlag = false;
         }
 
-        if (targetedPlayerName = "")
+        if (targetedPlayerName == "")
         {
             return;
         }
