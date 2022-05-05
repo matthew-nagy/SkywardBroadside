@@ -96,7 +96,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
         foreach (GameObject player in players)
         {
-            string playerName = player.transform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
+            string playerName = player.transform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.text;
 
             if (playerName == targetedPlayerName)
             {
@@ -152,7 +152,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
             {
                 didSet = true;
                 targetTransform = player.transform;
-                targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
+                targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.text;
             }
         }
 
