@@ -40,6 +40,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     void Update()
     {
+        Debug.Log("Targeting: " + targetedPlayerName);
         if (myBreakable.broken)
         {
             Die();
