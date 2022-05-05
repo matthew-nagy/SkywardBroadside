@@ -175,7 +175,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         explosionObject.GetComponent<ParticleSystem>().Play();
 
         gameObject.SetActive(false);
-        gameObject.GetComponent<Renderer>().enabled = false;
+        // gameObject.GetComponent<Renderer>().enabled = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }
 }

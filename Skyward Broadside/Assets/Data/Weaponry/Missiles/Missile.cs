@@ -28,14 +28,9 @@ public class Missile : MonoBehaviour
     public void InitialiseMissile(Transform _targetTransform)
     {
         targetTransform = _targetTransform;
-
-        // //Initialise velocity in direction of target
-        // Vector3 dist_to_target = targetTransform.position - transform.position;
-        // Vector3 dir_to_target = dist_to_target.normalized;
-        // // velocity = dir_to_target * speed;
-
         initialised = true;
         initTime = Time.timeSinceLevelLoad;
+        GetComponent<Explosive>().owner = gameObject;
 
     }
 
