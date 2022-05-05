@@ -29,10 +29,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public bool teamSet;
 
-    public GameObject sfxObject;
-    private MiscSFXController sfxController;
-
-
     private void Start()
     {
         transform.root.GetComponent<PlayerPhotonHub>().SetTeam();
@@ -58,7 +54,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         photonHub.players.Add(playerName, this);
         Scoreboard.Instance.OnNewPlayer(this);
 
-        //sfxController = sfxObject.GetComponent<MiscSFXController>();
     }
 
     private void Update()
@@ -99,10 +94,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 }
                 Die();
             }
-            else if (health < 20f)
-            {
-                //sfxController.PlayLowHealth();
-            }
+
 
             updateScript.UpdateGUIHealth(health);
         }

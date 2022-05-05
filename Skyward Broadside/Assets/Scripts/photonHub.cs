@@ -113,6 +113,7 @@ void Update()
     {
         updateScript.gameOverScreen.SetActive(true);
         updateScript.gameOverScreen.GetComponent<gameOverScreen>().CopyScoreboard();
+        var properties = PhotonNetwork.CurrentRoom.CustomProperties;
         updateScript.GameOver();
     }
 

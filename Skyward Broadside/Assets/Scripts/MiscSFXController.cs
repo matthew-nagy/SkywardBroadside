@@ -47,9 +47,4 @@ public class MiscSFXController : MonoBehaviour
 
     }
 
-    public void PlayCantShoot()
-    {
-        audioSource.PlayOneShot(cantShoot, 0.7f);
-
-    }
 }

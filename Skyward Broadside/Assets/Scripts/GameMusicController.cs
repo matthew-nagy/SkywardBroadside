@@ -21,9 +21,13 @@ public class GameMusicController : MonoBehaviour
     
     public void EnableGameOverMusic()
     {
-        audioSource.Stop();
         audioSource.volume = 0.65f;
         audioSource.clip = gameOverMusic;
         audioSource.Play();
+    }
+
+    public void DisableBattleMusic()
+    {
+        audioSource.Stop();
     }
 }

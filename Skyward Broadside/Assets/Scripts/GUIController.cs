@@ -110,6 +110,9 @@ public class GUIController : MonoBehaviour
     public Text myScore;
     public Text theirScore;
 
+    public int myTeamScore;
+    public int otherTeamScore;
+
     public GameObject gameOverScreen;
 
     public Text gameOverYourTeam;
@@ -121,6 +124,10 @@ public class GUIController : MonoBehaviour
     //Music
     public GameObject audioObject;
     private GameMusicController musicController;
+
+    public MiscSFXController sfxController;
+
+    private bool inLead;
 
     private void Awake()
     {
@@ -138,6 +145,11 @@ public class GUIController : MonoBehaviour
         specialShaderImg.material = new Material(specialShaderImg.material);
 
         musicController = audioObject.GetComponent<GameMusicController>();
+
+        inLead = false;
+
+        GameObject sfxObject = GameObject.FindGameObjectWithTag("MiscSFX");
+        sfxController = sfxObject.GetComponent<MiscSFXController>();
     }
 
     private void Start()
@@ -266,7 +278,10 @@ public class GUIController : MonoBehaviour
         Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(healthMinZ, healthMaxZ, (float)value / (float)maxHealth));
         healthDial.dialHand.rotation = Quaternion.Euler(newRotation);
         healthShaderImg.material.SetFloat("_FullProportion", (float)value / (float)maxHealth);
-        //print("Remaining health: " + value);
+        if (value < 20f && sfxController != null)
+        {
+            sfxController.PlayLowHealth();
+        }
     }
 
     public void UpdateGUINormalAmmo(int value)
@@ -306,6 +321,24 @@ public class GUIController : MonoBehaviour
 
         theirScore.text = otherTeam.ToString();
         gameOverOtherTeam.text = otherTeam.ToString();
+
+        if (sfxController != null)
+        {
+            if (!inLead && myTeam > otherTeam)
+            {
+                inLead = true;
+                sfxController.PlayLeadTaken();
+            }
+            else if (inLead && myTeam < otherTeam)
+            {
+                inLead = false;
+                sfxController.PlayLeadLost();
+            }
+        }
+        
+
+        myTeamScore = myTeam;
+        otherTeamScore = otherTeam;
     }
 
     public void SetPlayer(GameObject _player)
@@ -398,13 +431,22 @@ public class GUIController : MonoBehaviour
 
     public void GameOver()
     {
-        musicController.EnableGameOverMusic();
-        //battleMusic.SetActive(false);
-        //if (!gameOverMusic.GetComponent<AudioSource>().isPlaying)
-        //{
-        //    gameOverMusic.GetComponent<AudioSource>().Play();
-        //}
+        musicController.DisableBattleMusic();
+
+        if (sfxController != null)
+        {
+            if (myTeamScore >= otherTeamScore)
+            {
+                sfxController.PlayVictorySting();
+            }
+            else
+            {
+                sfxController.PlayDefeatSting();
+            }
+        }
         
+
+        musicController.EnableGameOverMusic();
     }
 }
  
