@@ -119,8 +119,8 @@ public class GUIController : MonoBehaviour
 
 
     //Music
-    public GameObject battleMusic;
-    public GameObject gameOverMusic;
+    public GameObject audioObject;
+    private GameMusicController musicController;
 
     private void Awake()
     {
@@ -136,6 +136,8 @@ public class GUIController : MonoBehaviour
 
         specialShaderImg = specialShaderObject.GetComponent<RawImage>();
         specialShaderImg.material = new Material(specialShaderImg.material);
+
+        musicController = audioObject.GetComponent<GameMusicController>();
     }
 
     private void Start()
@@ -394,13 +396,14 @@ public class GUIController : MonoBehaviour
         timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
     }
 
-    public void EnableGameOverMusic()
+    public void GameOver()
     {
-        battleMusic.SetActive(false);
-        if (!gameOverMusic.GetComponent<AudioSource>().isPlaying)
-        {
-            gameOverMusic.GetComponent<AudioSource>().Play();
-        }
+        musicController.EnableGameOverMusic();
+        //battleMusic.SetActive(false);
+        //if (!gameOverMusic.GetComponent<AudioSource>().isPlaying)
+        //{
+        //    gameOverMusic.GetComponent<AudioSource>().Play();
+        //}
         
     }
 }
