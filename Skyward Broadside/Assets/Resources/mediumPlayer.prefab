@@ -810,6 +810,7 @@ MonoBehaviour:
     m_Bits: 34885
   range: 2000
   gatlingImpact: {fileID: 72975767058620467, guid: 3658fc49118f6724784bc48522a418b4, type: 3}
+  gatlingBurst: {fileID: 718342346669069729, guid: 6e7ff01c4e7b0be499db28f7038a6c56, type: 3}
   weaponEnabled: 0
 --- !u!136 &6311162386145764843
 CapsuleCollider:
@@ -25412,6 +25413,7 @@ MonoBehaviour:
     m_Bits: 34885
   range: 2000
   gatlingImpact: {fileID: 72975767058620467, guid: 3658fc49118f6724784bc48522a418b4, type: 3}
+  gatlingBurst: {fileID: 718342346669069729, guid: 6e7ff01c4e7b0be499db28f7038a6c56, type: 3}
   weaponEnabled: 0
 --- !u!136 &8101035816075437052
 CapsuleCollider:
@@ -25538,6 +25540,7 @@ MonoBehaviour:
     m_Bits: 34885
   range: 2000
   gatlingImpact: {fileID: 72975767058620467, guid: 3658fc49118f6724784bc48522a418b4, type: 3}
+  gatlingBurst: {fileID: 718342346669069729, guid: 6e7ff01c4e7b0be499db28f7038a6c56, type: 3}
   weaponEnabled: 0
 --- !u!136 &1330791908121176855
 CapsuleCollider:
