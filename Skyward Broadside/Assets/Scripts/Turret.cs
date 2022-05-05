@@ -18,7 +18,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     bool masterClientShootFlag;
     bool clientShootFlag;
 
-    public Text targetedPlayerName;
+    public string targetedPlayerName;
 
     Breakable myBreakable;
 
@@ -92,8 +92,8 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
         foreach (GameObject player in players)
         {
-            Text playerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText;
-            if (playerName = targetedPlayerName)
+            string playerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
+            if (playerName == targetedPlayerName)
             {
                 targetTransform = player.transform;
                 break;
@@ -124,7 +124,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             clientShootFlag = (bool)stream.ReceiveNext();
-            targetedPlayerName = (Text)stream.ReceiveNext();
+            targetedPlayerName = (string)stream.ReceiveNext();
             turretHead.transform.rotation = (Quaternion)stream.ReceiveNext();
         }
 
@@ -143,7 +143,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
 
-        targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText;
+        targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.ToString();
     }
 
     void Die()
