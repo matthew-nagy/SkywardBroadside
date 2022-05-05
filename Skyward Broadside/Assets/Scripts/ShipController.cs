@@ -153,13 +153,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         shipMats = new Dictionary<TeamData.Team, Material>();
         foreach(TeamToColour ttc in teamsToColours)
         {
-            shipMats[ttc.team] = ttc.material;
+            //shipMats[ttc.team] = ttc.material;
         }
 
         myTeam = GetComponent<PlayerController>().myTeam;
         foreach (GameObject balloon in balloons)
         {
-            balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+            //balloon.GetComponent<Renderer>().material = shipMats[myTeam];
         }
 
         GameObject mapCenter = GameObject.Find("Center");
@@ -461,7 +461,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 foreach (GameObject balloon in balloons)
                 {
-                    balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+                    //balloon.GetComponent<Renderer>().material = shipMats[myTeam];
                 }
             }
 
