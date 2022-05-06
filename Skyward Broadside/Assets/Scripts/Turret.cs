@@ -23,14 +23,35 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     Breakable myBreakable;
 
+    [SerializeField]
+    GameObject soundFxHub;
+    [SerializeField]
+    GameObject explosionAir;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (photonView.IsMine)
+        {
+            MoveToLayer(transform, 2);
+        }
+
         myBreakable = gameObject.GetComponent<Breakable>();
         targetedPlayerName = "";
         enabled = false;
         Invoke(nameof(SetActive), 3.0f);
+    }
+
+    void MoveToLayer(Transform root, int layer)
+    {
+        if (root.gameObject.layer != 13)
+        {
+            root.gameObject.layer = layer;
+        }
+        foreach (Transform child in root)
+        {
+            MoveToLayer(child, layer);
+        }
     }
 
     void SetActive()
@@ -111,11 +132,12 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         if (!targetTransform) return;
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
+        newProjectile.layer = 10;
         newProjectile.GetComponent<Explosive>().owner = gameObject;
         newProjectile.tag = "TurretMissile";
         newProjectile.GetComponent<Missile>().owner = gameObject;
-        newProjectile.GetComponent<Missile>().rotationDampening = 10;
-        newProjectile.GetComponent<Missile>().explodeTimer = 4; //Make missiles explode after 4 seconds;
+        newProjectile.GetComponent<Missile>().rotationDampening = 3;
+        newProjectile.GetComponent<Missile>().explodeTimer = 5; //Make missiles explode after 4 seconds;
         newProjectile.GetComponent<Missile>().InitialiseMissile(targetTransform);
     }
 
@@ -183,6 +205,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         explosionObject.transform.position = transform.position;
         explosionObject.GetComponent<ParticleSystem>().Play();
 
+        soundFxHub.GetComponent<SoundFxHub>().DoEffect(explosionAir, transform.position);
         gameObject.SetActive(false);
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6228092353781023462}
   - component: {fileID: 8273630518736127988}
   - component: {fileID: 3157928581834520126}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4821,7 +4821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4426814344121480003}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: shotOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4836,7 +4836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4426814344121480002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4856,7 +4856,7 @@ GameObject:
   - component: {fileID: 4426814345066388840}
   - component: {fileID: 4426814345066388841}
   - component: {fileID: 5975554095872332791}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: turret
   m_TagString: Terrain
   m_Icon: {fileID: 0}
@@ -4872,7 +4872,7 @@ Transform:
   m_GameObject: {fileID: 4426814345066388837}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 39.872818, y: 8.763592, z: 21.809727}
-  m_LocalScale: {x: 0.6818, y: 0.6818, z: 0.6818}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4243953582830884466}
@@ -4880,6 +4880,7 @@ Transform:
   - {fileID: 315510093485038540}
   - {fileID: 6875285111229537697}
   - {fileID: 6228092353781023462}
+  - {fileID: 5111628393433424233}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4900,9 +4901,11 @@ MonoBehaviour:
   shotOrigin: {fileID: 4426814344121480003}
   turretHead: {fileID: 3579901972732895469}
   explosionEffect: {fileID: 3295607932566279283, guid: ce42c1b344e9ae7afb9ffe8804f0f112, type: 3}
-  range: 75
+  range: 200
   reloadTime: 10
   targetedPlayerName: 
+  soundFxHub: {fileID: 3646937853787869835}
+  explosionAir: {fileID: 718342346669069729, guid: 1ef6542570162e840bda68c25fe9bcb3, type: 3}
 --- !u!114 &4426814345066388840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4966,7 +4969,7 @@ GameObject:
   - component: {fileID: 6875285111229537697}
   - component: {fileID: 2003179745338439622}
   - component: {fileID: 7351396867135275700}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9778,7 +9781,7 @@ GameObject:
   - component: {fileID: 315510093485038540}
   - component: {fileID: 2948916412240847595}
   - component: {fileID: 6114379964802855618}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14643,6 +14646,10 @@ PrefabInstance:
       value: turret_base
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 05c944c67b00eac2bbec34518e64581f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 05c944c67b00eac2bbec34518e64581f, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -14716,6 +14723,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: turret_head
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 492eb69b6b6ec95e8aad1aee29378c53, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 492eb69b6b6ec95e8aad1aee29378c53, type: 3}
 --- !u!1 &3579901972732895469 stripped
@@ -14727,4 +14738,71 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 492eb69b6b6ec95e8aad1aee29378c53, type: 3}
   m_PrefabInstance: {fileID: 4426814345455590844}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6788424846788792226
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4426814345066388839}
+    m_Modifications:
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.65000033
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.092
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.0400006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7830021190671113513, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+      propertyPath: m_Name
+      value: SoundFxHub
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+--- !u!1 &3646937853787869835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7830021190671113513, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+  m_PrefabInstance: {fileID: 6788424846788792226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5111628393433424233 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1784958852654853835, guid: ea9f5891979360c4297c238d8c0409cf, type: 3}
+  m_PrefabInstance: {fileID: 6788424846788792226}
   m_PrefabAsset: {fileID: 0}

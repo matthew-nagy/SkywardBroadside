@@ -91,7 +91,14 @@ public class Explosive : MonoBehaviour
         {
             if (owner != null)
             {
-                owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                if (owner.name == "turret")
+                {
+                    owner.transform.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                }
+                else
+                {
+                    owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                }
             }
         }
         else
@@ -99,7 +106,14 @@ public class Explosive : MonoBehaviour
             effect = explosionAir;
             if (owner != null)
             {
-                owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                if (owner.name == "turret")
+                {
+                    owner.transform.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                }
+                else
+                {
+                    owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                }
             }
         }
     }

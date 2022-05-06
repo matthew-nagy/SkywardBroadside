@@ -30,8 +30,6 @@ public class Missile : MonoBehaviour
         targetTransform = _targetTransform;
         initialised = true;
         initTime = Time.timeSinceLevelLoad;
-        GetComponent<Explosive>().owner = gameObject;
-
     }
 
     void Update()
