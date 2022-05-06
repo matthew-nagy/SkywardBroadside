@@ -32115,7 +32115,6 @@ MonoBehaviour:
   resupply: 0
   brokenShip: {fileID: 3615311673211330838, guid: 168ea4c16b405b9438e11c3430849693, type: 3}
   teamSet: 0
-  sfxObject: {fileID: 0}
 --- !u!114 &1523253515593093035
 MonoBehaviour:
   m_ObjectHideFlags: 0

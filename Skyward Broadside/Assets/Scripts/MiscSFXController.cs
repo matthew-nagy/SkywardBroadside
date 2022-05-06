@@ -21,12 +21,12 @@ public class MiscSFXController : MonoBehaviour
 
     public void PlayVictorySting()
     {
-        audioSource.PlayOneShot(victorySting, 0.7f);
+        audioSource.PlayOneShot(victorySting, 1f);
     }
 
     public void PlayDefeatSting()
     {
-        audioSource.PlayOneShot(defeatSting, 0.7f);
+        audioSource.PlayOneShot(defeatSting, 1f);
     }
 
     public void PlayLowHealth()
@@ -37,13 +37,13 @@ public class MiscSFXController : MonoBehaviour
 
     public void PlayLeadTaken()
     {
-        audioSource.PlayOneShot(leadTaken, 0.7f);
+        audioSource.PlayOneShot(leadTaken, 1f);
 
     }
 
     public void PlayLeadLost()
     {
-        audioSource.PlayOneShot(leadLost, 0.7f);
+        audioSource.PlayOneShot(leadLost, 1f);
 
     }
 

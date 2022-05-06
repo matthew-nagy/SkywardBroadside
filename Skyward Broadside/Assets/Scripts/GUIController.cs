@@ -6,7 +6,12 @@ using UnityEngine.UI;
 
 public class GUIController : MonoBehaviour
 {
-
+    public enum PrevWinner
+    {
+        Nobody,
+        Us,
+        Them
+    }
     public enum Ammo
     {
         Normal,
@@ -129,7 +134,9 @@ public class GUIController : MonoBehaviour
     private MiscSFXController sfxController;
 
     private bool inLead;
+    private PrevWinner prevWinner;
     private bool wasLowHealth;
+    private bool justLoadedIn;
 
     private void Awake()
     {
@@ -148,8 +155,10 @@ public class GUIController : MonoBehaviour
 
         musicController = audioObject.GetComponent<GameMusicController>();
 
-        inLead = false;
+        //inLead = false;
+        prevWinner = PrevWinner.Nobody;
         wasLowHealth = false;
+        justLoadedIn = true;
 
         sfxController = sfxObject.GetComponentInChildren<MiscSFXController>();
     }
@@ -335,16 +344,26 @@ public class GUIController : MonoBehaviour
         theirScore.text = otherTeam.ToString();
         gameOverOtherTeam.text = otherTeam.ToString();
 
-        if (sfxController != null)
+        if (sfxController != null && !justLoadedIn)
         {
-            if (!inLead && myTeam > otherTeam)
+            //if (!inLead && myTeam > otherTeam)
+            //{
+            //    inLead = true;
+            //    sfxController.PlayLeadTaken();
+            //}
+            //else if (inLead && myTeam < otherTeam)
+            //{
+            //    inLead = false;
+            //    sfxController.PlayLeadLost();
+            //}
+            if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Them) && myTeam > otherTeam)
             {
-                inLead = true;
+                prevWinner = PrevWinner.Us;
                 sfxController.PlayLeadTaken();
             }
-            else if (inLead && myTeam < otherTeam)
+            else if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Us) && otherTeam > myTeam)
             {
-                inLead = false;
+                prevWinner = PrevWinner.Them;
                 sfxController.PlayLeadLost();
             }
         }
@@ -352,6 +371,7 @@ public class GUIController : MonoBehaviour
 
         myTeamScore = myTeam;
         otherTeamScore = otherTeam;
+        justLoadedIn = false;
     }
 
     public void SetPlayer(GameObject _player)
