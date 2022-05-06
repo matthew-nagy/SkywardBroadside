@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4354776843931590380}
-  - component: {fileID: 8711725674560762241}
-  m_Layer: 0
-  m_Name: Gatling
-  m_TagString: Untagged
+  - component: {fileID: 2442399354436697829}
+  - component: {fileID: 6835110263896131991}
+  m_Layer: 14
+  m_Name: ShipGoingDown
+  m_TagString: Effects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &8711725674560762241
+--- !u!82 &2442399354436697829
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,9 +43,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5cb8d9c1bdeeb754a8d1232e0c414f0a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8f4bb1bf951330ca58bebd017a78d6f0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -55,7 +56,7 @@ AudioSource:
   MinDistance: 0
   MaxDistance: 700
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -71,15 +72,6 @@ AudioSource:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.18826294
-      value: 0.46840078
-      inSlope: -1.9083464
-      outSlope: -1.9083464
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.0656741
     - serializedVersion: 3
       time: 1
       value: 0
@@ -137,3 +129,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6835110263896131991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718342346669069729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ac1cb169a6aa34fafdcc051246a028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

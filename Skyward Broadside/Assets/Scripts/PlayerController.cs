@@ -166,7 +166,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     void Die()
     {
-        
         if (photonView.IsMine)
         {
             broadcastDeath();

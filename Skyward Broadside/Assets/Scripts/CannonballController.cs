@@ -83,10 +83,5 @@ public class CannonballController : MonoBehaviour
         {
             owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
         }
-        else
-        {
-            Debug.Log("Effect null");
-        }
-
     }
 }

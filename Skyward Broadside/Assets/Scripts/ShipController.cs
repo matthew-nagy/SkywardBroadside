@@ -280,7 +280,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     void TurnOffParticles(Transform root)
     {
-        print(root.name);
         if (root.TryGetComponent(out ParticleSystem ps))
         {
             ps.Stop();
