@@ -121,7 +121,10 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             GetComponent<CameraController>().enableFreeCam();
             lockedOn = false;
         }
-        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
+        if (currentTarget != null)
+        {
+            currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
+        }
         mpm.promptText = lockOnPrompt;
         mpm.UpdatePrompt();
     }
