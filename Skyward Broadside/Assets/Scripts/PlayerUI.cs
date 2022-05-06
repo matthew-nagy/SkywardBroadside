@@ -13,7 +13,7 @@ public class PlayerUI : MonoBehaviour
     #region Private Fields
     [Tooltip("UI Text to display Player's Name")]
     [SerializeField]
-    private Text playerNameText;
+    public Text playerNameText;
 
     [Tooltip("Image of skull, shown on enemy players")]
     [SerializeField]
@@ -92,7 +92,7 @@ public class PlayerUI : MonoBehaviour
                 playerHealthSlider.value = (int)playerInfo.currHealth;
             }
         }
-        
+
     }
 
     private void FixedUpdate()
@@ -193,7 +193,7 @@ public class PlayerUI : MonoBehaviour
         playerHealthSlider.value = (int)playerInfo.currHealth;
         this.gameObject.SetActive(true);
         isDead = false;
-        
+
     }
     #endregion
 }

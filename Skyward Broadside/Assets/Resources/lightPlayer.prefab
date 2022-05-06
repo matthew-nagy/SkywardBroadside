@@ -8523,6 +8523,7 @@ MonoBehaviour:
   reloadTime: 2
   currentWeaponId: 0
   reloading: 0
+  introManager: {fileID: 456894786678835771}
 --- !u!114 &7119269737276029945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8668,6 +8669,7 @@ MonoBehaviour:
   - team: 1
     material: {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
   fires: {fileID: 3891967108970810071}
+  introManager: {fileID: 456894786678835771}
 --- !u!114 &5161432989157013681
 MonoBehaviour:
   m_ObjectHideFlags: 0

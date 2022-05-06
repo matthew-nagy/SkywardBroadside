@@ -62,6 +62,20 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         GetComponent<WeaponsController>().equipWeapons();
 
         Respawn();
+
+        GetComponent<ShipController>().PutOutFires();
+    }
+
+    private void Update()
+    {
+        if (health <= 20f)
+        {
+            GetComponent<ShipController>().StartFires();
+        }
+        else if (health > 20f)
+        {
+            GetComponent<ShipController>().PutOutFires();
+        }
     }
 
     void EnableWeapon(int weaponId)
@@ -118,7 +132,6 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         explosiveCannonballAmmo = Math.Min(explosiveCannonballAmmo + regenOfExplosiveCannonballPerReloadPeriod, maxExplosiveCannonballAmmo);
         shockwaveAmmo = Math.Min(shockwaveAmmo + regenOfSpecialAmmoPerReloadPeriod, maxShockwaveAmmo);
         homingAmmo = Math.Min(homingAmmo + regenOfSpecialAmmoPerReloadPeriod, maxHomingAmmo);
-
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
