@@ -27,10 +27,27 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+        if (photonView.IsMine)
+        {
+            MoveToLayer(transform, 2);
+        }
+
         myBreakable = gameObject.GetComponent<Breakable>();
         targetedPlayerName = "";
         enabled = false;
         Invoke(nameof(SetActive), 3.0f);
+    }
+
+    void MoveToLayer(Transform root, int layer)
+    {
+        if (root.gameObject.layer != 13)
+        {
+            root.gameObject.layer = layer;
+        }
+        foreach (Transform child in root)
+        {
+            MoveToLayer(child, layer);
+        }
     }
 
     void SetActive()
@@ -111,6 +128,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         if (!targetTransform) return;
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
+        newProjectile.layer = 10;
         newProjectile.GetComponent<Explosive>().owner = gameObject;
         newProjectile.tag = "TurretMissile";
         newProjectile.GetComponent<Missile>().owner = gameObject;
