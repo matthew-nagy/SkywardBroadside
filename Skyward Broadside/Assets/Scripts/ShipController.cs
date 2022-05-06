@@ -125,6 +125,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     public List<TeamToColour> teamsToColours;
     Dictionary<TeamData.Team, Material> shipMats;
 
+    [SerializeField]
+    GameObject fires;
+    bool onFire;
+
     public void ResetLastPosition()
     {
         transform.position = lastPosition;
@@ -171,6 +175,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             Invoke(nameof(BallonSetup), 2.0f);
         }
+
+        PutOutFires();
     }
 
     void BallonSetup()
@@ -236,6 +242,53 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         verticalSpeed = velocity.y;
+
+        if (GetComponent<ShipArsenal>().health <= 20f && !onFire)
+        {
+            StartFires();
+        }
+        else if (GetComponent<ShipArsenal>().health > 20f && onFire)
+        {
+            PutOutFires();
+        }
+    }
+
+    void StartFires()
+    {
+        TurnOnParticles(fires.transform);
+        onFire = true;
+    }
+
+    void PutOutFires()
+    {
+        TurnOffParticles(fires.transform);
+        onFire = false;
+    }
+
+
+    void TurnOnParticles(Transform root)
+    {
+        if (root.TryGetComponent(out ParticleSystem ps))
+        {
+            ps.Play();
+        }
+        foreach (Transform child in root)
+        {
+            TurnOnParticles(child);
+        }
+    }
+
+    void TurnOffParticles(Transform root)
+    {
+        print(root.name);
+        if (root.TryGetComponent(out ParticleSystem ps))
+        {
+            ps.Stop();
+        }
+        foreach (Transform child in root)
+        {
+            TurnOffParticles(child);
+        }
     }
 
     void GetPlayerInput()
