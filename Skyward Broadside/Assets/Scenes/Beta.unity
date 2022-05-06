@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.50345045, g: 0.66477704, b: 0.866214, a: 1}
+  m_IndirectSpecularColor: {r: 0.52055794, g: 0.70278615, b: 0.79143566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9117,7 +9117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878022000517488457, guid: 00ba0aceb5c207d298696af0b79e9c4b, type: 3}
       propertyPath: phaseAdvanceAmount
-      value: 0.17
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7878022000517488458, guid: 00ba0aceb5c207d298696af0b79e9c4b, type: 3}
       propertyPath: m_Name
