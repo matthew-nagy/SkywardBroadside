@@ -151,7 +151,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         playerInput = new RequestedControls();
 
         shipMats = new Dictionary<TeamData.Team, Material>();
-        foreach(TeamToColour ttc in teamsToColours)
+        foreach (TeamToColour ttc in teamsToColours)
         {
             //shipMats[ttc.team] = ttc.material;
         }
@@ -213,7 +213,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             return;
         }
-        
+
         if (!isDisabled)
         {
             GetPlayerInput();
@@ -272,7 +272,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (collision.gameObject.layer == 7)
             return;
 
-        
+
         if (photonView.IsMine)
         {
             freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
@@ -306,6 +306,29 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     forceToDamageMultiplier *= explosionDamageMultiplier;
                 }
+            }
+            else
+            {
+                forceToDamageMultiplier = 0f;
+            }
+        }
+        else if (collision.gameObject.CompareTag("TurretMissile"))
+        {
+
+            Debug.Log("Missile collision");
+            shouldDealDamage = true;
+            gameObject.GetComponent<PlayerController>().lastHit("Turret");
+            GameObject owner = collision.gameObject.GetComponent<Missile>().owner;
+
+            if (!GameObject.ReferenceEquals(owner, gameObject))
+            {
+                Vector3 velocityMissile = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
+                Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityMissile;
+                moveSpeed = finalVelocity.magnitude;
+
+                velocity = finalVelocity;
+
+                forceToDamageMultiplier = missileDamageMultiplier * collision.gameObject.GetComponent<Missile>().damageAmount;
             }
             else
             {
@@ -374,12 +397,12 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         //            transform.position += new Vector3(0, 1, 0);
         //            break;
         //        case "InvisWallZ+":
-         //           transform.position -= new Vector3(0, 0, 1);
+        //           transform.position -= new Vector3(0, 0, 1);
         //            break;
         //        case "InvisWallZ-":
         //            transform.position += new Vector3(0, 0, 1);
         //            break;
-         //   }
+        //   }
         //    velocity = new Vector3(0, 0, 0); 
         //    DisableMovementFor(0.5f);
         //    forceToDamageMultiplier = wallDamageMultiplier;
@@ -393,7 +416,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             Transform colParent = collision.gameObject.transform.parent;
-            if(colParent != null)
+            if (colParent != null)
             {
                 if (colParent.CompareTag("Terrain")) //If hit terrain
                 {
@@ -466,15 +489,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             }
 
             RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
-            if(newInput.forwards != playerInput.forwards)
+            if (newInput.forwards != playerInput.forwards)
             {
                 SetParticles(pDriveSystem, newInput.forwards);
             }
-            if(newInput.turnLeft != playerInput.turnLeft)
+            if (newInput.turnLeft != playerInput.turnLeft)
             {
                 SetParticles(pAntiClockwiseJets, newInput.turnLeft);
             }
-            if(newInput.turnRight != playerInput.turnRight)
+            if (newInput.turnRight != playerInput.turnRight)
             {
                 SetParticles(pClockwiseJets, newInput.turnRight);
             }
@@ -496,7 +519,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     bool GoingForwards()
     {
-        if(velocity.magnitude > breakToReverseThreashold && Vector3.Dot(transform.forward, velocity) > 0.0f)
+        if (velocity.magnitude > breakToReverseThreashold && Vector3.Dot(transform.forward, velocity) > 0.0f)
         {
             return true;
         }
@@ -590,7 +613,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     void SetParticles(List<ParticleSystem> systems, bool on)
     {
-        foreach(ParticleSystem ps in systems)
+        foreach (ParticleSystem ps in systems)
         {
             if (on)
             {

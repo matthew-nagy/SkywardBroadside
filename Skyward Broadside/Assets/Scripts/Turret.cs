@@ -111,9 +111,12 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         if (!targetTransform) return;
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
+        newProjectile.GetComponent<Explosive>().owner = gameObject;
+        newProjectile.tag = "TurretMissile";
+        newProjectile.GetComponent<Missile>().owner = gameObject;
+        newProjectile.GetComponent<Missile>().rotationDampening = 10;
         newProjectile.GetComponent<Missile>().explodeTimer = 4; //Make missiles explode after 4 seconds;
         newProjectile.GetComponent<Missile>().InitialiseMissile(targetTransform);
-        newProjectile.GetComponent<Missile>().owner = gameObject;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
