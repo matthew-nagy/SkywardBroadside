@@ -113,7 +113,8 @@ void Update()
     {
         updateScript.gameOverScreen.SetActive(true);
         updateScript.gameOverScreen.GetComponent<gameOverScreen>().CopyScoreboard();
-        updateScript.EnableGameOverMusic();
+        var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+        updateScript.GameOver();
     }
 
     private void OnEnable()
@@ -171,7 +172,7 @@ void Update()
         {
             var names = (string[]) photonEvent.CustomData;
             Debug.Log(names[0] + ' ' + names[1]);
-            if (names[0] != "Terrain")
+            if (names[0] != "Terrain" && names[0] != "Debris")
             {
                 players[names[0]].kills += 1;
                 players[names[0]].score += 100;

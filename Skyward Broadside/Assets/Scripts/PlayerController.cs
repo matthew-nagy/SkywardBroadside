@@ -94,6 +94,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 }
                 Die();
             }
+
+
             updateScript.UpdateGUIHealth(health);
         }
         else
