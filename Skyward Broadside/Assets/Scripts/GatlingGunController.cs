@@ -54,8 +54,8 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         SetLayerMask();
         shipType = transform.root.Find("Ship").GetChild(0).transform.name;
         shooterName = transform.root.Find("Ship").GetChild(0).GetComponent<PlayerController>().playerName;
-        gatlingSoundObj = Instantiate(gatlingBurst);
-        gatlingSoundObj.transform.parent = transform;
+        gatlingSoundObj = Instantiate(gatlingBurst, transform.position, transform.rotation);
+        gatlingSoundObj.transform.parent = transform.root.GetChild(0).GetChild(0);
     }
 
     void SetLayerMask()
@@ -81,20 +81,6 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         {
             ClientUpdate();
         }
-
-        
-    }
-
-    private void FixedUpdate()
-    {
-        if (serverShootingFlag || sendShootingToClient)
-        {
-            PlaySound();
-        }
-        else
-        {
-            StopSound();
-        }
     }
 
     void ServerUpdate()
@@ -106,6 +92,11 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
             getShipTransform().GetComponent<TargetingSystem>().aquireFreeFireTarget();
             targetPos = getShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
             Fire();
+            PlaySound();
+        }
+        else
+        {
+            StopSound();
         }
     }
 
@@ -114,6 +105,11 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         if (clientShootingFlag)
         {
             Fire();
+            PlaySound();
+        }
+        else
+        {
+            StopSound();
         }
     }
 
