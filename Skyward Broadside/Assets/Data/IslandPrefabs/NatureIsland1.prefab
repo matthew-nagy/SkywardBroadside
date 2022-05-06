@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4523053467487089499}
   - {fileID: 5152146567518984930}
@@ -308,7 +309,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2721754719882491331, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 6707041052927335177}
     - target: {fileID: 3429869382112574872, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 6707041052927335177}
+    - target: {fileID: 3732599640369277446, guid: 8663f85b523262949a358ce936cb987e, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 6707041052927335177}
@@ -454,7 +463,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.707
       objectReference: {fileID: 0}
+    - target: {fileID: 2721754719882491331, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 6707041052927335177}
     - target: {fileID: 3429869382112574872, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 6707041052927335177}
+    - target: {fileID: 3732599640369277446, guid: 8663f85b523262949a358ce936cb987e, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 6707041052927335177}
@@ -882,7 +899,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2721754719882491331, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3828683478126761193}
     - target: {fileID: 3429869382112574872, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3828683478126761193}
+    - target: {fileID: 3732599640369277446, guid: 8663f85b523262949a358ce936cb987e, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 3828683478126761193}
@@ -949,11 +974,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee7fead4020b6cc7d8a6dd316abfef9f, type: 3}
---- !u!4 &5152146567518984930 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3447375341725858184, guid: ee7fead4020b6cc7d8a6dd316abfef9f, type: 3}
-  m_PrefabInstance: {fileID: 7518640393503974250}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3828683478126761193 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6734470016962541443, guid: ee7fead4020b6cc7d8a6dd316abfef9f, type: 3}
@@ -965,6 +985,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84832cba34b6184f94427cb42e628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &5152146567518984930 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3447375341725858184, guid: ee7fead4020b6cc7d8a6dd316abfef9f, type: 3}
+  m_PrefabInstance: {fileID: 7518640393503974250}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7531646253924408227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1028,7 +1053,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2721754719882491331, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3828683478126761193}
     - target: {fileID: 3429869382112574872, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3828683478126761193}
+    - target: {fileID: 3732599640369277446, guid: 8663f85b523262949a358ce936cb987e, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 3828683478126761193}

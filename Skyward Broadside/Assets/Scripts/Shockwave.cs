@@ -14,6 +14,9 @@ public class Shockwave : MonoBehaviour
     [SerializeField]
     ParticleSystem implosion;
 
+    [SerializeField]
+    GameObject shockwaveFx;
+
     public GameObject owner;
 
     private void Start()
@@ -23,7 +26,8 @@ public class Shockwave : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Detonate(); 
+        Detonate();
+        owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(shockwaveFx, transform.position);
     }
 
     void Detonate()

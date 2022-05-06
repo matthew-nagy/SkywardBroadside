@@ -23,7 +23,7 @@ public class Breakable : MonoBehaviour
 
 
     void Start()
-    {
+    { 
         breakPhotonInterface.children.Add(this);
         enabled = false;
     }
