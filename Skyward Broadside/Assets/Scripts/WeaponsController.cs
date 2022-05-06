@@ -23,12 +23,15 @@ public class WeaponsController : MonoBehaviour
     bool lockedOn;
     bool switchedWeapon;
 
+    bool initialised;
+
+    [SerializeField]
+    GameObject introManager;
+
     List<int> equippedWeapons = new List<int>();
 
     private void Start()
     {
-        //enable weapon 0 on start
-        EnableWeapon(0);
         reloadCircle = GameObject.FindGameObjectWithTag("ReloadIndicator");
     }
 
@@ -47,57 +50,66 @@ public class WeaponsController : MonoBehaviour
 
     private void Update()
     {
-        GetInput();
-
-        lockedOn = GetComponent<TargetingSystem>().lockedOn;
-
-        switch (currentWeaponId)
+        if (introManager.GetComponent<Intro>().introDone && !initialised)
         {
-            case 0:
-                DisableExplosiveCannons();
-                DisableGatlingGun();
-                DisableShockwaveCannons();
-                DisableHomingCannons();
-                EnableCannons();
-                break;
-
-            case 1:
-                DisableCannons();
-                DisableGatlingGun();
-                DisableShockwaveCannons();
-                DisableHomingCannons();
-                EnableExplosiveCannons();
-                break;
-
-            case 2:
-                DisableCannons();
-                DisableExplosiveCannons();
-                DisableShockwaveCannons();
-                DisableHomingCannons();
-                EnableGatlingGun();
-                break;
-
-            case 3:
-                DisableCannons();
-                DisableExplosiveCannons();
-                DisableGatlingGun();
-                DisableHomingCannons();
-                EnableShockwaveCannons();
-                break;
-
-            case 4:
-                DisableCannons();
-                DisableExplosiveCannons();
-                DisableGatlingGun();
-                DisableShockwaveCannons();
-                EnableHomingCannons();
-                break;
-
-            default:
-                Debug.LogError("Invalid weapon Id");
-                break;
+            EnableWeapon(0);
+            initialised = true;
         }
-        switchedWeapon = false;
+
+        if (introManager.GetComponent<Intro>().introDone)
+        {
+            GetInput();
+
+            lockedOn = GetComponent<TargetingSystem>().lockedOn;
+
+            switch (currentWeaponId)
+            {
+                case 0:
+                    DisableExplosiveCannons();
+                    DisableGatlingGun();
+                    DisableShockwaveCannons();
+                    DisableHomingCannons();
+                    EnableCannons();
+                    break;
+
+                case 1:
+                    DisableCannons();
+                    DisableGatlingGun();
+                    DisableShockwaveCannons();
+                    DisableHomingCannons();
+                    EnableExplosiveCannons();
+                    break;
+
+                case 2:
+                    DisableCannons();
+                    DisableExplosiveCannons();
+                    DisableShockwaveCannons();
+                    DisableHomingCannons();
+                    EnableGatlingGun();
+                    break;
+
+                case 3:
+                    DisableCannons();
+                    DisableExplosiveCannons();
+                    DisableGatlingGun();
+                    DisableHomingCannons();
+                    EnableShockwaveCannons();
+                    break;
+
+                case 4:
+                    DisableCannons();
+                    DisableExplosiveCannons();
+                    DisableGatlingGun();
+                    DisableShockwaveCannons();
+                    EnableHomingCannons();
+                    break;
+
+                default:
+                    Debug.LogError("Invalid weapon Id");
+                    break;
+            }
+            switchedWeapon = false;
+        }
     }
 
     void GetInput()
