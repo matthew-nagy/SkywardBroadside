@@ -127,7 +127,9 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField]
     GameObject fires;
-    bool onFire;
+
+    [SerializeField]
+    GameObject introManager;
 
     public void ResetLastPosition()
     {
@@ -175,8 +177,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             Invoke(nameof(BallonSetup), 2.0f);
         }
-
-        PutOutFires();
     }
 
     void BallonSetup()
@@ -215,15 +215,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<ShipArsenal>().health <= 20f && !onFire)
-        {
-            StartFires();
-        }
-        else if (GetComponent<ShipArsenal>().health > 20f && onFire)
-        {
-            PutOutFires();
-        }
-
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
@@ -231,8 +222,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (!isDisabled)
         {
-            GetPlayerInput();
-            //GetWeaponInput();
+            if (introManager.GetComponent<Intro>().introDone)
+            {
+                GetPlayerInput();
+            }
         }
         else
         {
@@ -253,16 +246,14 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         verticalSpeed = velocity.y;
     }
 
-    void StartFires()
+    public void StartFires()
     {
         TurnOnParticles(fires.transform);
-        onFire = true;
     }
 
-    void PutOutFires()
+    public void PutOutFires()
     {
         TurnOffParticles(fires.transform);
-        onFire = false;
     }
 
 
@@ -270,7 +261,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (root.TryGetComponent(out ParticleSystem ps))
         {
-            ps.Play();
+            if (!ps.isPlaying)
+            {
+                ps.Play();
+            }
         }
         foreach (Transform child in root)
         {
@@ -282,7 +276,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (root.TryGetComponent(out ParticleSystem ps))
         {
-            ps.Stop();
+            if (ps.isPlaying)
+            {
+                ps.Stop();
+            }
         }
         foreach (Transform child in root)
         {

@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     void Die()
     {
+        GetComponent<ShipController>().PutOutFires();
         if (photonView.IsMine)
         {
             broadcastDeath();
