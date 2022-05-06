@@ -40,38 +40,50 @@ public class Intro : MonoBehaviour
 
     int myTeam;
 
+    [SerializeField]
+    bool doIntro;
+
     private void Start()
     {
-        if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
+        if (doIntro)
         {
-            transitions = new List<GameObject[]>();
-            canvas = GameObject.FindGameObjectWithTag("Canvas");
-            canvas.SetActive(false);
-
-            shipTransform = transform.root.GetChild(0).GetChild(0);
-
-            mapCenter = GameObject.FindGameObjectWithTag("MapCenter").transform.position;
-
-            myTeam = (int)shipTransform.GetComponent<PlayerController>().myTeam;
-
-            GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
-            foreach (GameObject _base in bases)
+            if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
             {
-                if (myTeam == (int)_base.GetComponent<ReloadRegister>().myTeam)
+                transitions = new List<GameObject[]>();
+                canvas = GameObject.FindGameObjectWithTag("Canvas");
+                canvas.SetActive(false);
+
+                shipTransform = transform.root.GetChild(0).GetChild(0);
+
+                mapCenter = GameObject.FindGameObjectWithTag("MapCenter").transform.position;
+
+                myTeam = (int)shipTransform.GetComponent<PlayerController>().myTeam;
+
+                GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
+                foreach (GameObject _base in bases)
                 {
-                    myBase = _base;
+                    if (myTeam == (int)_base.GetComponent<ReloadRegister>().myTeam)
+                    {
+                        myBase = _base;
+                    }
                 }
-            }
 
-            if (myTeam == 0)
-            {
-                path1 = purpleFlyThru;
+                if (myTeam == 0)
+                {
+                    path1 = purpleFlyThru;
+                }
+                else
+                {
+                    path1 = yellowFlyThru;
+                }
+                StartIntro();
             }
-            else
-            {
-                path1 = yellowFlyThru;
-            }
-            StartIntro();
+        }
+        else
+        {
+            introDone = true;
+            shipTransform = transform.root.GetChild(0).GetChild(0);
+            shipTransform.GetComponent<CameraController>().cameraObj.Priority = 1;
         }
     }
 

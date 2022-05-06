@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.65000033, y: -1.092, z: 1.0400006}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -49,3 +50,4 @@ MonoBehaviour:
   yellowFlyThru: {fileID: 489267567298461090, guid: 5b0d2d6459ad0914aabd9f683b251db3, type: 3}
   path2: {fileID: 5141786813538448593, guid: ac4df77fd1e349a459e740f22290df68, type: 3}
   introDone: 0
+  doIntro: 1

@@ -17,6 +17,10 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
     float range;
     [SerializeField]
     ParticleSystem gatlingImpact;
+    [SerializeField]
+    GameObject gatlingBurst;
+
+    GameObject gatlingSoundObj;
 
     LayerMask layerMask;
 
@@ -50,6 +54,8 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         SetLayerMask();
         shipType = transform.root.Find("Ship").GetChild(0).transform.name;
         shooterName = transform.root.Find("Ship").GetChild(0).GetComponent<PlayerController>().playerName;
+        gatlingSoundObj = Instantiate(gatlingBurst, transform.position, transform.rotation);
+        gatlingSoundObj.transform.parent = transform.root.GetChild(0).GetChild(0);
     }
 
     void SetLayerMask()
@@ -86,6 +92,11 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
             getShipTransform().GetComponent<TargetingSystem>().aquireFreeFireTarget();
             targetPos = getShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
             Fire();
+            PlaySound();
+        }
+        else
+        {
+            StopSound();
         }
     }
 
@@ -94,6 +105,11 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         if (clientShootingFlag)
         {
             Fire();
+            PlaySound();
+        }
+        else
+        {
+            StopSound();
         }
     }
 
@@ -102,7 +118,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         if (weaponEnabled)
         {
             //attempt to fire the cannon
-            if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading && !serverShootingFlag)
+            if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(secondaryFireKey)) && !reloading)
             {
                 serverShootingFlag = sendShootingToClient = true;
             }
@@ -116,6 +132,23 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
             serverShootingFlag = sendShootingToClient = false;
         }
     }
+
+    void PlaySound()
+    {
+        if (!gatlingSoundObj.GetComponent<AudioSource>().isPlaying)
+        {
+            gatlingSoundObj.GetComponent<AudioSource>().Play();
+        }
+    }
+
+    void StopSound()
+    {
+        if (gatlingSoundObj.GetComponent<AudioSource>().isPlaying)
+        {
+            gatlingSoundObj.GetComponent<AudioSource>().Stop();
+        }
+    }
+
     Transform getShipTransform()
     {
         return transform.root.Find("Ship").Find(shipType);
@@ -126,7 +159,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         //Tee hee no shake for gatling controller
     }
 
-    //fire the cannon
+    //fire the canno
     void Fire()
     {
         SendShakeEvent();

@@ -238,6 +238,15 @@ public class WeaponsController : MonoBehaviour
                         cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
                         cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
                     }
+
+                    if (GetComponent<ShipArsenal>().explosiveCannonballAmmo <= 0)
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().outOfAmmo = true;
+                    }
+                    else
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().outOfAmmo = false;
+                    }
                 }
                 else
                 {
@@ -263,6 +272,15 @@ public class WeaponsController : MonoBehaviour
                         cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
                         cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
                     }
+
+                    if (GetComponent<ShipArsenal>().explosiveCannonballAmmo <= 0)
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().outOfAmmo = true;
+                    }
+                    else
+                    {
+                        cannon.GetComponent<ExplosiveCannonController>().outOfAmmo = false;
+                    }
                 }
                 else
                 {
@@ -280,6 +298,7 @@ public class WeaponsController : MonoBehaviour
             {
                 cannon.GetComponent<ExplosiveCannonController>().weaponEnabled = false;
                 cannon.GetComponent<ExplosiveCannonController>().lockedOn = false;
+                cannon.GetComponent<ExplosiveCannonController>().outOfAmmo = false;
             }
             else
             {
@@ -348,6 +367,15 @@ public class WeaponsController : MonoBehaviour
                             cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
                             cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
                         }
+
+                        if (GetComponent<ShipArsenal>().shockwaveAmmo <= 0)
+                        {
+                            cannon.GetComponent<ShockwaveCannonController>().outOfAmmo = true;
+                        }
+                        else
+                        {
+                            cannon.GetComponent<ShockwaveCannonController>().outOfAmmo = false;
+                        }
                     }
                     else
                     {
@@ -373,6 +401,15 @@ public class WeaponsController : MonoBehaviour
                             cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
                             cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
                         }
+
+                        if (GetComponent<ShipArsenal>().shockwaveAmmo <= 0)
+                        {
+                            cannon.GetComponent<ShockwaveCannonController>().outOfAmmo = true;
+                        }
+                        else
+                        {
+                            cannon.GetComponent<ShockwaveCannonController>().outOfAmmo = false;
+                        }
                     }
                     else
                     {
@@ -393,6 +430,7 @@ public class WeaponsController : MonoBehaviour
                 {
                     cannon.GetComponent<ShockwaveCannonController>().weaponEnabled = false;
                     cannon.GetComponent<ShockwaveCannonController>().lockedOn = false;
+                    cannon.GetComponent<ShockwaveCannonController>().outOfAmmo = false;
                 }
                 else
                 {
@@ -426,6 +464,15 @@ public class WeaponsController : MonoBehaviour
                             cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
                             cannon.GetComponent<HomingCannonController>().lockedOn = false;
                         }
+
+                        if (GetComponent<ShipArsenal>().homingAmmo <= 0)
+                        {
+                            cannon.GetComponent<HomingCannonController>().outOfAmmo = true;
+                        }
+                        else
+                        {
+                            cannon.GetComponent<HomingCannonController>().outOfAmmo = false;
+                        }
                     }
                     else
                     {
@@ -451,6 +498,15 @@ public class WeaponsController : MonoBehaviour
                             cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
                             cannon.GetComponent<HomingCannonController>().lockedOn = false;
                         }
+
+                        if (GetComponent<ShipArsenal>().homingAmmo <= 0)
+                        {
+                            cannon.GetComponent<HomingCannonController>().outOfAmmo = true;
+                        }
+                        else
+                        {
+                            cannon.GetComponent<HomingCannonController>().outOfAmmo = false;
+                        }
                     }
                     else
                     {
@@ -471,6 +527,7 @@ public class WeaponsController : MonoBehaviour
                 {
                     cannon.GetComponent<HomingCannonController>().weaponEnabled = false;
                     cannon.GetComponent<HomingCannonController>().lockedOn = false;
+                    cannon.GetComponent<HomingCannonController>().outOfAmmo = false;
                 }
                 else
                 {
