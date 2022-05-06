@@ -4901,7 +4901,7 @@ MonoBehaviour:
   turretHead: {fileID: 3579901972732895469}
   explosionEffect: {fileID: 3295607932566279283, guid: ce42c1b344e9ae7afb9ffe8804f0f112, type: 3}
   range: 75
-  reloadTime: 5
+  reloadTime: 10
   targetedPlayerName: 
 --- !u!114 &4426814345066388840
 MonoBehaviour:
@@ -4916,7 +4916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakPhotonInterface: {fileID: 0}
-  breakForce: 3
+  breakForce: 0.1
   broken: 0
   cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!114 &4426814345066388841
