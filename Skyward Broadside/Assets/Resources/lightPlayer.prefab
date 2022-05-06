@@ -344,6 +344,8 @@ MonoBehaviour:
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   missileShot: {fileID: 718342346669069729, guid: 8b2f4800149319a45a398293d03483dd, type: 3}
   soundFxHub: {fileID: 8893046049906121766}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &556212186584498659
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,6 +606,8 @@ MonoBehaviour:
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   missileShot: {fileID: 718342346669069729, guid: 8b2f4800149319a45a398293d03483dd, type: 3}
   soundFxHub: {fileID: 8893046049906121766}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &1162062450559151228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,6 +1096,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &1490612957744294701
 GameObject:
   m_ObjectHideFlags: 0
@@ -6265,6 +6271,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &1661098285713039548
 GameObject:
   m_ObjectHideFlags: 0
@@ -6420,6 +6428,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &1848354179777202210
 GameObject:
   m_ObjectHideFlags: 0
@@ -6855,6 +6865,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &2072768777946812345
 GameObject:
   m_ObjectHideFlags: 0
@@ -7124,6 +7136,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &2304211173183839468
 GameObject:
   m_ObjectHideFlags: 0
@@ -7248,6 +7262,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &2367002279429949282
 GameObject:
   m_ObjectHideFlags: 0
@@ -7606,6 +7622,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &2807623626015935938
 GameObject:
   m_ObjectHideFlags: 0
@@ -8012,6 +8030,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &3271077897174039256
 GameObject:
   m_ObjectHideFlags: 0
@@ -8136,6 +8156,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &3276945581033206041
 GameObject:
   m_ObjectHideFlags: 0
@@ -9201,6 +9223,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &3919511586191714066
 GameObject:
   m_ObjectHideFlags: 0
@@ -14502,6 +14526,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &4643710945901128794
 GameObject:
   m_ObjectHideFlags: 0
@@ -15106,6 +15132,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &5329110726843558940
 GameObject:
   m_ObjectHideFlags: 0
@@ -15347,6 +15375,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &5389878123162882542
 GameObject:
   m_ObjectHideFlags: 0
@@ -15471,6 +15501,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &5412640995498660239
 GameObject:
   m_ObjectHideFlags: 0
@@ -15829,6 +15861,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &5957210336380583254
 GameObject:
   m_ObjectHideFlags: 0
@@ -16068,6 +16102,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &6147175675994078812
 GameObject:
   m_ObjectHideFlags: 0
@@ -16376,6 +16412,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &6736503062916749092
 GameObject:
   m_ObjectHideFlags: 0
@@ -16862,6 +16900,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &7227185333186028901
 GameObject:
   m_ObjectHideFlags: 0
@@ -17070,6 +17110,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &7269366534551889900
 GameObject:
   m_ObjectHideFlags: 0
@@ -22320,6 +22362,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &7953145228176457533
 GameObject:
   m_ObjectHideFlags: 0
@@ -22444,6 +22488,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &8001559498931688373
 GameObject:
   m_ObjectHideFlags: 0
@@ -22568,6 +22614,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &8008382565483368655
 GameObject:
   m_ObjectHideFlags: 0
@@ -23048,6 +23096,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &8198321354341251857
 GameObject:
   m_ObjectHideFlags: 0
@@ -23153,6 +23203,8 @@ MonoBehaviour:
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   missileShot: {fileID: 718342346669069729, guid: 8b2f4800149319a45a398293d03483dd, type: 3}
   soundFxHub: {fileID: 8893046049906121766}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &8366676166585038853
 GameObject:
   m_ObjectHideFlags: 0
@@ -23308,6 +23360,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &8431096724401802349
 GameObject:
   m_ObjectHideFlags: 0
@@ -28225,6 +28279,8 @@ MonoBehaviour:
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   missileShot: {fileID: 718342346669069729, guid: 8b2f4800149319a45a398293d03483dd, type: 3}
   soundFxHub: {fileID: 8893046049906121766}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &8619612787187717160
 GameObject:
   m_ObjectHideFlags: 0
@@ -28547,6 +28603,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 6691113116331501348}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!1 &8899311101800265010
 GameObject:
   m_ObjectHideFlags: 0

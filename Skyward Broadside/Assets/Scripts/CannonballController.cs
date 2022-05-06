@@ -39,7 +39,14 @@ public class CannonballController : MonoBehaviour
         Instantiate(impact, transform.position, Quaternion.identity);
         if (owner != collision.gameObject)
         {
-            if (collision.collider.transform.root.childCount > 0)
+            if (collision.collider.gameObject.CompareTag("Terrain") || collision.collider.gameObject.CompareTag("Debris"))
+            {
+                if (explosionDebris != null)
+                {
+                    effect = explosionDebris;
+                }
+            }
+            else if (collision.collider.transform.root.childCount > 0)
             {
                 if (collision.collider.transform.root.GetChild(0).childCount > 0)
                 {
@@ -50,22 +57,22 @@ public class CannonballController : MonoBehaviour
                             effect = explosionMetal;
                         }
                     }
+                    else
+                    {
+                        effect = explosionAir;
+                    }
                 }
-            }
-            else if (collision.collider.gameObject.CompareTag("Terrain"))
-            {
-                if (explosionDebris != null)
-                {
-                    effect = explosionDebris;
-                }
-            }
-            else
-            {
-                if (explosionAir != null)
+                else
                 {
                     effect = explosionAir;
                 }
             }
+            else
+            {
+                effect = explosionAir;
+            }
+            Debug.Log(collision.collider.gameObject.name);
+            Debug.Log(collision.collider.gameObject.tag);
             Destroy(gameObject);
         }
     }
@@ -76,5 +83,10 @@ public class CannonballController : MonoBehaviour
         {
             owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
         }
+        else
+        {
+            Debug.Log("Effect null");
+        }
+
     }
 }

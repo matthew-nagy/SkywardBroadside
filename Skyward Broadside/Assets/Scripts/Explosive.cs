@@ -26,7 +26,7 @@ public class Explosive : MonoBehaviour
     {
         if (!detonated && Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects).Length > 0)
         {
-            if (collision.collider.gameObject.CompareTag("Terrain"))
+            if (collision.collider.gameObject.CompareTag("Terrain") || collision.collider.gameObject.CompareTag("Debris"))
             {
                 if (explosionDebris != null)
                 {
@@ -44,6 +44,14 @@ public class Explosive : MonoBehaviour
                             effect = explosionMetal;
                         }
                     }
+                    else
+                    {
+                        effect = explosionAir;
+                    }
+                }
+                else
+                {
+                    effect = explosionAir;
                 }
             }
             else

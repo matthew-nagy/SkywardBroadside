@@ -156,6 +156,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &7222942851905283016
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -502,6 +504,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &8332600205267295374
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6326,6 +6330,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &3586014301845019955
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6807,6 +6813,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &3799823137688307454
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12842,6 +12850,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &7319855410650200283
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18242,6 +18252,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &3614231546438748323
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18495,6 +18507,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &3902687731006186723
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18634,6 +18648,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &8368809283767896956
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18773,6 +18789,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &1081009702591916713
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19006,6 +19024,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &6841266047147573701
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19458,6 +19478,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &2182011702787765066
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24575,6 +24597,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &7294623994722458051
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24927,6 +24951,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &5628595469820738629
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25149,6 +25175,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &5943756698096357047
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25288,6 +25316,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &8058296795841871934
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25681,6 +25711,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &609247835748716816
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25903,6 +25935,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &3832188574017780856
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26042,6 +26076,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &5679427055722115841
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26264,6 +26300,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &8676309611881349800
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26403,6 +26441,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &2270353558632217301
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26542,6 +26582,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &3541881899822565146
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26961,6 +27003,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &7458111448094766245
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -31995,6 +32039,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &2524700322218882104
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32638,6 +32684,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &4855602648276680271
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -32943,6 +32991,8 @@ MonoBehaviour:
   lockedOn: 0
   cannonFire: {fileID: 600649983743586459, guid: 44be2f8bc1e68954580915f7b9018391, type: 3}
   cannonsShots: {fileID: 5874136407869104773}
+  cantShootFx: {fileID: 718342346669069729, guid: 7c828b37c777fe9418f22bc4f9da87d6, type: 3}
+  outOfAmmo: 0
 --- !u!136 &3147943997724522208
 CapsuleCollider:
   m_ObjectHideFlags: 0

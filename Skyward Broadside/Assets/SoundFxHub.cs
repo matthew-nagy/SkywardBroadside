@@ -19,7 +19,7 @@ public class SoundFxHub : MonoBehaviour
                 doEffect = false;
                 GameObject effect = Instantiate(Soundfx, EffectPos, Quaternion.identity);
                 effectObjs.Add(effect);
-                Invoke(nameof(DestroyEffectObj), 2f);
+                Invoke(nameof(DestroyEffectObj), 4f);
             }
         }
     }
