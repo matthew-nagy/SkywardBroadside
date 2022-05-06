@@ -6694,6 +6694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: turret
       objectReference: {fileID: 0}
+    - target: {fileID: 4426814345066388838, guid: ceb50684e39e4a339a9034656fd74492, type: 3}
+      propertyPath: range
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 4426814345066388839, guid: ceb50684e39e4a339a9034656fd74492, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -11,7 +11,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     public Transform shotOrigin;
     public GameObject turretHead;
     public GameObject explosionEffect;
-    public float range = 50.0f;
+    public float range = 75;
 
     public float reloadTime = 5;
     private float lastShotTime = 0;
@@ -19,7 +19,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     bool masterClientShootFlag;
     bool clientShootFlag;
 
-    public string targetedPlayerName;
+    public string targetedPlayerName = "";
 
     Breakable myBreakable;
 
@@ -30,7 +30,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         myBreakable = gameObject.GetComponent<Breakable>();
         targetedPlayerName = "";
         enabled = false;
-        Invoke(nameof(SetActive), 50.0f);
+        Invoke(nameof(SetActive), 3.0f);
     }
 
     void SetActive()
@@ -40,8 +40,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     void Update()
     {
-        Debug.Log("Targeting: " + targetedPlayerName);
-        if (myBreakable.broken)
+        if (myBreakable.broken) // Breakable photon interface updates this over the network
         {
             Die();
         }
@@ -84,13 +83,14 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     void ClientUpdate()
     {
+
+        if (targetedPlayerName == "") return; // No point finding transform or shootig if there is no target
+
         if (clientShootFlag)
         {
             Shoot();
             clientShootFlag = false;
         }
-
-        if (targetedPlayerName == "") return; // No point finding transform if there is no target
 
         //Otherwise use the targetedPlayerName to find the transform of the targeted player
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
@@ -111,6 +111,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         if (!targetTransform) return;
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
+        newProjectile.GetComponent<Missile>().explodeTimer = 4; //Make missiles explode after 4 seconds;
         newProjectile.GetComponent<Missile>().InitialiseMissile(targetTransform);
         newProjectile.GetComponent<Missile>().owner = gameObject;
     }
@@ -142,25 +143,35 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
         bool didSet = false;
 
+        GameObject closestPlayer = null;
+        float closestDist = -1;
+
         foreach (GameObject player in players)
         {
             float dist = (player.transform.position - turretHead.transform.position).magnitude;
-
-            if (dist < range) continue;
-
-            if (dist < shortestDistance)
+            if (dist <= range && dist < shortestDistance)
             {
                 didSet = true;
-                targetTransform = player.transform;
-                targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.text;
+                closestPlayer = player;
+                closestDist = dist;
             }
         }
 
         if (!didSet)
         {
+            // Debug.Log("Nothing in range");
             targetedPlayerName = "";
             targetTransform = null;
         }
+        else
+        {
+            if (!closestPlayer) return;
+
+            targetTransform = closestPlayer.transform;
+            targetedPlayerName = targetTransform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>().playerNameText.text;
+            // Debug.Log("Turret locked on to: " + targetedPlayerName + " at dist " + closestDist);
+        }
+
     }
 
     void Die()
