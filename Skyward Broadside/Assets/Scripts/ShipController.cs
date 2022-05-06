@@ -215,6 +215,15 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        if (GetComponent<ShipArsenal>().health <= 20f && !onFire)
+        {
+            StartFires();
+        }
+        else if (GetComponent<ShipArsenal>().health > 20f && onFire)
+        {
+            PutOutFires();
+        }
+
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
@@ -242,15 +251,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         verticalSpeed = velocity.y;
-
-        if (GetComponent<ShipArsenal>().health <= 20f && !onFire)
-        {
-            StartFires();
-        }
-        else if (GetComponent<ShipArsenal>().health > 20f && onFire)
-        {
-            PutOutFires();
-        }
     }
 
     void StartFires()
