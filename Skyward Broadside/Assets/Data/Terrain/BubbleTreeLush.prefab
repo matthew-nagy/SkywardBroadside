@@ -143,22 +143,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.024340313
   m_Center: {x: -0.0024480121, y: -0.0139621645, z: -0.0065402663}
---- !u!114 &3732599640369277446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5262360799605465184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c27c893849ad634cb4b1f6859d97daa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakPhotonInterface: {fileID: 0}
-  breakForce: 0.18
-  broken: 0
-  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!1 &6313773721294929463 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7012509476274988224, guid: 6dc4cda166983ab4facf3ffd12f9efbd, type: 3}
@@ -177,19 +161,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.014
   m_Center: {x: 0.005, y: 0.00095252675, z: 0.0008012339}
---- !u!114 &2721754719882491331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6313773721294929463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c27c893849ad634cb4b1f6859d97daa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakPhotonInterface: {fileID: 0}
-  breakForce: 0.18
-  broken: 0
-  cascadeCoordinate: {x: 0, y: 0, z: 0}

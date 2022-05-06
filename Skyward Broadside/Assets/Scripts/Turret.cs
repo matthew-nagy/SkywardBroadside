@@ -23,6 +23,10 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     Breakable myBreakable;
 
+    [SerializeField]
+    GameObject soundFxHub;
+    [SerializeField]
+    GameObject explosionAir;
 
     // Start is called before the first frame update
     void Start()
@@ -132,8 +136,8 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         newProjectile.GetComponent<Explosive>().owner = gameObject;
         newProjectile.tag = "TurretMissile";
         newProjectile.GetComponent<Missile>().owner = gameObject;
-        newProjectile.GetComponent<Missile>().rotationDampening = 10;
-        newProjectile.GetComponent<Missile>().explodeTimer = 4; //Make missiles explode after 4 seconds;
+        newProjectile.GetComponent<Missile>().rotationDampening = 3;
+        newProjectile.GetComponent<Missile>().explodeTimer = 5; //Make missiles explode after 4 seconds;
         newProjectile.GetComponent<Missile>().InitialiseMissile(targetTransform);
     }
 
@@ -201,6 +205,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         explosionObject.transform.position = transform.position;
         explosionObject.GetComponent<ParticleSystem>().Play();
 
+        soundFxHub.GetComponent<SoundFxHub>().DoEffect(explosionAir, transform.position);
         gameObject.SetActive(false);
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
     }
