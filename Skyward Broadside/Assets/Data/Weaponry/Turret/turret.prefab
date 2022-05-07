@@ -4906,6 +4906,7 @@ MonoBehaviour:
   targetedPlayerName: 
   soundFxHub: {fileID: 3646937853787869835}
   explosionAir: {fileID: 718342346669069729, guid: 1ef6542570162e840bda68c25fe9bcb3, type: 3}
+  missileLaunchFx: {fileID: 718342346669069729, guid: 8b2f4800149319a45a398293d03483dd, type: 3}
 --- !u!114 &4426814345066388840
 MonoBehaviour:
   m_ObjectHideFlags: 0
