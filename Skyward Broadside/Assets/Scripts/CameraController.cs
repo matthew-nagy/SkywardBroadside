@@ -27,6 +27,9 @@ public class CameraController : MonoBehaviourPunCallbacks
     static float sensitivityFactor = 0.8f;
     static bool sensitivityChange = false;
     public static Slider sensitivitySlider;
+
+    float originalX;
+    float originalY;
     public static void SetSensitivity()
     {
         sensitivity = sensitivitySlider.value;
@@ -54,6 +57,9 @@ public class CameraController : MonoBehaviourPunCallbacks
             cameraObj.Priority = 0;                                                                         //CHANGE THIS TO 0 AFTER BUG IS FIXED
 
             IntroManager.GetComponent<Intro>().brain = thisCam.GetComponent<CinemachineBrain>();
+
+            originalX = cameraObj.m_XAxis.m_MaxSpeed;
+            originalY = cameraObj.m_YAxis.m_MaxSpeed;
 
             cameraObj.m_XAxis.m_MaxSpeed *= sensitivity * sensitivityFactor * 2.0f;
             cameraObj.m_YAxis.m_MaxSpeed *= sensitivity * sensitivityFactor / 1.3f;
@@ -83,8 +89,8 @@ public class CameraController : MonoBehaviourPunCallbacks
         if (sensitivityChange)
         {
             sensitivityChange = false;
-            cameraObj.m_XAxis.m_MaxSpeed = sensitivity * sensitivityFactor * 2.0f;
-            cameraObj.m_YAxis.m_MaxSpeed = sensitivity * sensitivityFactor / 1.3f;
+            cameraObj.m_XAxis.m_MaxSpeed = originalX * ( sensitivity * sensitivityFactor * 2.0f );
+            cameraObj.m_YAxis.m_MaxSpeed = originalY * ( sensitivity * sensitivityFactor / 1.3f );
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
