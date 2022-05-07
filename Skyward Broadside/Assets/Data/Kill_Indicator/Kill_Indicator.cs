@@ -12,10 +12,9 @@ using UnityEngine.UI;
 public class Kill_Indicator : MonoBehaviour
 {
     [SerializeField]
-    PhotonView pv;
-    [SerializeField]
     GameObject oneHundred;
 
+    PhotonView pv;
     GameObject indicator;
     public enum EventCode : byte
     {
@@ -34,21 +33,33 @@ public class Kill_Indicator : MonoBehaviour
         PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
     }
 
+    private void Start()
+    {
+        Transform ship = transform.root.Find("Ship");
+        if (ship != null)
+        {
+            pv = ship.GetChild(0).GetComponent<PhotonView>();
+        }
+    }
+
     private void OnEvent(EventData photonEvent)
     {
-        if (pv.IsMine)
+        if (pv != null)
         {
-            byte eventCode = photonEvent.Code;
-            if (eventCode == (byte)EventCode.KillEventWithNames)
+            if (pv.IsMine)
             {
-                var names = (string[])photonEvent.CustomData;
-                if (names[0] == PhotonNetwork.NickName)
+                byte eventCode = photonEvent.Code;
+                if (eventCode == (byte)EventCode.KillEventWithNames)
                 {
-                    Debug.Log("Shown");
-                    ShowIndicator(names[1]);
+                    var names = (string[])photonEvent.CustomData;
+                    if (names[0] == PhotonNetwork.NickName)
+                    {
+                        Debug.Log("Shown");
+                        ShowIndicator(names[1]);
+                    }
                 }
             }
-        }
+        } 
     }
 
     void ShowIndicator(string playerKilled)

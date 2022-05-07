@@ -52,4 +52,4 @@ MonoBehaviour:
   yellowStartIslandPos: {x: 0, y: 0, z: 0}
   purpleStartIslandPos: {x: 0, y: 0, z: 0}
   introDone: 0
-  doIntro: 1
+  doIntro: 0
