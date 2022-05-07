@@ -28,6 +28,11 @@ public class Intro : MonoBehaviour
     [SerializeField]
     CinemachineSmoothPath path2;
 
+    [SerializeField]
+    Vector3 yellowStartIslandPos;
+    [SerializeField]
+    Vector3 purpleStartIslandPos;
+
     GameObject myBase;
 
     bool endIntro;
@@ -95,8 +100,38 @@ public class Intro : MonoBehaviour
                                   (1 << LayerMask.NameToLayer("Island")) | (1 << LayerMask.NameToLayer("Projectile")) |
                                   (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("EnemyProjectile")) |
                                   (1 << LayerMask.NameToLayer("ResupplyBase"));
-        Scene0();
-        Invoke(nameof(Scene1), 1f);
+        IslandScene();
+    }
+
+    void IslandScene()
+    {
+        //remove this when island coords are set in serialized field
+        yellowStartIslandPos = new Vector3(-3f, 187f, -173f);
+        purpleStartIslandPos = new Vector3(-3f, 187f, -173f);
+        //
+
+        GameObject islandPosObj = new GameObject();
+        Vector3 offSet = new Vector3(30f, 0f, 0f);
+
+        cam3 = Instantiate(cameraPrefab);
+        cam3.name = "IslandCam";
+        if (myTeam == 0)
+        {
+            islandPosObj.transform.position = purpleStartIslandPos;
+            cam3.transform.position = purpleStartIslandPos - offSet;
+            cam3.transform.position += new Vector3(0f, 10f, 0f);
+            cam3.transform.LookAt(purpleStartIslandPos);
+        }
+        else
+        {
+            islandPosObj.transform.position = purpleStartIslandPos;
+            cam3.transform.position = yellowStartIslandPos + offSet;
+            cam3.transform.position += new Vector3(0f, 10f, 0f);
+            cam3.transform.LookAt(yellowStartIslandPos);
+        }
+        cam3.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        StartCoroutine(Orbit(islandPosObj, cam3, 3f, 5f));
+        Invoke(nameof(Scene0), 3f);
     }
 
     void Scene0()
@@ -115,7 +150,10 @@ public class Intro : MonoBehaviour
         }
         
         cam1 = Instantiate(cameraPrefab, pos, Quaternion.Euler(rot));
+        cam1.name = "FlyCam";
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        cam3.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        Invoke(nameof(Scene1), 1f);
     }
 
     //fly over
@@ -166,7 +204,7 @@ public class Intro : MonoBehaviour
         cam2.transform.position = cam1.transform.position;
         cam2.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
-        StartCoroutine(Orbit(target, cam2));
+        StartCoroutine(Orbit(target, cam2, 5f, 20f));
         Invoke(nameof(Scene4), 5f);
     }
 
@@ -245,13 +283,13 @@ public class Intro : MonoBehaviour
         Invoke(nameof(FinishIntro), 2f);
     }
 
-    IEnumerator Orbit(GameObject target, GameObject cam)
+    IEnumerator Orbit(GameObject target, GameObject cam, float orbitTime, float orbitSpeed)
     {
         float time = 0f;
-        while (time < 5f)
+        while (time < orbitTime)
         {
             cam.transform.LookAt(target.transform);
-            cam.transform.Translate(Vector3.right * Time.deltaTime * 20f);
+            cam.transform.Translate(Vector3.right * Time.deltaTime * orbitSpeed);
             time += Time.deltaTime;
             yield return null;
         }
