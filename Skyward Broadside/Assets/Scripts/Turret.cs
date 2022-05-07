@@ -43,7 +43,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         myBreakable = gameObject.GetComponent<Breakable>();
         targetedPlayerName = "";
         enabled = false;
-        Invoke(nameof(SetActive), 3.0f);
+        Invoke(nameof(SetActive), 45.0f);
 
         TurretsList.AddTurret(gameObject);
 
