@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Rendering.PostProcessing;
 using Cinemachine;
+using UnityEngine.UI; // Required when Using UI elements
+using UnityEditor;
 
 public class CameraController : MonoBehaviourPunCallbacks
 {
@@ -21,7 +23,15 @@ public class CameraController : MonoBehaviourPunCallbacks
     CinemachineVirtualCamera lockOnCameraObj;
     CinemachineVirtualCamera minimapCameraObj;
 
-    static float sensitivity = 0.8f;
+    public static float sensitivity = 0.7f;
+    static float sensitivityFactor = 0.8f;
+    static bool sensitivityChange = false;
+    public static Slider sensitivitySlider;
+    public static void SetSensitivity()
+    {
+        sensitivity = sensitivitySlider.value;
+        sensitivityChange = true;
+    }
 
     bool freeCamDisabled;
 
@@ -32,6 +42,7 @@ public class CameraController : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
+
             thisCam = Instantiate(shipCam);
             thisCam.name = "ShipCam";
             Blackboard.shipCamera = thisCam;
@@ -44,8 +55,8 @@ public class CameraController : MonoBehaviourPunCallbacks
 
             IntroManager.GetComponent<Intro>().brain = thisCam.GetComponent<CinemachineBrain>();
 
-            cameraObj.m_XAxis.m_MaxSpeed *= sensitivity;
-            cameraObj.m_YAxis.m_MaxSpeed *= sensitivity;
+            cameraObj.m_XAxis.m_MaxSpeed *= sensitivity * sensitivityFactor * 2.0f;
+            cameraObj.m_YAxis.m_MaxSpeed *= sensitivity * sensitivityFactor / 1.3f;
 
             gameObject.GetComponent<TargetingSystem>().myCam = cameraObj;
             gameObject.GetComponent<ShipController>().freeCameraObject = cameraObj.gameObject;
@@ -69,6 +80,18 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (sensitivityChange)
+        {
+            sensitivityChange = false;
+            cameraObj.m_XAxis.m_MaxSpeed = sensitivity * sensitivityFactor * 2.0f;
+            cameraObj.m_YAxis.m_MaxSpeed = sensitivity * sensitivityFactor / 1.3f;
+            Debug.LogError("Sensitivity is now " + sensitivity);
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Debug.LogError("X max speed = " + cameraObj.m_XAxis.m_MaxSpeed + ", " + sensitivity + " * " + sensitivityFactor + " * 2.0f");
+            Debug.LogError("Y max speed = " + cameraObj.m_YAxis.m_MaxSpeed + ", " + sensitivity + " * " + sensitivityFactor + " / 1.3f");
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = true;
