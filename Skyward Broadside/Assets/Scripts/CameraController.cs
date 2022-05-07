@@ -85,12 +85,6 @@ public class CameraController : MonoBehaviourPunCallbacks
             sensitivityChange = false;
             cameraObj.m_XAxis.m_MaxSpeed = sensitivity * sensitivityFactor * 2.0f;
             cameraObj.m_YAxis.m_MaxSpeed = sensitivity * sensitivityFactor / 1.3f;
-            Debug.LogError("Sensitivity is now " + sensitivity);
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            Debug.LogError("X max speed = " + cameraObj.m_XAxis.m_MaxSpeed + ", " + sensitivity + " * " + sensitivityFactor + " * 2.0f");
-            Debug.LogError("Y max speed = " + cameraObj.m_YAxis.m_MaxSpeed + ", " + sensitivity + " * " + sensitivityFactor + " / 1.3f");
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {

@@ -533,7 +533,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 foreach (GameObject balloon in balloons)
                 {
-                    //balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+                    balloon.GetComponent<Renderer>().material = shipMats[myTeam];
                 }
             }
 
