@@ -35,11 +35,6 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        if (photonView.IsMine)
-        {
-            MoveToLayer(transform, 2);
-        }
-
         myBreakable = gameObject.GetComponent<Breakable>();
         targetedPlayerName = "";
         enabled = false;

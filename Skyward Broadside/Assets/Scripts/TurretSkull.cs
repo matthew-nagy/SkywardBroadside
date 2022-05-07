@@ -5,12 +5,14 @@ using UnityEngine;
 public class TurretSkull : MonoBehaviour
 {
     private float heightAboveTurret = 0.5f;
-    private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
+    private Vector3 screenOffset = new Vector3(0f, 20f, 0f);
     private GameObject target;
 
     private Vector3 targetPosition;
     private bool acquiredTarget;
     private bool gotCanvas;
+
+    public GameObject skullImg;
 
     private void Awake()
     {
@@ -26,6 +28,11 @@ public class TurretSkull : MonoBehaviour
 
     // Update is called once per frame
     void LateUpdate()
+    {
+        
+    }
+
+    private void Update()
     {
         if (!gotCanvas)
         {
@@ -74,12 +81,12 @@ public class TurretSkull : MonoBehaviour
 
     public void SetVisible()
     {
-        gameObject.SetActive(true);
+        skullImg.SetActive(true);
     }
 
     public void SetInvisible()
     {
-        gameObject.SetActive(false);
+        skullImg.SetActive(false);
     }
 
     public void DeleteSkull()
