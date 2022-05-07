@@ -74,7 +74,6 @@ public class DeathController : MonoBehaviour
 
     void DoSoundFx()
     {
-        print("Playing sound");
         soundFxHub.GetComponent<SoundFxHub>().DoEffect(shipGoingDownFx, transform.position);
     }
 }
