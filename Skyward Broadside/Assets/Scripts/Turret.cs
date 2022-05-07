@@ -176,6 +176,9 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
         foreach (GameObject player in players)
         {
+            // If player is lower than turret dont lock on to them, stops turrets aiming down
+            if (player.transform.position.y < turretHead.transform.position.y) continue;
+
             float dist = (player.transform.position - turretHead.transform.position).magnitude;
             if (dist <= range && dist < shortestDistance)
             {
