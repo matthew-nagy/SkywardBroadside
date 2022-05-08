@@ -18426,6 +18426,7 @@ GameObject:
   - component: {fileID: 5947730318699853480}
   - component: {fileID: 1005803293337265581}
   - component: {fileID: 5208756298739295719}
+  - component: {fileID: 4755291350217301503}
   m_Layer: 9
   m_Name: heavyShip
   m_TagString: Ship
@@ -18898,6 +18899,21 @@ MonoBehaviour:
   - {fileID: 5486313522736047917}
   - {fileID: 4982209860582703288}
   transparencyToSet: 0.4
+--- !u!114 &4755291350217301503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4349304439260547451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5151ba6388a524b4cb82aeb8f18f63a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 579
 --- !u!1 &4443762980979855103
 GameObject:
   m_ObjectHideFlags: 0

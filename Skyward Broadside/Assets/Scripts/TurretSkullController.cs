@@ -35,6 +35,10 @@ public class TurretSkullController : MonoBehaviourPun
                             {
                                 skullScript.SetVisible();
                             }
+                            else
+                            {
+                                skullScript.SetInvisible();
+                            }
                         }
                         else
                         {
