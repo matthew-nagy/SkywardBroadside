@@ -37,7 +37,7 @@ public class Intro : MonoBehaviour
 
     bool endIntro;
 
-    public bool introDone;
+    public static bool introDone = false;
 
     List<GameObject[]> transitions;
 
@@ -59,6 +59,7 @@ public class Intro : MonoBehaviour
             if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
             {
                 introVoiceover = GetComponent<AudioSource>();
+                introVoiceover.loop = false;
                 transitions = new List<GameObject[]>();
                 canvas = GameObject.FindGameObjectWithTag("Canvas");
                 canvas.SetActive(false);
@@ -88,7 +89,9 @@ public class Intro : MonoBehaviour
                     path1 = yellowFlyThru;
                     introVoiceover.clip = yellowIntro;
                 }
+                introVoiceover.Play();
                 StartIntro();
+                doIntro = false;
             }
         }
         else
@@ -143,7 +146,6 @@ public class Intro : MonoBehaviour
 
     void Scene0()
     {
-        introVoiceover.Play();
         Vector3 pos;
         Vector3 rot;
         if (myTeam == 0)
@@ -313,7 +315,11 @@ public class Intro : MonoBehaviour
                                   (1 << LayerMask.NameToLayer("ResupplyBase")) | (1 << LayerMask.NameToLayer("MapBoundary"));
         introDone = true;
         canvas.SetActive(true);
-        introVoiceover.Stop();
-        Destroy(introVoiceover);
+        Invoke(nameof(DestorySelf), 10.0f);
+    }
+
+    void DestorySelf()
+    {
+        Destroy(this);
     }
 }

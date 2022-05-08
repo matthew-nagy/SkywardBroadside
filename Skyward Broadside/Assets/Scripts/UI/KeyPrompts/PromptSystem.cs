@@ -58,7 +58,7 @@ public class PromptSystem : MonoBehaviour
 
     private void Update()
     {
-        if (introManager.GetComponent<Intro>().introDone)
+        if (Intro.introDone)
         {
             if (!tipsShown)
             {

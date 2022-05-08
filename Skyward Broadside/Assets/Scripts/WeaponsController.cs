@@ -50,13 +50,13 @@ public class WeaponsController : MonoBehaviour
 
     private void Update()
     {
-        if (introManager.GetComponent<Intro>().introDone && !initialised)
+        if (Intro.introDone && !initialised)
         {
             EnableWeapon(0);
             initialised = true;
         }
 
-        if (introManager.GetComponent<Intro>().introDone)
+        if (Intro.introDone)
         {
             GetInput();
 
