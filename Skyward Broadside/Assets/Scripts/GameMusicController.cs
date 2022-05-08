@@ -8,7 +8,6 @@ public class GameMusicController : MonoBehaviour
     public AudioClip gameOverMusic;
     AudioSource audioSource;
     static GameMusicController instance;
-    public static float cutsceneVolume = 0.5f;
     public float lerpFactor = 0.7f;
 
     private void Awake()
@@ -16,30 +15,10 @@ public class GameMusicController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = battleMusic;
         audioSource.volume = 0.2f;
-
-        instance = this;
-        enabled = false;
     }
-    public static void StartCutsceneAudio()
+    void OnEnable()
     {
-        instance.audioSource.Play();
-        instance.audioSource.volume = cutsceneVolume;
-    }
-
-    public static void FadeInFromCutscene()
-    {
-        instance.enabled = true;
-    }
-
-    private void Update()
-    {
-        audioSource.volume += Time.deltaTime * lerpFactor;
-        if(audioSource.volume >= 0.2f)
-        {
-            //Set the audio and stop updating
-            audioSource.volume = 0.2f;
-            enabled = false;
-        }
+        audioSource.Play();
     }
 
 

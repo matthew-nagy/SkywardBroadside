@@ -121,6 +121,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     private Vector3 lastPosition;
 
+    public Material purpleMat;
+    public Material yellowMat;
 
     public List<TeamToColour> teamsToColours;
     Dictionary<TeamData.Team, Material> shipMats;
@@ -163,9 +165,18 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         myTeam = GetComponent<PlayerController>().myTeam;
+        Material myMat;
+        if(myTeam == TeamData.Team.Purple)
+        {
+            myMat = purpleMat;
+        }
+        else
+        {
+            myMat = yellowMat;
+        }
         foreach (GameObject balloon in balloons)
         {
-            balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+            balloon.GetComponent<Renderer>().material = myMat;
         }
 
         GameObject mapCenter = GameObject.Find("Center");
@@ -222,7 +233,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (!isDisabled)
         {
-            if (introManager.GetComponent<Intro>().introDone)
+            if (Intro.introDone)
             {
                 GetPlayerInput();
             }
@@ -531,10 +542,20 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             if (!colourSet)
             {
+                Material myMat;
+                if (myTeam == TeamData.Team.Purple)
+                {
+                    myMat = purpleMat;
+                }
+                else
+                {
+                    myMat = yellowMat;
+                }
                 foreach (GameObject balloon in balloons)
                 {
-                    balloon.GetComponent<Renderer>().material = shipMats[myTeam];
+                    balloon.GetComponent<Renderer>().material = myMat;
                 }
+                colourSet = true;
             }
 
             RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
