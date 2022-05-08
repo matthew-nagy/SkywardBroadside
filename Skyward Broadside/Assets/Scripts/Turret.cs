@@ -27,6 +27,8 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     GameObject soundFxHub;
     [SerializeField]
     GameObject explosionAir;
+    [SerializeField]
+    GameObject missileLaunchFx;
 
     // Start is called before the first frame update
     void Start()
@@ -139,6 +141,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         newProjectile.GetComponent<Missile>().rotationDampening = 3;
         newProjectile.GetComponent<Missile>().explodeTimer = 5; //Make missiles explode after 4 seconds;
         newProjectile.GetComponent<Missile>().InitialiseMissile(targetTransform);
+        soundFxHub.GetComponent<SoundFxHub>().DoEffect(missileLaunchFx, transform.position);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -173,6 +176,9 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
         foreach (GameObject player in players)
         {
+            // If player is lower than turret dont lock on to them, stops turrets aiming down
+            if (player.transform.position.y < turretHead.transform.position.y) continue;
+
             float dist = (player.transform.position - turretHead.transform.position).magnitude;
             if (dist <= range && dist < shortestDistance)
             {
