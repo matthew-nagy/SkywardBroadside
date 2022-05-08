@@ -71,8 +71,6 @@ public class CannonballController : MonoBehaviour
             {
                 effect = explosionAir;
             }
-            Debug.Log(collision.collider.gameObject.name);
-            Debug.Log(collision.collider.gameObject.tag);
             Destroy(gameObject);
         }
     }
