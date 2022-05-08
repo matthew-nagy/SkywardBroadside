@@ -14,8 +14,8 @@ public class photonHub : MonoBehaviourPunCallbacks
     public TeamData.Team myTeam;
 
     public static Dictionary<string, PlayerController> players;
-    
-    private DateTime gameStartTime;
+
+    private DateTime gameStartTime = DateTime.MinValue;
     private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
     
     private bool gotScores = false;
@@ -42,7 +42,7 @@ public class photonHub : MonoBehaviourPunCallbacks
                 Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
             }
 
-            myTeam = TeamButton.joinTeam;
+            myTeam = PlayerChoices.team;
             UpdateTimerFromMaster();
         }
 
@@ -89,8 +89,10 @@ void Update()
     public void UpdateTimerFromMaster()
     {
         var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
-        
-        gameStartTime = roomProperties.ContainsKey("startTime") ? DateTime.Parse((string) roomProperties["startTime"]) : DateTime.MinValue;
+        if (roomProperties.ContainsKey("timeSet") && (bool)roomProperties["timeSet"])
+        {
+            gameStartTime = DateTime.Parse((string)roomProperties["startTime"]);
+        }
     }
 
     private void UpdateTimer()

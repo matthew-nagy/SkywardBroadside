@@ -110,7 +110,10 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void RefreshListing(PlayerStatus ps)
     {
-        _listings[ps.playerName].SetFromPlayerStatus(ps);
+        if (_listings.ContainsKey(ps.playerName))
+        {
+            _listings[ps.playerName].SetFromPlayerStatus(ps);
+        }
     }
 
     public void OnNewPlayer(PlayerStatus player)
@@ -174,7 +177,20 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player player)
     {
+        Debug.Log(player.NickName);
         Destroy(_listings[player.NickName].gameObject);
         _listings.Remove(player.NickName);
+    }
+
+    public void DestroyListing(string name)
+    {
+        if (_listings.ContainsKey(name))
+        {
+            if (_listings[name] != null && _listings[name].gameObject != null)
+            {
+                Destroy(_listings[name].gameObject);
+            }
+            _listings.Remove(name);
+        }
     }
 }

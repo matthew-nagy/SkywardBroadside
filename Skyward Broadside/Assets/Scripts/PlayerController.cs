@@ -6,7 +6,7 @@ using Photon.Pun.UtilityScripts;
 using System;
 using System.Collections.Generic;
 
-public class PlayerController : MonoBehaviourPun, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPunInstantiateMagicCallback
 {
     public GUIController updateScript;
 
@@ -18,9 +18,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public string playerName;
     private string lastDamagedBy;
-    public int kills { get; set; }
-    public int deaths { get; set; }
-    public int score { get; set; }
+    public int kills = 0;//{ get; set; }
+    public int deaths = 0;//{ get; set; }
+    public int score = 0;//{ get; set; }
 
     public bool resupply;
 
@@ -28,6 +28,14 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     GameObject brokenShip;
 
     public bool teamSet;
+
+    public static GameObject Create(Vector3 spawnPoint)
+    {
+
+        object[] data = { PhotonNetwork.NickName, PlayerChoices.team };
+        GameObject player = PhotonNetwork.Instantiate(PlayerChoices.playerPrefab, spawnPoint, Quaternion.identity, 0, data);
+        return player;
+    }
 
     private void Start()
     {
@@ -52,8 +60,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
         playerName = gameObject.GetComponent<PhotonView>().Owner.NickName;
         photonHub.players.Add(playerName, this);
-        Scoreboard.Instance.OnNewPlayer(this);
-
+        if (photonView.IsMine)
+        {
+            //Scoreboard.Instance.OnNewPlayer(this);
+        }
     }
 
     private void Update()
@@ -236,16 +246,24 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            System.Object[] stats = {myTeam, kills, deaths, score};
+            System.Object[] stats = {kills, deaths, score};
             stream.SendNext(stats);
         }
         else
         {
             System.Object[] stats = (System.Object[]) stream.ReceiveNext();
-            myTeam = (TeamData.Team) stats[0];
-            kills = (int) stats[1];
-            deaths = (int) stats[2];
-            score = (int) stats[3];
+            kills = (int) stats[0];
+            deaths = (int) stats[1];
+            score = (int) stats[2];
         }
     }
+
+    //void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
+    //{
+    //    Debug.Log("Player controller instantiated, should appear on scoreboard");
+    //    object[] instantiationData = info.photonView.InstantiationData;
+    //    myTeam = (TeamData.Team)instantiationData[0];
+    //    Debug.LogError("NOTIFICATION");
+    //    Scoreboard.Instance.OnNewPlayer(this);
+    //}
 }

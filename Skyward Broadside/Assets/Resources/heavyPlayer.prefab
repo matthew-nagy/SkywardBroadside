@@ -18410,6 +18410,9 @@ MonoBehaviour:
   updateScript: {fileID: 0}
   myTeam: 0
   playerName: 
+  kills: 0
+  deaths: 0
+  score: 0
   resupply: 0
   brokenShip: {fileID: 3615311673211330838, guid: 168ea4c16b405b9438e11c3430849693, type: 3}
   teamSet: 0
@@ -26329,6 +26332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1161885142807581378}
   - component: {fileID: 1771897794547597893}
+  - component: {fileID: 7735916368390907607}
   m_Layer: 0
   m_Name: heavyPlayer
   m_TagString: Player
@@ -26374,6 +26378,19 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f10128d790506c64dbe94649edee76ac, type: 2}
   - {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
   healthbarAndName: {fileID: 8586582362795000431, guid: 6a06ebfc5274f204e9752462f9e4cb40, type: 3}
+--- !u!114 &7735916368390907607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7630085483206154855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b39aafaf6eeaa54a87211f9257e5fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 4349304439260547451}
 --- !u!1 &7838785709532885629
 GameObject:
   m_ObjectHideFlags: 0
