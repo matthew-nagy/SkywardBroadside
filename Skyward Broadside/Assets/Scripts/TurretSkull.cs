@@ -46,7 +46,11 @@ public class TurretSkull : MonoBehaviour
         {
             targetPosition = target.transform.position;
             targetPosition.y += heightAboveTurret;
-            transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
+
+            if (Camera.main != null)
+            {
+                transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
+            }
         }
     }
 
@@ -69,12 +73,16 @@ public class TurretSkull : MonoBehaviour
     {
         if (target != null)
         {
-            Vector3 screenPoint = Camera.main.WorldToViewportPoint(target.transform.position);
-
-            if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
+            if (Camera.main != null)
             {
-                return true;
+                Vector3 screenPoint = Camera.main.WorldToViewportPoint(target.transform.position);
+
+                if (screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1)
+                {
+                    return true;
+                }
             }
+            
         }
         return false;
     }
