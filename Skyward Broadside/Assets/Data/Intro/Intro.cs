@@ -320,6 +320,9 @@ public class Intro : MonoBehaviour
 
     void DestorySelf()
     {
+        DestroyImmediate(yellowIntro);
+        DestroyImmediate(purpleIntro);
+        DestoryImmediate(introVoiceover);
         Destroy(this);
     }
 }

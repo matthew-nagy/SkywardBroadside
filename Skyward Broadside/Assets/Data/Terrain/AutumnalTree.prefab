@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1442266752841319365}
   - component: {fileID: 2242804027753129562}
-  - component: {fileID: 7135551211846381442}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Terrain
@@ -47,22 +46,6 @@ CapsuleCollider:
   m_Height: 7.7
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7135551211846381442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489801742591479812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c27c893849ad634cb4b1f6859d97daa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakPhotonInterface: {fileID: 0}
-  breakForce: 0.21
-  broken: 0
-  cascadeCoordinate: {x: 0, y: 0, z: 0}
 --- !u!1 &7148821356401202061
 GameObject:
   m_ObjectHideFlags: 0
