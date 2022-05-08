@@ -45,7 +45,7 @@ public class GameMusicController : MonoBehaviour
 
     public void EnableGameOverMusic()
     {
-        audioSource.volume = 0.65f;
+        audioSource.volume = 0.6f;
         audioSource.clip = gameOverMusic;
         audioSource.Play();
     }
