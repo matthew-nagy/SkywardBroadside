@@ -4901,8 +4901,8 @@ MonoBehaviour:
   shotOrigin: {fileID: 4426814344121480003}
   turretHead: {fileID: 3579901972732895469}
   explosionEffect: {fileID: 3295607932566279283, guid: ce42c1b344e9ae7afb9ffe8804f0f112, type: 3}
-  range: 200
-  reloadTime: 10
+  range: 175
+  reloadTime: 15
   targetedPlayerName: 
   soundFxHub: {fileID: 3646937853787869835}
   explosionAir: {fileID: 718342346669069729, guid: 1ef6542570162e840bda68c25fe9bcb3, type: 3}

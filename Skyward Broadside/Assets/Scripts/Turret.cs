@@ -146,7 +146,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         newProjectile.GetComponent<Explosive>().owner = gameObject;
         newProjectile.tag = "TurretMissile";
         newProjectile.GetComponent<Missile>().owner = gameObject;
-        newProjectile.GetComponent<Missile>().rotationDampening = 3;
+        newProjectile.GetComponent<Missile>().rotationDampening = 2.0f;
         newProjectile.GetComponent<Missile>().explodeTimer = 5; //Make missiles explode after 4 seconds;
         newProjectile.GetComponent<Missile>().InitialiseMissile(targetTransform);
         soundFxHub.GetComponent<SoundFxHub>().DoEffect(missileLaunchFx, transform.position);
