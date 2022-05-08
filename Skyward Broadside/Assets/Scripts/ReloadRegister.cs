@@ -36,6 +36,7 @@ public class ReloadRegister : MonoBehaviour
             {
                 foreach (GameObject go in materialSettingObjects)
                 {
+                    Debug.Log("hi");
                     go.GetComponent<Renderer>().material = ttm.material;
                 }
                 break;
