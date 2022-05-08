@@ -25,6 +25,8 @@ public class EscapeMenu : MonoBehaviour
     public void closeEscape()
     {
         container.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void openHowToPlay()

@@ -21,6 +21,8 @@ TagManager:
   - Missile
   - Canvas
   - MapCenter
+  - MiscSFX
+  - TurretMissile
   layers:
   - Default
   - TransparentFX

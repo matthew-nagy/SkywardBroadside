@@ -34,7 +34,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         {
             MoveToLayer(transform, 2);
         }
-        shipType = PlayerChoices.ship;
+        shipType = transform.root.Find("Ship").GetChild(0).transform.name;
 
         mpmObj = Instantiate(mpmPrefab);
         mpmObj.transform.parent = PromptSystem.transform;
@@ -121,7 +121,10 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
             GetComponent<CameraController>().enableFreeCam();
             lockedOn = false;
         }
-        currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
+        if (currentTarget != null)
+        {
+            currentTarget.transform.Find("Body").GetComponent<Outline>().OutlineColor = Color.yellow;
+        }
         mpm.promptText = lockOnPrompt;
         mpm.UpdatePrompt();
     }

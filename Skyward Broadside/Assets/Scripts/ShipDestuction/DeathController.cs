@@ -15,9 +15,18 @@ public class DeathController : MonoBehaviour
     [SerializeField]
     ParticleSystem explosion1;
 
+    [SerializeField]
+    GameObject soundFxHub;
+    [SerializeField]
+    GameObject shipGoingDownFx;
+    [SerializeField]
+    GameObject explosionFx;
+
     public void Expload()
     {
         DoParticles();
+
+        Invoke(nameof(DoSoundFx), 1f);
 
         foreach (GameObject part in bodyParts)
         {
@@ -59,6 +68,12 @@ public class DeathController : MonoBehaviour
     { 
         yield return new WaitForSeconds(delay);
         Instantiate(explosion1, pos, Quaternion.identity);
+        soundFxHub.GetComponent<SoundFxHub>().DoEffect(explosionFx, transform.position);
         yield return null;
+    }
+
+    void DoSoundFx()
+    {
+        soundFxHub.GetComponent<SoundFxHub>().DoEffect(shipGoingDownFx, transform.position);
     }
 }

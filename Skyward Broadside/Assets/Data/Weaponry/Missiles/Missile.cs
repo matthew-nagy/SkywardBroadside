@@ -28,33 +28,28 @@ public class Missile : MonoBehaviour
     public void InitialiseMissile(Transform _targetTransform)
     {
         targetTransform = _targetTransform;
-
-        // //Initialise velocity in direction of target
-        // Vector3 dist_to_target = targetTransform.position - transform.position;
-        // Vector3 dir_to_target = dist_to_target.normalized;
-        // // velocity = dir_to_target * speed;
-
         initialised = true;
         initTime = Time.timeSinceLevelLoad;
-
     }
 
     void Update()
     {
         if (!initialised) return; //If not got a target, do nothing
-
-        Vector3 dist_to_target = targetTransform.position - transform.position;
-        Vector3 dir_to_target = dist_to_target.normalized;
-
-        //Rotate to look at target - dampening controls speed of rotation
-        var rotation = Quaternion.LookRotation(dist_to_target);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDampening);
-
-        transform.position += transform.forward * speed * Time.deltaTime;
-
-        if (Time.timeSinceLevelLoad - initTime > explodeTimer)
+        if (transform != null)
         {
-            GetComponent<Explosive>().Detonate();
+            Vector3 dist_to_target = targetTransform.position - transform.position;
+            Vector3 dir_to_target = dist_to_target.normalized;
+
+            //Rotate to look at target - dampening controls speed of rotation
+            var rotation = Quaternion.LookRotation(dist_to_target);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDampening);
+
+            transform.position += transform.forward * speed * Time.deltaTime;
+
+            if (Time.timeSinceLevelLoad - initTime > explodeTimer)
+            {
+                GetComponent<Explosive>().Detonate();
+            }
         }
     }
 }

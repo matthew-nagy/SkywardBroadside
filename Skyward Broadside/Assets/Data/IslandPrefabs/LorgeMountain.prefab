@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6552820713825031788}
   - {fileID: 6963076612380998588}
@@ -229,7 +230,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2721754719882491331, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 1106065734121770141}
     - target: {fileID: 3429869382112574872, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 1106065734121770141}
+    - target: {fileID: 3732599640369277446, guid: 8663f85b523262949a358ce936cb987e, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 1106065734121770141}
@@ -503,7 +512,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2721754719882491331, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 1106065734121770141}
     - target: {fileID: 3429869382112574872, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 1106065734121770141}
+    - target: {fileID: 3732599640369277446, guid: 8663f85b523262949a358ce936cb987e, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 1106065734121770141}
@@ -631,11 +648,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7d009bce139c4940bef824fa9bf9c1d, type: 3}
---- !u!4 &6619471740218491611 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8092590913663038890, guid: e7d009bce139c4940bef824fa9bf9c1d, type: 3}
-  m_PrefabInstance: {fileID: 3140063331881432945}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6571346515779120442 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8115946263364917835, guid: e7d009bce139c4940bef824fa9bf9c1d, type: 3}
@@ -647,6 +659,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84832cba34b6184f94427cb42e628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6619471740218491611 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8092590913663038890, guid: e7d009bce139c4940bef824fa9bf9c1d, type: 3}
+  m_PrefabInstance: {fileID: 3140063331881432945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3210391721690604737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,6 +733,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08e5a96a9a1d5a396bfdb44314d1cb35, type: 3}
+--- !u!4 &4969553005989958017 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7528607233525462336, guid: 08e5a96a9a1d5a396bfdb44314d1cb35, type: 3}
+  m_PrefabInstance: {fileID: 3210391721690604737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5482759521539424472 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6961218116114621465, guid: 08e5a96a9a1d5a396bfdb44314d1cb35, type: 3}
@@ -727,11 +749,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84832cba34b6184f94427cb42e628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4969553005989958017 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7528607233525462336, guid: 08e5a96a9a1d5a396bfdb44314d1cb35, type: 3}
-  m_PrefabInstance: {fileID: 3210391721690604737}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3404720449289632212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -787,6 +804,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleTreeSparse (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7197107750687673728, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3821324200528781645}
     - target: {fileID: 7895300692394199756, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
       propertyPath: breakPhotonInterface
       value: 
@@ -856,7 +877,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2721754719882491331, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 1106065734121770141}
     - target: {fileID: 3429869382112574872, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 1106065734121770141}
+    - target: {fileID: 3732599640369277446, guid: 8663f85b523262949a358ce936cb987e, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 1106065734121770141}
@@ -995,6 +1024,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleTreeSparse (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7197107750687673728, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3821324200528781645}
     - target: {fileID: 7895300692394199756, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
       propertyPath: breakPhotonInterface
       value: 
@@ -1064,7 +1097,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2721754719882491331, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 1106065734121770141}
     - target: {fileID: 3429869382112574872, guid: 8663f85b523262949a358ce936cb987e, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 1106065734121770141}
+    - target: {fileID: 3732599640369277446, guid: 8663f85b523262949a358ce936cb987e, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 1106065734121770141}
@@ -1131,11 +1172,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff67c4e04dcca54d4b1560c5fcc3156c, type: 3}
---- !u!4 &6963076612380998588 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3099801441904248432, guid: ff67c4e04dcca54d4b1560c5fcc3156c, type: 3}
-  m_PrefabInstance: {fileID: 5450874754518941132}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3821324200528781645 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9128083586042420353, guid: ff67c4e04dcca54d4b1560c5fcc3156c, type: 3}
@@ -1147,6 +1183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84832cba34b6184f94427cb42e628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6963076612380998588 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3099801441904248432, guid: ff67c4e04dcca54d4b1560c5fcc3156c, type: 3}
+  m_PrefabInstance: {fileID: 5450874754518941132}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5567536775929538076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1202,6 +1243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleTreeSparse (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7197107750687673728, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3821324200528781645}
     - target: {fileID: 7895300692394199756, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
       propertyPath: breakPhotonInterface
       value: 
@@ -1263,6 +1308,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleTreeSparse
       objectReference: {fileID: 0}
+    - target: {fileID: 7197107750687673728, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3821324200528781645}
     - target: {fileID: 7895300692394199756, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
       propertyPath: breakPhotonInterface
       value: 
@@ -1336,6 +1385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleTreeSparse
       objectReference: {fileID: 0}
+    - target: {fileID: 7197107750687673728, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 5482759521539424472}
     - target: {fileID: 7895300692394199756, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
       propertyPath: breakPhotonInterface
       value: 
@@ -1537,6 +1590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleTreeSparse (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7197107750687673728, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 3821324200528781645}
     - target: {fileID: 7895300692394199756, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
       propertyPath: breakPhotonInterface
       value: 
@@ -1662,11 +1719,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff67c4e04dcca54d4b1560c5fcc3156c, type: 3}
---- !u!4 &6552820713825031788 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3099801441904248432, guid: ff67c4e04dcca54d4b1560c5fcc3156c, type: 3}
-  m_PrefabInstance: {fileID: 8211468689848832028}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1106065734121770141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9128083586042420353, guid: ff67c4e04dcca54d4b1560c5fcc3156c, type: 3}
@@ -1678,6 +1730,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84832cba34b6184f94427cb42e628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6552820713825031788 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3099801441904248432, guid: ff67c4e04dcca54d4b1560c5fcc3156c, type: 3}
+  m_PrefabInstance: {fileID: 8211468689848832028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8649623710604470552
 PrefabInstance:
   m_ObjectHideFlags: 0

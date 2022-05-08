@@ -30,6 +30,11 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
     [SerializeField]
     GameObject cannonsShots;
 
+    [SerializeField]
+    GameObject cantShootFx;
+
+    public bool outOfAmmo;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -101,6 +106,13 @@ public class ShockwaveCannonController : MonoBehaviourPunCallbacks, IPunObservab
             if (SBControls.shoot.IsDown() && !reloading && !serverShootFlag)
             {
                 serverShootFlag = sendShootToClient = true;
+            }
+        }
+        else if (outOfAmmo)
+        {
+            if (SBControls.shoot.IsDown())
+            {
+                transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(cantShootFx, transform.position);
             }
         }
     }

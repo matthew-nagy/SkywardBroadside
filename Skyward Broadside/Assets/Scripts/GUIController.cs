@@ -6,7 +6,12 @@ using UnityEngine.UI;
 
 public class GUIController : MonoBehaviour
 {
-
+    public enum PrevWinner
+    {
+        Nobody,
+        Us,
+        Them
+    }
     public enum Ammo
     {
         Normal,
@@ -110,6 +115,9 @@ public class GUIController : MonoBehaviour
     public Text myScore;
     public Text theirScore;
 
+    public int myTeamScore;
+    public int otherTeamScore;
+
     public GameObject gameOverScreen;
 
     public Text gameOverYourTeam;
@@ -119,8 +127,16 @@ public class GUIController : MonoBehaviour
 
 
     //Music
-    public GameObject battleMusic;
-    public GameObject gameOverMusic;
+    public GameObject audioObject;
+    private GameMusicController musicController;
+
+    public GameObject sfxObject;
+    private MiscSFXController sfxController;
+
+    private bool inLead;
+    private PrevWinner prevWinner;
+    private bool wasLowHealth;
+    private bool justLoadedIn;
 
     private void Awake()
     {
@@ -136,6 +152,15 @@ public class GUIController : MonoBehaviour
 
         specialShaderImg = specialShaderObject.GetComponent<RawImage>();
         specialShaderImg.material = new Material(specialShaderImg.material);
+
+        musicController = audioObject.GetComponent<GameMusicController>();
+
+        //inLead = false;
+        prevWinner = PrevWinner.Nobody;
+        wasLowHealth = false;
+        justLoadedIn = true;
+
+        sfxController = sfxObject.GetComponentInChildren<MiscSFXController>();
     }
 
     private void Start()
@@ -264,7 +289,21 @@ public class GUIController : MonoBehaviour
         Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(healthMinZ, healthMaxZ, (float)value / (float)maxHealth));
         healthDial.dialHand.rotation = Quaternion.Euler(newRotation);
         healthShaderImg.material.SetFloat("_FullProportion", (float)value / (float)maxHealth);
-        //print("Remaining health: " + value);
+        if (value < 20f && sfxController != null)
+        {
+            if (!wasLowHealth)
+            {
+                sfxController.PlayLowHealth();
+                wasLowHealth = true;
+            }
+        }
+        else
+        {
+            if (wasLowHealth)
+            {
+                wasLowHealth = false;
+            }
+        }
     }
 
     public void UpdateGUINormalAmmo(int value)
@@ -304,6 +343,35 @@ public class GUIController : MonoBehaviour
 
         theirScore.text = otherTeam.ToString();
         gameOverOtherTeam.text = otherTeam.ToString();
+
+        if (sfxController != null && !justLoadedIn)
+        {
+            //if (!inLead && myTeam > otherTeam)
+            //{
+            //    inLead = true;
+            //    sfxController.PlayLeadTaken();
+            //}
+            //else if (inLead && myTeam < otherTeam)
+            //{
+            //    inLead = false;
+            //    sfxController.PlayLeadLost();
+            //}
+            if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Them) && myTeam > otherTeam)
+            {
+                prevWinner = PrevWinner.Us;
+                sfxController.PlayLeadTaken();
+            }
+            else if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Us) && otherTeam > myTeam)
+            {
+                prevWinner = PrevWinner.Them;
+                sfxController.PlayLeadLost();
+            }
+        }
+        
+
+        myTeamScore = myTeam;
+        otherTeamScore = otherTeam;
+        justLoadedIn = false;
     }
 
     public void SetPlayer(GameObject _player)
@@ -394,14 +462,24 @@ public class GUIController : MonoBehaviour
         timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
     }
 
-    public void EnableGameOverMusic()
+    public void GameOver()
     {
-        battleMusic.SetActive(false);
-        if (!gameOverMusic.GetComponent<AudioSource>().isPlaying)
+        musicController.DisableBattleMusic();
+
+        if (sfxController != null)
         {
-            gameOverMusic.GetComponent<AudioSource>().Play();
+            if (myTeamScore >= otherTeamScore)
+            {
+                sfxController.PlayVictorySting();
+            }
+            else
+            {
+                sfxController.PlayDefeatSting();
+            }
         }
         
+
+        musicController.EnableGameOverMusic();
     }
 }
  

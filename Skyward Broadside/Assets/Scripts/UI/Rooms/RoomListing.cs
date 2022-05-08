@@ -14,7 +14,7 @@ public class RoomListing : MonoBehaviour
     void Start()
     {
         Button button = gameObject.GetComponent<Button>();
-        button.onClick.AddListener(delegate { OnClick_RoomListing();});
+        //button.OnClick.AddListener(delegate { OnClick_RoomListing();});
     }
 
     private string Truncate(string str, int maxLength)

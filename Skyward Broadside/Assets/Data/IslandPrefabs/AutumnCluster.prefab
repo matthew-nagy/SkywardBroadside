@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1613559609939570566}
   - {fileID: 4503346360985136152}
@@ -186,6 +187,10 @@ PrefabInstance:
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 4885632359020246391}
+    - target: {fileID: 7135551211846381442, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 4885632359020246391}
     - target: {fileID: 7148821356401202061, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
       propertyPath: m_Name
       value: AutumnalTree (5)
@@ -211,18 +216,6 @@ PrefabInstance:
     - target: {fileID: 4439506061551824123, guid: a928037c62347da4eae43658bc5326d5, type: 3}
       propertyPath: m_RootOrder
       value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 4439506061551824123, guid: a928037c62347da4eae43658bc5326d5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.92094
-      objectReference: {fileID: 0}
-    - target: {fileID: 4439506061551824123, guid: a928037c62347da4eae43658bc5326d5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.86712
-      objectReference: {fileID: 0}
-    - target: {fileID: 4439506061551824123, guid: a928037c62347da4eae43658bc5326d5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.8152801
       objectReference: {fileID: 0}
     - target: {fileID: 4439506061551824123, guid: a928037c62347da4eae43658bc5326d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -339,6 +332,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3429869382112574872, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 4885632359020246391}
+    - target: {fileID: 7135551211846381442, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 4885632359020246391}
@@ -505,6 +502,10 @@ PrefabInstance:
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 4885632359020246391}
+    - target: {fileID: 7135551211846381442, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 4885632359020246391}
     - target: {fileID: 7148821356401202061, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
       propertyPath: m_Name
       value: AutumnalTree
@@ -580,6 +581,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3429869382112574872, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 4885632359020246391}
+    - target: {fileID: 7135551211846381442, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 4885632359020246391}
@@ -661,6 +666,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleTreeSparse (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7197107750687673728, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 5493143876295905373}
     - target: {fileID: 7895300692394199756, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
       propertyPath: breakPhotonInterface
       value: 
@@ -739,6 +748,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleTreeSparse
       objectReference: {fileID: 0}
+    - target: {fileID: 7197107750687673728, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 8007773080010525334}
     - target: {fileID: 7895300692394199756, guid: 8e21607c0bae13a4e9be553021574aeb, type: 3}
       propertyPath: breakPhotonInterface
       value: 
@@ -819,11 +832,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c690d097cbd6dbc188bcd632f4840e54, type: 3}
---- !u!4 &9006451578264547689 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1759908246849335039, guid: c690d097cbd6dbc188bcd632f4840e54, type: 3}
-  m_PrefabInstance: {fileID: 7246613716350459798}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5493143876295905373 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2930354101217660875, guid: c690d097cbd6dbc188bcd632f4840e54, type: 3}
@@ -846,6 +854,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84832cba34b6184f94427cb42e628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &9006451578264547689 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1759908246849335039, guid: c690d097cbd6dbc188bcd632f4840e54, type: 3}
+  m_PrefabInstance: {fileID: 7246613716350459798}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7340004817644486431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -910,6 +923,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3429869382112574872, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 4885632359020246391}
+    - target: {fileID: 7135551211846381442, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 4885632359020246391}
@@ -1076,6 +1093,10 @@ PrefabInstance:
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 4885632359020246391}
+    - target: {fileID: 7135551211846381442, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 4885632359020246391}
     - target: {fileID: 7148821356401202061, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
       propertyPath: m_Name
       value: AutumnalTree (4)
@@ -1229,6 +1250,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3429869382112574872, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
+      propertyPath: breakPhotonInterface
+      value: 
+      objectReference: {fileID: 4885632359020246391}
+    - target: {fileID: 7135551211846381442, guid: a2a1a5be938cfa64baa9f31ebd6ddcd7, type: 3}
       propertyPath: breakPhotonInterface
       value: 
       objectReference: {fileID: 4885632359020246391}

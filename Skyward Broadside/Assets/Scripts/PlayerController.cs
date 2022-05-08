@@ -104,6 +104,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
                 }
                 Die();
             }
+
+
             updateScript.UpdateGUIHealth(health);
         }
         else
@@ -176,7 +178,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
 
     void Die()
     {
-        
+        GetComponent<ShipController>().PutOutFires();
         if (photonView.IsMine)
         {
             broadcastDeath();
