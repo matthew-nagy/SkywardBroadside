@@ -15,8 +15,6 @@ public class GameMusicController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = battleMusic;
         audioSource.volume = 0.2f;
-
-        enabled = false;
     }
     void OnEnable()
     {
