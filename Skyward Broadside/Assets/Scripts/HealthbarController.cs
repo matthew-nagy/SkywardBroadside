@@ -7,12 +7,6 @@ public class HealthbarController : MonoBehaviourPun
 {
     public LayerMask layerMask;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -22,7 +16,6 @@ public class HealthbarController : MonoBehaviourPun
             foreach (GameObject player in players)
             {
                 PlayerPhotonHub PPH = player.transform.root.GetComponent<PlayerPhotonHub>();
-                ShipArsenal shipArsenal = player.GetComponent<ShipArsenal>();
                 if (PPH.healthbarAndName != null)
                 {
                     PlayerUI playerUIScript = player.transform.root.GetComponent<PlayerPhotonHub>().healthbarAndName.GetComponent<PlayerUI>();

@@ -30,18 +30,26 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     GameObject missileLaunchFx;
 
+    [SerializeField]
+    GameObject skullPrefab;
+    public TurretSkull skullScript;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (photonView.IsMine)
-        {
-            MoveToLayer(transform, 2);
-        }
-
         myBreakable = gameObject.GetComponent<Breakable>();
         targetedPlayerName = "";
         enabled = false;
-        Invoke(nameof(SetActive), 3.0f);
+        Invoke(nameof(SetActive), 45.0f);
+
+        TurretsList.AddTurret(gameObject);
+
+        if (skullPrefab != null)
+        {
+            GameObject skullImage = Instantiate(skullPrefab);
+            //skullImage.GetComponent<TurretSkull>().SetTarget(this);
+            skullImage.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+        }
     }
 
     void MoveToLayer(Transform root, int layer)
@@ -207,6 +215,9 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     void Die()
     {
+        skullScript.DeleteSkull();
+        TurretsList.RemoveTurret(gameObject);
+
         var explosionObject = (GameObject)Instantiate(explosionEffect);
         explosionObject.transform.position = transform.position;
         explosionObject.GetComponent<ParticleSystem>().Play();
@@ -214,5 +225,10 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         soundFxHub.GetComponent<SoundFxHub>().DoEffect(explosionAir, transform.position);
         gameObject.SetActive(false);
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
+    }
+
+    public void SetSkull(TurretSkull script)
+    {
+        skullScript = script;
     }
 }

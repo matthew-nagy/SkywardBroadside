@@ -32129,6 +32129,7 @@ GameObject:
   - component: {fileID: 6490166693505290916}
   - component: {fileID: 5828437317283408192}
   - component: {fileID: 3777259454916131820}
+  - component: {fileID: 474000651720167040}
   m_Layer: 9
   m_Name: mediumShip
   m_TagString: Ship
@@ -32616,6 +32617,21 @@ MonoBehaviour:
   - {fileID: 512045777790828925}
   - {fileID: 8123444674155999377}
   transparencyToSet: 0.4
+--- !u!114 &474000651720167040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788669775541589560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5151ba6388a524b4cb82aeb8f18f63a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 579
 --- !u!1 &8864920600753405998
 GameObject:
   m_ObjectHideFlags: 0
