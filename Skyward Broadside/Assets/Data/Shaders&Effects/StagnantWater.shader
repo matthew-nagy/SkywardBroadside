@@ -72,8 +72,8 @@ Shader "Unlit/NewUnlitShader"
                 samplePosition += _FlowSpeed * _Time.x;
 
                 //Add displacement maps
-                float2 dispUV1 = i.uv * _Scale + _ScrollVector1.xy * _Time.x * _ScrollSpeedFactor;
-                float2 dispUV2 = i.uv * _Scale + _ScrollVector2.xy * _Time.x * _ScrollSpeedFactor;
+                float2 dispUV1 = i.uv * _Scale * 1.1 + _ScrollVector1.xy * _Time.x * _ScrollSpeedFactor;
+                float2 dispUV2 = i.uv * _Scale * 1.1 + _ScrollVector2.xy * _Time.x * _ScrollSpeedFactor;
                 float displacementFactor = tex2D(_DisplacementTexture, dispUV1).r + tex2D(_DisplacementTexture, dispUV2);
                 //We now have a value -1 <-> 1
                 displacementFactor -= 1;
