@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
+        gameOverScreen.called = false;
+
         if (PhotonNetwork.IsMasterClient)
         {
             setRoomStartTimeAndInitialScores();
@@ -93,8 +95,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     void JointGameOnTeam(TeamData.Team team)
     {
         GameObject mySpawn = GetSpawnFromTeam(team);
+        //object[] data = { team };
         Vector3 spawnPoint = mySpawn.transform.position + new Vector3(Random.Range(-80, 80), 0, Random.Range(-80, 80));
-        GameObject newPlayer = PhotonNetwork.Instantiate(PlayerChoices.playerPrefab, spawnPoint, Quaternion.identity, 0);
+        //GameObject newPlayer = PhotonNetwork.Instantiate(PlayerChoices.playerPrefab, spawnPoint, Quaternion.identity, 0, data);
+        GameObject newPlayer = PlayerController.Create(spawnPoint);
         newPlayer.transform.Find("Ship").Find(PlayerChoices.ship).GetComponent<PlayerController>().myTeam = team;
 
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
@@ -129,6 +133,7 @@ public class GameManager : MonoBehaviourPunCallbacks
        
         Hashtable properties = new Hashtable();
         properties.Add("startTime", currentTime.ToString());
+        properties.Add("timeSet", true);
         int[] scores = {0, 0};
         properties.Add("scores", scores);
         PhotonNetwork.CurrentRoom.SetCustomProperties(properties);
