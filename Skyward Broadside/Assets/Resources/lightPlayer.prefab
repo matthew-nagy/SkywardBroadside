@@ -8668,6 +8668,8 @@ MonoBehaviour:
   wallDamageMultiplier: 0
   balloons:
   - {fileID: 8899311101800265010}
+  purpleMat: {fileID: 2100000, guid: f10128d790506c64dbe94649edee76ac, type: 2}
+  yellowMat: {fileID: 2100000, guid: a7c17ffd4850def4ba4529967065b1a2, type: 2}
   teamsToColours:
   - team: 0
     material: {fileID: 2100000, guid: f10128d790506c64dbe94649edee76ac, type: 2}
