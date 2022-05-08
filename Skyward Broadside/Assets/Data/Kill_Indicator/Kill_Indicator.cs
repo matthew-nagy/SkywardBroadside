@@ -16,6 +16,8 @@ public class Kill_Indicator : MonoBehaviour
 
     PhotonView pv;
     GameObject indicator;
+
+    public bool indicatorShown;
     public enum EventCode : byte
     {
         DeathEvent = 1,
@@ -54,7 +56,6 @@ public class Kill_Indicator : MonoBehaviour
                     var names = (string[])photonEvent.CustomData;
                     if (names[0] == PhotonNetwork.NickName)
                     {
-                        Debug.Log("Shown");
                         ShowIndicator(names[1]);
                     }
                 }
@@ -64,15 +65,22 @@ public class Kill_Indicator : MonoBehaviour
 
     void ShowIndicator(string playerKilled)
     {
-        indicator = Instantiate(oneHundred);
-        indicator.GetComponent<OneHundred>().playerName = playerKilled;
-        indicator.GetComponent<OneHundred>().Show();
-        Invoke(nameof(HideIndicator), 5f);
+        if (!indicatorShown)
+        {
+            indicatorShown = true;
+            indicator = Instantiate(oneHundred);
+            indicator.GetComponent<OneHundred>().playerName = playerKilled;
+            indicator.GetComponent<OneHundred>().Show();
+            Invoke(nameof(HideIndicator), 5f);
+        }
     }
     
-    void HideIndicator()
+    public void HideIndicator()
     {
-        StartCoroutine(nameof(FadeOut));
+        if (indicatorShown)
+        {
+            StartCoroutine(nameof(FadeOut));
+        }
     }
 
     IEnumerator FadeOut()
@@ -80,44 +88,48 @@ public class Kill_Indicator : MonoBehaviour
         GameObject[] elements = indicator.GetComponent<Elements>().elements;
         Color color;
 
-        float time = 0f;
-        while (time < 3f)
+        if (indicator != null)
         {
-            foreach (GameObject element in elements)
+            float time = 0f;
+            while (time < 3f)
             {
-                if (element.TryGetComponent<Image>(out Image image))
+                foreach (GameObject element in elements)
                 {
-                    color = image.color;
-                    if (color.a >= 0.01f)
+                    if (element.TryGetComponent<Image>(out Image image))
                     {
-                        color.a -= 0.01f;
+                        color = image.color;
+                        if (color.a >= 0.01f)
+                        {
+                            color.a -= 0.01f;
+                        }
+                        image.color = color;
                     }
-                    image.color = color;
-                }
 
-                if (element.TryGetComponent<Text>(out Text text))
-                {
-                    color = text.color;
-                    if (color.a >= 0.01f)
+                    if (element.TryGetComponent<Text>(out Text text))
                     {
-                        color.a -= 0.01f;
+                        color = text.color;
+                        if (color.a >= 0.01f)
+                        {
+                            color.a -= 0.01f;
+                        }
+                        text.color = color;
                     }
-                    text.color = color;
-                }
 
-                if (element.TryGetComponent<RawImage>(out RawImage rawImage))
-                {
-                    color = rawImage.color;
-                    if (color.a >= 0.01f)
+                    if (element.TryGetComponent<RawImage>(out RawImage rawImage))
                     {
-                        color.a -= 0.01f;
+                        color = rawImage.color;
+                        if (color.a >= 0.01f)
+                        {
+                            color.a -= 0.01f;
+                        }
+                        rawImage.color = color;
                     }
-                    rawImage.color = color;
                 }
+                time += Time.deltaTime;
+                yield return null;
             }
-            time += Time.deltaTime;
-            yield return null;
-        }
-        Destroy(indicator);
+            Destroy(indicator);
+            indicatorShown = false;
+        }   
     }
 }
