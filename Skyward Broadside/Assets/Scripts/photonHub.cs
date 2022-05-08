@@ -16,7 +16,7 @@ public class photonHub : MonoBehaviourPunCallbacks
     public static Dictionary<string, PlayerController> players;
 
     private DateTime gameStartTime = DateTime.MinValue;
-    private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
+    private TimeSpan gameLength = TimeSpan.FromSeconds(410f); //6 mins + intro time
 
     private bool gotScores = false;
     private bool isGameOver = false;

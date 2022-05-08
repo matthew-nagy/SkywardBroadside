@@ -38,7 +38,7 @@ public class PlayerPhotonHub : MonoBehaviour
     private int deaths;
 
     private DateTime gameStartTime;
-    private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
+    private TimeSpan gameLength = TimeSpan.FromSeconds(410f); //6 mins + intro
 
     private bool gotScores = false;
 
