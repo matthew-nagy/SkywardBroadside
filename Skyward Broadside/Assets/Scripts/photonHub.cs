@@ -99,8 +99,12 @@ public class photonHub : MonoBehaviourPunCallbacks
     {
         DateTime endTime = gameStartTime.Add(gameLength);
         TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
+        timeRemaining -= TimeSpan.FromHours(timeRemaining.Hours);
+        timeRemaining -= TimeSpan.FromDays(timeRemaining.Days);
 
-        if (timeRemaining < TimeSpan.Zero && !isGameOver)
+        // Llewellyn's computer 
+
+        if ((timeRemaining < TimeSpan.Zero || timeRemaining.Minutes > 10) && !isGameOver)
         {
             disabled = true;
             gameOver();
