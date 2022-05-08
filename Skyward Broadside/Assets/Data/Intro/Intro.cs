@@ -315,7 +315,5 @@ public class Intro : MonoBehaviour
         canvas.SetActive(true);
         introVoiceover.Stop();
         Destroy(introVoiceover);
-        Destroy(purpleIntro);
-        Destroy(yellowIntro);
     }
 }
