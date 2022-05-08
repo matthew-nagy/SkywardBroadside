@@ -19,21 +19,28 @@ public class TurretSkullController : MonoBehaviourPun
 
         foreach (GameObject turret in turrets)
         {
-            Turret turretScript = turret.GetComponent<Turret>();
-            if (turretScript != null)
+            if (turret != null)
             {
-                if (turretScript.skullScript != null)
+                Turret turretScript = turret.GetComponent<Turret>();
+                if (turretScript != null)
                 {
-                    TurretSkull skullScript = turretScript.skullScript;
-                    
-                    if (skullScript.CheckTurretIsInCameraView()) //check if the turret is in the camera's viewport space
+                    if (turretScript.skullScript != null)
                     {
-                        RaycastHit hit;
-                        if (Physics.Linecast(start: transform.position, end: turret.transform.position, hitInfo: out hit, layerMask: layerMask)) //check if the player can see the turret
+                        TurretSkull skullScript = turretScript.skullScript;
+
+                        if (skullScript.CheckTurretIsInCameraView()) //check if the turret is in the camera's viewport space
                         {
-                            if (hit.collider.gameObject == turret)
+                            RaycastHit hit;
+                            if (Physics.Linecast(start: transform.position, end: turret.transform.position, hitInfo: out hit, layerMask: layerMask)) //check if the player can see the turret
                             {
-                                skullScript.SetVisible();
+                                if (hit.collider.gameObject == turret)
+                                {
+                                    skullScript.SetVisible();
+                                }
+                                else
+                                {
+                                    skullScript.SetInvisible();
+                                }
                             }
                             else
                             {
@@ -44,10 +51,6 @@ public class TurretSkullController : MonoBehaviourPun
                         {
                             skullScript.SetInvisible();
                         }
-                    }
-                    else
-                    {
-                        skullScript.SetInvisible();
                     }
                 }
             }

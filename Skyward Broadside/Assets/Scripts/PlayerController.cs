@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
 
     [SerializeField]
     GameObject brokenShip;
+    [SerializeField]
+    GameObject kill_indicator_Hub;
 
     public bool teamSet;
 
@@ -221,6 +223,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
     {
         transform.root.gameObject.SetActive(true);
         EnableHealthbar();
+        if (kill_indicator_Hub.GetComponent<Kill_Indicator>().indicatorShown)
+        {
+            kill_indicator_Hub.GetComponent<Kill_Indicator>().HideIndicator();
+        }
     }
 
     [PunRPC]
