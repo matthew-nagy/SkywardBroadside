@@ -28,10 +28,8 @@ public class Intro : MonoBehaviour
     [SerializeField]
     CinemachineSmoothPath path2;
 
-    [SerializeField]
-    Vector3 yellowStartIslandPos;
-    [SerializeField]
-    Vector3 purpleStartIslandPos;
+    Vector3 yellowStartIslandPos = new Vector3(-120f, 202.600006f, -432.600006f);
+    Vector3 purpleStartIslandPos = new Vector3(922.299988f, 202.600006f, -594.799988f);
 
     GameObject myBase;
 
@@ -114,10 +112,7 @@ public class Intro : MonoBehaviour
     }
 
     void IslandScene()
-    {
-        //remove this when island coords are set in serialized field
-        yellowStartIslandPos = new Vector3(-3f, 187f, -173f);
-        purpleStartIslandPos = new Vector3(-3f, 187f, -173f);
+    { 
         //
 
         GameObject islandPosObj = new GameObject();
@@ -127,17 +122,17 @@ public class Intro : MonoBehaviour
         cam3.name = "IslandCam";
         if (myTeam == 0)
         {
-            islandPosObj.transform.position = purpleStartIslandPos;
-            cam3.transform.position = purpleStartIslandPos - offSet;
+            islandPosObj.transform.position = yellowStartIslandPos;
+            cam3.transform.position = yellowStartIslandPos + (offSet * 4);
             cam3.transform.position += new Vector3(0f, 10f, 0f);
-            cam3.transform.LookAt(purpleStartIslandPos);
+            cam3.transform.LookAt(yellowStartIslandPos);
         }
         else
         {
             islandPosObj.transform.position = purpleStartIslandPos;
-            cam3.transform.position = yellowStartIslandPos + offSet;
+            cam3.transform.position = purpleStartIslandPos - (offSet * 2.3f);
             cam3.transform.position += new Vector3(0f, 10f, 0f);
-            cam3.transform.LookAt(yellowStartIslandPos);
+            cam3.transform.LookAt(purpleStartIslandPos);
         }
         cam3.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         StartCoroutine(Orbit(islandPosObj, cam3, 3f, 5f));
@@ -189,6 +184,8 @@ public class Intro : MonoBehaviour
         cam2.name = "SecondCam";
         cam2.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        SubtitleDelegate.obj.SetText("Well met Cadet, on this grand battlefield");
+
         Invoke(nameof(Scene2), 3f);
     }
 
@@ -202,6 +199,9 @@ public class Intro : MonoBehaviour
         cam1.name = "ThirdCam";
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         cam2.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+
+        SubtitleDelegate.obj.SetText("We've deemed you fit for your own ship. With all the weapons needed to take this territory from those reched sky rats");
+
         Invoke(nameof(Scene3), 2f);
     }
 
@@ -215,6 +215,7 @@ public class Intro : MonoBehaviour
         cam2.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
         StartCoroutine(Orbit(target, cam2, 5f, 20f));
+
         Invoke(nameof(Scene4), 5f);
     }
 
@@ -227,6 +228,8 @@ public class Intro : MonoBehaviour
         cam3.GetComponent<CinemachineDollyCart>().m_Path = path2;
         cam3.GetComponent<CinemachineDollyCart>().m_Speed = 8f;
         cam3.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+
+        SubtitleDelegate.obj.SetText("Though some brigands seem to have arrived here first, and should be swiftly dispatched");
         Invoke(nameof(Transition), 4f);
     }
 
@@ -240,6 +243,7 @@ public class Intro : MonoBehaviour
         cam1.name = "PathCam2";
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         cam3.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        SubtitleDelegate.obj.SetText("This looks to become a battle of attrition. Your role shall be to sink any enemy vessel on sight. These islands should provide good cover from cannonshot, and could be used to grand effect");
         Invoke(nameof(Scene5), 3.9f);
     }
 
@@ -271,6 +275,7 @@ public class Intro : MonoBehaviour
         cam2.name = "SeventhCam";
         cam2.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        SubtitleDelegate.obj.SetText("Should your ship be in need of repairs or more ammunition, you are always welcome home to our forward base");
         Invoke(nameof(Scene7), 2f);
     }
 
@@ -290,6 +295,7 @@ public class Intro : MonoBehaviour
         shipTransform.GetComponent<CameraController>().cameraObj.ForceCameraPosition(shipTransform.position + -30f*(mapCenter - transform.position).normalized, Quaternion.identity);
         shipTransform.GetComponent<CameraController>().cameraObj.Priority = 1;
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        SubtitleDelegate.obj.SetText("Good luck cadet, there may be order in these skies yet.");
         Invoke(nameof(FinishIntro), 2f);
     }
 
@@ -315,6 +321,7 @@ public class Intro : MonoBehaviour
                                   (1 << LayerMask.NameToLayer("ResupplyBase")) | (1 << LayerMask.NameToLayer("MapBoundary"));
         introDone = true;
         canvas.SetActive(true);
+        SubtitleDelegate.obj.EndCutscene();
         Invoke(nameof(DestorySelf), 10.0f);
     }
 
@@ -322,7 +329,7 @@ public class Intro : MonoBehaviour
     {
         DestroyImmediate(yellowIntro);
         DestroyImmediate(purpleIntro);
-        DestoryImmediate(introVoiceover);
+        DestroyImmediate(introVoiceover);
         Destroy(this);
     }
 }
