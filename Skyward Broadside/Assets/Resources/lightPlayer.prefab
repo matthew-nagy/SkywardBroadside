@@ -8295,6 +8295,7 @@ GameObject:
   - component: {fileID: 8136182183149102609}
   - component: {fileID: 5161432989157013681}
   - component: {fileID: 5615425652987796287}
+  - component: {fileID: 4818620832839101093}
   m_Layer: 9
   m_Name: lightShip
   m_TagString: Ship
@@ -8762,6 +8763,21 @@ MonoBehaviour:
   - {fileID: 2526288416889182403}
   - {fileID: 8008382565483368655}
   transparencyToSet: 0.4
+--- !u!114 &4818620832839101093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3306993930584430226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5151ba6388a524b4cb82aeb8f18f63a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 579
 --- !u!1 &3368421759174919941
 GameObject:
   m_ObjectHideFlags: 0

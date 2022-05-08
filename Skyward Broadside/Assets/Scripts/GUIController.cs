@@ -133,7 +133,6 @@ public class GUIController : MonoBehaviour
     public GameObject sfxObject;
     private MiscSFXController sfxController;
 
-    private bool inLead;
     private PrevWinner prevWinner;
     private bool wasLowHealth;
     private bool justLoadedIn;
@@ -155,7 +154,6 @@ public class GUIController : MonoBehaviour
 
         musicController = audioObject.GetComponent<GameMusicController>();
 
-        //inLead = false;
         prevWinner = PrevWinner.Nobody;
         wasLowHealth = false;
         justLoadedIn = true;
@@ -346,16 +344,6 @@ public class GUIController : MonoBehaviour
 
         if (sfxController != null && !justLoadedIn)
         {
-            //if (!inLead && myTeam > otherTeam)
-            //{
-            //    inLead = true;
-            //    sfxController.PlayLeadTaken();
-            //}
-            //else if (inLead && myTeam < otherTeam)
-            //{
-            //    inLead = false;
-            //    sfxController.PlayLeadLost();
-            //}
             if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Them) && myTeam > otherTeam)
             {
                 prevWinner = PrevWinner.Us;
@@ -464,6 +452,7 @@ public class GUIController : MonoBehaviour
 
     public void GameOver()
     {
+        timer.gameObject.SetActive(false);
         musicController.DisableBattleMusic();
 
         if (sfxController != null)
