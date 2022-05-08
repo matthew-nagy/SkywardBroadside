@@ -32218,6 +32218,7 @@ MonoBehaviour:
   score: 0
   resupply: 0
   brokenShip: {fileID: 3615311673211330838, guid: 168ea4c16b405b9438e11c3430849693, type: 3}
+  kill_indicator_Hub: {fileID: 3708750462518415382}
   teamSet: 0
 --- !u!114 &1523253515593093035
 MonoBehaviour:
@@ -33145,6 +33146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb50cea07d5095e4db997ec054206823, type: 3}
+--- !u!1 &3708750462518415382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3950526552254137088, guid: cb50cea07d5095e4db997ec054206823, type: 3}
+  m_PrefabInstance: {fileID: 408479645233746710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6057582102295056722 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5889561253087347268, guid: cb50cea07d5095e4db997ec054206823, type: 3}
