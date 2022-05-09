@@ -190,7 +190,7 @@ public class Intro : MonoBehaviour
         }
         else
         {
-            SubtitleDelegate.obj.SetText("All right, listen in here Maggots.");
+            SubtitleDelegate.obj.SetText("Alright, listen in here Maggots.");
         }
 
         Invoke(nameof(Scene2), 3f);
