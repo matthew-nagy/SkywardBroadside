@@ -67,6 +67,11 @@ public class PlayerStatus : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
         }
     }*/
 
+    void OnDestroy()
+    {
+        Lobby.Instance.DestroyListing(playerName);
+    }
+
     void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
     {
         Debug.Log("ONPHOTONINSTANTIATE");

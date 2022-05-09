@@ -1,11 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using System.Collections;
 
 public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public bool weaponEnabled;
-    public float reloadTime;
+    public float shotPower;
     public GameObject projectile;
     public Transform shotOrigin;
 
@@ -14,22 +15,37 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
     bool sendShootToClient;
     bool clientShootFlag;
 
+    int currentTargetId;
+    public bool lockedOn;
+    bool localLockOn;
+    Vector3 freeFireTargetPos;
+
     string shipType;
 
     [SerializeField]
     ParticleSystem cannonFire;
 
+    [SerializeField]
+    GameObject missileShot;
+    [SerializeField]
+    GameObject soundFxHub;
+
+    [SerializeField]
+    GameObject cantShootFx;
+
+    public bool outOfAmmo;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
-        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+        shipType = transform.root.Find("Ship").GetChild(0).transform.name;
     }
 
     // Update is called once per frame
@@ -38,9 +54,11 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         if (photonView.IsMine)
         {
             ServerUpdate();
+            localLockOn = lockedOn;
         }
         else
         {
+            lockedOn = localLockOn;
             ClientUpdate();
         }
     }
@@ -49,6 +67,16 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
     {
         reloading = GetShipTransform().GetComponent<WeaponsController>().reloading;
         GetInput();
+
+        //set current target Id if we are lockedOn
+        if (lockedOn)
+        {
+            currentTargetId = GetShipTransform().GetComponent<TargetingSystem>().currentTargetId;
+        } //or free fire
+        else
+        {
+            freeFireTargetPos = GetShipTransform().GetComponent<TargetingSystem>().freeFireTargetPos;
+        }
 
         if (serverShootFlag)
         {
@@ -80,6 +108,13 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
                 serverShootFlag = sendShootToClient = true;
             }
         }
+        else if (outOfAmmo)
+        {
+            if (SBControls.shoot.IsDown())
+            {
+                transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(cantShootFx, transform.position);
+            }
+        }
     }
     Transform GetShipTransform()
     {
@@ -100,34 +135,43 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
     }
 
+    void DoSoundEffect()
+    {
+        transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(missileShot, transform.position);
+    }
+
     //fire the cannon
     void Fire()
     {
-        CreateParticles();
         SendShakeEvent();
 
+        CreateParticles();
+
+        GameObject ship = GetShipTransform().gameObject;
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
-        newProjectile.GetComponent<CannonballController>().owner = GetShipTransform().gameObject;
+
+        DoSoundEffect();
 
         if (!photonView.IsMine)
         {
             newProjectile.layer = 10;
         }
 
-        Vector3 endPos = newProjectile.transform.position + (shotOrigin.forward * 5f) + (shotOrigin.up * 5f);
-        StartCoroutine(InitialMovement(newProjectile, newProjectile.transform.position, endPos, 2f));
-    }
-
-    IEnumerator InitialMovement(GameObject projectile, Vector3 startPos, Vector3 endPos, float time)
-    {
-        float i = 0f;
-        float rate = 1f / time;
-        while (i < 1f)
+        //if we are lockedOn get target obj, velocity, and pos
+        if (lockedOn)
         {
-            i += Time.deltaTime * rate;
-            projectile.transform.position = Vector3.Lerp(startPos, endPos, i);
-            yield return null;
+            GameObject target = PhotonView.Find(currentTargetId).gameObject;
+            newProjectile.GetComponent<Missile>().InitialiseMissile(target.transform);
+
+        } //if we are free firing, just get target pos
+        else
+        {
+            GameObject staticTarget = new GameObject();
+            staticTarget.transform.position = freeFireTargetPos;
+            newProjectile.GetComponent<Missile>().InitialiseMissile(staticTarget.transform);
         }
+        newProjectile.GetComponent<Explosive>().owner = GetShipTransform().gameObject;
+        newProjectile.GetComponent<Missile>().owner = GetShipTransform().gameObject;
     }
 
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)
@@ -139,6 +183,9 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
 
             stream.SendNext(transform.rotation);
         }
+        stream.SendNext(currentTargetId);
+        stream.SendNext(freeFireTargetPos);
+        stream.SendNext(localLockOn);
     }
 
     void ClientPhotonStream(PhotonStream stream, PhotonMessageInfo info)
@@ -148,6 +195,9 @@ public class HomingCannonController : MonoBehaviourPunCallbacks, IPunObservable
         {
             transform.rotation = (Quaternion)stream.ReceiveNext();
         }
+        currentTargetId = (int)stream.ReceiveNext();
+        freeFireTargetPos = (Vector3)stream.ReceiveNext();
+        localLockOn = (bool)stream.ReceiveNext();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

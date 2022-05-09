@@ -32,11 +32,6 @@ public class ScoreboardListing : MonoBehaviour
 
     private void UpdateText()
     {
-        Debug.Log("NAME:" + _nickName);
-        Debug.Log("KILLS: " + _kills.ToString());
-        Debug.Log("DEATHS: " + _deaths.ToString());
-        Debug.Log("SCORE: " + _score.ToString());
-        Debug.Log("TEXT UPDATED");
         _nametext.text = _nickName;
         _killstext.text = _kills.ToString();
         _deathstext.text = _deaths.ToString();

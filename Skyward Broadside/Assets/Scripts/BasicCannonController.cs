@@ -25,6 +25,9 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     ParticleSystem cannonFire;
 
+    [SerializeField]
+    GameObject cannonsShots;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -35,7 +38,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
-        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+        shipType = transform.root.Find("Ship").GetChild(0).transform.name;
     }
 
     // Update is called once per frame
@@ -116,6 +119,12 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
     }
 
+    void DoSoundEffect()
+    {   
+        int random = (int)Random.Range(0f, 3f);
+        cannonsShots.transform.GetChild(random).GetComponent<AudioSource>().Play();
+    }
+
     //fire the cannon
     void Fire()
     {
@@ -124,6 +133,8 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         CreateParticles();
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
+
+        DoSoundEffect();
 
         if (!photonView.IsMine)
         {

@@ -16,6 +16,13 @@ TagManager:
   - ReloadIndicator
   - playerStatus
   - Debris
+  - MenuBGMusic
+  - Ignored
+  - Missile
+  - Canvas
+  - MapCenter
+  - MiscSFX
+  - TurretMissile
   layers:
   - Default
   - TransparentFX
@@ -32,7 +39,7 @@ TagManager:
   - MapBoundary
   - Minimap
   - Effects
-  - 
+  - ResupplyZone
   - 
   - 
   - 

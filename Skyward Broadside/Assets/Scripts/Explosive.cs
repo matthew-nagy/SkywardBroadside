@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Explosive : MonoBehaviour
 {
+    public GameObject owner;
+
     public float explosionPower;
     public float explosionRadius;
     bool detonated;
@@ -11,15 +13,56 @@ public class Explosive : MonoBehaviour
     [SerializeField]
     ParticleSystem explosion;
 
+    GameObject effect;
+
+    [SerializeField]
+    GameObject explosionDebris;
+    [SerializeField]
+    GameObject explosionMetal;
+    [SerializeField]
+    GameObject explosionAir;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!detonated && Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects).Length > 0)
         {
+            if (collision.collider.gameObject.CompareTag("Terrain") || collision.collider.gameObject.CompareTag("Debris"))
+            {
+                if (explosionDebris != null)
+                {
+                    effect = explosionDebris;
+                }
+            }
+            else if (collision.collider.transform.root.childCount > 0)
+            {
+                if (collision.collider.transform.root.GetChild(0).childCount > 0)
+                {
+                    if (collision.collider.transform.root.GetChild(0).GetChild(0).CompareTag("Ship"))
+                    {
+                        if (explosionMetal != null)
+                        {
+                            effect = explosionMetal;
+                        }
+                    }
+                    else
+                    {
+                        effect = explosionAir;
+                    }
+                }
+                else
+                {
+                    effect = explosionAir;
+                }
+            }
+            else
+            {
+                effect = explosionAir;
+            }
             Detonate();
         }
     }
 
-    void Detonate()
+    public void Detonate()
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
         detonated = true;
@@ -40,5 +83,38 @@ public class Explosive : MonoBehaviour
             }
         }
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (effect != null)
+        {
+            if (owner != null)
+            {
+                if (owner.name == "turret")
+                {
+                    owner.transform.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                }
+                else
+                {
+                    owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                }
+            }
+        }
+        else
+        {
+            effect = explosionAir;
+            if (owner != null)
+            {
+                if (owner.name == "turret")
+                {
+                    owner.transform.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                }
+                else
+                {
+                    owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(effect, transform.position);
+                }
+            }
+        }
     }
 }

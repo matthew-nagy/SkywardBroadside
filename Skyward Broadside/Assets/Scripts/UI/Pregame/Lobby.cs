@@ -17,6 +17,9 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     [SerializeField] private LobbyListing lobbyListingPrefab;
 
+    [SerializeField] private GameObject guardReadyText;
+    [SerializeField] private GameObject srReadyText;
+
     GameObject localStatus;
 
     private bool switching = false;
@@ -30,15 +33,19 @@ public class Lobby : MonoBehaviourPunCallbacks
         _listings = new Dictionary<string, LobbyListing>();
 
         localStatus = PlayerStatus.CreateLocal();
+
+        //Ensure button has the correct text
+        SetReadyUpText(PlayerChoices.team);
+
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             ReadyUp();
         }
-        if (Input.GetKeyDown(KeyCode.F2))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             ChangeTeam();
         }
@@ -61,6 +68,20 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     }
 
+    private void SetReadyUpText(TeamData.Team team)
+    {
+        if (team == TeamData.Team.Purple)
+        {
+            guardReadyText.SetActive(false);
+            srReadyText.SetActive(true);
+        }
+        else
+        {
+            guardReadyText.SetActive(true);
+            srReadyText.SetActive(false);
+        }
+    }
+
     public void ReadyUp()
     {
         Debug.Log("Readying Up");
@@ -79,6 +100,8 @@ public class Lobby : MonoBehaviourPunCallbacks
         TeamData.Team newTeam = PlayerChoices.team == TeamData.Team.Purple ? TeamData.Team.Yellow : TeamData.Team.Purple;
         PlayerChoices.team = newTeam;
 
+        SetReadyUpText(newTeam);
+
         RaiseEventOptions reo = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         string name = localStatus.GetComponent<PlayerStatus>().playerName;
         PhotonNetwork.RaiseEvent((byte)EventCode.SwitchTeam, name, reo, SendOptions.SendReliable);
@@ -87,7 +110,10 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void RefreshListing(PlayerStatus ps)
     {
-        _listings[ps.playerName].SetFromPlayerStatus(ps);
+        if (_listings.ContainsKey(ps.playerName))
+        {
+            _listings[ps.playerName].SetFromPlayerStatus(ps);
+        }
     }
 
     public void OnNewPlayer(PlayerStatus player)
@@ -97,7 +123,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         listing.SetFromPlayerStatus(player);
         _listings.Add(player.playerName, listing);
     }
-    
+
     public enum EventCode : byte
     {
         Ready = 10,
@@ -112,7 +138,7 @@ public class Lobby : MonoBehaviourPunCallbacks
     private void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
-        if (eventCode == (byte) EventCode.Ready)
+        if (eventCode == (byte)EventCode.Ready)
         {
             string name = (string)photonEvent.CustomData;
             GameObject[] playerstatuses = GameObject.FindGameObjectsWithTag("playerStatus");
@@ -129,7 +155,7 @@ public class Lobby : MonoBehaviourPunCallbacks
                 }
             }
         }
-        else if (eventCode == (byte) EventCode.SwitchTeam)
+        else if (eventCode == (byte)EventCode.SwitchTeam)
         {
             string name = (string)photonEvent.CustomData;
             GameObject[] playerstatuses = GameObject.FindGameObjectsWithTag("playerStatus");
@@ -151,7 +177,20 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player player)
     {
-       Destroy(_listings[player.NickName].gameObject);
-       _listings.Remove(player.NickName);
+        Debug.Log(player.NickName);
+        Destroy(_listings[player.NickName].gameObject);
+        _listings.Remove(player.NickName);
+    }
+
+    public void DestroyListing(string name)
+    {
+        if (_listings.ContainsKey(name))
+        {
+            if (_listings[name] != null && _listings[name].gameObject != null)
+            {
+                Destroy(_listings[name].gameObject);
+            }
+            _listings.Remove(name);
+        }
     }
 }

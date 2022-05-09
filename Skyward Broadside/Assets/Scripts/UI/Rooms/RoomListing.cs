@@ -14,13 +14,18 @@ public class RoomListing : MonoBehaviour
     void Start()
     {
         Button button = gameObject.GetComponent<Button>();
-        button.onClick.AddListener(delegate { OnClick_RoomListing();});
+        //button.OnClick.AddListener(delegate { OnClick_RoomListing();});
+    }
+
+    private string Truncate(string str, int maxLength)
+    {
+        return str.Length <= maxLength ? str : str.Substring(0, maxLength);
     }
 
     public void SetRoomInfo(RoomInfo roomInfo)
     {
         RoomInfo = roomInfo;
-        text.text = roomInfo.PlayerCount + "/" + roomInfo.MaxPlayers + " " + roomInfo.Name;
+        text.text = roomInfo.PlayerCount + "/" + roomInfo.MaxPlayers + " " + Truncate(roomInfo.Name, 11);
     }
     
     public void OnClick_RoomListing()

@@ -14,12 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Launcher.unity
     guid: af5cca758aa56d9289714816610bccf0
-  - enabled: 0
-    path: Assets/Scenes/GameWorld.unity
-    guid: 20b92e21ea833094e9cc4a10145fdbae
-  - enabled: 0
-    path: Assets/Scenes/Arena.unity
-    guid: dfef08c6e05c22d40b4894b98e032814
   - enabled: 1
     path: Assets/Scenes/Pregame.unity
     guid: 3829fa975db8c05439dc48dbeb1a0ba9
@@ -35,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Beta.unity
     guid: ba88067d335c9b948835faad3a167739
+  - enabled: 1
+    path: Assets/Scenes/PlayerName.unity
+    guid: 82d6f98898cf5d1449c48541ec9f7fd3
   m_configObjects: {}

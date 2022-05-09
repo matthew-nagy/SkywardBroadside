@@ -9,58 +9,59 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class photonHub : MonoBehaviourPunCallbacks
 {
-    
+
     public GUIController updateScript;
     public TeamData.Team myTeam;
 
     public static Dictionary<string, PlayerController> players;
-    
-    private DateTime gameStartTime;
-    private TimeSpan gameLength = TimeSpan.FromSeconds(360f); //6 mins
-    
+
+    private DateTime gameStartTime = DateTime.MinValue;
+    private TimeSpan gameLength = TimeSpan.FromSeconds(410f); //6 mins + intro time
+
     private bool gotScores = false;
+    private bool isGameOver = false;
 
     private bool disabled;
 
-        void Start()
-        {
-            players = new Dictionary<string, PlayerController>();
-   
-            GameObject userGUI = GameObject.Find("User GUI");
-            Debug.Log(userGUI);
-            if(userGUI != null)
-            {
-                Debug.Log("Inside the if part with the value " + userGUI);
-                updateScript = userGUI.GetComponent<GUIController>();
-                disabled = false;
-                FetchScores();
-            }
-            else
-            {
-                disabled = true;
-                Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
-            }
+    void Start()
+    {
+        players = new Dictionary<string, PlayerController>();
 
-            myTeam = TeamButton.joinTeam;
-            UpdateTimerFromMaster();
+        GameObject userGUI = GameObject.Find("User GUI");
+        Debug.Log(userGUI);
+        if (userGUI != null)
+        {
+            Debug.Log("Inside the if part with the value " + userGUI);
+            updateScript = userGUI.GetComponent<GUIController>();
+            disabled = false;
+            FetchScores();
+        }
+        else
+        {
+            disabled = true;
+            Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
         }
 
-        
-void Update()
-    {
-            if (gameStartTime == DateTime.MinValue)
-            {
-                UpdateTimerFromMaster();
-            }
-            else
-            {
-                UpdateTimer();
-            }
+        myTeam = PlayerChoices.team;
+        UpdateTimerFromMaster();
+    }
 
-            if (!gotScores)
-            {
-                FetchScores();
-            }
+
+    void Update()
+    {
+        if (gameStartTime == DateTime.MinValue)
+        {
+            UpdateTimerFromMaster();
+        }
+        else
+        {
+            UpdateTimer();
+        }
+
+        if (!gotScores)
+        {
+            FetchScores();
+        }
     }
 
     public void UpdateScores(int[] scores)
@@ -80,7 +81,7 @@ void Update()
         var properties = PhotonNetwork.CurrentRoom.CustomProperties;
         if (properties.ContainsKey("scores"))
         {
-            var scores = (int[]) properties["scores"];
+            var scores = (int[])properties["scores"];
             UpdateScores(scores);
             gotScores = true;
         }
@@ -88,24 +89,38 @@ void Update()
     public void UpdateTimerFromMaster()
     {
         var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
-        
-        gameStartTime = roomProperties.ContainsKey("startTime") ? DateTime.Parse((string) roomProperties["startTime"]) : DateTime.MinValue;
+        if (roomProperties.ContainsKey("timeSet") && (bool)roomProperties["timeSet"])
+        {
+            gameStartTime = DateTime.Parse((string)roomProperties["startTime"]);
+        }
     }
 
     private void UpdateTimer()
     {
         DateTime endTime = gameStartTime.Add(gameLength);
         TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
+        timeRemaining -= TimeSpan.FromHours(timeRemaining.Hours);
+        timeRemaining -= TimeSpan.FromDays(timeRemaining.Days);
 
-        if (timeRemaining < TimeSpan.Zero)
+        // Llewellyn's computer 
+
+        if ((timeRemaining < TimeSpan.Zero || timeRemaining.Minutes > 10) && !isGameOver)
         {
             disabled = true;
-            updateScript.gameOverScreen.SetActive(true);
+            gameOver();
+            isGameOver = true;
             timeRemaining = TimeSpan.Zero;
         }
 
         updateScript.UpdateTimer(timeRemaining);
-        
+    }
+
+    private void gameOver()
+    {
+        updateScript.gameOverScreen.SetActive(true);
+        updateScript.gameOverScreen.GetComponent<gameOverScreen>().CopyScoreboard();
+        var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+        updateScript.GameOver();
     }
 
     private void OnEnable()
@@ -147,23 +162,23 @@ void Update()
     private void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
-        if (eventCode == (byte) EventCode.DeathEvent)
+        if (eventCode == (byte)EventCode.DeathEvent)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 updateTeamScoreProperties(photonEvent.CustomData);
             }
         }
-        else if (eventCode == (byte) EventCode.UpdatedScores)
+        else if (eventCode == (byte)EventCode.UpdatedScores)
         {
-            var scores = (int[]) photonEvent.CustomData;
+            var scores = (int[])photonEvent.CustomData;
             UpdateScores(scores);
         }
-        else if (eventCode == (byte) EventCode.KillEventWithNames)
+        else if (eventCode == (byte)EventCode.KillEventWithNames)
         {
-            var names = (string[]) photonEvent.CustomData;
+            var names = (string[])photonEvent.CustomData;
             Debug.Log(names[0] + ' ' + names[1]);
-            if (names[0] != "Terrain")
+            if (names[0] != "Turret" && names[0] != "Terrain" && names[0] != "Debris")
             {
                 players[names[0]].kills += 1;
                 players[names[0]].score += 100;

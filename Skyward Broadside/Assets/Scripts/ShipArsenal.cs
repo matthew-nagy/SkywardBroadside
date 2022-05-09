@@ -27,21 +27,55 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     // 0 = regular cannon, 1 = explosive cannons, 2 = gatling gun, 3 = shockwave cannons, 4 = homing projectiles
     public Dictionary<int, bool> weapons = new Dictionary<int, bool> { { 0, false }, { 1, false }, { 2, false }, { 3, false }, { 4, false } };
 
-    private readonly float regenFactorOfMaxHealth = 0.05f;
+    private readonly float regenFactorOfMaxHealth = 0.2f;
     private readonly int regenOfCannonballsPerReloadPeriod = 3;
-    private readonly int regenOfExplosiveCannonballPerReloadPeriod = 1;
+    private readonly int regenOfExplosiveCannonballPerReloadPeriod = 6;
+    private readonly int regenOfSpecialAmmoPerReloadPeriod = 3;
 
     private void Awake()
     {
-        EnableWeapon(0);
-        EnableWeapon(1);
-        EnableWeapon(2);
+        if (PlayerChoices.ship == "lightShip")
+        {
+            EnableWeapon(0);
+            EnableWeapon(1);
+            EnableWeapon(4);
+        }
+        else if (PlayerChoices.ship == "mediumShip")
+        {
+            EnableWeapon(0);
+            EnableWeapon(1);
+            EnableWeapon(2);
+        }
+        else if (PlayerChoices.ship == "heavyShip")
+        {
+            EnableWeapon(0);
+            EnableWeapon(1);
+            EnableWeapon(3);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid ship type");
+        }
     }
     private void Start()
     {
         GetComponent<WeaponsController>().equipWeapons();
 
         Respawn();
+
+        GetComponent<ShipController>().PutOutFires();
+    }
+
+    private void Update()
+    {
+        if (health <= 20f)
+        {
+            GetComponent<ShipController>().StartFires();
+        }
+        else if (health > 20f)
+        {
+            GetComponent<ShipController>().PutOutFires();
+        }
     }
 
     void EnableWeapon(int weaponId)
@@ -76,7 +110,10 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void Impact1()
     {
-        health -= 0.2f;
+        if (health - 0.1f > 0)
+        {
+            health -= 0.1f;
+        }
     }
 
     public void Respawn()
@@ -93,6 +130,8 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         health = Math.Min(health + regenFactorOfMaxHealth * maxHealth, maxHealth);
         cannonballAmmo = Math.Min(cannonballAmmo + regenOfCannonballsPerReloadPeriod, maxCannonballAmmo);
         explosiveCannonballAmmo = Math.Min(explosiveCannonballAmmo + regenOfExplosiveCannonballPerReloadPeriod, maxExplosiveCannonballAmmo);
+        shockwaveAmmo = Math.Min(shockwaveAmmo + regenOfSpecialAmmoPerReloadPeriod, maxShockwaveAmmo);
+        homingAmmo = Math.Min(homingAmmo + regenOfSpecialAmmoPerReloadPeriod, maxHomingAmmo);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

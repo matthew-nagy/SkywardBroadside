@@ -6,7 +6,12 @@ using UnityEngine.UI;
 
 public class GUIController : MonoBehaviour
 {
-
+    public enum PrevWinner
+    {
+        Nobody,
+        Us,
+        Them
+    }
     public enum Ammo
     {
         Normal,
@@ -110,6 +115,9 @@ public class GUIController : MonoBehaviour
     public Text myScore;
     public Text theirScore;
 
+    public int myTeamScore;
+    public int otherTeamScore;
+
     public GameObject gameOverScreen;
 
     public Text gameOverYourTeam;
@@ -118,6 +126,17 @@ public class GUIController : MonoBehaviour
     public Text timer;
 
 
+    //Music
+    public GameObject audioObject;
+    private GameMusicController musicController;
+
+    public GameObject sfxObject;
+    private MiscSFXController sfxController;
+
+    private PrevWinner prevWinner;
+    private bool wasLowHealth;
+    private bool justLoadedIn;
+
     private void Awake()
     {
         topPos = normalAmmoParent.transform.localPosition;
@@ -125,12 +144,21 @@ public class GUIController : MonoBehaviour
         rightPos = specialAmmoParent.transform.localPosition;
 
         healthShaderImg = healthShaderObject.GetComponent<RawImage>();
+        healthShaderImg.material = new Material(healthShaderImg.material);
 
         explosiveShaderImg = explosiveShaderObject.GetComponent<RawImage>();
         explosiveShaderImg.material = new Material(explosiveShaderImg.material); //instantiate new material otherwise changes would also change any other instances of this material
 
         specialShaderImg = specialShaderObject.GetComponent<RawImage>();
         specialShaderImg.material = new Material(specialShaderImg.material);
+
+        musicController = audioObject.GetComponent<GameMusicController>();
+
+        prevWinner = PrevWinner.Nobody;
+        wasLowHealth = false;
+        justLoadedIn = true;
+
+        sfxController = sfxObject.GetComponentInChildren<MiscSFXController>();
     }
 
     private void Start()
@@ -259,7 +287,21 @@ public class GUIController : MonoBehaviour
         Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(healthMinZ, healthMaxZ, (float)value / (float)maxHealth));
         healthDial.dialHand.rotation = Quaternion.Euler(newRotation);
         healthShaderImg.material.SetFloat("_FullProportion", (float)value / (float)maxHealth);
-        //print("Remaining health: " + value);
+        if (value < 20f && sfxController != null)
+        {
+            if (!wasLowHealth)
+            {
+                sfxController.PlayLowHealth();
+                wasLowHealth = true;
+            }
+        }
+        else
+        {
+            if (wasLowHealth)
+            {
+                wasLowHealth = false;
+            }
+        }
     }
 
     public void UpdateGUINormalAmmo(int value)
@@ -281,7 +323,7 @@ public class GUIController : MonoBehaviour
 
     }
 
-    public void UpdateSpecialAmmo(int value)
+    public void UpdateGUISpecialAmmo(int value)
     {
         if (!hasGatling)
         {
@@ -299,6 +341,25 @@ public class GUIController : MonoBehaviour
 
         theirScore.text = otherTeam.ToString();
         gameOverOtherTeam.text = otherTeam.ToString();
+
+        if (sfxController != null && !justLoadedIn)
+        {
+            if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Them) && myTeam > otherTeam)
+            {
+                prevWinner = PrevWinner.Us;
+                sfxController.PlayLeadTaken();
+            }
+            else if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Us) && otherTeam > myTeam)
+            {
+                prevWinner = PrevWinner.Them;
+                sfxController.PlayLeadLost();
+            }
+        }
+        
+
+        myTeamScore = myTeam;
+        otherTeamScore = otherTeam;
+        justLoadedIn = false;
     }
 
     public void SetPlayer(GameObject _player)
@@ -387,6 +448,27 @@ public class GUIController : MonoBehaviour
     public void UpdateTimer(TimeSpan timeRemaining)
     {
         timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
+    }
+
+    public void GameOver()
+    {
+        timer.gameObject.SetActive(false);
+        musicController.DisableBattleMusic();
+
+        if (sfxController != null)
+        {
+            if (myTeamScore >= otherTeamScore)
+            {
+                sfxController.PlayVictorySting();
+            }
+            else
+            {
+                sfxController.PlayDefeatSting();
+            }
+        }
+        
+
+        musicController.EnableGameOverMusic();
     }
 }
  

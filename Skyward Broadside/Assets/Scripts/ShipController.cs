@@ -37,6 +37,13 @@ struct RequestedControls
     }
 }
 
+[System.Serializable]
+public struct TeamToColour
+{
+    public TeamData.Team team;
+    public Material material;
+}
+
 public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 {
 
@@ -81,7 +88,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     float timerDisabled;
     float totalDisabledTime;
 
-    Color teamColour;
+    TeamData.Team myTeam;
     bool colourSet = false;
 
     public List<ParticleSystem> pDriveSystem;
@@ -102,52 +109,29 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     float projectileDamageMultiplier;
     [SerializeField]
+    float missileDamageMultiplier;
+    [SerializeField]
     float explosionDamageMultiplier;
     [SerializeField]
     float shipDamageMultiplier;
     [SerializeField]
     float wallDamageMultiplier;
     float forceToDamageMultiplier;
-    public GameObject balloon;
+    public GameObject[] balloons;
 
     private Vector3 lastPosition;
 
-    bool aiToggle;
-    void AI()
-    {
-        float maxVel = 30f;
-        float minVel = -30f;
-        velocity.x += Random.Range(-3f, 3f);
-        velocity.y += Random.Range(-3f, 3f);
-        velocity.z += Random.Range(-3f, 3f);
+    public Material purpleMat;
+    public Material yellowMat;
 
-        if (velocity.x >= maxVel)
-        {
-            velocity.x = maxVel;
-        }
-        else if (velocity.x <= minVel)
-        {
-            velocity.x = minVel;
-        }
+    public List<TeamToColour> teamsToColours;
+    Dictionary<TeamData.Team, Material> shipMats;
 
-        if (velocity.y >= 8f)
-        {
-            velocity.y = 8f;
-        }
-        else if (velocity.y <= -8f)
-        {
-            velocity.y = -8f;
-        }
+    [SerializeField]
+    GameObject fires;
 
-        if (velocity.z >= maxVel)
-        {
-            velocity.z = maxVel;
-        }
-        else if (velocity.z <= minVel)
-        {
-            velocity.z = minVel;
-        }
-    }
+    [SerializeField]
+    GameObject introManager;
 
     public void ResetLastPosition()
     {
@@ -160,7 +144,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (photonView.IsMine)
         {
             freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
-            lockOnCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Fire);
         }
     }
 
@@ -175,13 +158,48 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         verticalSpeed = 0;
         playerInput = new RequestedControls();
 
-        teamColour = TeamData.TeamToColour(GetComponentInParent<PlayerPhotonHub>().myTeam);
-        balloon.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(teamColour.r, teamColour.g, teamColour.b, 0.5f));
+        shipMats = new Dictionary<TeamData.Team, Material>();
+        foreach (TeamToColour ttc in teamsToColours)
+        {
+            shipMats[ttc.team] = ttc.material;
+        }
+
+        myTeam = GetComponent<PlayerController>().myTeam;
+        Material myMat;
+        if(myTeam == TeamData.Team.Purple)
+        {
+            myMat = purpleMat;
+        }
+        else
+        {
+            myMat = yellowMat;
+        }
+        foreach (GameObject balloon in balloons)
+        {
+            balloon.GetComponent<Renderer>().material = myMat;
+        }
 
         GameObject mapCenter = GameObject.Find("Center");
         Vector3 towards = mapCenter.transform.position - transform.position;
         towards.y = 0;
         transform.rotation = Quaternion.LookRotation(towards);
+
+        if (photonView.IsMine)
+        {
+            Invoke(nameof(BallonSetup), 2.0f);
+        }
+    }
+
+    void BallonSetup()
+    {
+        foreach (GameObject go in Blackboard.yellowReloadObjects)
+        {
+            go.GetComponent<ReloadRegister>().Setup();
+        }
+        foreach (GameObject go in Blackboard.purpleReloadObjects)
+        {
+            go.GetComponent<ReloadRegister>().Setup();
+        }
     }
 
     void Awake()
@@ -212,11 +230,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             return;
         }
-        
+
         if (!isDisabled)
         {
-            GetPlayerInput();
-            //GetWeaponInput();
+            if (Intro.introDone)
+            {
+                GetPlayerInput();
+            }
         }
         else
         {
@@ -237,6 +257,47 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         verticalSpeed = velocity.y;
     }
 
+    public void StartFires()
+    {
+        TurnOnParticles(fires.transform);
+    }
+
+    public void PutOutFires()
+    {
+        TurnOffParticles(fires.transform);
+    }
+
+
+    void TurnOnParticles(Transform root)
+    {
+        if (root.TryGetComponent(out ParticleSystem ps))
+        {
+            if (!ps.isPlaying)
+            {
+                ps.Play();
+            }
+        }
+        foreach (Transform child in root)
+        {
+            TurnOnParticles(child);
+        }
+    }
+
+    void TurnOffParticles(Transform root)
+    {
+        if (root.TryGetComponent(out ParticleSystem ps))
+        {
+            if (ps.isPlaying)
+            {
+                ps.Stop();
+            }
+        }
+        foreach (Transform child in root)
+        {
+            TurnOffParticles(child);
+        }
+    }
+
     void GetPlayerInput()
     {
 
@@ -249,11 +310,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         playerInput.up = SBControls.yAxisUp.IsHeld();
         playerInput.down = SBControls.yAxisDown.IsHeld();
-        
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            aiToggle = !aiToggle;
-        }
     }
 
     private void FixedUpdate()
@@ -268,11 +324,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         rigidBody.MovePosition(rigidBody.position + velocity * Time.deltaTime);
 
         velocityBeforeCollision = velocity;
-
-        if (aiToggle)
-        {
-            AI();
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -281,7 +332,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (collision.gameObject.layer == 7)
             return;
 
-        
+
         if (photonView.IsMine)
         {
             freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
@@ -321,6 +372,49 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 forceToDamageMultiplier = 0f;
             }
         }
+        else if (collision.gameObject.CompareTag("TurretMissile"))
+        {
+
+            Debug.Log("Missile collision");
+            shouldDealDamage = true;
+            gameObject.GetComponent<PlayerController>().lastHit("Turret");
+            GameObject owner = collision.gameObject.GetComponent<Missile>().owner;
+
+            if (!GameObject.ReferenceEquals(owner, gameObject))
+            {
+                Vector3 velocityMissile = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
+                Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityMissile;
+                moveSpeed = finalVelocity.magnitude;
+
+                velocity = finalVelocity;
+
+                forceToDamageMultiplier = missileDamageMultiplier * collision.gameObject.GetComponent<Missile>().damageAmount;
+            }
+            else
+            {
+                forceToDamageMultiplier = 0f;
+            }
+        }
+        else if (collision.gameObject.CompareTag("Missile"))
+        {
+            shouldDealDamage = true;
+            GameObject owner = collision.gameObject.GetComponent<Missile>().owner;
+            gameObject.GetComponent<PlayerController>().lastHit(owner.GetComponent<PhotonView>().Owner.NickName);
+            if (!GameObject.ReferenceEquals(owner, gameObject))
+            {
+                Vector3 velocityMissile = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
+                Vector3 finalVelocity = velocityBeforeCollision + 0.1f * velocityMissile;
+                moveSpeed = finalVelocity.magnitude;
+
+                velocity = finalVelocity;
+
+                forceToDamageMultiplier = missileDamageMultiplier * collision.gameObject.GetComponent<Missile>().damageAmount;
+            }
+            else
+            {
+                forceToDamageMultiplier = 0f;
+            }
+        }
         else if (collision.gameObject.CompareTag("Ship"))
         {
             shouldDealDamage = true;
@@ -344,35 +438,35 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             // the 10 is needed because otherwise you insta-kill each other upon contact
             forceToDamageMultiplier = shipDamageMultiplier * (massA * Vector3.SqrMagnitude(finalVelocity - initialVelocity)) / 10;
         }
-        else if (collision.gameObject.tag == "Wall")
-        {
-            shouldDealDamage = true;
-            Debug.Log("Wall");
-            switch (collision.gameObject.name)
-            {
-                case "InvisWallX+":
-                    transform.position -= new Vector3(1, 0, 0);
-                    break;
-                case "InvisWallX-":
-                    transform.position += new Vector3(1, 0, 0);
-                    break;
-                case "InvisWallY+":
-                    transform.position -= new Vector3(0, 1, 0);
-                    break;
-                case "InvisWallY-":
-                    transform.position += new Vector3(0, 1, 0);
-                    break;
-                case "InvisWallZ+":
-                    transform.position -= new Vector3(0, 0, 1);
-                    break;
-                case "InvisWallZ-":
-                    transform.position += new Vector3(0, 0, 1);
-                    break;
-            }
-            velocity = new Vector3(0, 0, 0); 
-            DisableMovementFor(0.5f);
-            forceToDamageMultiplier = wallDamageMultiplier;
-        }
+        //else if (collision.gameObject.tag == "Wall")
+        //{
+        //    shouldDealDamage = true;
+        //    Debug.Log("Wall");
+        //    switch (collision.gameObject.name)
+        //    {
+        //        case "InvisWallX+":
+        //            transform.position -= new Vector3(1, 0, 0);
+        //            break;
+        //        case "InvisWallX-":
+        //            transform.position += new Vector3(1, 0, 0);
+        //            break;
+        //        case "InvisWallY+":
+        //            transform.position -= new Vector3(0, 1, 0);
+        //            break;
+        //        case "InvisWallY-":
+        //            transform.position += new Vector3(0, 1, 0);
+        //            break;
+        //        case "InvisWallZ+":
+        //           transform.position -= new Vector3(0, 0, 1);
+        //            break;
+        //        case "InvisWallZ-":
+        //            transform.position += new Vector3(0, 0, 1);
+        //            break;
+        //   }
+        //    velocity = new Vector3(0, 0, 0); 
+        //    DisableMovementFor(0.5f);
+        //    forceToDamageMultiplier = wallDamageMultiplier;
+        //}
         else if (collision.gameObject.CompareTag("Debris"))
         {
             shouldDealDamage = true;
@@ -382,7 +476,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             Transform colParent = collision.gameObject.transform.parent;
-            if(colParent != null)
+            if (colParent != null)
             {
                 if (colParent.CompareTag("Terrain")) //If hit terrain
                 {
@@ -416,9 +510,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(velocity);
             stream.SendNext(isDisabled);
             stream.SendNext(moveSpeed);
-            stream.SendNext(teamColour.r);
-            stream.SendNext(teamColour.g);
-            stream.SendNext(teamColour.b);
+            stream.SendNext((byte)myTeam);
             stream.SendNext(transform.position.x);
             stream.SendNext(transform.position.y);
             stream.SendNext(transform.position.z);
@@ -434,9 +526,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             this.velocity = (Vector3)stream.ReceiveNext();
             this.isDisabled = (bool)stream.ReceiveNext();
             this.moveSpeed = (float)stream.ReceiveNext();
-            float r = (float)stream.ReceiveNext();
-            float g = (float)stream.ReceiveNext();
-            float b = (float)stream.ReceiveNext();
+
+            myTeam = (TeamData.Team)((byte)stream.ReceiveNext());
 
             Vector3 np = Vector3.zero;
             Vector3 ea = Vector3.zero;
@@ -451,20 +542,32 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             if (!colourSet)
             {
-                balloon.GetComponent<Renderer>().material.SetVector("_Colour", new Vector4(r, g, b, 1f));
+                Material myMat;
+                if (myTeam == TeamData.Team.Purple)
+                {
+                    myMat = purpleMat;
+                }
+                else
+                {
+                    myMat = yellowMat;
+                }
+                foreach (GameObject balloon in balloons)
+                {
+                    balloon.GetComponent<Renderer>().material = myMat;
+                }
                 colourSet = true;
             }
 
             RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
-            if(newInput.forwards != playerInput.forwards)
+            if (newInput.forwards != playerInput.forwards)
             {
                 SetParticles(pDriveSystem, newInput.forwards);
             }
-            if(newInput.turnLeft != playerInput.turnLeft)
+            if (newInput.turnLeft != playerInput.turnLeft)
             {
                 SetParticles(pAntiClockwiseJets, newInput.turnLeft);
             }
-            if(newInput.turnRight != playerInput.turnRight)
+            if (newInput.turnRight != playerInput.turnRight)
             {
                 SetParticles(pClockwiseJets, newInput.turnRight);
             }
@@ -486,7 +589,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     bool GoingForwards()
     {
-        if(velocity.magnitude > breakToReverseThreashold && Vector3.Dot(transform.forward, velocity) > 0.0f)
+        if (velocity.magnitude > breakToReverseThreashold && Vector3.Dot(transform.forward, velocity) > 0.0f)
         {
             return true;
         }
@@ -580,7 +683,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     void SetParticles(List<ParticleSystem> systems, bool on)
     {
-        foreach(ParticleSystem ps in systems)
+        foreach (ParticleSystem ps in systems)
         {
             if (on)
             {

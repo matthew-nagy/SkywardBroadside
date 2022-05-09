@@ -23,7 +23,7 @@ public class Breakable : MonoBehaviour
 
 
     void Start()
-    {
+    { 
         breakPhotonInterface.children.Add(this);
         enabled = false;
     }
@@ -47,20 +47,6 @@ public class Breakable : MonoBehaviour
 
     private void Update()
     {
-        if(myRigidBody != null && isMasterPhoton)
-        {
-            secondsSinceSync += Time.deltaTime;
-            if(secondsSinceSync >= secondsToNextSync)
-            {
-                secondsSinceSync = 0;
-                SendSyncCommand(false);
-                secondsToNextSync *= syncTimeMultiplier;
-                if(secondsToNextSync > maxSecondsPerSyncEvent)
-                {
-                    secondsToNextSync = maxSecondsPerSyncEvent;
-                }
-            }
-        }
     }
 
     public void RegisterOwner(BreakMaster newOwner)
@@ -183,17 +169,13 @@ public class Breakable : MonoBehaviour
         SyncEvent se = new SyncEvent();
         se.indexInOwner = indexInOwner;
         se.delete = shouldDelete;
-        se.position = myRigidBody.position;
-        se.velocity = myRigidBody.velocity;
 
         owner.RegisterSyncEvent(se);
     }
 
     public void PhotonSync(SyncEvent e)
     {
-        transform.position = e.position;
-        myRigidBody.position = e.position;
-        myRigidBody.velocity = e.velocity;
+
     }
 
     public void GamePlayApplyForce(float force, Vector3 contactPoint, float forceRadius)

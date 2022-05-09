@@ -1,0 +1,415 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Cinemachine;
+using Photon.Pun;
+
+public class Intro : MonoBehaviour
+{
+    [SerializeField]
+    GameObject cameraPrefab;
+
+    public CinemachineBrain brain;
+
+    Vector3 mapCenter;
+
+    GameObject cam1;
+    GameObject cam2;
+    GameObject cam3;
+
+    GameObject canvas;
+
+    [SerializeField]
+    CinemachineSmoothPath purpleFlyThru;
+    [SerializeField]
+    CinemachineSmoothPath yellowFlyThru;
+
+    CinemachineSmoothPath path1;
+    [SerializeField]
+    CinemachineSmoothPath path2;
+
+    Vector3 yellowStartIslandPos = new Vector3(-120f, 202.600006f, -432.600006f);
+    Vector3 purpleStartIslandPos = new Vector3(922.299988f, 202.600006f, -594.799988f);
+
+    GameObject myBase;
+
+    bool endIntro;
+
+    public static bool introDone = false;
+
+    List<GameObject[]> transitions;
+
+    Transform shipTransform;
+
+    int myTeam;
+
+    [SerializeField]
+    bool doIntro;
+
+    AudioSource introVoiceover;
+    public AudioClip yellowIntro;
+    public AudioClip purpleIntro;
+
+    private void Start()
+    {
+        if (doIntro)
+        {
+            if (transform.root.GetChild(0).GetChild(0).GetComponent<PhotonView>().IsMine)
+            {
+                introVoiceover = GetComponent<AudioSource>();
+                introVoiceover.loop = false;
+                transitions = new List<GameObject[]>();
+                canvas = GameObject.FindGameObjectWithTag("Canvas");
+                canvas.SetActive(false);
+
+                shipTransform = transform.root.GetChild(0).GetChild(0);
+
+                mapCenter = GameObject.FindGameObjectWithTag("MapCenter").transform.position;
+
+                myTeam = (int)shipTransform.GetComponent<PlayerController>().myTeam;
+
+                GameObject[] bases = GameObject.FindGameObjectsWithTag("ResupplyBase");
+                foreach (GameObject _base in bases)
+                {
+                    if (myTeam == (int)_base.GetComponent<ReloadRegister>().myTeam)
+                    {
+                        myBase = _base;
+                    }
+                }
+
+                if (myTeam == 0)
+                {
+                    path1 = purpleFlyThru;
+                    introVoiceover.clip = purpleIntro;
+                }
+                else
+                {
+                    path1 = yellowFlyThru;
+                    introVoiceover.clip = yellowIntro;
+                }
+                introVoiceover.Play();
+                StartIntro();
+                doIntro = false;
+            }
+        }
+        else
+        {
+            introDone = true;
+            shipTransform = transform.root.GetChild(0).GetChild(0);
+            shipTransform.GetComponent<CameraController>().cameraObj.Priority = 1;
+        }
+    }
+
+    public void StartIntro()
+    {
+        Camera.main.cullingMask = (1 << LayerMask.NameToLayer("Default")) | (1 << LayerMask.NameToLayer("TransparentFX")) |
+                                  (1 << LayerMask.NameToLayer("Ignore Raycast")) | (1 << LayerMask.NameToLayer("Water")) |
+                                  (1 << LayerMask.NameToLayer("UI")) | (1 << LayerMask.NameToLayer("PostProcessing")) |
+                                  (1 << LayerMask.NameToLayer("Island")) | (1 << LayerMask.NameToLayer("Projectile")) |
+                                  (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("EnemyProjectile")) |
+                                  (1 << LayerMask.NameToLayer("ResupplyBase"));
+        IslandScene();
+    }
+
+    void IslandScene()
+    { 
+        //
+
+        GameObject islandPosObj = new GameObject();
+        Vector3 offSet = new Vector3(30f, 0f, 0f);
+
+        cam3 = Instantiate(cameraPrefab);
+        cam3.name = "IslandCam";
+        if (myTeam == 0)
+        {
+            islandPosObj.transform.position = yellowStartIslandPos;
+            cam3.transform.position = yellowStartIslandPos + (offSet * 4);
+            cam3.transform.position += new Vector3(0f, 10f, 0f);
+            cam3.transform.LookAt(yellowStartIslandPos);
+        }
+        else
+        {
+            islandPosObj.transform.position = purpleStartIslandPos;
+            cam3.transform.position = purpleStartIslandPos - (offSet * 2.3f);
+            cam3.transform.position += new Vector3(0f, 10f, 0f);
+            cam3.transform.LookAt(purpleStartIslandPos);
+        }
+        cam3.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        StartCoroutine(Orbit(islandPosObj, cam3, 3f, 5f));
+        Invoke(nameof(Scene0), 3f);
+    }
+
+    void Scene0()
+    {
+        Vector3 pos;
+        Vector3 rot;
+        if (myTeam == 0)
+        {
+            pos = new Vector3(-20f, 700f, -322f);
+            rot = new Vector3(90f, 100f, 0f);
+        }
+        else
+        {
+            pos = new Vector3(755f, 700f, -717f);
+            rot = new Vector3(90f, -80f, 0f);
+        }
+        
+        cam1 = Instantiate(cameraPrefab, pos, Quaternion.Euler(rot));
+        cam1.name = "FlyCam";
+        cam1.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        cam3.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        Invoke(nameof(Scene1), 1f);
+    }
+
+    //fly over
+    void Scene1()
+    {
+        Vector3 pos;
+        Vector3 rot;
+        if (myTeam == 0)
+        {
+            pos = new Vector3(755f, 700f, -717f);
+            rot = new Vector3(90f, 100f, 0f);
+        }
+        else
+        {
+            pos = new Vector3(-20f, 700f, -322f);
+            rot = new Vector3(90f, -80f, 0f);
+        }
+
+        cam2 = Instantiate(cameraPrefab, pos, Quaternion.Euler(rot));
+        cam2.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+
+        cam1.name = "FirstCam";
+        cam2.name = "SecondCam";
+        cam2.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        if (introVoiceover.clip == yellowIntro)
+        {
+            SubtitleDelegate.obj.SetText("Well met Cadet, on this grand battlefield.");
+        }
+        else
+        {
+            SubtitleDelegate.obj.SetText("All right, listen in here Maggots.");
+        }
+
+        Invoke(nameof(Scene2), 3f);
+    }
+
+    //focus on your ship
+    void Scene2()
+    {
+        Vector3 centerDir = (mapCenter - transform.position).normalized;
+        cam1.transform.position = shipTransform.position + (centerDir * -20f);
+        cam1.transform.LookAt(transform.root.GetChild(0).GetChild(0));
+
+        cam1.name = "ThirdCam";
+        cam1.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        cam2.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+
+        Invoke(nameof(Scene3), 2f);
+        if(introVoiceover.clip == yellowIntro)
+        {
+            Invoke(nameof(ShipSubtitle), 1f);
+        }
+        else
+        {
+            Invoke(nameof(ShipSubtitle), 0.7f);
+        }
+    }
+
+    void ShipSubtitle()
+    {
+        if (introVoiceover.clip == yellowIntro)
+        {
+            SubtitleDelegate.obj.SetText("We've deemed you fit for your own ship. With all the weapons needed to take this territory from those wretched Sky Rats.");
+        }
+        else
+        {
+            SubtitleDelegate.obj.SetText("This here is your ship. We ain't got much, but we've loaded 'em up with all we got, so let's sink some pigs.");
+        }
+    }
+
+    //orbit
+    void Scene3()
+    {
+        GameObject target = new GameObject();
+        target.transform.position = shipTransform.position;
+        cam2.transform.parent = target.transform;
+        cam2.transform.position = cam1.transform.position;
+        cam2.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        StartCoroutine(Orbit(target, cam2, 5f, 20f));
+
+        Invoke(nameof(Scene4), 5f);
+    }
+
+    //missile turret
+    void Scene4()
+    {
+        Destroy(cam1);
+        Destroy(cam2);
+        cam3 = Instantiate(cameraPrefab);
+        cam3.GetComponent<CinemachineDollyCart>().m_Path = path2;
+        cam3.GetComponent<CinemachineDollyCart>().m_Speed = 8f;
+        cam3.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        if (introVoiceover.clip == yellowIntro)
+        {
+            SubtitleDelegate.obj.SetText("Though some brigands seem to have arrived here first, and should be swiftly dispatched.");
+            Invoke(nameof(SetLonSubtitleA), 4.3f);
+        }
+        else
+        {
+            SubtitleDelegate.obj.SetText("Tch, those lousy raiders have set up missle outposts on our islands already. Make sure to boot 'em out. ");
+            Invoke(nameof(SetLonSubtitleA), 6.5f);
+        }
+        Invoke(nameof(Transition), 4f);
+    }
+
+    void SetLonSubtitleA()
+    {
+        if (introVoiceover.clip == yellowIntro)
+        {
+            SubtitleDelegate.obj.SetText("This looks to become a battle of attrition. Your role shall be to sink any enemy vessel on sight.");
+            Invoke(nameof(SetLonSubtitleB), 7.3f);
+        }
+        else
+        {
+            SubtitleDelegate.obj.SetText("We can't have anyone else take what's left. Not the raiders, nor that damn greedy Order of the Guard.");
+            Invoke(nameof(SetLonSubtitleB), 7.5f);
+        }
+    }
+    void SetLonSubtitleB()
+    {
+        if (introVoiceover.clip == yellowIntro)
+        {
+            SubtitleDelegate.obj.SetText("These islands should provide good cover from cannonshot, and could be used to grand effect.");
+        }
+        else
+        {
+            SubtitleDelegate.obj.SetText("These islands could hide us from enemy fire, so try stick to the shadows until you're ready to strike.");
+        }
+    }
+    void Transition()
+    {
+        cam1 = Instantiate(cameraPrefab);
+        cam1.GetComponent<CinemachineDollyCart>().m_Path = path1;
+        cam1.GetComponent<CinemachineDollyCart>().m_Speed = 0f;
+
+        cam3.name = "PathCam1";
+        cam1.name = "PathCam2";
+        cam1.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        cam3.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        Invoke(nameof(Scene5), 3.9f);
+    }
+
+    //fly thru
+    void Scene5()
+    {
+        Destroy(cam3);
+        if (introVoiceover.clip == yellowIntro)
+        {
+            cam1.GetComponent<CinemachineDollyCart>().m_Speed = 100f;
+        }
+        else
+        {
+            cam1.GetComponent<CinemachineDollyCart>().m_Speed = 90f;
+        }
+        Invoke(nameof(Scene6), 9f);
+    }
+
+
+    void Scene6()
+    {
+        cam2 = Instantiate(cameraPrefab);
+        Vector3 pos = myBase.transform.position + 80f * (mapCenter - myBase.transform.position).normalized;
+        pos.y -= 30f;
+        cam2.transform.position = pos;
+        cam2.transform.LookAt(myBase.transform);
+
+        cam1.name = "SixthCam";
+        cam2.name = "SeventhCam";
+        cam2.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        if (introVoiceover.clip == yellowIntro)
+        {
+            SubtitleDelegate.obj.SetText("Should your ship be in need of repairs or more ammunition, you are always welcome home to our forward base.");
+        }
+        else
+        {
+            Invoke(nameof(SkyratBase), 1.6f);    
+        }
+        Invoke(nameof(Scene7), 2f);
+    }
+
+    void SkyratBase()
+    {
+        SubtitleDelegate.obj.SetText("You can come back home for help. Repairs, ammo, heck even a new ship. You need it, we got it.");
+    }
+
+    void Scene7()
+    {
+        cam1 = Instantiate(cameraPrefab, cam2.transform.position + new Vector3(0f, 60f, 0), cam2.transform.rotation);
+        cam1.transform.LookAt(myBase.transform);
+        cam2.name = "FourthCam";
+        cam1.name = "FifthCam";
+        cam1.GetComponent<CinemachineVirtualCamera>().Priority = 1;
+        cam2.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        Invoke(nameof(Scene8), 4f);
+    }
+
+    void Scene8()
+    {
+        shipTransform.GetComponent<CameraController>().cameraObj.ForceCameraPosition(shipTransform.position + -30f*(mapCenter - transform.position).normalized, Quaternion.identity);
+        shipTransform.GetComponent<CameraController>().cameraObj.Priority = 1;
+        cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        if (introVoiceover.clip == yellowIntro)
+        {
+            SubtitleDelegate.obj.SetText("Good luck cadet, there may be order in these skies yet");
+            Invoke(nameof(KillSubtitle), 2.8f);
+        }
+        else
+        {
+            Invoke(nameof(KillSubtitle), 2.8f);
+        }
+        Invoke(nameof(FinishIntro), 2f);
+    }
+
+    IEnumerator Orbit(GameObject target, GameObject cam, float orbitTime, float orbitSpeed)
+    {
+        float time = 0f;
+        while (time < orbitTime)
+        {
+            cam.transform.LookAt(target.transform);
+            cam.transform.Translate(Vector3.right * Time.deltaTime * orbitSpeed);
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    void FinishIntro()
+    {
+        Camera.main.cullingMask = (1 << LayerMask.NameToLayer("Default")) | (1 << LayerMask.NameToLayer("TransparentFX")) |
+                                  (1 << LayerMask.NameToLayer("Ignore Raycast")) | (1 << LayerMask.NameToLayer("Water")) |
+                                  (1 << LayerMask.NameToLayer("UI")) | (1 << LayerMask.NameToLayer("PostProcessing")) |
+                                  (1 << LayerMask.NameToLayer("Island")) | (1 << LayerMask.NameToLayer("Projectile")) |
+                                  (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("EnemyProjectile")) |
+                                  (1 << LayerMask.NameToLayer("ResupplyBase")) | (1 << LayerMask.NameToLayer("MapBoundary"));
+        introDone = true;
+        canvas.SetActive(true);
+        Invoke(nameof(DestorySelf), 10.0f);
+    }
+
+    void KillSubtitle()
+    {
+        SubtitleDelegate.obj.EndCutscene();
+    }
+
+    void DestorySelf()
+    {
+        DestroyImmediate(yellowIntro);
+        DestroyImmediate(purpleIntro);
+        DestroyImmediate(introVoiceover);
+        Destroy(this);
+    }
+}

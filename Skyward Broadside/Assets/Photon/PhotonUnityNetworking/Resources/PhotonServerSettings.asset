@@ -43,6 +43,10 @@ MonoBehaviour:
   - impact
   - impact1
   - Impact1
+  - DeathAnimation
+  - RespawnRPC
+  - Respawn
+  - UpdateTimer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

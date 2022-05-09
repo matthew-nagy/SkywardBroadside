@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
@@ -11,15 +12,15 @@ public class Scoreboard : MonoBehaviourPunCallbacks
 {
     public static Scoreboard Instance;
     [SerializeField] private GameObject container;
-    [SerializeField] private GameObject team1Panel;
-    [SerializeField] private GameObject team2Panel;
+    [SerializeField] public GameObject team1Panel;
+    [SerializeField] public GameObject team2Panel;
 
     [SerializeField] private ScoreboardListing scoreboardListingPrefab;
 
     private Dictionary<string, ScoreboardListing> _listings;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Instance = this;
         _listings = new Dictionary<string, ScoreboardListing>();

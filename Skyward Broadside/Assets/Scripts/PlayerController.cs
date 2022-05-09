@@ -6,26 +6,43 @@ using Photon.Pun.UtilityScripts;
 using System;
 using System.Collections.Generic;
 
-public class PlayerController : MonoBehaviourPun, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPunInstantiateMagicCallback
 {
-    private GUIController updateScript;
+    public GUIController updateScript;
 
     public TeamData.Team myTeam;
 
-    private readonly float regenSecondsPerReloads = 1f;
+    private readonly float regenSecondsPerReloads = 0.5f;
 
     public DateTime spawnTime;
 
     public string playerName;
     private string lastDamagedBy;
-    public int kills { get; set; }
-    public int deaths { get; set; }
-    public int score { get; set; }
+    public int kills = 0;//{ get; set; }
+    public int deaths = 0;//{ get; set; }
+    public int score = 0;//{ get; set; }
 
     public bool resupply;
 
+    [SerializeField]
+    GameObject brokenShip;
+    [SerializeField]
+    GameObject kill_indicator_Hub;
+
+    public bool teamSet;
+
+    public static GameObject Create(Vector3 spawnPoint)
+    {
+
+        object[] data = { PhotonNetwork.NickName, PlayerChoices.team };
+        GameObject player = PhotonNetwork.Instantiate(PlayerChoices.playerPrefab, spawnPoint, Quaternion.identity, 0, data);
+        return player;
+    }
+
     private void Start()
-    { 
+    {
+        transform.root.GetComponent<PlayerPhotonHub>().SetTeam();
+        teamSet = true;
         if (photonView.IsMine)
         {
             updateScript = transform.root.GetComponent<PlayerPhotonHub>().updateScript;
@@ -41,13 +58,14 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             spawnTime = DateTime.Now;
 
             Invoke(nameof(RegenInvoker), 5f);
-            
         }
 
         playerName = gameObject.GetComponent<PhotonView>().Owner.NickName;
         photonHub.players.Add(playerName, this);
-        Scoreboard.Instance.OnNewPlayer(this);
-
+        if (photonView.IsMine)
+        {
+            //Scoreboard.Instance.OnNewPlayer(this);
+        }
     }
 
     private void Update()
@@ -69,8 +87,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                     UpdateAmmo();
                     UpdateWeapon();
                 }
-
-
             }
         }
     }
@@ -82,8 +98,16 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             float health = GetComponent<ShipArsenal>().health;
             if (health < 0f)
             {
+                PlayerPhotonHub PPH = transform.root.GetComponent<PlayerPhotonHub>();
+                PlayerUI UIScript = PPH.healthbarAndName.GetComponent<PlayerUI>();
+                if (UIScript != null)
+                {
+                    UIScript.SetDead();
+                }
                 Die();
             }
+
+
             updateScript.UpdateGUIHealth(health);
         }
         else
@@ -99,11 +123,31 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             ShipArsenal sa = GetComponent<ShipArsenal>();
             updateScript.UpdateGUINormalAmmo(sa.cannonballAmmo);
             updateScript.UpdateGUIExplosiveAmmo(sa.explosiveCannonballAmmo);
+            UpdateSpecialAmmo(sa);
+
         }
         else
         {
             Debug.LogWarning("Cannot update ammo: photon hubs update script is null");
         }
+    }
+
+    void UpdateSpecialAmmo(ShipArsenal shipArsenal) 
+    {
+        int ammoValue = 0;
+        if (shipArsenal.weapons[2])
+        {
+            ammoValue = 100; //could be anything because gatling
+        }
+        else if (shipArsenal.weapons[3])
+        {
+            ammoValue = shipArsenal.shockwaveAmmo;
+        }
+        else
+        {
+            ammoValue = shipArsenal.homingAmmo;
+        }
+        updateScript.UpdateGUISpecialAmmo(ammoValue);
     }
 
     void UpdateWeapon()
@@ -125,32 +169,72 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private void broadcastDeath()
     {
-        Debug.Log("ONE");
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
         string[] names = {lastDamagedBy, playerName};
         PhotonNetwork.RaiseEvent((byte) photonHub.EventCode.KillEventWithNames, names, raiseEventOptions,
             SendOptions.SendReliable);
-        Debug.Log("TWO");
         RaiseEventOptions raiseEventOptions2 = new RaiseEventOptions {Receivers = ReceiverGroup.All};
         PhotonNetwork.RaiseEvent((byte) photonHub.EventCode.DeathEvent, (byte)myTeam, raiseEventOptions2,
             SendOptions.SendReliable);
-        Debug.Log("THREE");
-
     }
 
     void Die()
     {
+        GetComponent<ShipController>().PutOutFires();
         if (photonView.IsMine)
         {
             broadcastDeath();
-
-            GetComponent<ShipArsenal>().Respawn();
-
-            Vector3 spawnPosition = GameManager.Instance.GetSpawnFromTeam(myTeam).transform.position;
-            transform.position = spawnPosition + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
-
-            spawnTime = DateTime.Now;
+            GetComponent<TargetingSystem>().unLockToTarget();
+            GetComponent<ShipController>().velocity = new Vector3(0f, 0f, 0f);
+            photonView.RPC(nameof(DeathAnimation), RpcTarget.All);
+            photonView.RPC(nameof(Respawn), RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    void Respawn()
+    {
+        Invoke(nameof(MoveShipToSpawnPoint), 2.8f);
+        Invoke(nameof(Activate), 3f);
+
+    }
+
+    void EnableHealthbar()
+    {
+        PlayerPhotonHub PPH = transform.root.GetComponent<PlayerPhotonHub>();
+        PlayerUI UIScript = PPH.healthbarAndName.GetComponent<PlayerUI>();
+        if (UIScript != null)
+        {
+            UIScript.SetAlive();
+        }
+    }
+
+    void MoveShipToSpawnPoint()
+    {
+        GetComponent<ShipArsenal>().Respawn();
+
+        Vector3 spawnPosition = GameManager.Instance.GetSpawnFromTeam(myTeam).transform.position;
+        transform.position = spawnPosition + new Vector3(UnityEngine.Random.Range(-80, 80), 0, UnityEngine.Random.Range(-80, 80));
+
+        spawnTime = DateTime.Now;
+    }
+
+    void Activate()
+    {
+        transform.root.gameObject.SetActive(true);
+        EnableHealthbar();
+        if (kill_indicator_Hub.GetComponent<Kill_Indicator>().indicatorShown)
+        {
+            kill_indicator_Hub.GetComponent<Kill_Indicator>().HideIndicator();
+        }
+    }
+
+    [PunRPC]
+    void DeathAnimation()
+    {
+        GameObject brokenShipObj = Instantiate(brokenShip, transform.position, transform.rotation);
+        brokenShipObj.GetComponent<DeathController>().Expload();
+        transform.root.gameObject.SetActive(false);
     }
 
     public void RegenInvoker()
@@ -170,16 +254,24 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            System.Object[] stats = {myTeam, kills, deaths, score};
+            System.Object[] stats = {kills, deaths, score};
             stream.SendNext(stats);
         }
         else
         {
             System.Object[] stats = (System.Object[]) stream.ReceiveNext();
-            myTeam = (TeamData.Team) stats[0];
-            kills = (int) stats[1];
-            deaths = (int) stats[2];
-            score = (int) stats[3];
+            kills = (int) stats[0];
+            deaths = (int) stats[1];
+            score = (int) stats[2];
         }
     }
+
+    //void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
+    //{
+    //    Debug.Log("Player controller instantiated, should appear on scoreboard");
+    //    object[] instantiationData = info.photonView.InstantiationData;
+    //    myTeam = (TeamData.Team)instantiationData[0];
+    //    Debug.LogError("NOTIFICATION");
+    //    Scoreboard.Instance.OnNewPlayer(this);
+    //}
 }

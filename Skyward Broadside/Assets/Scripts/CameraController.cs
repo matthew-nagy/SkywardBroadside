@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Rendering.PostProcessing;
 using Cinemachine;
+using UnityEngine.UI; // Required when Using UI elements
+using UnityEditor;
 
 public class CameraController : MonoBehaviourPunCallbacks
 {
@@ -11,6 +13,7 @@ public class CameraController : MonoBehaviourPunCallbacks
     public GameObject lockOnCam;
     public GameObject minimapCam;
     public PostProcessProfile toonProfile;
+    public CameraShaker shaker;
     GameObject thisCam;
     GameObject thisLockOnCam;
     GameObject thisMinimapCam;
@@ -20,24 +23,47 @@ public class CameraController : MonoBehaviourPunCallbacks
     CinemachineVirtualCamera lockOnCameraObj;
     CinemachineVirtualCamera minimapCameraObj;
 
-    static float sensitivity = 0.8f;
+    public static float sensitivity = 0.7f;
+    static float sensitivityFactor = 0.8f;
+    static bool sensitivityChange = false;
+    public static Slider sensitivitySlider;
+
+    float originalX;
+    float originalY;
+    public static void SetSensitivity()
+    {
+        sensitivity = sensitivitySlider.value;
+        sensitivityChange = true;
+    }
 
     bool freeCamDisabled;
+
+    [SerializeField]
+    GameObject IntroManager;
 
     private void Start()
     {
         if (photonView.IsMine)
         {
+
             thisCam = Instantiate(shipCam);
+            thisCam.name = "ShipCam";
             Blackboard.shipCamera = thisCam;
             cameraObj = thisCam.GetComponent<CinemachineFreeLook>();
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
-            cameraObj.Priority = 1;
-            cameraObj.m_XAxis.m_MaxSpeed *= sensitivity;
-            cameraObj.m_YAxis.m_MaxSpeed *= sensitivity;
+            cameraObj.Priority = 0;                                                                         //CHANGE THIS TO 0 AFTER BUG IS FIXED
+
+            IntroManager.GetComponent<Intro>().brain = thisCam.GetComponent<CinemachineBrain>();
+
+            originalX = cameraObj.m_XAxis.m_MaxSpeed;
+            originalY = cameraObj.m_YAxis.m_MaxSpeed;
+
+            cameraObj.m_XAxis.m_MaxSpeed *= sensitivity * sensitivityFactor * 2.0f;
+            cameraObj.m_YAxis.m_MaxSpeed *= sensitivity * sensitivityFactor / 1.3f;
+
             gameObject.GetComponent<TargetingSystem>().myCam = cameraObj;
             gameObject.GetComponent<ShipController>().freeCameraObject = cameraObj.gameObject;
 
@@ -48,16 +74,24 @@ public class CameraController : MonoBehaviourPunCallbacks
             lockOnCameraObj.Priority = 0;
             gameObject.GetComponent<ShipController>().lockOnCameraObject = lockOnCameraObj.gameObject;
 
-            thisMinimapCam = Instantiate(minimapCam);
-            minimapCameraObj = thisMinimapCam.GetComponent<CinemachineVirtualCamera>();
-            minimapCameraObj.Follow = transform;
-            minimapCameraObj.LookAt = transform;
-            minimapCameraObj.Priority = -1;
+            thisMinimapCam = Instantiate(minimapCam, transform.position + new Vector3(0f, 500f, 0f), transform.rotation);
+            thisMinimapCam.transform.Rotate(90f, 0f, 0f);
+            thisMinimapCam.transform.parent = transform;
+
+            freeCamDisabled = false;
+            shaker = thisCam.GetComponent<CameraShaker>();
+            shaker.freeCam = !freeCamDisabled;
         }
     }
 
     private void Update()
     {
+        if (sensitivityChange)
+        {
+            sensitivityChange = false;
+            cameraObj.m_XAxis.m_MaxSpeed = originalX * ( sensitivity * sensitivityFactor * 2.0f );
+            cameraObj.m_YAxis.m_MaxSpeed = originalY * ( sensitivity * sensitivityFactor / 1.3f );
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = true;
@@ -88,6 +122,7 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     public void disableFreeCam()
     {
+        shaker.freeCam = false;
         freeCamDisabled = true;
         cameraObj.m_XAxis.m_InputAxisName = "";
         cameraObj.m_YAxis.m_InputAxisName = "";
@@ -121,6 +156,7 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     public void enableFreeCam()
     {
+        shaker.freeCam = true;
         freeCamDisabled = false;
         cameraObj.m_XAxis.m_InputAxisName = "Mouse X";
         cameraObj.m_YAxis.m_InputAxisName = "Mouse Y";

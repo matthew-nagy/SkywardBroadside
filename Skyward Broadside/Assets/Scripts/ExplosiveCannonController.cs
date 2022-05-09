@@ -7,7 +7,6 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
 {
     public bool weaponEnabled;
     public float shotPower;
-    public float reloadTime;
     public GameObject projectile;
     public Transform shotOrigin;
 
@@ -28,6 +27,14 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
     [SerializeField]
     ParticleSystem cannonFire;
 
+    [SerializeField]
+    GameObject cannonsShots;
+
+    [SerializeField]
+    GameObject cantShootFx;
+
+    public bool outOfAmmo;
+
     void Awake()
     {
         // we flag as don't destroy on load so that instance survives level synchronization, MAYBE NOT USEFUL OUTSIDE OF TUTORIAL?
@@ -38,7 +45,7 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
     void Start()
     {
         serverShootFlag = sendShootToClient = clientShootFlag = false;
-        shipType = transform.root.GetComponent<PlayerPhotonHub>().shipType;
+        shipType = transform.root.Find("Ship").GetChild(0).transform.name;
     }
 
     // Update is called once per frame
@@ -101,6 +108,13 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
                 serverShootFlag = sendShootToClient = true;
             }
         }
+        else if (outOfAmmo)
+        {
+            if (SBControls.shoot.IsDown())
+            {
+                transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(cantShootFx, transform.position);
+            }
+        }
     }
     Transform GetShipTransform()
     {
@@ -121,6 +135,12 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
     }
 
+    void DoSoundEffect()
+    {
+        int random = (int)Random.Range(0f, 3f);
+        cannonsShots.transform.GetChild(random).GetComponent<AudioSource>().Play();
+    }
+
     //fire the cannon
     void Fire()
     {
@@ -128,6 +148,8 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         SendShakeEvent();
 
         GameObject newProjectile = Instantiate(projectile, shotOrigin.position, shotOrigin.rotation);
+
+        DoSoundEffect();
 
         if (!photonView.IsMine)
         {
@@ -173,6 +195,7 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
 
         newProjectile.GetComponent<Rigidbody>().velocity = new Vector3(Vx, Vy, Vz);
         newProjectile.GetComponent<CannonballController>().owner = GetShipTransform().gameObject;
+        newProjectile.GetComponent<Explosive>().owner = GetShipTransform().gameObject;
     }
 
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)
