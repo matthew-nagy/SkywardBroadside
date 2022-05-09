@@ -186,11 +186,11 @@ public class Intro : MonoBehaviour
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
         if (introVoiceover.clip == yellowIntro)
         {
-            SubtitleDelegate.obj.SetText("Well met Cadet, on this grand battlefield");
+            SubtitleDelegate.obj.SetText("Well met Cadet, on this grand battlefield.");
         }
         else
         {
-            SubtitleDelegate.obj.SetText("All right, listen in here Maggots");
+            SubtitleDelegate.obj.SetText("All right, listen in here Maggots.");
         }
 
         Invoke(nameof(Scene2), 3f);
@@ -222,11 +222,11 @@ public class Intro : MonoBehaviour
     {
         if (introVoiceover.clip == yellowIntro)
         {
-            SubtitleDelegate.obj.SetText("We've deemed you fit for your own ship. With all the weapons needed to take this territory from those reched sky rats");
+            SubtitleDelegate.obj.SetText("We've deemed you fit for your own ship. With all the weapons needed to take this territory from those wretched Sky Rats.");
         }
         else
         {
-            SubtitleDelegate.obj.SetText("this here is your ship. We ain't got much but we've loaded 'em up with all we got, so let's sink some pigs");
+            SubtitleDelegate.obj.SetText("This here is your ship. We ain't got much, but we've loaded 'em up with all we got, so let's sink some pigs.");
         }
     }
 
@@ -255,12 +255,12 @@ public class Intro : MonoBehaviour
         cam3.GetComponent<CinemachineVirtualCamera>().Priority = 1;
         if (introVoiceover.clip == yellowIntro)
         {
-            SubtitleDelegate.obj.SetText("Though some brigands seem to have arrived here first, and should be swiftly dispatched");
+            SubtitleDelegate.obj.SetText("Though some brigands seem to have arrived here first, and should be swiftly dispatched.");
             Invoke(nameof(SetLonSubtitleA), 4.3f);
         }
         else
         {
-            SubtitleDelegate.obj.SetText("tch, those lousy raiders have set up missle outposts on our islands already Make sure to boot em out. ");
+            SubtitleDelegate.obj.SetText("Tch, those lousy raiders have set up missle outposts on our islands already. Make sure to boot 'em out. ");
             Invoke(nameof(SetLonSubtitleA), 6.5f);
         }
         Invoke(nameof(Transition), 4f);
@@ -270,12 +270,12 @@ public class Intro : MonoBehaviour
     {
         if (introVoiceover.clip == yellowIntro)
         {
-            SubtitleDelegate.obj.SetText("This looks to become a battle of attrition. Your role shall be to sink any enemy vessel on sight");
+            SubtitleDelegate.obj.SetText("This looks to become a battle of attrition. Your role shall be to sink any enemy vessel on sight.");
             Invoke(nameof(SetLonSubtitleB), 7.3f);
         }
         else
         {
-            SubtitleDelegate.obj.SetText("We can't have anyone else take whats left. Not the raiders, nor that damn greedy Order of the Guard");
+            SubtitleDelegate.obj.SetText("We can't have anyone else take what's left. Not the raiders, nor that damn greedy Order of the Guard.");
             Invoke(nameof(SetLonSubtitleB), 7.5f);
         }
     }
@@ -283,11 +283,11 @@ public class Intro : MonoBehaviour
     {
         if (introVoiceover.clip == yellowIntro)
         {
-            SubtitleDelegate.obj.SetText("These islands should provide good cover from cannonshot, and could be used to grand effect");
+            SubtitleDelegate.obj.SetText("These islands should provide good cover from cannonshot, and could be used to grand effect.");
         }
         else
         {
-            SubtitleDelegate.obj.SetText("These islands could hide us from enemy fire; so try stick to the shadows until your ready to strike");
+            SubtitleDelegate.obj.SetText("These islands could hide us from enemy fire, so try stick to the shadows until you're ready to strike.");
         }
     }
     void Transition()
@@ -333,7 +333,7 @@ public class Intro : MonoBehaviour
         cam1.GetComponent<CinemachineVirtualCamera>().Priority = 0;
         if (introVoiceover.clip == yellowIntro)
         {
-            SubtitleDelegate.obj.SetText("Should your ship be in need of repairs or more ammunition, you are always welcome home to our forward base");
+            SubtitleDelegate.obj.SetText("Should your ship be in need of repairs or more ammunition, you are always welcome home to our forward base.");
         }
         else
         {
@@ -344,7 +344,7 @@ public class Intro : MonoBehaviour
 
     void SkyratBase()
     {
-        SubtitleDelegate.obj.SetText("You can come back home for help. Repairs, ammo, heck even a new ship. You need it we got it");
+        SubtitleDelegate.obj.SetText("You can come back home for help. Repairs, ammo, heck even a new ship. You need it, we got it.");
     }
 
     void Scene7()
