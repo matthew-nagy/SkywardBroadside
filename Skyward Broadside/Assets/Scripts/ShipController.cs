@@ -257,17 +257,19 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         verticalSpeed = velocity.y;
     }
 
+    //Turn on fire particle effects
     public void StartFires()
     {
         TurnOnParticles(fires.transform);
     }
 
+    //Turn off particle fire effects
     public void PutOutFires()
     {
         TurnOffParticles(fires.transform);
     }
 
-
+    //Find and turn on all the fire particle systems 
     void TurnOnParticles(Transform root)
     {
         if (root.TryGetComponent(out ParticleSystem ps))
@@ -283,6 +285,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Find and turn off all the fire particle systems
     void TurnOffParticles(Transform root)
     {
         if (root.TryGetComponent(out ParticleSystem ps))

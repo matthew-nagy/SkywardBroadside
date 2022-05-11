@@ -1,3 +1,5 @@
+//Script for a prompt with a key on it. (Not used?) Set its position, text size, background size etc.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,3 +1,5 @@
+//This script is not used anymore. It draws a tradjectory path for projectiles
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
