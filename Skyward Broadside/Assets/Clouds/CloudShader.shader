@@ -67,15 +67,16 @@ Shader "Unlit/CloudShader"
                 float4 world_origin = mul(UNITY_MATRIX_M, float4(0, 0, 0, 1));
                 float4 view_origin = float4(UnityObjectToViewPos(float3(0, 0, 0)), 1);
 
+                //Get the position encoded in the colour channels
                 float4 colourPos = float4((v.colour.rgb + offset) * _Scale * _DimensionRatios, v.vertex.w);
 
+                //Convert that position to view space, in front of the camera
                 float4 world_pos = mul(UNITY_MATRIX_M, colourPos);
-                //float4 world_pos = mul(UNITY_MATRIX_M, v.vertex);
-
                 float4 view_pos = mul(UNITY_MATRIX_V, world_pos);
 
                 //If the alpha is set to 0, there is no bubble
                 float bubbleScale = _BubbleSize * noise * v.colour.a;
+                //Move x,y based on the uv positions of the 
                 view_pos += float4(v.uv * bubbleScale, 0.0, 0.0);
 
                 float4 clip_pos = mul(UNITY_MATRIX_P, view_pos);

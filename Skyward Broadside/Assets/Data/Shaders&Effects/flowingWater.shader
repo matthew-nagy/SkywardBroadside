@@ -1,5 +1,6 @@
 Shader "Unlit/NewUnlitShader"
 {
+    //See stagnant water shader for more documentation
     Properties
     {
         _WaterTexture ("Texture", 2D) = "white" {}
