@@ -4,14 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//The class which controls what the in-game GUI displays. The functions in this class are called by other classes when the GUI needs to be updated. 
 public class GUIController : MonoBehaviour
 {
-    public enum PrevWinner
+    //The possible options for the team that was previously (before the current score update) winning the game.
+    public enum PrevLeader
     {
         Nobody,
         Us,
         Them
     }
+
+    //The possible ammo types, used to label the dials. The None member is used for the health dial.
     public enum Ammo
     {
         Normal,
@@ -19,6 +23,9 @@ public class GUIController : MonoBehaviour
         Special,
         None
     }
+
+    //A container for dials. It holds the parent game object for the dial, the maximum possible value of the dial, and
+    //the type of dial that it is. It also holds the game object of the dial hand, so that this can be rotated.
     public struct Dial
     {
         public Dial(GameObject dialParent, int _maxValue, Ammo ammoType)
@@ -39,6 +46,8 @@ public class GUIController : MonoBehaviour
         public Ammo ammo;
     }
 
+    //A representation of which ammo dial is at a certain position (of which there are 3). Also holds the target position of the dial, which is set to be the
+    //current dial's next position in world space after a rotation occurs.
     public struct DialPos
     {
         public DialPos(Dial _dial, Vector3 _position)
@@ -59,19 +68,24 @@ public class GUIController : MonoBehaviour
     public GameObject explosiveAmmoParent;
     public GameObject specialAmmoParent;
 
+    //Ammo symbols
     public GameObject missileImage;
     public GameObject gatlingImage;
     public GameObject shockwaveImage;
     public GameObject specialInfinityImage;
 
+    //The material for the dial shader, which highlights in red the portion of the dial which is "remaining".
     public Material shaderMat;
 
+    //The Z values for when an ammo dial is pointing to zero and when an ammo dial is pointing to its max value.
     readonly int ammoMinZ = 115;
     readonly int ammoMaxZ = -115;
 
+    //The Z values for when the health dial is pointing to zero and when it's pointing to its max value.
     readonly int healthMinZ = 115;
     readonly int healthMaxZ = -120;
 
+    //The world space positions of the three dials. 
     Vector3 topPos;
     Vector3 leftPos;
     Vector3 rightPos;
@@ -133,10 +147,11 @@ public class GUIController : MonoBehaviour
     public GameObject sfxObject;
     private MiscSFXController sfxController;
 
-    private PrevWinner prevWinner;
+    private PrevLeader prevWinner;
     private bool wasLowHealth;
     private bool justLoadedIn;
 
+    //Called when the script instance is being loaded. Used to initialise the variables for this script and set up references to other scripts.
     private void Awake()
     {
         topPos = normalAmmoParent.transform.localPosition;
@@ -144,29 +159,32 @@ public class GUIController : MonoBehaviour
         rightPos = specialAmmoParent.transform.localPosition;
 
         healthShaderImg = healthShaderObject.GetComponent<RawImage>();
+        //Instantiate new material, otherwise changes would also change any other instances of this material.
         healthShaderImg.material = new Material(healthShaderImg.material);
 
         explosiveShaderImg = explosiveShaderObject.GetComponent<RawImage>();
-        explosiveShaderImg.material = new Material(explosiveShaderImg.material); //instantiate new material otherwise changes would also change any other instances of this material
+        explosiveShaderImg.material = new Material(explosiveShaderImg.material); 
 
         specialShaderImg = specialShaderObject.GetComponent<RawImage>();
         specialShaderImg.material = new Material(specialShaderImg.material);
 
         musicController = audioObject.GetComponent<GameMusicController>();
 
-        prevWinner = PrevWinner.Nobody;
+        prevWinner = PrevLeader.Nobody;
         wasLowHealth = false;
         justLoadedIn = true;
 
         sfxController = sfxObject.GetComponentInChildren<MiscSFXController>();
     }
 
+    // Start is called before the first frame update.
     private void Start()
     {
         healthDial = new Dial(healthDialParent, maxHealth, Ammo.None);
     }
 
     // Update is called once per frame
+    //If the dials are not currently rotating, then rotate the dials to the correct positions (current ammo type as the biggest, top dial).
     void Update()
     {
         if (!isMoving && isInitialised)
@@ -186,11 +204,15 @@ public class GUIController : MonoBehaviour
         }
     }
 
+    //Changes the current ammo type to be displayed.
     public void UpdateWeapon(int weaponId)
     {
         currentWeaponId = weaponId;
     }
 
+    //Figures out how the dials should rotate so that the current ammo dial is on the top.
+    //If the dials are already in the correct positions, do nothing.
+    //Otherwise, make the dials rotate clockwise or anticlockwise.
     void SwitchAmmo(Ammo ammoType)
     {
 
@@ -200,15 +222,17 @@ public class GUIController : MonoBehaviour
         }
         else if (leftDialPos.dial.ammo == ammoType)
         {
-            StartCoroutine(RotateRight());
+            StartCoroutine(RotateClockwise());
         }
         else
         {
-            StartCoroutine(RotateLeft());
+            StartCoroutine(RotateAnticlockwise());
         }
     }
 
-    IEnumerator RotateRight()
+    //Rotate all the dials clockwise. This is done by setting the target position of the dial at each position, and then linearly interpolating the
+    //position of the dials over time. In addition, the size of two of the dials are changed so that the big dial is always the top one.
+    IEnumerator RotateClockwise()
     {
         isMoving = true;
         topDialPos.targetPos = rightDialPos.position;
@@ -242,7 +266,9 @@ public class GUIController : MonoBehaviour
 
     }
 
-    IEnumerator RotateLeft()
+    //Rotate all the dials anticlockwise. This is done by setting the target position of the dial at each position, and then linearly interpolating the
+    //position of the dials over time. In addition, the size of two of the dials are changed so that the big dial is always the top one.
+    IEnumerator RotateAnticlockwise()
     {
         isMoving = true;
 
@@ -273,6 +299,8 @@ public class GUIController : MonoBehaviour
         isMoving = false;
     }
 
+    //Calculate what the next position of the dial should be, based on its current position, its target position and the proportion of the
+    //rotation time that has passed.
     Vector3 LerpDialPos(DialPos dialPos, float proportion)
     {
         float x = Mathf.Lerp(dialPos.position.x, dialPos.targetPos.x, proportion);
@@ -281,7 +309,9 @@ public class GUIController : MonoBehaviour
         return new Vector3(x, y, 0);
     }
 
-
+    //Update the health dial. This involves rotating the dial hand by the correct amount, and setting the material properties so that the shader
+    //covers the correct proportion of the dial.
+    //In addition, play the low health alarm if the user has less than 20 health.
     public void UpdateGUIHealth(float value)
     {
         Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(healthMinZ, healthMaxZ, (float)value / (float)maxHealth));
@@ -304,11 +334,13 @@ public class GUIController : MonoBehaviour
         }
     }
 
+    //Update the dial for normal cannonball ammo. This now does not do anything as we decided to make normal cannonball ammo infinite.
     public void UpdateGUINormalAmmo(int value)
     {
 
     }
 
+    //Update the dial for explosive cannonball ammo.
     public void UpdateGUIExplosiveAmmo(int value)
     {
         Vector3 newRotation = new Vector3(0, 0, Mathf.Lerp(ammoMinZ, ammoMaxZ, (float)value / (float)maxExplosiveAmmo));
@@ -319,10 +351,10 @@ public class GUIController : MonoBehaviour
         }
         explosiveShaderImg.material.SetFloat("_FullProportion", (float)value / (float)maxExplosiveAmmo);
 
-        //print("Remaining explosive: " + value);
-
     }
 
+    //Update the dial for the special ammo. If the user's special weapon is the Gatling gun, there is no need to do anything, as the Gatling gun
+    //has infinite ammo.
     public void UpdateGUISpecialAmmo(int value)
     {
         if (!hasGatling)
@@ -334,6 +366,9 @@ public class GUIController : MonoBehaviour
         }
     }
 
+
+    //Update the scores that are displayed at the top of the screen. Also, play the appropriate sound effect if the user's team has just lost or
+    //taken the lead. This is done by keeping track of the team that had previously been in the lead, and playing a sound effect if this changes.
     public void UpdateGUIScores(int myTeam, int otherTeam)
     {
         myScore.text = myTeam.ToString();
@@ -344,14 +379,14 @@ public class GUIController : MonoBehaviour
 
         if (sfxController != null && !justLoadedIn)
         {
-            if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Them) && myTeam > otherTeam)
+            if ((prevWinner == PrevLeader.Nobody || prevWinner == PrevLeader.Them) && myTeam > otherTeam)
             {
-                prevWinner = PrevWinner.Us;
+                prevWinner = PrevLeader.Us;
                 sfxController.PlayLeadTaken();
             }
-            else if ((prevWinner == PrevWinner.Nobody || prevWinner == PrevWinner.Us) && otherTeam > myTeam)
+            else if ((prevWinner == PrevLeader.Nobody || prevWinner == PrevLeader.Us) && otherTeam > myTeam)
             {
-                prevWinner = PrevWinner.Them;
+                prevWinner = PrevLeader.Them;
                 sfxController.PlayLeadLost();
             }
         }
@@ -362,9 +397,10 @@ public class GUIController : MonoBehaviour
         justLoadedIn = false;
     }
 
+    //Get information about the player's ammo types and initialise the dials. We need to know what special weapon the player has, so that we can
+    //initalise the correct special ammo dial. 
     public void SetPlayer(GameObject _player)
     {
-        print("In SetPlayer");
         player = _player;
         ShipArsenal shipArsenalScript = player.GetComponent<ShipArsenal>();
 
@@ -397,12 +433,15 @@ public class GUIController : MonoBehaviour
         isInitialised = true;
     }
 
+    //Initialise the ammo dials that exist for every ship type.
     private void Initialise()
     {
         normalAmmoDial = new Dial(normalAmmoParent, maxNormalAmmo, Ammo.Normal);
         explosiveAmmoDial = new Dial(explosiveAmmoParent, maxExplosiveAmmo, Ammo.Explosive);
     }
 
+    //Initialise the special dial when the special weapon is the Gatling gun. The Gatling gun dial has no hand (because it has infinite ammo) and has an infinity symbol instead.
+    //Also, enable the correct ammo symbol.
     private void InitialiseGatling()
     {
         specialAmmoDial = new Dial(specialAmmoParent, maxSpecialAmmo, Ammo.Special);
@@ -417,6 +456,7 @@ public class GUIController : MonoBehaviour
         hasGatling = true;
     }
 
+    //Initialise the special dial when the special weapon is shockwave ammo. 
     private void InitialiseShockwave()
     {
         specialAmmoDial = new Dial(specialAmmoParent, maxSpecialAmmo, Ammo.Special);
@@ -431,6 +471,7 @@ public class GUIController : MonoBehaviour
         hasGatling = false;
     }
 
+    //Initialise the special dial when the special weapon is homing missiles. 
     private void InitialiseMissile()
     {
         specialAmmoDial = new Dial(specialAmmoParent, maxSpecialAmmo, Ammo.Special);
@@ -445,11 +486,14 @@ public class GUIController : MonoBehaviour
         hasGatling = false;
     }
 
+    //Update the timer shown on the screen by accessing the Minutes and Seconds properties of the TimeSpan.
     public void UpdateTimer(TimeSpan timeRemaining)
     {
         timer.text = String.Format("{0}:{1:00}", timeRemaining.Minutes, timeRemaining.Seconds);
     }
 
+    //PhotonHub calls this to change the GUI when the game ends. The timer is hidden so the Game Over text can be seen properly. The battle music is disabled
+    //and the game over music is enabled. In addition, the correct ending jingle is played for the player, depending on whether their team won or lost.
     public void GameOver()
     {
         timer.gameObject.SetActive(false);
@@ -467,7 +511,6 @@ public class GUIController : MonoBehaviour
             }
         }
         
-
         musicController.EnableGameOverMusic();
     }
 }
