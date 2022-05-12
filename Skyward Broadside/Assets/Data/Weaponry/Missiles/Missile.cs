@@ -25,6 +25,7 @@ public class Missile : MonoBehaviour
         //Do nothing before we have a target
     }
 
+    // Sets up the missile with a target
     public void InitialiseMissile(Transform _targetTransform)
     {
         targetTransform = _targetTransform;
@@ -35,17 +36,20 @@ public class Missile : MonoBehaviour
     void Update()
     {
         if (!initialised) return; //If not got a target, do nothing
-        if (transform != null)
+
+        if (transform != null) // If been instantiated ith a position
         {
             Vector3 dist_to_target = targetTransform.position - transform.position;
             Vector3 dir_to_target = dist_to_target.normalized;
 
-            //Rotate to look at target - dampening controls speed of rotation
+            //Rotate to look at target - dampening controls speed of rotation & therefore accuracy
             var rotation = Quaternion.LookRotation(dist_to_target);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotationDampening);
 
+            // Move
             transform.position += transform.forward * speed * Time.deltaTime;
 
+            // Explode after a certain amount of time so it cant follow someone forever
             if (Time.timeSinceLevelLoad - initTime > explodeTimer)
             {
                 GetComponent<Explosive>().Detonate();
