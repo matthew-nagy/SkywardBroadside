@@ -1,3 +1,5 @@
+//Converts key codes into "nice" text. E.g Alpha 1 becomes just 1
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

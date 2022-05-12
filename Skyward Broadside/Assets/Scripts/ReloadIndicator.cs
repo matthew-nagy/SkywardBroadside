@@ -1,3 +1,5 @@
+//This script handles the reload indicator ring. It updates the fill amount of the image to create the effect seen when reloading
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
