@@ -1,3 +1,5 @@
+//This script handles an ingame prompt. It sets its position according to where it should appear in camera view on the canvas
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

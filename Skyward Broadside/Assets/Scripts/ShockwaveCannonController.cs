@@ -1,3 +1,5 @@
+//An almost copy of the basic cannon controller managing shockwave cannon fire instead
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
