@@ -1,3 +1,5 @@
+//This script handles the prompts seen at the start of the game
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,6 +58,7 @@ public class PromptSystem : MonoBehaviour
         kcc = gameObject.AddComponent<KeyCodeConverter>();
     }
 
+    //Create and display all the prompts after the intro is done
     private void Update()
     {
         if (Intro.introDone)
@@ -170,6 +173,7 @@ public class PromptSystem : MonoBehaviour
                 }
             }
 
+            //Hide scoreboard tip if scoreboard key is pressed
             if (!scoreboardTipHidden)
             {
                 if (SBControls.viewScoreboard.IsDown())

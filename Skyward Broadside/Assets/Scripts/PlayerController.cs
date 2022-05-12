@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Check health levels from ship arsenal and update health bar. Die if health is less than 0
     void UpdateHealth()
     {
         if (updateScript != null)
@@ -116,6 +117,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Update ui ammo levels from ship arsenal
     void UpdateAmmo()
     {
         if (updateScript != null)
@@ -132,6 +134,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //update specual ammo level on ui from ship arsenal
     void UpdateSpecialAmmo(ShipArsenal shipArsenal) 
     {
         int ammoValue = 0;
@@ -150,6 +153,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         updateScript.UpdateGUISpecialAmmo(ammoValue);
     }
 
+    //Update the ui for the selected weapon
     void UpdateWeapon()
     {
         if (updateScript != null)
@@ -178,6 +182,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
             SendOptions.SendReliable);
     }
 
+    //Called on death. Resets values, does a death animation then respawns afer a period
     void Die()
     {
         GetComponent<ShipController>().PutOutFires();
@@ -191,6 +196,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Respawn the player accross the network
     [PunRPC]
     void Respawn()
     {
@@ -199,6 +205,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
 
     }
 
+    //Re-enable player heathbar
     void EnableHealthbar()
     {
         PlayerPhotonHub PPH = transform.root.GetComponent<PlayerPhotonHub>();
@@ -209,6 +216,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Move the ship to the respawn point 
     void MoveShipToSpawnPoint()
     {
         GetComponent<ShipArsenal>().Respawn();
@@ -219,6 +227,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         spawnTime = DateTime.Now;
     }
 
+    //Re-enable the ship obj after respawning
     void Activate()
     {
         transform.root.gameObject.SetActive(true);
@@ -229,6 +238,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Do the death animation accross the network
     [PunRPC]
     void DeathAnimation()
     {
@@ -237,11 +247,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         transform.root.gameObject.SetActive(false);
     }
 
+    //Resupply whilst in resupply zone
     public void RegenInvoker()
     {
         InvokeRepeating(nameof(ReloadShipArsenal), 0, regenSecondsPerReloads);
     }
 
+    //Call the resupply function in ship arsenal if we should be resupplying
     void ReloadShipArsenal()
     {
         if (resupply)
@@ -250,6 +262,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Sync data accross the network
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)

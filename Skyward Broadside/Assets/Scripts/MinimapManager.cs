@@ -12,6 +12,7 @@ public class MinimapManager : MonoBehaviour
 
     bool teamSet;
 
+    //Get the team and set the appropiate minimap symbol
     private void Update()
     {
         string shipType = transform.root.Find("Ship").GetChild(0).transform.name;

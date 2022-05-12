@@ -1,3 +1,5 @@
+//This script is responsible for managing the ships ammo and health levels
+
 using System;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -32,6 +34,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
     private readonly int regenOfExplosiveCannonballPerReloadPeriod = 6;
     private readonly int regenOfSpecialAmmoPerReloadPeriod = 3;
 
+    //Enable appropiate staring weapons depending on ship type
     private void Awake()
     {
         if (PlayerChoices.ship == "lightShip")
@@ -57,6 +60,8 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
             Debug.LogWarning("Invalid ship type");
         }
     }
+
+    //Equip weapons and spawn the player, make sure the low health fire particles are off
     private void Start()
     {
         GetComponent<WeaponsController>().equipWeapons();
@@ -66,6 +71,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         GetComponent<ShipController>().PutOutFires();
     }
 
+    //Update called once per frame. If we are on 20 or less health, turn on fire particles
     private void Update()
     {
         if (health <= 20f)
@@ -78,11 +84,13 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         }
     }
 
+    //Enable the given weapon
     void EnableWeapon(int weaponId)
     {
         weapons[weaponId] = true;
     }
 
+    //Does the given amount of damage to the ship
     public void doDamage(float damage)
     {
         DateTime spawnTime = GetComponent<PlayerController>().spawnTime;
@@ -93,6 +101,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         }
     }
 
+    //Damage registering for the gatling gun
     public void HitMe(string weaponName)
     {
         switch (weaponName)
@@ -107,6 +116,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         }
     }
 
+    //RPC call to update health accross the network
     [PunRPC]
     void Impact1()
     {
@@ -116,6 +126,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         }
     }
 
+    //Reset ammo and health on respawn
     public void Respawn()
     {
         cannonballAmmo = maxCannonballAmmo;
@@ -125,6 +136,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         health = maxHealth;
     }
 
+    //Add ammo and health whilst in resupply zone
     public void Resupply()
     {
         health = Math.Min(health + regenFactorOfMaxHealth * maxHealth, maxHealth);
@@ -134,6 +146,7 @@ public class ShipArsenal : MonoBehaviourPun, IPunObservable
         homingAmmo = Math.Min(homingAmmo + regenOfSpecialAmmoPerReloadPeriod, maxHomingAmmo);
     }
 
+    //Sync health accross the network
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         stream.Serialize(ref health);

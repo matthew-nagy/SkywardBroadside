@@ -1,3 +1,5 @@
+//This scipt handles the firing of regular cannons
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +36,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         DontDestroyOnLoad(this.gameObject);
     }
 
+    //Get the ship object and set variables
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +59,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Handle update for when photon view is ours
     void ServerUpdate()
     {
         reloading = GetShipTransform().GetComponent<WeaponsController>().reloading;
@@ -79,6 +83,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Handle update for when photon view is not ours
     void ClientUpdate()
     {
         if (clientShootFlag)
@@ -89,6 +94,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Get player input (Whether to fire or not)
     void GetInput()
     {
         if (weaponEnabled)
@@ -100,11 +106,14 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
     }
+
+    //Get the ship transform 
     Transform GetShipTransform()
     {
         return transform.root.Find("Ship").Find(shipType);
     }
 
+    //Send an event to shake the camera when firing 
     void SendShakeEvent()
     {
         if (photonView.IsMine)
@@ -114,18 +123,20 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Create the cannon fire particles when firing
     void CreateParticles()
     {
         Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
     }
 
+    //Do the cannon fire sound effects. Select one of 3 possible sounds at random
     void DoSoundEffect()
     {   
         int random = (int)Random.Range(0f, 3f);
         cannonsShots.transform.GetChild(random).GetComponent<AudioSource>().Play();
     }
 
-    //fire the cannon
+    //Fire the cannon towards the target
     void Fire()
     {
         SendShakeEvent();
@@ -182,6 +193,7 @@ public class BasicCannonController : MonoBehaviourPunCallbacks, IPunObservable
         newProjectile.GetComponent<CannonballController>().owner = GetShipTransform().gameObject;
     }
 
+    //Handle data sending accross the network. When to fire, whether we are locked on etc.
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)
     {
         stream.SendNext(sendShootToClient);
