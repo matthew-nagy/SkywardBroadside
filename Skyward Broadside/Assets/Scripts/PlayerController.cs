@@ -55,8 +55,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
                 UpdateWeapon();
             }
 
+            //spawn invincibility is based on spawntime, initially assigned here
             spawnTime = DateTime.Now;
 
+            //This invokes a function that uses invokerepeating after a short delay, due to photon timing meaning not everything is necessarily instantiated when this line is reached
             Invoke(nameof(RegenInvoker), 5f);
         }
 
@@ -260,6 +262,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
     //Call the resupply function in ship arsenal if we should be resupplying
     void ReloadShipArsenal()
     {
+        //resupply is set upon entering or exiting the sphere collider around the reload balloon
         if (resupply)
         {
             GetComponent<ShipArsenal>().Resupply();
