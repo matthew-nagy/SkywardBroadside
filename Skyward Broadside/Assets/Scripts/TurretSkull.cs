@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Class that controls the behaviour of the skull image above a particular turret. Each turret has its own skull image and thus its own TurretSkull instance.
 public class TurretSkull : MonoBehaviour
 {
     private float heightAboveTurret = 0.5f;
@@ -14,24 +15,16 @@ public class TurretSkull : MonoBehaviour
 
     public GameObject skullImg;
 
+    //Called when the script instance is being loaded. Used to initialise the variables for this script.
     private void Awake()
     {
         acquiredTarget = false;
         gotCanvas = false;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        
-    }
-
+    //Called once per frame.
+    //Track the position of the turret and change the skull image's position based on where the turret is in the camera's viewport. This ensures
+    //the skull is always displayed above the turret.
     private void Update()
     {
         if (!gotCanvas)
@@ -54,6 +47,7 @@ public class TurretSkull : MonoBehaviour
         }
     }
 
+    //Set the turret that the skull should be displayed above.
     public void SetTarget(Turret turret)
     {
         if (turret == null)
@@ -69,6 +63,7 @@ public class TurretSkull : MonoBehaviour
 
     }
 
+    //Check whether the skull's turret is in the camera's viewport.
     public bool CheckTurretIsInCameraView()
     {
         if (target != null)
@@ -87,16 +82,20 @@ public class TurretSkull : MonoBehaviour
         return false;
     }
 
+    //Sets the skull image to be visible.
     public void SetVisible()
     {
         skullImg.SetActive(true);
     }
 
+    //Sets the skull image to be invisible. 
     public void SetInvisible()
     {
         skullImg.SetActive(false);
     }
 
+    //Delete the skull game object (including this script). This is called by Turret.cs when the turret is destroyed. This ensures that there are no unnecessary
+    //skull game objects in the game, improving performance.
     public void DeleteSkull()
     {
         Destroy(gameObject);
