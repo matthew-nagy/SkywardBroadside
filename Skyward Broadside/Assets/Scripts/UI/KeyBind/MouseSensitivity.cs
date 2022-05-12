@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Required when Using UI elements
 
+//Used for UI sliders to ping the camera controller once a value changes
 public class MouseSensitivity : MonoBehaviour
 {
     public Slider mySlider;
@@ -14,6 +15,7 @@ public class MouseSensitivity : MonoBehaviour
         mySlider.value = CameraController.sensitivity;
     }
 
+    //When the value of the slider changed, ping the static camera controller instance
     public void OnValueChange()
     {
         CameraController.SetSensitivity();
