@@ -4,6 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 
 
+//Storing button inputs to do with player movement
 [System.Serializable]
 struct RequestedControls
 {
@@ -14,6 +15,7 @@ struct RequestedControls
     public bool up;
     public bool down;
 
+    //Send the controller down the stream
     public void PhotonSerialize(PhotonStream stream)
     {
         stream.SendNext(forwards);
@@ -24,6 +26,7 @@ struct RequestedControls
         stream.SendNext(down);
     }
 
+    //Get the controls from the stream
     static public RequestedControls PhotonDeserialize(PhotonStream stream)
     {
         RequestedControls controls = new RequestedControls();
@@ -84,6 +87,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     float verticalDeceleration = 4f;
     float verticalSpeed;
     float maxVerticalSpeed = 8f;
+
     bool isDisabled;
     float timerDisabled;
     float totalDisabledTime;
@@ -284,7 +288,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             TurnOnParticles(child);
         }
     }
-
+    
     //Find and turn off all the fire particle systems
     void TurnOffParticles(Transform root)
     {
@@ -301,6 +305,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Set the playerInput struct from the SBControls being held
     void GetPlayerInput()
     {
 
@@ -335,7 +340,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (collision.gameObject.layer == 7)
             return;
 
-
+        //Shake the camera if you are the main player on this instance
         if (photonView.IsMine)
         {
             freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
@@ -546,6 +551,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             transform.position = np;
             transform.rotation = Quaternion.Euler(ea);
 
+            //If this is a client ship that has not yet set its own colour, it sets the material of
+            //its balloons
             if (!colourSet)
             {
                 Material myMat;
@@ -564,6 +571,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 colourSet = true;
             }
 
+            //Activate your particles based on the input coming in
             RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
             if (newInput.forwards != playerInput.forwards)
             {
@@ -582,16 +590,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     }
     #endregion
-
-    static public float GetResistiveForce(float density, float resistiveCoefficient, float area, float v_squared)
-    {
-        return 0.5f * density * resistiveCoefficient * area * v_squared;
-    }
-    static public float GetResistanceProportionAgainstVelocity(Vector3 resistiveForce, Vector3 forwardDirection)
-    {
-        //If its turning, you don't want all the force applied
-        return Mathf.Abs(Vector3.Dot(resistiveForce.normalized, forwardDirection.normalized));
-    }
 
     bool GoingForwards()
     {
@@ -688,7 +686,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
-
+    //Sets all of the particle systems in this list on or off
     void SetParticles(List<ParticleSystem> systems, bool on)
     {
         foreach (ParticleSystem ps in systems)

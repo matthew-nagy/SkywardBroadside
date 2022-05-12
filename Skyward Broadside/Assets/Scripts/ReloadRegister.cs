@@ -4,15 +4,16 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 
+//Script used by reload balloons to tell ships it can reload
 public class ReloadRegister : MonoBehaviour
 {
+    //Materials for different teams
     [System.Serializable]
     public struct TeamToMat
     {
         public Material material;
         public string teamName;
     }
-
     public List<TeamToMat> teamMaterials;
     public TeamData.Team myTeam;
 
@@ -22,6 +23,7 @@ public class ReloadRegister : MonoBehaviour
     [Tooltip("What game object's materials need to be set with the bases team")]
     public List<GameObject> materialSettingObjects;
 
+    //Nothing works but this may
     public Material friendlyReloadMaterial;
     public Material reloadRadiusMaterial;
 
@@ -36,7 +38,6 @@ public class ReloadRegister : MonoBehaviour
             {
                 foreach (GameObject go in materialSettingObjects)
                 {
-                    Debug.Log("hi");
                     go.GetComponent<Renderer>().material = ttm.material;
                 }
                 break;
@@ -55,12 +56,13 @@ public class ReloadRegister : MonoBehaviour
         //Invoke(nameof(Setup), 1f);
     }
 
-    //Doesnt work right now
+    //Called after some photon stuff has been set up
     public void Setup()
     {
         CreateDisplayMesh();
     }
 
+    //Tell the player they can resuply if they are on the right team in the trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ship") && other.gameObject.GetComponent<PlayerController>().myTeam == myTeam)
@@ -69,6 +71,7 @@ public class ReloadRegister : MonoBehaviour
         }
     }
 
+    //When you leave the trigger, stop reloading
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Ship") && other.gameObject.GetComponent<PlayerController>().myTeam == myTeam)
@@ -77,6 +80,7 @@ public class ReloadRegister : MonoBehaviour
         }
     }
 
+    #region HullSetup
     void AddVertCircle(float displacement, List<Vector3> verts, List<Vector3> norms)
     {
         Vector3 center = transform.position + new Vector3(0f, displacement, 0f);
@@ -160,4 +164,5 @@ public class ReloadRegister : MonoBehaviour
         mr2.material = myMaterial;
         mr2.material.renderQueue = mr2.material.renderQueue + 100;
     }
+    #endregion
 }

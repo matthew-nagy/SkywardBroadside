@@ -4,11 +4,13 @@ Shader "Unlit/TransparentWave"
     {
         _Colour("Colour", Vector) = (1.0, 1.0, 1.0, 1.0)
         _DrawLimit("DrawLimit", Range(0, 1)) = 0.9
+        //Factor of how many repeating scroll lines there will be
         _RepeatFactor("Repeat factor", float) = 3.0
         _ScrollSpeed("Scroll speed", float) = 2.0
     }
     SubShader
     {
+        //Make sure it can be transparent
         Tags { "RenderType"="Transparent" "Queue" = "Transparent"}
         Blend SrcAlpha OneMinusSrcAlpha
         LOD 100
@@ -59,11 +61,13 @@ Shader "Unlit/TransparentWave"
                 fixed4 col = _Colour;
                 float time = _Time.y * _ScrollSpeed;
 
+                //Get the alpha as a function of time
                 float a = sin(i.worldY.y*_RepeatFactor + time);
                 if (a < 0) {
                     a *= -1.0;
                 }
 
+                //Bind between 0 and 1
                 if (a > _DrawLimit) {
                     a = 1.0;
                 }
@@ -73,6 +77,8 @@ Shader "Unlit/TransparentWave"
 
                 col.a = a;
 
+                //The reload balloon material setting can cause dictionary errors sometimes, so lets just set the colour
+                //based off the coordinates.
                 if (i.worldY.x < 300 && a == 1.0) {
                     return float4(1.0, 0.902, 0.341, 1.0);
                 }

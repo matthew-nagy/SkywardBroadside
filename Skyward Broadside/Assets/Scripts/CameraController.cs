@@ -24,6 +24,7 @@ public class CameraController : MonoBehaviourPunCallbacks
     CinemachineVirtualCamera lockOnCameraObj;
     CinemachineVirtualCamera minimapCameraObj;
 
+    //Static elements so the options menu can change the sensitivity before the game actually starts
     public static float sensitivity = 0.7f;
     static float sensitivityFactor = 0.8f;
     static bool sensitivityChange = false;
@@ -31,6 +32,7 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     float originalX;
     float originalY;
+
     public static void SetSensitivity()
     {
         sensitivity = sensitivitySlider.value;
@@ -89,6 +91,7 @@ public class CameraController : MonoBehaviourPunCallbacks
     //Update is called once per frame.
     private void Update()
     {
+        //Change the maximum speed of the camera if you changed the sensitivity
         if (sensitivityChange)
         {
             sensitivityChange = false;
