@@ -73,7 +73,6 @@ Shader "Unlit/CloudShader"
 
                 //Convert that position to view space, in front of the camera
                 
-                float4 colourPos = float4((v.colour.rgb + offset) * _Scale * _DimensionRatios, v.vertex.w);
                 float4 world_pos = mul(UNITY_MATRIX_M, colourPos);
                 float4 view_pos = mul(UNITY_MATRIX_V, world_pos);
 
