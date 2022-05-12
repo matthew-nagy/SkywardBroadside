@@ -14,6 +14,7 @@ public struct BreakEvent
     public Vector3 contactPoint;
     public float forceRadius;
 
+    //Utility function to send all members down a photon stream
     public void PhotonSend(PhotonStream stream)
     {
         stream.SendNext(indexInOwner);
@@ -22,6 +23,7 @@ public struct BreakEvent
         stream.SendNext(forceRadius);
     }
 
+    //Utility function to recieve an event from a photon stream
     public static BreakEvent PhotonRecieve(PhotonStream stream)
     {
         BreakEvent be = new BreakEvent();
@@ -42,12 +44,14 @@ public struct SyncEvent
     //Should this breakable be deleted
     public bool delete;
 
+    //Utility function to send all members down a photon stream
     public void PhotonSend(PhotonStream stream)
     {
         stream.SendNext(indexInOwner);
         stream.SendNext(delete);
     }
 
+    //Utility function to recieve an event from a photon stream
     public static SyncEvent PhotonRecieve(PhotonStream stream)
     {
         SyncEvent se = new SyncEvent();
@@ -57,7 +61,8 @@ public struct SyncEvent
     }
 }
 
-
+//A way of queueing events that were recieved before photon has set the system up.
+//Neccessary for a player to be able to join in the middle of a match
 struct EventQueue
 {
     public List<BreakEvent> breakEvents;
@@ -83,6 +88,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     bool init = false;
     bool primeRenderMade = false;
 
+    //I hate webgl
     static int VertexLimit = 65535;
 
     List<GameObject> renderers = new List<GameObject>();
@@ -100,7 +106,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
 
     CascadeSystem cascader;
 
-
+    //Hide the verties of the given breakable (probably because it was broken and must draw itself now)
     void HideVertices(Breakable b)
     {
         //If this breakable isn't drawn as part of the island (like a tree), just ignore
@@ -114,6 +120,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
         rebuildQueueSet.Add(toRebuild);
     }
 
+    //Create a new rendering component from a list of breakable's meshes
     GameObject MakeRenderer(List<CombineInstance> combine, List<Breakable> breakablesIncluded)
     {
         GameObject newRenderer = new GameObject();
@@ -139,6 +146,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
         return newRenderer;
     }
 
+    //Sets up the renderers that will be addressed through the program's lifetime
     public void SetupPrimeRenderer()
     {
         List<CombineInstance> combines = new List<CombineInstance>();
@@ -174,6 +182,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
         renderers.Add(MakeRenderer(combines, currentBreakables));
     }
 
+    //Used over photon to find the correct break master
     public bool IsInLocatioOf(Transform t)
     {
         return t.position == transform.position;
@@ -253,6 +262,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        //If there were elements in the queue for rebuilding, rebuild those meshes
         if(rebuildQueueSet.Count > 0)
         {
             foreach(GameObject toRebuild in rebuildQueueSet)
@@ -331,6 +341,7 @@ public class BreakMaster : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //If events are being sent before we are ready, add them to an event queue
     void SendEventsToPreInstantiate(PhotonStream stream)
     {
         if(preInstaniateEventHolder == null)

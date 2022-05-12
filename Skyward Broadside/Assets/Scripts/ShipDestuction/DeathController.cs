@@ -1,3 +1,5 @@
+//Handle destruction of the ship
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +24,9 @@ public class DeathController : MonoBehaviour
     [SerializeField]
     GameObject explosionFx;
 
+    //Create particles effects, 3 delayed explosions.
+    //Do ship sinking sound effect
+    // Handle the ship debris 
     public void Expload()
     {
         DoParticles();
@@ -45,6 +50,7 @@ public class DeathController : MonoBehaviour
         }
     }
 
+    //Shrink the debris from the balloon over time 
     IEnumerator Shrink(GameObject part)
     {
         float time = 0;
@@ -64,6 +70,7 @@ public class DeathController : MonoBehaviour
         StartCoroutine(DoExplosionEffect(transform.position + new Vector3(-1f, 0f, -1f), 0.4f));
     }
 
+    //Create the explosio particle effect and sound effect
     IEnumerator DoExplosionEffect(Vector3 pos, float delay)
     { 
         yield return new WaitForSeconds(delay);
@@ -72,6 +79,7 @@ public class DeathController : MonoBehaviour
         yield return null;
     }
 
+    //Do the explosion sound effect
     void DoSoundFx()
     {
         soundFxHub.GetComponent<SoundFxHub>().DoEffect(shipGoingDownFx, transform.position);

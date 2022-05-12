@@ -1,3 +1,5 @@
+//This ship handles shockwave cannonballs, when they should detonate and their interactions with other game objects
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,17 +21,20 @@ public class Shockwave : MonoBehaviour
 
     public GameObject owner;
 
+    //Set the activation radius of shockwave cannonballs (How close they have to get to an object to expload)
     private void Start()
     {
         activationRadius = GetComponent<SphereCollider>().radius;
     }
 
+    //When close enough to an object, detonate and play sound
     private void OnTriggerEnter(Collider other)
     {
         Detonate();
         owner.transform.root.Find("SoundFxHub").GetComponent<SoundFxHub>().DoEffect(shockwaveFx, transform.position);
     }
 
+    //"Detonate" find all shockwavable objects in range and handle the interaction
     void Detonate()
     {
         Collider[] collidersInRange = Physics.OverlapSphere(transform.position, activationRadius, shockwavableObjects);
@@ -58,6 +63,7 @@ public class Shockwave : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //Apply a force to terrain objects in range
     void ShockwaveTerrain(Collider collider)
     {
         Breakable breakable = collider.GetComponent<Breakable>();
@@ -74,6 +80,7 @@ public class Shockwave : MonoBehaviour
         }
     }
 
+    //Gice the ship a velocity away from the shockwave center
     void ShockwaveShip(Collider collider)
     {
         GameObject ship = collider.gameObject;
@@ -82,6 +89,7 @@ public class Shockwave : MonoBehaviour
         ship.GetComponent<ShipController>().velocity += dirToApplyForce * shockwavePower;
     }
 
+    //Propel any projectiles in range away from the shockwave center
     void ShockwaveProjectile(Collider collider)
     {
         Vector3 dirToApplyForce = (collider.transform.position - transform.position).normalized;

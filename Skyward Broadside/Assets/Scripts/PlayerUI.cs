@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-
-//Code taken from https://doc.photonengine.com/en-us/pun/current/demos-and-tutorials/pun-basics-tutorial/player-ui-prefab
+//Contains code taken from https://doc.photonengine.com/en-us/pun/current/demos-and-tutorials/pun-basics-tutorial/player-ui-prefab
+//A class that manages the behaviour of a player's healthbar and nametag. Each player has their own healthbar and nametag and thus their own PlayerUI instance.
 public class PlayerUI : MonoBehaviour
 {
     public bool isDead = false;
 
     #region Private Fields
+
     [Tooltip("UI Text to display Player's Name")]
     [SerializeField]
     public Text playerNameText;
@@ -27,16 +28,13 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]
     private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
 
-    Vector3 playerPos;
     float heightAbovePlayer = 0.5f;
-    Renderer targetRenderer;
     CanvasGroup _canvasGroup;
     Vector3 targetPosition;
 
     Rigidbody playerRb;
     PlayerInfoPPH playerInfo;
     PhotonView photonView;
-    //Vector3 instanceOwnerPos;
 
     //Player the health bar and name is attached to
     private PlayerPhotonHub target;
@@ -46,29 +44,6 @@ public class PlayerUI : MonoBehaviour
     #endregion
 
     #region Monobehaviour Callbacks
-    private void Awake()
-    {
-        //Any UI element must be placed within a Canvas GameObject
-        //When scenes are going to be loaded and unloaded, so is our Prefab, and the Canvas will be different every time
-        //Not actually recommended to do this bc it's slow apparently 
-        //Supposedly there's a better way but they don't say what it is...
-    }
-
-    void TryGetCanvas()
-    {
-
-    }
-
-    bool CheckExistance()
-    {
-        // Destroy itself if the target is null, It's a fail safe when Photon is destroying Instances of a Player over the network
-        if (target == null)
-        {
-            Destroy(gameObject);
-            return false;
-        }
-        return true;
-    }
 
     // Update is called once per frame
     void Update()
@@ -84,9 +59,9 @@ public class PlayerUI : MonoBehaviour
         }
         else
         {
-            CheckExistance();
+            CheckExistence();
 
-            // Reflect the Player Health
+            //Change the slider to show the player's current health
             if (playerHealthSlider != null)
             {
                 playerHealthSlider.value = (int)playerInfo.currHealth;
@@ -95,11 +70,11 @@ public class PlayerUI : MonoBehaviour
 
     }
 
+    //Track the position of the player. This ensures that the healthbar and nametag will always be displayed above the player.
     private void FixedUpdate()
     {
-        if (CheckExistance() && playerRb != null)
+        if (CheckExistence() && playerRb != null)
         {
-            // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
             targetPosition = playerRb.position;
             targetPosition.y += heightAbovePlayer;
             transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
@@ -112,19 +87,33 @@ public class PlayerUI : MonoBehaviour
     }
     #endregion
 
+    //Helper function to check whether the player still exists in the gameworld or not.
+    bool CheckExistence()
+    {
+        // Destroy itself if the target is null. It's a fail safe when Photon is destroying Instances of a Player over the network.
+        if (target == null)
+        {
+            Destroy(gameObject);
+            return false;
+        }
+        return true;
+    }
+
     #region Public Methods
 
+    //Sets the player that the healthbar and nametag will correspond to. Also sets some variables relating to the player and sets the text for the nametag.
     public void SetTarget(PlayerPhotonHub _target)
     {
         if (_target == null)
         {
-            Debug.LogError("<Color=Red><a>Missing</a></Color> PlayMakerManager target for PlayerUI.SetTarget.", this);
+            Debug.LogError("<Color=Red><a>Missing</a></Color> PlayerPhotonHub target for PlayerUI.SetTarget.", this);
             return;
         }
 
         //Cache references for efficiency
         target = _target;
 
+        //Tell the PlayerPhotonHub that the game object this script is attached to is the healthbar and nametag for the player.
         target.SetUI(gameObject);
 
         playerRb = _target.GetComponentInChildren<Rigidbody>();
@@ -135,11 +124,10 @@ public class PlayerUI : MonoBehaviour
             playerNameText.text = photonView.Owner.NickName;
         }
 
-        //Getting the renderer of one of the child primitive objects
-        //This probs won't work when we add the proper airship model in unless we add a mesh renderer
-        targetRenderer = target.GetComponentInChildren<Renderer>();
     }
 
+    //Check whether this particular player is visible to the camera of this game instance. This is done by checking whether this player's rigidbody is
+    //within the camera's viewport. 
     public bool PlayerIsVisible()
     {
         if (playerRb != null)
@@ -159,39 +147,45 @@ public class PlayerUI : MonoBehaviour
         return false;
     }
 
+    //Sets the alpha value of the canvas group containing the healthbar and nametag.
     public void SetCanvasAlpha(float alpha)
     {
         if (_canvasGroup != null)
         {
-            this._canvasGroup.alpha = alpha;
+            _canvasGroup.alpha = alpha;
         }
     }
 
+    //Set the appearance of this player's healthbar and nametag to be that of an enemy player. This involves making the name text red and enabling the skull image
+    //above the name.
     public void SetEnemyHealthbar()
     {
         skullImage.gameObject.SetActive(true);
         playerNameText.color = Color.red;
     }
 
+    //Set the appearance of this player's healthbar and nametag to be that of a friendly player. The name text is black and there is no skull image.
     public void SetFriendlyHealthbar()
     {
         skullImage.gameObject.SetActive(false);
         playerNameText.color = Color.black;
     }
 
+    //Set the healthbar and nametag to disappear when the player they attached to is dead.
     public void SetDead()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         isDead = true;
     }
 
+    //Set the healthbar and nametag to reappear when the player they are attached to respawns.
     public void SetAlive()
     {
         targetPosition = playerRb.position;
         targetPosition.y += heightAbovePlayer;
         transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
         playerHealthSlider.value = (int)playerInfo.currHealth;
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         isDead = false;
 
     }

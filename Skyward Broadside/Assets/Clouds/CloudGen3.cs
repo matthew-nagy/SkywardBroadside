@@ -31,13 +31,17 @@ public class CloudGen3 : MonoBehaviour
     MeshRenderer meshRenderer;
     Mesh mesh;
 
+    // Generates a quad to be used in the clud mesh
     void MakeCloudQuad(int x, int y, int z, int vertexCount, int triangleCount, int normalCount, int uvCount, int colorCount, Vector3[] vertices, int[] triangles, Vector3[] normals, Vector2[] uv, Color[] colors)
     {
+        // Calculate posions of the corners of the quad relative to the quad position
         vertices[vertexCount + 0] = new Vector3(x, y, z);
         vertices[vertexCount + 1] = new Vector3(x + quad_width, y, z);
         vertices[vertexCount + 2] = new Vector3(x, y + quad_height, z);
         vertices[vertexCount + 3] = new Vector3(x + quad_width, y + quad_height, z);
 
+
+        // Quads are made of two triangles
         // lower left triangle
         triangles[triangleCount + 0] = vertexCount + 0;
         triangles[triangleCount + 1] = vertexCount + 2;
@@ -47,7 +51,7 @@ public class CloudGen3 : MonoBehaviour
         triangles[triangleCount + 4] = vertexCount + 3;
         triangles[triangleCount + 5] = vertexCount + 1;
 
-
+        // direction quad will face
         normals[normalCount + 0] = -Vector3.forward;
         normals[normalCount + 1] = -Vector3.forward;
         normals[normalCount + 2] = -Vector3.forward;
@@ -58,6 +62,7 @@ public class CloudGen3 : MonoBehaviour
         uv[uvCount + 2] = new Vector2(0, 1);
         uv[uvCount + 3] = new Vector2(1, 1);
 
+        // Colours encode position inside the quad, which is why they are scaled from 0 to 1 inside the mesh
         colors[colorCount + 0] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
         colors[colorCount + 1] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
         colors[colorCount + 2] = new Color((float)x / (float)cloud_width, (float)y / cloud_height, (float)z / cloud_depth, 1.0f);
@@ -66,24 +71,25 @@ public class CloudGen3 : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("CLOUD IS HERE");
-
         string id = cloud_width + "_" + cloud_height + "_" + cloud_depth;
 
+        //For deployment make sure cloud shader is in the always loaded shaders list
         myMat = new Material(Shader.Find("Unlit/CloudShader"));
 
         Texture3D noiseTexture = Resources.Load<Texture3D>("CloudTextures/" + id + "_noise");
         Texture3D falloffTexture = Resources.Load<Texture3D>("CloudTextures/" + id + "_falloff");
 
-#if UNITY_EDITOR //Only try to create assets in editor
+#if UNITY_EDITOR //Only try to generate assets in editor mode - never in deployment (they should already be there)
         if (!noiseTexture)
         {
+            //If none found, generate the gloud texture
             noiseTexture = CloudUtils.Generate(cloud_width, cloud_height, cloud_depth, 5, 12345);
             CloudUtils.SaveAsAsset(noiseTexture, id + "_noise");
         }
 
         if (!falloffTexture)
         {
+            //If none found generate the falloff map
             falloffTexture = CloudUtils.GenerateFalloff(cloud_width, cloud_height, cloud_depth, 32, 0.65f);
             CloudUtils.SaveAsAsset(falloffTexture, id + "_falloff");
         }
@@ -98,7 +104,6 @@ public class CloudGen3 : MonoBehaviour
         ComputeDimensionRatios();
 
         cloud_scale = maxDimension;
-
         myMat.SetTexture("_Noisemap", noiseTexture);
         myMat.SetTexture("_Falloffmap", falloffTexture);
         myMat.SetFloat("_Scale", cloud_scale);
@@ -106,13 +111,15 @@ public class CloudGen3 : MonoBehaviour
         myMat.SetVector("_DimensionRatios", dimensionRatios);
         myMat.SetVector("_CloudPos", gameObject.transform.position);
         myMat.SetVector("_CloudColour", cloud_colour);
-        InvokeRepeating("AdvancePhase", 0.0f, phaseAdvanceFreq);
+        InvokeRepeating("AdvancePhase", 0.0f, phaseAdvanceFreq); //Phase makes the quads of the clouds float around, looks nice up close but imperceptible in game so unused
 
         if (cloud_width * cloud_height * cloud_depth * 4 > 65535)
         {
             Debug.LogWarning("Cloud is bigger than vertex limit!!!");
         }
-        while(cloud_width * cloud_height * cloud_depth * 4 > 65535)
+
+        // Make the cloud smaller until it fits in the vertex limit
+        while (cloud_width * cloud_height * cloud_depth * 4 > 65535)
         {
             cloud_width = (int)((float)(cloud_width) * 0.95);
             cloud_height = (int)((float)(cloud_height) * 0.95);
@@ -125,8 +132,7 @@ public class CloudGen3 : MonoBehaviour
         MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
         mesh = new Mesh();
 
-        //cloud_width = cloud_height = cloud_depth = (int)myMat.GetFloat("Cloud_scale");
-
+        //initialise containers for all the mesh attributes
         Vector3[] vertices = new Vector3[cloud_width * cloud_height * cloud_depth * 4];
         int[] triangles = new int[cloud_width * cloud_height * cloud_depth * 6];
         Vector3[] normals = new Vector3[cloud_width * cloud_height * cloud_depth * 4];
@@ -139,6 +145,7 @@ public class CloudGen3 : MonoBehaviour
         int uvCount = 0;
         int colorCount = 0;
 
+        // This generates the cloud mesh which is then shaped by shaders
         for (int x = 0; x < cloud_width; x++)
         {
             for (int y = 0; y < cloud_height; y++)
@@ -176,6 +183,8 @@ public class CloudGen3 : MonoBehaviour
         ComputeDimensionRatios();
 
         cloud_scale = maxDimension;
+
+        // Set values again in case anything has changed
         myMat.SetFloat("_Scale", cloud_scale);
         myMat.SetFloat("_BubbleSize", bubble_size);
         myMat.SetVector("_DimensionRatios", dimensionRatios);
@@ -185,19 +194,21 @@ public class CloudGen3 : MonoBehaviour
 
     }
 
+    //Gives the largest size in any dimention
     private void ComputeMaxDimension()
     {
         maxDimension = Math.Max(cloud_width, Math.Max(cloud_height, cloud_depth));
     }
 
+    //Dimension rations are used so that the cloud scales properly in all dimensions. 
     private void ComputeDimensionRatios()
     {
         dimensionRatios = new Vector3((float)cloud_width / maxDimension, (float)cloud_height / maxDimension, (float)cloud_depth / maxDimension);
     }
 
+    //Phase makes the quads of the clouds float around, looks nice up close but imperceptible in game so unused
     private void AdvancePhase()
     {
-        // Debug.Log("Phase: " + phase);
         phase += phaseAdvanceAmount;
     }
 }

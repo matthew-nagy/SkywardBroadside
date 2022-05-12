@@ -5,6 +5,7 @@ Shader "Unlit/CellTerrain"
         _MainTex ("Texture", 2D) = "white" {}
         _Colour("Colour", Color) = (1, 1, 1, 1)
         _AmbientLevel("Ambient light level", Range(0,1)) = 0.3
+        //Save time painting the inside of the model by just setting white to a different colour
         _TerrainInsideColour("Terrain inside colour (replaces white)", Vector) = (0.651, 0.541, 0.337, 1.0)
     }
     SubShader
@@ -72,6 +73,7 @@ Shader "Unlit/CellTerrain"
             //UNITY_VPOS_TYPE screenPos : VPOS
             fixed4 frag(v2f i) : SV_Target
             {
+                //Phong lighting equations
                 float3 cameraToVertexUnit = normalize(i.worldPosition - _WorldSpaceCameraPos);
                 float3 lightingDirection = normalize(_WorldSpaceLightPos0.xyz) * -1.0;
                 float3 specularHalfVector = (cameraToVertexUnit + lightingDirection) / 2.0;
@@ -82,9 +84,11 @@ Shader "Unlit/CellTerrain"
                 float shadowDetail = length(shadow * i.ambient);
 
                 float lighting = ((diffuse + specular) / 1.5) * shadowDetail;
-                
+
+                //Now we have our full lighting
                 lighting = max(lighting, _AmbientLevel);
 
+                //Clamp the lighting into bounds for a cell shading effect
                 if (lighting <= 0.3) {
                     lighting = 0.4;
                 }
@@ -97,6 +101,7 @@ Shader "Unlit/CellTerrain"
 
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
+                //Change any white into the terrain interior colour
                 if (col.r == 1.0 && col.g == 1.0 && col.b == 1.0) {
                     col = _TerrainInsideColour;
                 }

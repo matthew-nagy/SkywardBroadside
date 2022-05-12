@@ -4,6 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 
 
+//Storing button inputs to do with player movement
 [System.Serializable]
 struct RequestedControls
 {
@@ -14,6 +15,7 @@ struct RequestedControls
     public bool up;
     public bool down;
 
+    //Send the controller down the stream
     public void PhotonSerialize(PhotonStream stream)
     {
         stream.SendNext(forwards);
@@ -24,6 +26,7 @@ struct RequestedControls
         stream.SendNext(down);
     }
 
+    //Get the controls from the stream
     static public RequestedControls PhotonDeserialize(PhotonStream stream)
     {
         RequestedControls controls = new RequestedControls();
@@ -84,6 +87,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
     float verticalDeceleration = 4f;
     float verticalSpeed;
     float maxVerticalSpeed = 8f;
+
     bool isDisabled;
     float timerDisabled;
     float totalDisabledTime;
@@ -257,17 +261,19 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         verticalSpeed = velocity.y;
     }
 
+    //Turn on fire particle effects
     public void StartFires()
     {
         TurnOnParticles(fires.transform);
     }
 
+    //Turn off particle fire effects
     public void PutOutFires()
     {
         TurnOffParticles(fires.transform);
     }
 
-
+    //Find and turn on all the fire particle systems 
     void TurnOnParticles(Transform root)
     {
         if (root.TryGetComponent(out ParticleSystem ps))
@@ -282,7 +288,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             TurnOnParticles(child);
         }
     }
-
+    
+    //Find and turn off all the fire particle systems
     void TurnOffParticles(Transform root)
     {
         if (root.TryGetComponent(out ParticleSystem ps))
@@ -298,6 +305,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Set the playerInput struct from the SBControls being held
     void GetPlayerInput()
     {
 
@@ -332,7 +340,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         if (collision.gameObject.layer == 7)
             return;
 
-
+        //Shake the camera if you are the main player on this instance
         if (photonView.IsMine)
         {
             freeCameraObject.GetComponent<CameraShaker>().DoShakeEvent(CameraShakeEvent.Hit);
@@ -432,11 +440,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             Vector3 initialVelocity = velocityBeforeCollision;
             float massA = rigidBody.mass;
             Vector3 centreA = transform.position;
-
+            
+            //Get the mass and the velocity of the other ship before the collision. Required to calculate the velocity of this ship after the collision.
             Vector3 colliderInitialVelocity = collision.transform.GetComponent<ShipController>().velocityBeforeCollision;
             float massB = collision.rigidbody.mass;
             Vector3 centreB = collision.transform.position;
 
+            //Use the angle-free form for an elastic oblique collision to calculate what the velocity of the ship should be after the collision.
             Vector3 finalVelocity = initialVelocity - (2 * massB / (massA + massB)) * (Vector3.Dot(initialVelocity - colliderInitialVelocity, centreA - centreB) / Vector3.SqrMagnitude(centreA - centreB)) * (centreA - centreB);
             finalVelocity = 0.8f * finalVelocity;
             moveSpeed = finalVelocity.magnitude;
@@ -494,6 +504,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
                     if (!collision.gameObject.GetComponent<Breakable>().broken)
                     {
+                        //Ship moves backwards with half of its original velocity
                         velocity = -0.5f * velocity;
                         DisableMovementFor(0.5f);
                     }
@@ -549,6 +560,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             transform.position = np;
             transform.rotation = Quaternion.Euler(ea);
 
+            //If this is a client ship that has not yet set its own colour, it sets the material of
+            //its balloons
             if (!colourSet)
             {
                 Material myMat;
@@ -567,6 +580,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
                 colourSet = true;
             }
 
+            //Activate your particles based on the input coming in
             RequestedControls newInput = RequestedControls.PhotonDeserialize(stream);
             if (newInput.forwards != playerInput.forwards)
             {
@@ -585,16 +599,6 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     }
     #endregion
-
-    static public float GetResistiveForce(float density, float resistiveCoefficient, float area, float v_squared)
-    {
-        return 0.5f * density * resistiveCoefficient * area * v_squared;
-    }
-    static public float GetResistanceProportionAgainstVelocity(Vector3 resistiveForce, Vector3 forwardDirection)
-    {
-        //If its turning, you don't want all the force applied
-        return Mathf.Abs(Vector3.Dot(resistiveForce.normalized, forwardDirection.normalized));
-    }
 
     bool GoingForwards()
     {
@@ -641,6 +645,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (playerInput.up)
         {
+            //If player is below the max vertical speed, accelerate with constant acceleration.
             if (verticalSpeed <= maxVerticalSpeed)
             {
                 verticalSpeed += verticalAcceleration * Time.deltaTime;
@@ -658,6 +663,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else
         {
+            //If the player stops pressing R or F, the ship decelerates until the speed is 0.
             if (verticalSpeed < 0f)
             {
                 verticalSpeed += verticalDeceleration * Time.deltaTime;
@@ -689,7 +695,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
-
+    //Sets all of the particle systems in this list on or off
     void SetParticles(List<ParticleSystem> systems, bool on)
     {
         foreach (ParticleSystem ps in systems)

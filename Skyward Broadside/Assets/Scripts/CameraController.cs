@@ -1,3 +1,5 @@
+//This script manages the 2 main cameras. Free cam and lock on cam
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,11 +20,11 @@ public class CameraController : MonoBehaviourPunCallbacks
     GameObject thisLockOnCam;
     GameObject thisMinimapCam;
     //Used in the weapons controller to figure out what cannons to enable
-    [Tooltip("DON'T HECCIN TOUCH THIS")]
     public CinemachineFreeLook cameraObj;
     CinemachineVirtualCamera lockOnCameraObj;
     CinemachineVirtualCamera minimapCameraObj;
 
+    //Static elements so the options menu can change the sensitivity before the game actually starts
     public static float sensitivity = 0.7f;
     static float sensitivityFactor = 0.8f;
     static bool sensitivityChange = false;
@@ -30,6 +32,7 @@ public class CameraController : MonoBehaviourPunCallbacks
 
     float originalX;
     float originalY;
+
     public static void SetSensitivity()
     {
         sensitivity = sensitivitySlider.value;
@@ -41,6 +44,7 @@ public class CameraController : MonoBehaviourPunCallbacks
     [SerializeField]
     GameObject IntroManager;
 
+    //Create, enable, and configure appropiate cameras after intro is finished
     private void Start()
     {
         if (photonView.IsMine)
@@ -54,7 +58,7 @@ public class CameraController : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.Locked;
             cameraObj.m_Follow = transform;
             cameraObj.m_LookAt = transform;
-            cameraObj.Priority = 0;                                                                         //CHANGE THIS TO 0 AFTER BUG IS FIXED
+            cameraObj.Priority = 0;                                                                         
 
             IntroManager.GetComponent<Intro>().brain = thisCam.GetComponent<CinemachineBrain>();
 
@@ -84,8 +88,10 @@ public class CameraController : MonoBehaviourPunCallbacks
         }
     }
 
+    //Update is called once per frame.
     private void Update()
     {
+        //Change the maximum speed of the camera if you changed the sensitivity
         if (sensitivityChange)
         {
             sensitivityChange = false;
@@ -98,6 +104,7 @@ public class CameraController : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.None;
         }
 
+        //If lock on cam is enables, update its position and rotation to look at the target whilst keeping our ship in view
         if (photonView.IsMine)
         {
             if (freeCamDisabled)
@@ -120,6 +127,7 @@ public class CameraController : MonoBehaviourPunCallbacks
         }
     }
 
+    //Switch to the lockon camera and disable mouse controlled camera movement
     public void disableFreeCam()
     {
         shaker.freeCam = false;
@@ -154,6 +162,7 @@ public class CameraController : MonoBehaviourPunCallbacks
         cameraObj.Priority = 0;
     }
 
+    //Switch to free cam and enable mouse controller cam movement
     public void enableFreeCam()
     {
         shaker.freeCam = true;
@@ -167,6 +176,7 @@ public class CameraController : MonoBehaviourPunCallbacks
         lockOnCameraObj.Priority = 0;
     }
 
+    //Set the look at transform fr the lock on camera
     public void setLookAtTarget(GameObject target)
     {
         lockOnCameraObj.m_LookAt = target.transform;

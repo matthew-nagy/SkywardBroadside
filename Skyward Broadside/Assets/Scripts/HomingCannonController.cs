@@ -1,3 +1,6 @@
+//This script is very similar to basic cannon controller. However, missiles are not given a velocity when fired
+//they are just created and handed over to the mssile script
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

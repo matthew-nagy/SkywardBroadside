@@ -1,3 +1,5 @@
+//This script handles the enabling and disabling of weapons depending on player selection, ammo levels, and weapon line of sights
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,12 +32,13 @@ public class WeaponsController : MonoBehaviour
 
     List<int> equippedWeapons = new List<int>();
 
+    //called on start
     private void Start()
     {
         reloadCircle = GameObject.FindGameObjectWithTag("ReloadIndicator");
     }
 
-    //equip any weapons that are marked as true (enabled) by the ship arsenal
+    //Equip any weapons that are marked as true (enabled) by the ship arsenal
     public void equipWeapons()
     {
         Dictionary<int, bool> allWeapons = GetComponent<ShipArsenal>().weapons;
@@ -48,14 +51,17 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Update is called once on update
     private void Update()
     {
+        //Equip weapon 0 after the intro is finished
         if (Intro.introDone && !initialised)
         {
             EnableWeapon(0);
             initialised = true;
         }
 
+        //Handle weapon switching 
         if (Intro.introDone)
         {
             GetInput();
@@ -112,6 +118,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Get player input for weapon switching
     void GetInput()
     {
         if (SBControls.ammo1.IsDown())
@@ -131,11 +138,13 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Enable the weapon with given id
     void EnableWeapon(int weaponId)
     {
         currentWeaponId = weaponId;
     }
 
+    //Prevent firing of weapons for a period, "Reloading"
     public void Reload()
     {
         if (!reloading && GetComponent<PhotonView>().IsMine)
@@ -145,17 +154,20 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Show the reloading indicator
     void Reloading()
     {
         reloading = true;
         reloadCircle.GetComponent<ReloadIndicator>().Reload();
     }
 
+    //Finish reloading
     void Reloaded()
     {
         reloading = false;
     }
 
+    //Enable any regular cannons that have line of sight to our target if we have enough ammo
     void EnableCannons()
     {
         int ammoCount = GetComponent<ShipArsenal>().cannonballAmmo;
@@ -212,6 +224,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Disable regular cannons
     void DisableCannons()
     {
         foreach (GameObject cannon in cannons)
@@ -228,6 +241,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Enable any explosive cannons that have line of sight to our target if we have enough ammo
     void EnableExplosiveCannons()
     {
         int ammoCount = GetComponent<ShipArsenal>().explosiveCannonballAmmo;
@@ -302,6 +316,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Disable explosive cannons
     void DisableExplosiveCannons()
     {
         foreach (GameObject cannon in cannons)
@@ -319,6 +334,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Enable the gatling gun
     void EnableGatlingGun()
     {
         if (transform.root.GetChild(0).GetChild(0).name == "mediumShip")
@@ -337,6 +353,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Disable the gatling gun
     void DisableGatlingGun()
     {
         if (transform.root.GetChild(0).GetChild(0).name == "mediumShip")
@@ -355,6 +372,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Enable any shockwave cannons that have line of sight to our target if we have enough ammo
     void EnableShockwaveCannons()
     {
         if (transform.root.GetChild(0).GetChild(0).name == "heavyShip")
@@ -432,6 +450,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Disable shockwave cannons
     void DisableShockwaveCannons()
     {
         if (transform.root.GetChild(0).GetChild(0).name == "heavyShip")
@@ -452,6 +471,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Enable any homing missile launchers that we have enough ammo to fire
     void EnableHomingCannons()
     {
         if (transform.root.GetChild(0).GetChild(0).name == "lightShip")
@@ -529,6 +549,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Disable homing misile launchers
     void DisableHomingCannons()
     {
         if (transform.root.GetChild(0).GetChild(0).name == "lightShip")
@@ -549,6 +570,7 @@ public class WeaponsController : MonoBehaviour
         }
     }
 
+    //Check if there is a "line of sight" from a shot origin to the target pos
     bool CheckLineOfSight(GameObject cannon)
     {
         if (cannon != null)

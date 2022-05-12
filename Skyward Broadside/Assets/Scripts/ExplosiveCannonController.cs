@@ -1,3 +1,5 @@
+//This script controls the firing mechanism for regular cannon balls 
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,6 +65,7 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         }
     }
 
+    //update for my photon view
     void ServerUpdate()
     {
         reloading = GetShipTransform().GetComponent<WeaponsController>().reloading;
@@ -87,6 +90,7 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         }
     }
 
+    //update for other photon views
     void ClientUpdate()
     {
         if (clientShootFlag)
@@ -98,6 +102,7 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         }
     }
 
+    //get input from player to fire cannon
     void GetInput()
     {
         if (weaponEnabled)
@@ -116,11 +121,14 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
             }
         }
     }
+
+    //get the transform for of the ship object
     Transform GetShipTransform()
     {
         return transform.root.Find("Ship").Find(shipType);
     }
 
+    //shake the camera
     void SendShakeEvent()
     {
         if (photonView.IsMine)
@@ -130,18 +138,20 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         }
     }
 
+    //do cannon fire particles
     void CreateParticles()
     {
         Instantiate(cannonFire, shotOrigin.position, shotOrigin.rotation);
     }
 
+    //do cannon fire sound effect
     void DoSoundEffect()
     {
         int random = (int)Random.Range(0f, 3f);
         cannonsShots.transform.GetChild(random).GetComponent<AudioSource>().Play();
     }
 
-    //fire the cannon
+    //fire the cannon. Make a projectile and give it a velocity towards the target
     void Fire()
     {
         CreateParticles();
@@ -198,6 +208,7 @@ public class ExplosiveCannonController : MonoBehaviourPunCallbacks, IPunObservab
         newProjectile.GetComponent<Explosive>().owner = GetShipTransform().gameObject;
     }
 
+    //sync variables over network
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)
     {
         stream.SendNext(sendShootToClient);

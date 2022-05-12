@@ -38,6 +38,8 @@ public class CloudUtils
         return falloff_tex;
     }
 
+
+    // Generate the 3D noise texture using NoiseS3D library for the actual noise function (just because its faster than Math.noise)
     public static Texture3D Generate(int w, int h, int d, int octaves, int noiseSeed)
     {
         Color[] colours = new Color[w * h * d];
@@ -56,6 +58,8 @@ public class CloudUtils
                 for (int x = 0; x < w; x++)
                 {
                     int index = x + (y * w) + (z * w * h);
+
+                    // Needs to be a value between 0 and 1 for noise to work, so normalise with width/height/depth
                     double _x = (double)x / w;
                     double _y = (double)y / h;
                     double _z = (double)z / d;
@@ -69,6 +73,8 @@ public class CloudUtils
                 }
             }
         }
+
+        // Save the texture
 
         _texture.SetPixels(colours);
         _texture.Apply();
@@ -84,6 +90,12 @@ public class CloudUtils
         }
     }
 
+    /*
+        A render texture cant be converted to a  Texture3D, but we need to pass that to the shader, so we convert it slice by slice then combine the slices
+        The unity API is just straight-up missing this feature for some reason.... it supports converting 2d tex to 2d rendertex, but not 3d to 3d 
+
+        so it has to be done manually
+    */
 
     //Adapted from: https://answers.unity.com/questions/840983/how-do-i-copy-a-3d-rendertexture-isvolume-true-to.html?childToView=1243556#answer-1243556
     private static RenderTexture Copy3DSliceToRenderTexture(RenderTexture source, int layer, int width, int height)

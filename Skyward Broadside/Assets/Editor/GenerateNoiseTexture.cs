@@ -6,6 +6,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
+/*
+This script provides a GUI interface for creating 3d noise texture. It makes it accessible under the tools dropdown
+You will no longer ever need to use this as all its features are now automated by the cloud prefab, but it was nice for me (Tom) while i was developing it.
+*/
 public class GenerateNoiseTexture : EditorWindow
 {
     public static int width = 5;
