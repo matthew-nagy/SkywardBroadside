@@ -12,6 +12,8 @@ public class PlayerStatus : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
     public bool ready;
     public TeamData.Team team;
 
+
+    // Creates a photon instance of the PlayerStatus prefab with extra data containing the name and team so they can be set on the other clients
     public static GameObject CreateLocal()
     {
          
@@ -24,57 +26,21 @@ public class PlayerStatus : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
         return status;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //if (photonView.IsMine)
-        //{
-         //   ready = false;
-          //  team = PlayerChoices.team;
-        //}
-
-        //playerName = GetComponent<PhotonView>().Owner.NickName;
-        //Debug.Log("NEW PLAYER STATUS " + playerName + " " + team.ToString() + " " + ready.ToString());
-        //Lobby.Instance.OnNewPlayer(this);
-    }
-
     public void ReadyUp()
     {
         ready = true;
     }
 
-    /*public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            Debug.Log("WRITING PHOTON STREAM");
-            System.Object[] stats = { playerName, ready, team };
-            stream.SendNext(stats);
-        }
-        else
-        {
-            Debug.Log("RECEIVED UPDATE TO PLAYERSTATUS");
-            bool temp = ready;
-            System.Object[] stats = (System.Object[])stream.ReceiveNext();
-            playerName = (string)stats[0];
-            ready = (bool)stats[1];
-            team = (TeamData.Team)stats[2];
 
-            if (ready != temp)
-            {
-                Lobby.Instance.RefreshListing(this);
-            }
-        }
-    }*/
-
+    // Deletes lobby listing when playerstatus is destroyed
     void OnDestroy()
     {
         Lobby.Instance.DestroyListing(playerName);
     }
 
+    //When this class is photon ninstantiated from another client the extra data that is passed through is used here to set the initial variables
     void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        Debug.Log("ONPHOTONINSTANTIATE");
         object[] instantiationData = info.photonView.InstantiationData;
         playerName = (string)instantiationData[0];
         ready = (bool)instantiationData[1];

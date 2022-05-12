@@ -63,7 +63,8 @@ public class photonHub : MonoBehaviourPunCallbacks
             FetchScores();
         }
     }
-
+    
+    // Updates the GUI for the scores
     public void UpdateScores(int[] scores)
     {
         if (myTeam == TeamData.Team.Purple)
@@ -76,6 +77,8 @@ public class photonHub : MonoBehaviourPunCallbacks
         }
     }
 
+
+    // Get scores from room properties
     public void FetchScores()
     {
         var properties = PhotonNetwork.CurrentRoom.CustomProperties;
@@ -86,6 +89,8 @@ public class photonHub : MonoBehaviourPunCallbacks
             gotScores = true;
         }
     }
+
+    // Fetch the game start time from the room
     public void UpdateTimerFromMaster()
     {
         var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
@@ -95,14 +100,13 @@ public class photonHub : MonoBehaviourPunCallbacks
         }
     }
 
+    // Update the timer
     private void UpdateTimer()
     {
         DateTime endTime = gameStartTime.Add(gameLength);
         TimeSpan timeRemaining = endTime.Subtract(DateTime.Now);
         timeRemaining -= TimeSpan.FromHours(timeRemaining.Hours);
         timeRemaining -= TimeSpan.FromDays(timeRemaining.Days);
-
-        // Llewellyn's computer 
 
         if ((timeRemaining < TimeSpan.Zero || timeRemaining.Minutes > 10) && !isGameOver)
         {
@@ -115,6 +119,7 @@ public class photonHub : MonoBehaviourPunCallbacks
         updateScript.UpdateTimer(timeRemaining);
     }
 
+    // Show game over screen
     private void gameOver()
     {
         updateScript.gameOverScreen.SetActive(true);
@@ -140,12 +145,14 @@ public class photonHub : MonoBehaviourPunCallbacks
         KillEventWithNames,
     }
 
+    // Broadcast photon event
     private void BroadcastEvent(EventCode code, System.Object data)
     {
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent((byte)code, data, raiseEventOptions, SendOptions.SendReliable);
     }
 
+    // Update score based on which team the death is from
     private void updateTeamScoreProperties(System.Object customData)
     {
         byte team = (byte)((TeamData.Team)customData);
@@ -159,6 +166,7 @@ public class photonHub : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent((byte)EventCode.UpdatedScores, scores, raiseEventOptions, SendOptions.SendReliable);
     }
 
+    // Photon event handler
     private void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
@@ -178,6 +186,7 @@ public class photonHub : MonoBehaviourPunCallbacks
         {
             var names = (string[])photonEvent.CustomData;
             Debug.Log(names[0] + ' ' + names[1]);
+            // Don't add to the stats of the killer if they aren't a player
             if (names[0] != "Turret" && names[0] != "Terrain" && names[0] != "Debris")
             {
                 players[names[0]].kills += 1;

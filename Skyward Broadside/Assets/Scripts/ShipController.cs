@@ -358,7 +358,10 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             shouldDealDamage = true;
             GameObject cannonballOwner = collision.gameObject.GetComponent<CannonballController>().owner;
+            
+            //  Sets the value of who is the player who last hit the victim
             gameObject.GetComponent<PlayerController>().lastHit(cannonballOwner.GetComponent<PhotonView>().Owner.NickName);
+
             if (!GameObject.ReferenceEquals(cannonballOwner, gameObject))
             {
                 Vector3 velocityCannonball = new Vector3(collision.rigidbody.velocity.x, 0, collision.rigidbody.velocity.z);
@@ -385,6 +388,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
             Debug.Log("Missile collision");
             shouldDealDamage = true;
+
+            // A turret is the last entity to hit the player
             gameObject.GetComponent<PlayerController>().lastHit("Turret");
             GameObject owner = collision.gameObject.GetComponent<Missile>().owner;
 
@@ -407,6 +412,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         {
             shouldDealDamage = true;
             GameObject owner = collision.gameObject.GetComponent<Missile>().owner;
+
+            // Sets the value of who is the player who last hit the victim
             gameObject.GetComponent<PlayerController>().lastHit(owner.GetComponent<PhotonView>().Owner.NickName);
             if (!GameObject.ReferenceEquals(owner, gameObject))
             {
@@ -426,6 +433,8 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         else if (collision.gameObject.CompareTag("Ship"))
         {
             shouldDealDamage = true;
+
+            // Sets the lasthit variable on the victim to the rammer
             gameObject.GetComponent<PlayerController>().lastHit(collision.gameObject.GetComponent<PhotonView>().Owner.NickName);
 
             Vector3 initialVelocity = velocityBeforeCollision;

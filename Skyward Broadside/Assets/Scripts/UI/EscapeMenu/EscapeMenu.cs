@@ -39,7 +39,7 @@ public class EscapeMenu : MonoBehaviour
         howToPlay.SetActive(true);
     }
 
-    // Exit button
+    // Disconnect from the photon room and then load th emain menu
     public void exit()
     {
         PhotonNetwork.Disconnect();
