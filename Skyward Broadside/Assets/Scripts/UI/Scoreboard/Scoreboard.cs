@@ -19,7 +19,7 @@ public class Scoreboard : MonoBehaviourPunCallbacks
 
     private Dictionary<string, ScoreboardListing> _listings;
 
-    // Start is called before the first frame update
+    // Awake is called when the script instance is loaded
     void Awake()
     {
         Instance = this;
@@ -28,6 +28,7 @@ public class Scoreboard : MonoBehaviourPunCallbacks
 
     }
 
+    // keybindings for showing and unshowing scoreboard
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab)) // change to use Matt's thing once it is merged
@@ -40,28 +41,7 @@ public class Scoreboard : MonoBehaviourPunCallbacks
         }
     }
 
-    /*IEnumerator CreateListingsForAllPlayers()
-    {
-        yield return new WaitForSeconds(1f);
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
-        foreach (GameObject player in players)
-        {
-            PlayerPhotonHub pph = player.GetComponent<PlayerPhotonHub>();
-            if (pph.myTeam == 0)
-            {
-                ScoreboardListing listing = Instantiate(scoreboardListingPrefab, team1Panel.transform);
-                listing.SetFromPph(pph);
-                _listings.Add(pph.playerName, listing);
-            }
-            else
-            {
-                ScoreboardListing listing = Instantiate(scoreboardListingPrefab, team2Panel.transform);
-                listing.SetFromPph(pph);
-                _listings.Add(pph.playerName, listing);
-            }
-        }
-    }*/
-
+    // Called from the initialisation of PlayerController to add that player to the scoreboard
     public void OnNewPlayer(PlayerController pc)
     {
         Transform panel = pc.myTeam == TeamData.Team.Purple ? team1Panel.transform : team2Panel.transform;
@@ -70,13 +50,14 @@ public class Scoreboard : MonoBehaviourPunCallbacks
         _listings.Add(pc.playerName, listing);
     }
     
-    
+    // Delete entry from scoreboard when a player leaves
     public override void OnPlayerLeftRoom(Player player)
     {
        Destroy(_listings[player.NickName].gameObject);
        _listings.Remove(player.NickName);
     }
 
+    // Update entry on scoreborad for player
     public void Recollect(string name)
     {
         _listings[name].SetFromPlayerController(photonHub.players[name]);

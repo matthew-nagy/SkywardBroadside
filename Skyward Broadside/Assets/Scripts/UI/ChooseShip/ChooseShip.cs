@@ -23,11 +23,13 @@ public class ChooseShip : MonoBehaviour
         selectPrefab("heavyPlayer");
     }
 
+    // Sets the player's ship
     public void selectShip(string ship)
     {
         PlayerChoices.ship = ship;
     }
 
+    // Sets the player's prefab 
     public void selectPrefab(string ship)
     {
         PlayerChoices.playerPrefab = ship;

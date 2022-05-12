@@ -7,8 +7,10 @@ public class gameOverScreen : MonoBehaviour
     [SerializeField] GameObject team1panel;
     [SerializeField] GameObject team2panel;
 
+    // Ensure the copying only happens once
     public static bool called = false;
 
+    // Copies entries from the scoreboard to put into the game over screen
     public void CopyScoreboard()
     {
         if (called)

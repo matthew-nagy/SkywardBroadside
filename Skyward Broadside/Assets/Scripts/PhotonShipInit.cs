@@ -7,6 +7,8 @@ public class PhotonShipInit : MonoBehaviour, IPunInstantiateMagicCallback
 {
 
     [SerializeField] GameObject ship;
+
+    // When a ship is instantiated across photon the variables will be set to their type's default value. This callback allows them to be set to their proper values utilising extra data sent from the ships local instance.
     void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
     {
         string pName = (string)info.photonView.InstantiationData[0];

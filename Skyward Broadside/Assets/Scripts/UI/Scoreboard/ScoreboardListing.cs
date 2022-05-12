@@ -21,6 +21,7 @@ public class ScoreboardListing : MonoBehaviour
     private int _deaths;
     private int _score;
 
+    // Uses variables from player controller to set details of the ScoreboardListing text
     public void SetFromPlayerController(PlayerController pc)
     {
         _nickName = pc.playerName;
@@ -30,6 +31,7 @@ public class ScoreboardListing : MonoBehaviour
         UpdateText();
     }
 
+    // sets the text in the prefab
     private void UpdateText()
     {
         _nametext.text = _nickName;

@@ -9,6 +9,8 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
    [SerializeField] private Text roomName;
 
+
+    // Set room to the textbox text if it isn't empty.
    public void OnClick_CreateRoom()
    {
         if (roomName.text != "")
