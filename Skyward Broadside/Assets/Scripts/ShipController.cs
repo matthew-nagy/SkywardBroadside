@@ -423,11 +423,13 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
             Vector3 initialVelocity = velocityBeforeCollision;
             float massA = rigidBody.mass;
             Vector3 centreA = transform.position;
-
+            
+            //Get the mass and the velocity of the other ship before the collision. Required to calculate the velocity of this ship after the collision.
             Vector3 colliderInitialVelocity = collision.transform.GetComponent<ShipController>().velocityBeforeCollision;
             float massB = collision.rigidbody.mass;
             Vector3 centreB = collision.transform.position;
 
+            //Use the angle-free form for an elastic oblique collision to calculate what the velocity of the ship should be after the collision.
             Vector3 finalVelocity = initialVelocity - (2 * massB / (massA + massB)) * (Vector3.Dot(initialVelocity - colliderInitialVelocity, centreA - centreB) / Vector3.SqrMagnitude(centreA - centreB)) * (centreA - centreB);
             finalVelocity = 0.8f * finalVelocity;
             moveSpeed = finalVelocity.magnitude;
@@ -485,6 +487,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
                     if (!collision.gameObject.GetComponent<Breakable>().broken)
                     {
+                        //Ship moves backwards with half of its original velocity
                         velocity = -0.5f * velocity;
                         DisableMovementFor(0.5f);
                     }
@@ -632,6 +635,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (playerInput.up)
         {
+            //If player is below the max vertical speed, accelerate with constant acceleration.
             if (verticalSpeed <= maxVerticalSpeed)
             {
                 verticalSpeed += verticalAcceleration * Time.deltaTime;
@@ -649,6 +653,7 @@ public class ShipController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else
         {
+            //If the player stops pressing R or F, the ship decelerates until the speed is 0.
             if (verticalSpeed < 0f)
             {
                 verticalSpeed += verticalDeceleration * Time.deltaTime;
