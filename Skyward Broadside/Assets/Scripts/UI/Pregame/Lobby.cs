@@ -39,6 +39,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     }
 
+    // Responds to keybindinngs for readying up and changing team and also checks if all players are ready to begin the game
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))
@@ -68,6 +69,7 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     }
 
+    // Gives different ready up text depending on team
     private void SetReadyUpText(TeamData.Team team)
     {
         if (team == TeamData.Team.Purple)
@@ -82,6 +84,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+    // Sends photon event to alert other clients that the player has readied up
     public void ReadyUp()
     {
         Debug.Log("Readying Up");
@@ -94,6 +97,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         Debug.Log("SENT EVENT");
     }
 
+    // Switch team, sending photon nevent to alert other clients that a player has chosen to switch team
     public void ChangeTeam()
     {
         Debug.Log("Changing Team");
@@ -108,6 +112,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         Debug.Log("SENT EVENT");
     }
 
+    // Update lobby listing from a PlayerStatus
     public void RefreshListing(PlayerStatus ps)
     {
         if (_listings.ContainsKey(ps.playerName))
@@ -116,6 +121,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+    // Create a new lobby listing from a playerstatus
     public void OnNewPlayer(PlayerStatus player)
     {
         Transform panel = player.team == TeamData.Team.Purple ? purplePanel.transform : yellowPanel.transform;
@@ -135,6 +141,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
     }
 
+    // Event handler for readying up and switching teams
     private void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
@@ -175,6 +182,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
+    // Deletes the lobby listing when a player leaves
     public override void OnPlayerLeftRoom(Player player)
     {
         Debug.Log(player.NickName);
@@ -182,6 +190,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         _listings.Remove(player.NickName);
     }
 
+    // Destroy listing with name
     public void DestroyListing(string name)
     {
         if (_listings.ContainsKey(name))

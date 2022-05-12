@@ -117,6 +117,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     }
 
+
+    // Loads the arena, will take all clients connected to the photon room to the gameworld
     void LoadArena()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -127,6 +129,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("GameWorld");
     }
 
+    // Sets room properties for use in the game. The start time of the game is used to calculate the timer for each player
     void setRoomStartTimeAndInitialScores()
     {
         DateTime currentTime = System.DateTime.Now;

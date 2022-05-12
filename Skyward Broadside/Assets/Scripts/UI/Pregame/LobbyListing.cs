@@ -9,21 +9,10 @@ public class LobbyListing : MonoBehaviour
     [SerializeField] private Text _nametext;
     [SerializeField] private Text _readytext;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    // Set lobby listing from playerstatus
     public void SetFromPlayerStatus(PlayerStatus ps)
     {
         _nametext.text = ps.playerName;
         _readytext.text = ps.ready ? "YES" : "NO";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

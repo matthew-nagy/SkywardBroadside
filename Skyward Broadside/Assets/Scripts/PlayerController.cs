@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
 
     public bool teamSet;
 
+    // Creates a photon instance of the players selected ship with extra data for the players nickname and team that will be set in the PhotonShipInit script on the other clients
     public static GameObject Create(Vector3 spawnPoint)
     {
-
         object[] data = { PhotonNetwork.NickName, PlayerChoices.team };
         GameObject player = PhotonNetwork.Instantiate(PlayerChoices.playerPrefab, spawnPoint, Quaternion.identity, 0, data);
         return player;
@@ -60,12 +60,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
             Invoke(nameof(RegenInvoker), 5f);
         }
 
+        // get the ship's name
         playerName = gameObject.GetComponent<PhotonView>().Owner.NickName;
+
+        // Add to the games list of players
         photonHub.players.Add(playerName, this);
-        if (photonView.IsMine)
-        {
-            //Scoreboard.Instance.OnNewPlayer(this);
-        }
     }
 
     private void Update()
@@ -166,11 +165,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    // called by other scripts to set the name of the entity that last damaged this player, used for the killfeed and scoring system
     public void lastHit(string name)
     {
         lastDamagedBy = name;
     }
 
+
+    // Creates two photon events:
+    // 1 - Kill event with data containing the killer and the victim
+    // 2 - Death event containing the team of the victim
     private void broadcastDeath()
     {
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
@@ -262,7 +266,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
-    //Sync data accross the network
+    // Send the ships kills, deaths and score through the PhotonView to allow the tracking of player's statistics
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -278,13 +282,4 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
             score = (int) stats[2];
         }
     }
-
-    //void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
-    //{
-    //    Debug.Log("Player controller instantiated, should appear on scoreboard");
-    //    object[] instantiationData = info.photonView.InstantiationData;
-    //    myTeam = (TeamData.Team)instantiationData[0];
-    //    Debug.LogError("NOTIFICATION");
-    //    Scoreboard.Instance.OnNewPlayer(this);
-    //}
 }
