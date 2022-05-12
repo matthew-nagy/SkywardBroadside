@@ -2,21 +2,30 @@ Shader "Unlit/NewUnlitShader"
 {
     Properties
     {
+        //Textures
         _WaterTexture ("Texture", 2D) = "white" {}
         _DisplacementTexture("Texture", 2D) = "white" {}
+        
+        //How much the noise can displace the uv by
         _DisplacementStrength("Displacement strength", float) = 0.05
         _ScrollVector1("Scroll direction 1", Vector) = (0.25, 0.0, 0.0, 0.0)
         _ScrollVector2("Scroll direction 2", Vector) = (-0.1, 0.15, 0.0, 0.0)
+        //Multiplier for all scrolling
         _ScrollSpeedFactor("Scroll speed factor", float) = 0.3
 
+
         _FlowSpeed("Water flow", Vector) = (0.1, 0.05, 0.0, 0.0)
+        //How much to scale the water texture by
         _Scale("Water scale", float) = 1.0
+        //Transparency
         _Alpha("Transparency", Range(0,1)) = 1.0
     }
     SubShader
     {
+        //For transparency. If you aren't going to use it, you should put the material on the geometry queue to prevent re-drawing
         Blend SrcAlpha OneMinusSrcAlpha
         Tags {"Queue" = "Transparent" "RenderType" = "Transparent"}
+
         LOD 100
 
         Pass

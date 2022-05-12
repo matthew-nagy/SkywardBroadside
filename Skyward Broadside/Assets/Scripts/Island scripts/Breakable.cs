@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Breakable : MonoBehaviour
 {
+    //photon interface to add itself to
     public BreakablePhotonInterface breakPhotonInterface;
+    //Force needed to break
     public float breakForce;
+    //Is it broken already?
     public bool broken;
+
     Rigidbody myRigidBody;
     bool isMasterPhoton;
+    //Index in the break masters array of children
     int indexInOwner;
+    //
     BreakMaster owner;
     public Vector3Int cascadeCoordinate;
 
@@ -28,6 +34,8 @@ public class Breakable : MonoBehaviour
         enabled = false;
     }
 
+    //make sure to register when the game ends so you don't remove youreself from a break master that no longer exists
+    //10,000+ console errors are no joke
     private void OnApplicationQuit()
     {
         applicationQuit = true;
@@ -63,7 +71,6 @@ public class Breakable : MonoBehaviour
         {
             return;
         }
-        //print("Collision");
         float impactForce;
         if (collision.gameObject.tag == "Ship")
         {
@@ -103,11 +110,13 @@ public class Breakable : MonoBehaviour
         }
     }
 
+    //A break command directly coming from photon
     public void PhotonBreakCommand(float force, Vector3 contactPoint, float forceRadius)
     {
         Break(force, contactPoint, forceRadius);
     }
 
+    //A break command from game play. Will be ignored if it is not the master version
     public void GamePlayBreakCommand(float force, Vector3 contactPoint, float forceRadius)
     {
         if (isMasterPhoton && !broken)
@@ -116,6 +125,7 @@ public class Breakable : MonoBehaviour
             SendBreakCommand(force, contactPoint, forceRadius);
         }
     }
+    //Same as above but a cascade break, with no contact or "force"
     public void GamePlayBreakCommand()
     {
         if (isMasterPhoton && !broken)
@@ -129,6 +139,7 @@ public class Breakable : MonoBehaviour
     {
         transform.localScale = transform.localScale * 0.8f;
         broken = true;
+        //Add a rigid body so it can now fall into oblivion :)
         gameObject.AddComponent<Rigidbody>();
         myRigidBody = GetComponent<Rigidbody>();
         myRigidBody.mass = 5;
@@ -175,7 +186,9 @@ public class Breakable : MonoBehaviour
 
     public void PhotonSync(SyncEvent e)
     {
-
+        //OK so, this used to be where every breakable woul make sure its deterministic
+        //which we don't do anymore, but there are calls to this elsewhere and I don't
+        //want to unpick it all rn
     }
 
     public void GamePlayApplyForce(float force, Vector3 contactPoint, float forceRadius)

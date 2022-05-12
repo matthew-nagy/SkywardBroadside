@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Given to the canvas, which will take in a KeyBindChild on a click and change the SBControls class
 public class KeyBinder : MonoBehaviour
 {
     SBControls.ControlCode toChange;
     Text textToChange;
     string lastText = "";
 
+    //If you have clicked a button, you must now wait to here a button click
     bool binding = false;
 
     //Given to a button element
@@ -20,14 +22,15 @@ public class KeyBinder : MonoBehaviour
             textToChange.text = lastText;
         }
 
+        //Set up for binding a key
         binding = true;
         toChange = child.toChange;
-        Debug.LogWarning("Now binding " + child.toChange);
         textToChange = child.textToSet;
         lastText = textToChange.text;
         textToChange.text = "?";
     }
 
+    //When a button is pressed, intercept it to see if you should bind something
     void OnGUI()
     {
         Event e = Event.current;
@@ -35,7 +38,6 @@ public class KeyBinder : MonoBehaviour
         {
             binding = false;
             SBControls.SetControlTo(toChange, e.keyCode);
-            Debug.LogWarning("Bound to " + e.keyCode);
             textToChange.text = e.keyCode.ToString();
         }
     }

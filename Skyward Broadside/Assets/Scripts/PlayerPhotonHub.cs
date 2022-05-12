@@ -16,6 +16,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
+//Contains code taken from https://doc.photonengine.com/en-us/pun/current/demos-and-tutorials/pun-basics-tutorial/player-ui-prefab
 public class PlayerPhotonHub : MonoBehaviour
 {
     [Tooltip("The Player's UI GameObject Prefab")]
@@ -42,6 +43,7 @@ public class PlayerPhotonHub : MonoBehaviour
 
     private bool gotScores = false;
 
+    //The game object containing this player's healthbar and nametag.
     public GameObject healthbarAndName;
 
     Transform ship;
@@ -62,6 +64,7 @@ public class PlayerPhotonHub : MonoBehaviour
 
     private void Awake()
     {
+        //Get the player name from the last game, if it is being stored (we decided not to store it)
         if (PlayerPrefs.HasKey("PlayerName"))
         {
             playerName = PlayerPrefs.GetString("PlayerName");
@@ -99,19 +102,6 @@ public class PlayerPhotonHub : MonoBehaviour
     void Start()
     {
         Blackboard.playerPhotonHub = this;
-        //GameObject userGUI = GameObject.Find("User GUI");
-        //Debug.Log(userGUI);
-        //if(userGUI != null)
-        //{
-        //    Debug.Log("Inside the if part with the value " + userGUI);
-        //    updateScript = userGUI.GetComponent<GUIController>();
-        //    disabled = false;
-        //}
-        //else
-        //{
-        //    disabled = true;
-        //    Debug.LogWarning("No User GUI could be found (player photon hub constructor)");
-        //}
 
         //Instantiate UI (username and health)
         if (PlayerUiPrefab != null)
@@ -129,26 +119,33 @@ public class PlayerPhotonHub : MonoBehaviour
 
         GameObject.Find("Game Manager").GetComponent<GameManager>().serverPlayerPhotonHub = this;
 
+        //When SceneManager.sceneLoaded is invoked, the OnSceneLoaded function will be called
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    //Sets the player's name
     public void SetName(string name)
     {
         playerName = name;
     }
 
+    //Will be called when the scene is loaded.
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode loadingMode)
     {
-        this.OnLevelWasLoaded(scene.buildIndex);
+        OnLevelWasLoaded(scene.buildIndex);
     }
 
+    //Deprecated in Unity 5.4 but kept for backwards compatibility
     private void OnLevelWasLoaded(int level)
     {
         //Instantiate player UI (username and health)
         GameObject _uiGo = Instantiate(this.PlayerUiPrefab);
+
+        //Tell the player UI that this is the PlayerPhotonHub script of the player
         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
     }
 
+    //Set this player's healthbar and nametag game object.
     public void SetUI(GameObject UI)
     {
         healthbarAndName = UI;

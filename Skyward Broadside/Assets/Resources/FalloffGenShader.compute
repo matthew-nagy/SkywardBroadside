@@ -20,6 +20,10 @@ float3 hash33(float3 p3)
 }
 
 [numthreads(8,8,8)]
+/*
+    Creates a gradiented sphere of low magnitude in the centre, and magnitude 1 at the radius and beyond, within a 3d texture
+    This is subtracted from a noise field of values from 0 - 1 to remove hard edges from the noise.
+*/
 void FalloffGen (uint3 id : SV_DispatchThreadID)
 {
     float x = (float)id.x / (float)width;

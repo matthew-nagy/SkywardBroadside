@@ -1,3 +1,5 @@
+//Script for an ingame prompt with a mouse icon. Setting its position, size, image etc.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

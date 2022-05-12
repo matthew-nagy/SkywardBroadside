@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Needs to be a class to take a reference to it
 class ReboundingShip
 {
     public ShipController ship;
@@ -14,14 +15,19 @@ class ReboundingShip
     }
 }
 
+//Used to keep ships inside the playfild
 public class Arena : MonoBehaviour
 {
     public float reboundVelocity = 30.0f;
 
+    //Sometimes unity will play both exit and enter events in the same frame, causing it to never let you go
+    //So we set a hard cutoff time. If you aren't back in the playfield by this point, something else went wrong
     static float secondsUntilGiveUp = 1.5f;
 
+    //Ships being put back into the arena
     List<ReboundingShip> ships;
 
+    //Disables the ship and sets its velocity to the center of the arena
     void ReboundShip(ShipController ship)
     {
         ship.ResetLastPosition();
@@ -34,6 +40,7 @@ public class Arena : MonoBehaviour
         ships = new List<ReboundingShip>();
     }
 
+    //If a ship leaves the arena, it rebounds and its velocity is set backwards
     void OnTriggerExit(Collider other)
     {
         GameObject exiting = other.gameObject;
@@ -48,6 +55,7 @@ public class Arena : MonoBehaviour
         ships.Add(new ReboundingShip(ship));
     }
 
+    //Once the ship enters the arena again, it is removed from the ship list
     private void OnTriggerEnter(Collider other)
     {
         GameObject exiting = other.gameObject;
@@ -67,7 +75,8 @@ public class Arena : MonoBehaviour
             }
         }
     }
-
+    
+    //Every update, set any captured ship's velocity to the center of the arena
     private void Update()
     {
         for(int i = 0; i < ships.Count; i++)

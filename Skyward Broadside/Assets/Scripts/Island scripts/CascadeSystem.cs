@@ -2,30 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//A single cell in the cascade system. If it is buoyant, it supports any connected cell. If it cannot find one, it will be told to shatter
+//This involves breaking every Breakable in the syste
 class CascadeCell
 {
+    //The proportion of this cells contents which must be destroyed before a shatter occours
     const float shatterProportion = 0.6f;
-    const float shatterMinimumWaitSeconds = 0.1f;
-    const float shatterMaximumWaitSeconds = 0.5f;
 
+    //What breakables are contained in this cell, and how many of them are broken
     List<Breakable> containedBreakables;
     int brokenBreakables;
 
+    //An array of neibouring cells, and where next to place a neibour into the array if needed
     CascadeCell[] neighbours;
     int nextNeighbourIndex;
 
+    //Is this cell buoyant?
     bool buoyancyPoint;
 
-    public void DebugColour()
-    {
-        Color dCol = new Color(0f, 0f, 1f);
-        foreach (Breakable b in containedBreakables)
-        {
-            Renderer r = b.GetComponent<Renderer>();
-            r.material.color = dCol;
-        }
-    }
-
+    //Construct the cell
     public void Init()
     {
         containedBreakables = new List<Breakable>();
@@ -37,51 +32,31 @@ class CascadeCell
         buoyancyPoint = false;
     }
 
-    public List<Breakable> GetContainedBreakables()
-    {
-        return containedBreakables;
-    }
+    //Adds a breakable to the cell
     public void AddBreakable(Breakable b)
     {
         containedBreakables.Add(b);
     }
+    //Returns how many breakables are contained in the cell
     public int Size()
     {
         return containedBreakables.Count;
     }
 
+    //Tells the cell that the given breakable, b, has been broken
     public void InformOfBreak(Breakable b)
     {
         brokenBreakables += 1;
         containedBreakables.Remove(b);
     }
+    //Returns true if the proportion of broken cells exceeds shatterProportion
     public bool ShouldShatter()
     {
         return ((float)brokenBreakables / (float)containedBreakables.Count) >= shatterProportion;
     }
-    //You may not always want the overhead of neighbour removal, especially if an entire section of cells are broken
-    public IEnumerator Shatter(bool removeNeighbours)
-    {
-        if (removeNeighbours)
-        {
-            for (int i = 0; i < nextNeighbourIndex; i++)
-            {
-                neighbours[i].RemoveNeighbour(this);
-            }
-        }
 
-        float waitPeriod = Random.Range(shatterMinimumWaitSeconds, shatterMaximumWaitSeconds);
-        yield return new WaitForSeconds(waitPeriod);
-
-        foreach(Breakable b in containedBreakables)
-        {
-            if(b != null)//Could have been deleted
-            {
-                b.GamePlayBreakCommand();
-            }
-        }
-    }
-
+    //Breaks every contained breakable. If told to do so, it will remove itself from all its neighbours so
+    //they cannot use this to pathfind. If it's neighbours will be shattered too however, there is no point
     public void _Shatter(bool removeNeighbours)
     {
         if (removeNeighbours)
@@ -109,6 +84,7 @@ class CascadeCell
             nextNeighbourIndex += 1;
         }
     }
+    //Remove a cell from the neighbour list. You can no longer pathfind on its
     void RemoveNeighbour(CascadeCell cell)
     {
         for(int i = 0; i < nextNeighbourIndex; i++)
@@ -124,6 +100,9 @@ class CascadeCell
             }
         }
     }
+   
+    //Getter and setter functions
+    
     public CascadeCell[] Neighbours()
     {
         return neighbours;
@@ -143,9 +122,11 @@ class CascadeCell
     }
 }
 
+//A result from looking through the cascade system
 class CascadeSearchResult
 {
     public HashSet<CascadeCell> searchedCells { get; }
+    //Should the searched cells be broken (in other words, did it fail to find a buoyant point)
     public bool breakCells { get; }
 
     public CascadeSearchResult(HashSet<CascadeCell> cells, bool shouldBreak)
@@ -171,12 +152,14 @@ public class CascadeSystem : MonoBehaviour
 
     CascadeCell[,,] grid;
 
+    //A buffer of all shattered cells this update cycle
     List<CascadeCell> shatterBuffer = new List<CascadeCell>();
 
-    bool init = false;
+    //While running update, we don't want to generate new search calls while calculating the consequences of the last
+    //so this bool locks functions out from that
     bool updateLock = false;
 
-
+    //Get the index in the grid from a breakables position
     Vector3Int GetIndexFromPosition(Vector3 position)
     {
         Vector3 normalizedPosition = position - topGuard.localPosition;
@@ -189,25 +172,9 @@ public class CascadeSystem : MonoBehaviour
     }
 
 
-    bool IndexInvalid(Vector3Int index)
-    {
-        if(index.x < 0 || index.y < 0 || index.z < 0)
-        {
-            //Debug.LogError("Index has values less than 0");
-            return true;
-        }
-        else if(index.x >= cellResolution.x || index.y >= cellResolution.y || index.z >= cellResolution.z)
-        {
-            //Debug.LogError("Index greater than cell resolution");
-            return true;
-        }
-        return false;
-    }
-
     // Only called by the BreakMaster if this is the master photon client
     public void Init(List<Breakable> allBreakables)
     {
-        init = true;
 
         SortGuards();       //make sure the top guard has the lower of all values, the bottom has the heighest
         InitGrid();
@@ -219,7 +186,7 @@ public class CascadeSystem : MonoBehaviour
 
         buoyanceyCells = new HashSet<CascadeCell>();
 
-
+        //Place all breakables in the grid
         foreach (Breakable b in allBreakables)
         {
             Vector3Int index = GetIndexFromPosition(b.transform.localPosition);
@@ -231,13 +198,13 @@ public class CascadeSystem : MonoBehaviour
             grid[index.z, index.y, index.x].AddBreakable(b);
             b.cascadeCoordinate = index;
         }
+        //Assign buoyancy to the cells
         foreach (GameObject bp in buoyancyPoints)
         {
             Vector3Int index = GetIndexFromPosition(bp.transform.localPosition);
             CascadeCell cell = grid[index.z, index.y, index.x];
             buoyanceyCells.Add(cell);
             cell.MakeBuoyant();
-            cell.DebugColour();
         }
 
         
@@ -247,6 +214,7 @@ public class CascadeSystem : MonoBehaviour
 
     #region InitFunctions
 
+    //Figure out the bounding cube of this breakable system
     void SortGuards()
     {
         Vector3 lesser = topGuard.localPosition;
@@ -337,6 +305,7 @@ public class CascadeSystem : MonoBehaviour
 
     #endregion
 
+    //Tells the system that a breakable has been broken, which could trigger a cascade
     public void InformOfBreak(Breakable b)
     {
         if (updateLock)
@@ -354,6 +323,7 @@ public class CascadeSystem : MonoBehaviour
 
     void Update()
     {
+        //If there has been no change in state, don't do anything and return
         if(shatterBuffer.Count == 0)
         {
             return;
@@ -376,7 +346,8 @@ public class CascadeSystem : MonoBehaviour
             }
         }
 
-
+        //If there were neighbouring cells to any that broke, they need to be checked to make sure they can still find
+        //a buoyancy point
         if (neighbours.Count > 0)
         {
             CheckCascade(neighbours);
@@ -406,13 +377,13 @@ public class CascadeSystem : MonoBehaviour
 
         foreach(CascadeCell bCell in brokenCells)   //A cell can only be broken when the search was exhaustive, so they are all certainly broken
         {
-            //StartCoroutine(bCell.Shatter(false));
             bCell._Shatter(false);
         }
 
     }
 
-
+    //Figure out if the startCell can find a buoyancy point or not by pathfinding through neighbours. safeCells and brokenCells are here for optimization,
+    //there is no need to search cells more than once on any given update cycle. Results are added to the sets to reduce computation on subsequant searches
     CascadeSearchResult BreakSearch(HashSet<CascadeCell> safeCells, HashSet<CascadeCell> brokenCells, CascadeCell startCell)
     {
         HashSet<CascadeCell> closedSet = new HashSet<CascadeCell>();

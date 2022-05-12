@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
 
     public bool teamSet;
 
+    // Creates a photon instance of the players selected ship with extra data for the players nickname and team that will be set in the PhotonShipInit script on the other clients
     public static GameObject Create(Vector3 spawnPoint)
     {
-
         object[] data = { PhotonNetwork.NickName, PlayerChoices.team };
         GameObject player = PhotonNetwork.Instantiate(PlayerChoices.playerPrefab, spawnPoint, Quaternion.identity, 0, data);
         return player;
@@ -55,17 +55,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
                 UpdateWeapon();
             }
 
+            //spawn invincibility is based on spawntime, initially assigned here
             spawnTime = DateTime.Now;
 
+            //This invokes a function that uses invokerepeating after a short delay, due to photon timing meaning not everything is necessarily instantiated when this line is reached
             Invoke(nameof(RegenInvoker), 5f);
         }
 
+        // get the ship's name
         playerName = gameObject.GetComponent<PhotonView>().Owner.NickName;
+
+        // Add to the games list of players
         photonHub.players.Add(playerName, this);
-        if (photonView.IsMine)
-        {
-            //Scoreboard.Instance.OnNewPlayer(this);
-        }
     }
 
     private void Update()
@@ -91,6 +92,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Check health levels from ship arsenal and update health bar. Die if health is less than 0
     void UpdateHealth()
     {
         if (updateScript != null)
@@ -116,6 +118,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Update ui ammo levels from ship arsenal
     void UpdateAmmo()
     {
         if (updateScript != null)
@@ -132,6 +135,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //update specual ammo level on ui from ship arsenal
     void UpdateSpecialAmmo(ShipArsenal shipArsenal) 
     {
         int ammoValue = 0;
@@ -150,6 +154,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         updateScript.UpdateGUISpecialAmmo(ammoValue);
     }
 
+    //Update the ui for the selected weapon
     void UpdateWeapon()
     {
         if (updateScript != null)
@@ -162,11 +167,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    // called by other scripts to set the name of the entity that last damaged this player, used for the killfeed and scoring system
     public void lastHit(string name)
     {
         lastDamagedBy = name;
     }
 
+
+    // Creates two photon events:
+    // 1 - Kill event with data containing the killer and the victim
+    // 2 - Death event containing the team of the victim
     private void broadcastDeath()
     {
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
@@ -178,6 +188,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
             SendOptions.SendReliable);
     }
 
+    //Called on death. Resets values, does a death animation then respawns afer a period
     void Die()
     {
         GetComponent<ShipController>().PutOutFires();
@@ -191,6 +202,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Respawn the player accross the network
     [PunRPC]
     void Respawn()
     {
@@ -199,6 +211,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
 
     }
 
+    //Re-enable player heathbar
     void EnableHealthbar()
     {
         PlayerPhotonHub PPH = transform.root.GetComponent<PlayerPhotonHub>();
@@ -209,6 +222,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Move the ship to the respawn point 
     void MoveShipToSpawnPoint()
     {
         GetComponent<ShipArsenal>().Respawn();
@@ -219,6 +233,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         spawnTime = DateTime.Now;
     }
 
+    //Re-enable the ship obj after respawning
     void Activate()
     {
         transform.root.gameObject.SetActive(true);
@@ -229,6 +244,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         }
     }
 
+    //Do the death animation accross the network
     [PunRPC]
     void DeathAnimation()
     {
@@ -237,19 +253,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
         transform.root.gameObject.SetActive(false);
     }
 
+    //Resupply whilst in resupply zone
     public void RegenInvoker()
     {
         InvokeRepeating(nameof(ReloadShipArsenal), 0, regenSecondsPerReloads);
     }
 
+    //Call the resupply function in ship arsenal if we should be resupplying
     void ReloadShipArsenal()
     {
+        //resupply is set upon entering or exiting the sphere collider around the reload balloon
         if (resupply)
         {
             GetComponent<ShipArsenal>().Resupply();
         }
     }
 
+    // Send the ships kills, deaths and score through the PhotonView to allow the tracking of player's statistics
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -265,13 +285,4 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable//, IPu
             score = (int) stats[2];
         }
     }
-
-    //void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
-    //{
-    //    Debug.Log("Player controller instantiated, should appear on scoreboard");
-    //    object[] instantiationData = info.photonView.InstantiationData;
-    //    myTeam = (TeamData.Team)instantiationData[0];
-    //    Debug.LogError("NOTIFICATION");
-    //    Scoreboard.Instance.OnNewPlayer(this);
-    //}
 }

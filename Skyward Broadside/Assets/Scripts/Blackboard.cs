@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 
+//A way to globally expose information when there is only one instance that you want to care about
+//Rather than finding the player and navigating the hirarchy, you can just get data here, for example
 public static class Blackboard
 {
     static public PlayerPhotonHub playerPhotonHub;
@@ -17,13 +19,4 @@ public static class Blackboard
 
 
     static Dictionary<float, GameObject> playersByID = new Dictionary<float, GameObject>();
-
-    static public GameObject getPlayerByID(float id)
-    {
-        return playersByID[id];
-    }
-    static public void registerPlayer(GameObject player, float id)
-    {
-        playersByID[id] = player;
-    }
 }

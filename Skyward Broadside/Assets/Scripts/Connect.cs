@@ -13,17 +13,20 @@ public class Connect : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    // Join the lobby once connected to photon
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
     }
 
+    // Disconnects and reconnects to photon
     public void RejoinLobby()
     {
         PhotonNetwork.Disconnect();
         Start();
     }
 
+    // Sets the room to go to once the team and ship are chosen
     public static void LaunchWithRoom(string name)
     {
         PlayerPrefs.SetString("roomName", name);

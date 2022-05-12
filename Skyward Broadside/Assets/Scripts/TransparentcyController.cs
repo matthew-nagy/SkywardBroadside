@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+//Used on player ships to make the ballon(s) transparent
 public class TransparentcyController : MonoBehaviour
 {
     [SerializeField]
@@ -12,12 +13,14 @@ public class TransparentcyController : MonoBehaviour
 
     private void Start()
     {
+        //Only set them if you are the player
         if (GetComponent<PhotonView>().IsMine)
         {
             AddTransparency();
         }
     }
 
+    //Sets the alpha in the cell shader
     void AddTransparency()
     {
         foreach (GameObject component in components)

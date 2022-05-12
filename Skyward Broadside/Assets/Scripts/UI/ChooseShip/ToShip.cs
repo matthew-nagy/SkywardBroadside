@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class ToShip : MonoBehaviourPunCallbacks
 {
+    // Leave's the photon room and then on the callback goes to the choose ship screen.
+
     public void goToShip()
     {
         PhotonNetwork.LeaveRoom();

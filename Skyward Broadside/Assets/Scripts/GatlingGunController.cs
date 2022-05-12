@@ -1,3 +1,6 @@
+//This script controls the firing of teh gatling gun.
+//Uses raycast to find the hit point and apply damage if an enemy ship is hit
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,6 +61,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         gatlingSoundObj.transform.parent = transform.root.GetChild(0).GetChild(0);
     }
 
+    //Sssign a layer mask depending on if the photon view is ours
     void SetLayerMask()
     {
         if (photonView.IsMine)
@@ -83,6 +87,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Update for when photon view is ours
     void ServerUpdate()
     {
         getInput();
@@ -100,6 +105,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Update for when photon view is not ours
     void ClientUpdate()
     {
         if (clientShootingFlag)
@@ -113,6 +119,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Get the player input to fire the gatling gun
     void getInput()
     {
         if (weaponEnabled)
@@ -133,6 +140,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Play the fire sound whilst firing
     void PlaySound()
     {
         if (!gatlingSoundObj.GetComponent<AudioSource>().isPlaying)
@@ -141,6 +149,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Stop playing the fire sound when not firing
     void StopSound()
     {
         if (gatlingSoundObj.GetComponent<AudioSource>().isPlaying)
@@ -149,17 +158,18 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //Get the transform of the ship obj
     Transform getShipTransform()
     {
         return transform.root.Find("Ship").Find(shipType);
     }
 
+    //No camera shake for gatling gun
     void SendShakeEvent()
     {
-        //Tee hee no shake for gatling controller
     }
 
-    //fire the canno
+    //fire the gatling gun whilst player input is registered
     void Fire()
     {
         SendShakeEvent();
@@ -188,6 +198,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //A Coroutine for continuously creating a tracer particle effect in the direction of fire
     IEnumerator SpawnTracer(ParticleSystem tracer, Vector3 hitPoint)
     {
         float time = 0;
@@ -200,17 +211,7 @@ public class GatlingGunController : MonoBehaviourPunCallbacks, IPunObservable
         Destroy(tracer, tracer.time);
     }
 
-    public void reload()
-    {
-        reloading = true;
-        Invoke(nameof(weaponStatusReady), 2);
-    }
-
-    void weaponStatusReady()
-    {
-        reloading = false;
-    }
-
+    //Send data accross teh network about firing the gatling gun
     void ServerPhotonStream(PhotonStream stream, PhotonMessageInfo info)
     {
         stream.SendNext(sendShootingToClient);

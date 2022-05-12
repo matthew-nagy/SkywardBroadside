@@ -13,6 +13,7 @@ public class KillFeed : MonoBehaviour
         Instance = this;
     }
 
+    // Add a new listing tot he killfeed
     public void AddNewListing(string killer, string killed)
     {
         KillListing temp = Instantiate(killListingPrefab, transform);

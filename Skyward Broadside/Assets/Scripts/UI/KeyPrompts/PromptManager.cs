@@ -1,3 +1,5 @@
+//Script for managing an in game prompt. Creating and destroying, Setting text, position, size etc.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,6 +65,7 @@ public class PromptManager : MonoBehaviour
         }
     }
 
+    //Only display if we have line of sight to the target position
     void CheckVisible()
     {
         Vector3 screenPoint = Camera.main.gameObject.GetComponent<Camera>().WorldToViewportPoint(target.transform.position);

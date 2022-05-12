@@ -1,3 +1,5 @@
+//This script manages the lock on system. Aquiring targets, highlighting them etc.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +30,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
     GameObject mpmObj;
     MousePromptManager mpm;
 
+    //Set ship to appropiate layer depending on if the photon view is ours
     private void Start()
     {
         if (photonView.IsMine)
@@ -41,6 +44,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         mpm = mpmObj.GetComponent<MousePromptManager>();
     }
 
+    //Update is called once per frame
     private void Update()
     {
         if (photonView.IsMine)
@@ -76,6 +80,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         }
     }
 
+    //Get player input to lock on or unlock to a target
     void getInput()
     {
         if (SBControls.lockOn.IsDown())
@@ -91,6 +96,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         }
     }
 
+    //Move all applicable objects in the tree to the given layer
     void MoveToLayer(Transform root, int layer)
     {
         if (root.gameObject.layer != 13)
@@ -103,6 +109,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         }
     }
 
+    //Set the targets outline to Red. Update the prompt for firing. Switch to the lock on camera
     void lockOnToTarget(GameObject currentTarget)
     {
         lockedOn = true;
@@ -113,6 +120,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         mpm.UpdatePrompt();
     }
 
+    //Set targets outline to yellow. Switch back to free camera. Update prompt for locking on. 
     public void unLockToTarget()
     {
         GetComponent<CameraController>().setLookAtTarget(transform.gameObject);
@@ -129,6 +137,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         mpm.UpdatePrompt();
     }
 
+    //Check if we have line of sight and the target appears in camera view
     void checkVisible(GameObject currentTarget)
     {
         if ((currentTarget.transform.position - transform.position).magnitude <= maxTargetDistance)
@@ -147,6 +156,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         }
     }
 
+    //Check the target still exists (Didnt leave the game or some other reason)
     void checkAlive()
     {
         if (!currentTarget.activeInHierarchy)
@@ -159,6 +169,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         }
     }
 
+    //Check the yellow outlines target is still the closest target to us
     void checkStillClosest(GameObject currentTarget)
     {
         GameObject closestEnemy = FindClosestEnemyInView();
@@ -171,6 +182,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         }
     }
 
+    //Find and return closest enemy ship in camera view 
     GameObject FindClosestEnemyInView()
     {
         float shortestDist = float.PositiveInfinity;
@@ -209,6 +221,7 @@ public class TargetingSystem : MonoBehaviourPunCallbacks
         return closestEnemy;
     }
 
+    //Set the targets outline width to a visible amount
     void highlightTarget(GameObject closestEnemy)
     {
         currentTarget = closestEnemy;

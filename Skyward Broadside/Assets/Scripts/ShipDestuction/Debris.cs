@@ -1,3 +1,7 @@
+//Handle the debris from the ship explosion
+//Essentially creates random explosion effects at random debris positions for a short period
+//Create the cool old boss death type explosion sequence seen in game
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

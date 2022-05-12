@@ -71,7 +71,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     void Update()
     {
-        if (myBreakable.broken) // Breakable photon interface updates this over the network
+        if (myBreakable.broken) // Breakable photon interface updates this over the network, so this will destroy it for every player
         {
             Die();
         }
@@ -112,6 +112,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
+
     void ClientUpdate()
     {
 
@@ -137,6 +138,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    // Instantiate a missile with some turret-specific settings
     void Shoot()
     {
         if (!targetTransform) return;
@@ -147,15 +149,17 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         newProjectile.tag = "TurretMissile";
         newProjectile.GetComponent<Missile>().owner = gameObject;
         newProjectile.GetComponent<Missile>().rotationDampening = 2.0f;
-        newProjectile.GetComponent<Missile>().explodeTimer = 5; //Make missiles explode after 4 seconds;
+        newProjectile.GetComponent<Missile>().explodeTimer = 5; //Make missiles explode after 5 seconds;
         newProjectile.GetComponent<Missile>().InitialiseMissile(targetTransform);
         soundFxHub.GetComponent<SoundFxHub>().DoEffect(missileLaunchFx, transform.position);
     }
 
+    // Photon integration is very similar to the weapons controller 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
+            // If on network host, send whether we have shot, the target, the rotation of the cannon
             stream.SendNext(masterClientShootFlag);
             masterClientShootFlag = false;
 
@@ -165,6 +169,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
         }
         else
         {
+            // If on network client, recieve whether we have shot, the target, the rotation of the cannon
             clientShootFlag = (bool)stream.ReceiveNext();
             targetedPlayerName = (string)stream.ReceiveNext();
             turretHead.transform.rotation = (Quaternion)stream.ReceiveNext();
@@ -172,6 +177,8 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
+
+    //Simply find the closest player to become the turret's target - only happens on network host
     void GetClosestPlayerTransform()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Ship");
@@ -184,7 +191,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
         foreach (GameObject player in players)
         {
-            // If player is lower than turret dont lock on to them, stops turrets aiming down
+            // If player is lower than turret dont lock on to them, stops turrets aiming down and blowing itself up
             if (player.transform.position.y < turretHead.transform.position.y) continue;
 
             float dist = (player.transform.position - turretHead.transform.position).magnitude;
@@ -213,6 +220,7 @@ public class Turret : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
+    // Trigger explosion effect and delete self from game
     void Die()
     {
         skullScript.DeleteSkull();

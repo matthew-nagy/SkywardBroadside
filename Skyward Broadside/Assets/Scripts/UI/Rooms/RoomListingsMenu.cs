@@ -12,6 +12,7 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
 
     private Dictionary<string, RoomListing> listings = new Dictionary<string, RoomListing>();
 
+    // Updates the cached listings when getting updates from photon
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         Debug.Log("ROOM LIST UPDATING");
@@ -42,6 +43,7 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
         }
     }
 
+    // Destroy listings when going to new scene
     void Start()
     {
         SceneManager.sceneLoaded += (arg0, mode) =>
@@ -53,6 +55,7 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
         };
     }
 
+    // Destroy all listings
     void DestroyListings()
     {
         foreach (RoomListing listing in listings.Values)

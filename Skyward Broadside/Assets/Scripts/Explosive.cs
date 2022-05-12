@@ -1,3 +1,5 @@
+//This script manages explosions (explosive cannonballs, missiles)
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +24,7 @@ public class Explosive : MonoBehaviour
     [SerializeField]
     GameObject explosionAir;
 
+    //On collision with an exploadable obj. Set the appropiate explosion sound and detonate
     private void OnCollisionEnter(Collision collision)
     {
         if (!detonated && Physics.OverlapSphere(transform.position, explosionRadius, explodableObjects).Length > 0)
@@ -62,6 +65,7 @@ public class Explosive : MonoBehaviour
         }
     }
 
+    //Create particle effect. Apply an explosive force to any exploadable objects in range
     public void Detonate()
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
@@ -85,6 +89,7 @@ public class Explosive : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //Do the appropiate soudn effect if applicable
     private void OnDestroy()
     {
         if (effect != null)

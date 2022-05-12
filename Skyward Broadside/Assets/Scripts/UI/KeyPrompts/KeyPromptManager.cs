@@ -1,3 +1,5 @@
+//Manage a prompt with a key icon. Set its text and position
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
